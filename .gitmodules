@@ -1,3 +1,6 @@
 [submodule "prosjektoppgave"]
 	path = prosjektoppgave
 	url = https://github.com/oskarhlm/prosjektoppgave
+[submodule "src/backend/open-gis-interpreter"]
+	path = src/backend/open-gis-interpreter
+	url = git@github.com:oskarhlm/open-gis-interpreter.git

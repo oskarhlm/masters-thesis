@@ -1,0 +1,14 @@
+\babel@toc {british}{}\relax 
+\babel@toc {british}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Actor map for stakeholders, providers, and other groups and organizations that could have some relevance to an autonomous LLM-based GIS agent\relax }}{4}{figure.caption.5}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces ChatGPT's response when asked to \enquote {Find the area best suited for expansion to accommodate residential buildings}, using provided GeoJSON datasets. Potentially suitable areas for residential expansion are depicted in blue.\relax }}{31}{figure.caption.35}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Visual representations of shapefile datasets using ChatGPT's Code Interpreter\relax }}{32}{figure.caption.36}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Comparison of the resulting outline of Drammen when (\subref {subfig:drammen-outline-file-upload}) using file upload and (\subref {subfig:drammen-outline-api}) providing an URL to an API endpoint with ChatGPT-4\relax }}{33}{figure.caption.37}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Outline of Drammen using LangChain and OpenAI's Functions calling\relax }}{35}{figure.caption.38}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
