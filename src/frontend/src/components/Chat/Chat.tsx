@@ -1,23 +1,10 @@
 import styles from './styles.module.css';
 import ChatMessage from './ChatMessage';
 import { For, JSX, onMount, createSignal } from 'solid-js';
-import { Source } from './types';
+import { Source, Message, type ChatMessageGroup } from './types';
+import ChatMessageGroupComponent from './ChatMessageGroup';
 
 export default function Chat() {
-  // const messages = Array.from({ length: 10 }, () => (
-  //   <ChatMessage source={Math.round(Math.random()) === 0 ? 'bot' : 'human'} />
-  // ));
-
-  type Message = {
-    source: Source;
-    component: JSX.Element;
-  };
-
-  type ChatMessageGroup = {
-    source: Source;
-    messageComponents: JSX.Element[];
-  };
-
   const [groups, setGroups] = createSignal<ChatMessageGroup[]>([]);
 
   function addMessageToChat(message: Message) {
@@ -49,7 +36,7 @@ export default function Chat() {
   }
 
   onMount(() => {
-    const messages: Message[] = Array.from({ length: 10 }, () => {
+    const messages: Message[] = Array.from({ length: 20 }, () => {
       const source: Source = Math.round(Math.random()) === 0 ? 'bot' : 'human';
       return {
         source: source,
@@ -65,9 +52,13 @@ export default function Chat() {
     <div class={styles.chat}>
       <For each={groups()}>
         {(group) => (
-          <div>
-            <For each={group.messageComponents}>{(component) => component}</For>
-          </div>
+          // <div>
+          //   <For each={group.messageComponents}>{(component) => component}</For>
+          // </div>
+          <ChatMessageGroupComponent
+            source={group.source}
+            messageComponents={group.messageComponents}
+          />
         )}
       </For>
     </div>

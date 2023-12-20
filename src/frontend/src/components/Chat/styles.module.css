@@ -2,6 +2,9 @@
   background-color: var(--cg-primary);
   padding: 1rem;
   min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   overflow-y: scroll;
 }
 
@@ -9,13 +12,30 @@
   border-radius: 5px;
   padding: 5px;
   width: 80%;
+  margin-block: 0;
 }
 
-.human {
+.message.human {
   background-color: var(--cg-secondary);
   margin-left: auto;
 }
 
-.bot {
+.message.bot {
   background-color: var(--cg-white);
+}
+
+.group-header {
+  color: var(--cg-white);
+  margin-block: 2px;
+  font-size: 12px;
+}
+
+.group-header.human {
+  text-align: right;
+}
+
+.group-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
