@@ -1,13 +1,15 @@
-import { JSX } from 'solid-js/jsx-runtime';
+export type MessageSource = 'bot' | 'human';
 
-export type Source = 'bot' | 'human';
-
-export type Message = {
-  source: Source;
-  component: JSX.Element;
-};
-
-export type ChatMessageGroup = {
-  source: Source;
-  messageComponents: JSX.Element[];
-};
+export type ChatElement =
+  | {
+      type: 'dateHeader';
+      date: Date;
+    }
+  | {
+      type: 'messageGroupHeader';
+      source: MessageSource;
+    }
+  | {
+      type: 'message';
+      source: MessageSource;
+    };

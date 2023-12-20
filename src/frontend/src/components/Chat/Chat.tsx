@@ -1,66 +1,64 @@
 import styles from './styles.module.css';
 import ChatMessage from './ChatMessage';
-import { For, JSX, onMount, createSignal } from 'solid-js';
-import { Source, Message, type ChatMessageGroup } from './types';
-import ChatMessageGroupComponent from './ChatMessageGroup';
+import { For, createSignal, onMount } from 'solid-js';
+import { ChatElement, MessageSource } from './types';
+import { MessageHeader } from './MessageHeader';
 
 export default function Chat() {
-  const [groups, setGroups] = createSignal<ChatMessageGroup[]>([]);
+  const [chatElements, setChatElements] = createSignal<ChatElement[]>([]);
 
-  function addMessageToChat(message: Message) {
-    const lastMessageSource: Source | undefined =
-      groups()[groups().length - 1]?.source;
-    console.log(lastMessageSource);
+  function initializeChatElements() {
+    // const chatElements: ChatElement[] = Array.from({ length: 20 }, () => {
+    //   const source: MessageSource =
+    //     Math.round(Math.random()) === 0 ? 'bot' : 'human';
+    //   return {
+    //     type: 'message',
+    //     source: source,
+    //   };
+    // });
 
-    if (!lastMessageSource) {
-      setGroups([
-        {
-          source: message.source,
-          messageComponents: [message.component],
-        },
-      ]);
-      return;
+    const chatElements: ChatElement[] = [];
+    let prevSource: MessageSource | undefined;
+    for (let i = 0; i < 20; i++) {
+      const source: MessageSource =
+        Math.round(Math.random()) === 0 ? 'bot' : 'human';
+
+      if (source !== prevSource) {
+        chatElements.push({
+          type: 'messageGroupHeader',
+          source: source,
+        });
+
+        prevSource = source;
+      }
+
+      chatElements.push({
+        type: 'message',
+        source: source,
+      });
     }
 
-    if (message.source !== lastMessageSource) {
-      setGroups([
-        ...groups(),
-        {
-          source: message.source,
-          messageComponents: [message.component],
-        },
-      ]);
-    } else {
-      groups()[groups().length - 1].messageComponents.push(message.component);
-    }
+    return chatElements;
   }
 
   onMount(() => {
-    const messages: Message[] = Array.from({ length: 20 }, () => {
-      const source: Source = Math.round(Math.random()) === 0 ? 'bot' : 'human';
-      return {
-        source: source,
-        component: <ChatMessage source={source} />,
-      };
-    });
-
-    messages.forEach((msg) => addMessageToChat(msg));
-    console.log(groups());
+    setChatElements(initializeChatElements());
   });
+
+  function renderChatElement(el: ChatElement) {
+    switch (el.type) {
+      case 'message':
+        return <ChatMessage source={el.source} />;
+      case 'messageGroupHeader':
+        return <MessageHeader source={el.source} />;
+      default:
+        break;
+    }
+  }
 
   return (
     <div class={styles.chat}>
-      <For each={groups()}>
-        {(group) => (
-          // <div>
-          //   <For each={group.messageComponents}>{(component) => component}</For>
-          // </div>
-          <ChatMessageGroupComponent
-            source={group.source}
-            messageComponents={group.messageComponents}
-          />
-        )}
-      </For>
+      <For each={chatElements()}>{renderChatElement}</For>
     </div>
   );
 }

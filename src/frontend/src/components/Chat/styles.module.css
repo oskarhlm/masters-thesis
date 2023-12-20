@@ -4,7 +4,6 @@
   min-width: 200px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
   overflow-y: scroll;
 }
 
@@ -12,7 +11,11 @@
   border-radius: 5px;
   padding: 5px;
   width: 80%;
-  margin-block: 0;
+  margin-block: 0 5px;
+}
+
+.message:last-child {
+  margin-bottom: 0;
 }
 
 .message.human {
@@ -26,16 +29,9 @@
 
 .group-header {
   color: var(--cg-white);
-  margin-block: 2px;
   font-size: 12px;
 }
 
 .group-header.human {
   text-align: right;
-}
-
-.group-messages {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
 }
