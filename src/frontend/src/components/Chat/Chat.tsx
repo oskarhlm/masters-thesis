@@ -3,6 +3,7 @@ import ChatMessage from './ChatMessage';
 import { For, createSignal, onMount } from 'solid-js';
 import { ChatElement, MessageSource } from './types';
 import { MessageHeader } from './MessageHeader';
+import { Input } from './Input';
 
 export default function Chat() {
   const [chatElements, setChatElements] = createSignal<ChatElement[]>([]);
@@ -58,7 +59,10 @@ export default function Chat() {
 
   return (
     <div class={styles.chat}>
-      <For each={chatElements()}>{renderChatElement}</For>
+      <div class={styles['chat-messages']}>
+        <For each={chatElements()}>{renderChatElement}</For>
+      </div>
+      <Input />
     </div>
   );
 }
