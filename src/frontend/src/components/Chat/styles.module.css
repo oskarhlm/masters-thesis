@@ -1,5 +1,5 @@
 .chat {
-  background-color: var(--cg-primary);
+  background-color: var(--cg-secondary);
   padding: 1rem;
   min-width: 200px;
   display: flex;
@@ -9,7 +9,7 @@
 
 .message {
   border-radius: 5px;
-  padding: 5px;
+  padding: 5px 10px;
   width: 80%;
   margin-block: 0 5px;
 }
@@ -19,7 +19,8 @@
 }
 
 .message.human {
-  background-color: var(--cg-secondary);
+  background-color: var(--cg-primary);
+  color: var(--cg-white);
   margin-left: auto;
 }
 
@@ -28,7 +29,7 @@
 }
 
 .group-header {
-  color: var(--cg-white);
+  color: var(--cg-black);
   font-size: 12px;
 }
 
