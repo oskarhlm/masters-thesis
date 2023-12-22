@@ -1,10 +1,14 @@
 import styles from './styles.module.css';
+import { OpenInterpreter } from '../../api/openInterpreter';
 
 export function Input() {
   let submitBtnRef: HTMLInputElement;
   let textareaRef: HTMLTextAreaElement;
 
-  function sendMessage() {
+  async function sendMessage() {
+    const chat = await OpenInterpreter.chatStream(textareaRef.value, (msg) =>
+      console.log(msg)
+    );
     textareaRef.value = '';
   }
 
