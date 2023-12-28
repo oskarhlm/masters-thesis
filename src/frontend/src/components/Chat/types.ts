@@ -11,5 +11,7 @@ export type ChatElement =
     }
   | {
       type: 'message';
+      id: string;
       source: MessageSource;
+      message: string;
     };

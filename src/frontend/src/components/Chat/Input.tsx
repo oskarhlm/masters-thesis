@@ -1,16 +1,54 @@
 import styles from './styles.module.css';
-import { OpenInterpreter } from '../../api/openInterpreter';
+import { OpenInterpreter, isStreaming } from '../../api/openInterpreter';
+import { addChatMessage, addStreamingChatMessage } from './chatStore';
+import { Component, createEffect } from 'solid-js';
 
-export function Input() {
+type Props = {
+  chatBottomRef: HTMLDivElement;
+};
+
+const Input: Component<Props> = (props) => {
   let submitBtnRef: HTMLInputElement;
   let textareaRef: HTMLTextAreaElement;
 
+  let closeStream: () => void | undefined;
+
   async function sendMessage() {
-    const chat = await OpenInterpreter.chatStream(textareaRef.value, (msg) =>
-      console.log(msg)
+    if (textareaRef.value.length === 0) return;
+
+    addChatMessage(textareaRef.value, 'human');
+    props.chatBottomRef?.scrollIntoView({
+      behavior: 'smooth',
+    });
+
+    closeStream = await OpenInterpreter.chatStream(
+      textareaRef.value,
+      addStreamingChatMessage('bot', () => {
+        props.chatBottomRef?.scrollIntoView({
+          behavior: 'smooth',
+        });
+      })
     );
+
     textareaRef.value = '';
   }
+
+  function terminateResponse() {
+    if (!closeStream) {
+      console.error('Termination function undefined');
+      return;
+    }
+
+    closeStream();
+  }
+
+  createEffect(() => {
+    const sendImageUrl = '/send-icon.png';
+    const stopImageUrl = '/stop-icon.png';
+    submitBtnRef.style.backgroundImage = `url('${
+      isStreaming() ? stopImageUrl : sendImageUrl
+    }')`;
+  });
 
   return (
     <div class={styles['input-wrapper']}>
@@ -30,9 +68,13 @@ export function Input() {
           type="submit"
           value={''}
           ref={submitBtnRef!}
-          onClick={sendMessage}
+          onClick={() => {
+            isStreaming() ? terminateResponse() : sendMessage();
+          }}
         />
       </div>
     </div>
   );
-}
+};
+
+export default Input;

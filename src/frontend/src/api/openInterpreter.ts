@@ -1,4 +1,7 @@
-import { get, BASE_URL } from './apiHelper';
+import { createSignal } from 'solid-js';
+import { get, BASE_URL, del } from './apiHelper';
+
+export const [isStreaming, setIsStreaming] = createSignal(false);
 
 export class OpenInterpreter {
   static async chatStream(
@@ -7,22 +10,30 @@ export class OpenInterpreter {
   ) {
     const eventSource = new EventSource(`${BASE_URL}/chat?message=${message}`);
 
+    setIsStreaming(true);
+
+    const closeStream = () => {
+      console.log('Closing the stream.');
+      eventSource.close();
+      setIsStreaming(false);
+    };
+
     eventSource.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      onMessageCallback(data);
-      if (data.end_of_message) {
-        eventSource.close();
+
+      if (data.stream_complete) {
+        closeStream();
       }
+
+      onMessageCallback(data.message);
     };
 
     eventSource.onerror = (error) => {
       console.error('EventSource failed:', error);
-      eventSource.close();
+      closeStream();
     };
 
-    return () => {
-      eventSource.close();
-    };
+    return closeStream;
   }
 
   static async history() {
@@ -31,6 +42,16 @@ export class OpenInterpreter {
       return response;
     } catch (error) {
       console.error('Error in OpenInterpreter.chat:', error);
+      throw error;
+    }
+  }
+
+  static async clearHistory() {
+    try {
+      const response = await del('/history');
+      return response;
+    } catch (error) {
+      console.error('Could not delete history stored on server:', error);
       throw error;
     }
   }

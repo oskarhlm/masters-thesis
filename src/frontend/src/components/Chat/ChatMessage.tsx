@@ -2,16 +2,14 @@ import { Component } from 'solid-js';
 import styles from './styles.module.css';
 
 type Props = {
+  message: string;
   source: 'human' | 'bot';
 };
 
-export default function ChatMessage(props: Props) {
-  const lorem =
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, obcaecati!';
-  const mesageLength = Math.floor(Math.random() * lorem.length);
-  const message = lorem.slice(mesageLength);
+const ChatMessage: Component<Props> = (props) => {
+  return (
+    <p class={`${styles.message} ${styles[props.source]}`}>{props.message}</p>
+  );
+};
 
-  // const sourceClass = styles[`${props.source}`]
-
-  return <p class={`${styles.message} ${styles[props.source]}`}>{message}</p>;
-}
+export default ChatMessage;
