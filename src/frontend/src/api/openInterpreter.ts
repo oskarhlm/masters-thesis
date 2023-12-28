@@ -55,4 +55,52 @@ export class OpenInterpreter {
       throw error;
     }
   }
+
+  static async uploadFiles(
+    files: File[],
+    onMessageCallback?: (message: string) => void
+  ) {
+    if (!files.length) return;
+
+    let formData = new FormData();
+    files.forEach((f) => formData.append('files', f));
+    formData.append(
+      'should_respond',
+      (onMessageCallback !== undefined).toString()
+    );
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', `${BASE_URL}/upload`, true);
+    xhr.setRequestHeader('Accept', 'text/event-stream');
+
+    let seenBytes = 0;
+
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState >= 3 && onMessageCallback) {
+        const data = xhr.responseText.substring(seenBytes);
+        data
+          .split('\n\n')
+          .filter((d) => d.length)
+          .map((d) => JSON.parse(d.trim().replace('data:', '')))
+          .forEach((d) => onMessageCallback(d.message));
+        seenBytes = xhr.responseText.length;
+      }
+    };
+
+    xhr.upload.onprogress = (event) => {
+      if (event.lengthComputable) {
+        console.log(`Received ${event.loaded} of ${event.total} bytes`);
+      }
+    };
+
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        console.log('Upload complete');
+      } else {
+        console.error('Upload failed');
+      }
+    };
+
+    xhr.send(formData);
+  }
 }

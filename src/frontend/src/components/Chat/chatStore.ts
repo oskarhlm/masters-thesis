@@ -1,11 +1,10 @@
-import { createSignal } from 'solid-js';
 import { ChatElement, MessageSource } from './types';
 import { createStore } from 'solid-js/store';
 
 export const [chatElements, setChatElements] = createStore<ChatElement[]>([]);
 
 function createUniqueId(): string {
-  return `id-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+  return `id-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
 }
 
 export function addChatMessage(

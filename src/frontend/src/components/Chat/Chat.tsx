@@ -1,4 +1,4 @@
-import styles from './styles.module.css';
+import './styles.css';
 import ChatMessage from './ChatMessage';
 import { For, onCleanup } from 'solid-js';
 import { ChatElement } from './types';
@@ -26,8 +26,8 @@ const Chat = () => {
   });
 
   return (
-    <div class={styles.chat}>
-      <div class={styles['chat-messages']}>
+    <div class="chat">
+      <div class="chat-messages">
         <For each={chatElements}>{renderChatElement}</For>
         <div ref={chatBottomRef!} />
       </div>

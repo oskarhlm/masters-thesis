@@ -18,6 +18,34 @@
 .input-wrapper {
   border-top: 2px solid var(--cg-primary);
   padding: 1rem;
+
+  ul {
+    list-style: none;
+    padding-left: 10px;
+    border-left: 1px solid var(--cg-primary);
+    margin-top: 0;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  li span {
+    display: flex;
+    gap: 5px;
+  }
+
+  li button {
+    padding: 0;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    border: none;
+    outline: none;
+  }
+
+  li img {
+    width: 15px;
+    height: auto;
+  }
 }
 
 .input-container {
@@ -26,6 +54,28 @@
   border-radius: 5px;
   display: flex;
   gap: 0.5rem;
+
+  label[for='file-upload'] {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    width: 20px;
+
+    img {
+      width: 20px;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    :hover {
+      cursor: pointer;
+    }
+  }
+
+  input[type='file'] {
+    display: none;
+  }
 
   textarea {
     flex: 1;
@@ -71,6 +121,13 @@
 
 .message:last-child {
   margin-bottom: 0;
+}
+
+.message pre {
+  overflow-x: auto;
+  padding: 10px;
+  background-color: var(--cg-black);
+  color: var(--cg-secondary);
 }
 
 .message.human {
