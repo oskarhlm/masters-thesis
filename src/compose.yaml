@@ -1,0 +1,29 @@
+services:
+  autogen-server:
+    build:
+      context: ./autogen_gis
+    ports:
+      - 8001:8001
+    develop:
+      watch:
+        - action: rebuild
+          path: ./autogen_gis
+  open-interpreter-server:
+    build:
+      context: ./backend
+    ports:
+      - 8000:8000
+    env_file: .env
+    develop:
+      watch:
+        - action: rebuild
+          path: ./backend
+  solidjs-client:
+    build:
+      context: ./frontend
+    ports:
+      - 5173:5173
+    develop:
+      watch:
+        - action: rebuild
+          path: ./frontend
