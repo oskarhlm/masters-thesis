@@ -1,6 +1,8 @@
 ARG PYTHON_VERSION=3.11.6
 FROM python:${PYTHON_VERSION}-slim
 
+RUN echo ${OPENAI_API_KEY}
+
 WORKDIR /code
 
 COPY ./requirements.txt /code/requirements.txt

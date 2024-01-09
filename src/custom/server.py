@@ -1,16 +1,16 @@
-from typing import Dict, Any
-import json
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File, Form
+from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
+import json
+import tempfile
+from typing import List, Dict, Any
 import os
-
-from fastapi.responses import StreamingResponse
 
 if os.getenv('IS_DOCKER_CONTAINER'):
     load_dotenv()
-else: 
-    env_file_path = "../.env" 
+else:
+    env_file_path = "../.env"
     if not os.path.exists(env_file_path):
         raise FileNotFoundError(f"Could not find .env file at {env_file_path}")
     load_dotenv(env_file_path)
@@ -27,6 +27,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 def createDataEvent(data: Dict[Any, Any]):
     return f'data: {json.dumps(data)}\n\n'
 
@@ -34,11 +35,28 @@ def createDataEvent(data: Dict[Any, Any]):
 @app.get("/chat")
 def chat_endpoint(message: str):
     def event_stream():
-        yield createDataEvent({"message": message})
+        yield createDataEvent({'message': message})
         yield createDataEvent({"stream_complete": True})
 
     return StreamingResponse(event_stream(), media_type="text/event-stream")
 
-@app.get('/docker')
-def docker():
-    return f'Docker: {os.getenv("IS_DOCKER_CONTAINER") or "false"} ({os.getenv("IS_DOCKER_CONTAINER")})'
+
+@app.get("/history")
+def history_endpoint():
+    return []
+
+
+@app.delete('/history')
+def history_delete_endpoint():
+    num_messages = 0
+    return f'{num_messages} deleted from history.'
+
+
+@app.post("/upload")
+def upload(files: List[UploadFile] = File(...), should_respond: bool = Form(...)):
+    print(should_respond)
+
+    def event_stream():
+        pass
+
+    return StreamingResponse(event_stream(), media_type='text/event-stream')

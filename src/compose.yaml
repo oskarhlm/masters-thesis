@@ -1,29 +1,29 @@
 services:
   autogen-server:
-    build:
-      context: ./autogen_gis
+    build: ./autogen_gis
     ports:
-      - 8001:8001
+      - 8002:8000
+    env_file: .env
+    environment:
+      - IS_DOCKER_CONTAINER=true
     develop:
       watch:
         - action: rebuild
           path: ./autogen_gis
-  open-interpreter-server:
-    build:
-      context: ./backend
-    ports:
-      - 8000:8000
-    env_file: .env
-    develop:
-      watch:
-        - action: rebuild
-          path: ./backend
-  solidjs-client:
-    build:
-      context: ./frontend
-    ports:
-      - 5173:5173
-    develop:
-      watch:
-        - action: rebuild
-          path: ./frontend
+  # open-interpreter-server:
+  #   build: ./backend
+  #   ports:
+  #     - 8001:8000
+  #   env_file: .env
+  #   develop:
+  #     watch:
+  #       - action: rebuild
+  #         path: ./backend
+  # solidjs-client:
+  #   build: ./frontend
+  #   ports:
+  #     - 3001:5173
+  #   develop:
+  #     watch:
+  #       - action: rebuild
+  #         path: ./frontend
