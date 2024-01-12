@@ -1,11 +1,15 @@
+from lib.utils import tool
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 import json
 import tempfile
-from typing import List, Dict, Any
+from typing import Annotated, List, Dict, Any
 import os
+
+from lib.llms.openai_generator import OpenAIGenerator
+from lib.functions.code_execution import execute_python_code
 
 if os.getenv('IS_DOCKER_CONTAINER'):
     load_dotenv()
@@ -32,10 +36,33 @@ def createDataEvent(data: Dict[Any, Any]):
     return f'data: {json.dumps(data)}\n\n'
 
 
+client = OpenAIGenerator()
+
+
+@tool()
+def plot_map(
+    lat: Annotated[float, 'latitude'],
+    lon: Annotated[float, 'longitude']
+):
+    """Plots a map at a given latitude and longitude."""
+    pass
+
+
+tools = [execute_python_code, plot_map]
+
+tool_schemas = [{
+    'type': 'function',
+    'function': tool.schema
+} for tool in tools]
+print(json.dumps(tool_schemas, indent=4))
+
+
 @app.get("/chat")
 def chat_endpoint(message: str):
     def event_stream():
-        yield createDataEvent({'message': message})
+        for chunk_content in client.chat(message, callback=lambda x: print(x, end=''), tools=tool_schemas):
+            data_event = createDataEvent({"chunk_content": chunk_content})
+            yield data_event
         yield createDataEvent({"stream_complete": True})
 
     return StreamingResponse(event_stream(), media_type="text/event-stream")
@@ -43,7 +70,7 @@ def chat_endpoint(message: str):
 
 @app.get("/history")
 def history_endpoint():
-    return []
+    return client.messages
 
 
 @app.delete('/history')

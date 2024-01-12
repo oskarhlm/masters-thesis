@@ -10,15 +10,15 @@ services:
       watch:
         - action: rebuild
           path: ./autogen_gis
-  # open-interpreter-server:
-  #   build: ./backend
-  #   ports:
-  #     - 8001:8000
-  #   env_file: .env
-  #   develop:
-  #     watch:
-  #       - action: rebuild
-  #         path: ./backend
+  open-interpreter-server:
+    build: ./backend
+    ports:
+      - 8001:8000
+    env_file: .env
+    develop:
+      watch:
+        - action: rebuild
+          path: ./backend
   # solidjs-client:
   #   build: ./frontend
   #   ports:
