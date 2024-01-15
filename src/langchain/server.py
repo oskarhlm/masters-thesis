@@ -1,3 +1,4 @@
+from fastapi.responses import StreamingResponse
 from typing import Dict, Any
 import json
 from fastapi import FastAPI
@@ -5,12 +6,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 import os
 
-from fastapi.responses import StreamingResponse
 
 if os.getenv('IS_DOCKER_CONTAINER'):
     load_dotenv()
-else: 
-    env_file_path = "../.env" 
+else:
+    env_file_path = "../.env"
     if not os.path.exists(env_file_path):
         raise FileNotFoundError(f"Could not find .env file at {env_file_path}")
     load_dotenv(env_file_path)
@@ -27,6 +27,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 def createDataEvent(data: Dict[Any, Any]):
     return f'data: {json.dumps(data)}\n\n'
 
@@ -38,6 +39,7 @@ def chat_endpoint(message: str):
         yield createDataEvent({"stream_complete": True})
 
     return StreamingResponse(event_stream(), media_type="text/event-stream")
+
 
 @app.get('/docker')
 def docker():
