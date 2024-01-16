@@ -7,6 +7,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from langchain_core.agents import AgentStep, AgentAction, AgentFinish
+from langchain_core.messages import AIMessageChunk
+
 
 from lib.agents.tool_agent import create_tool_agent, MEMORY_KEY
 
@@ -57,6 +59,48 @@ def chat_endpoint(message: str):
             if 'output' in chunk:
                 output: str = chunk['output']
                 yield create_data_event({'message': output})
+        yield create_data_event({'stream_complete': True})
+
+    return StreamingResponse(event_stream(), media_type='text/event-stream')
+
+
+@app.get('/streaming-chat')
+async def chat_endpoint(message: str):
+    async def event_stream():
+        tool_calls = {}
+
+        async for chunk in agent_executor.astream_log(
+            {'input': message},
+            include_names=['ChatOpenAI']
+        ):
+            for op in chunk.ops:
+                if op['op'] != 'add':
+                    continue
+
+                value = op['value']
+
+                if not isinstance(value, AIMessageChunk):
+                    continue
+
+                if 'tool_calls' in value.additional_kwargs:
+                    tool_call = value.additional_kwargs['tool_calls'][0]
+                    if tool_call['index'] not in tool_calls:
+                        if len(tool_calls.keys()) > 0:
+                            yield create_data_event({'message': '\n'})
+                        tool_calls[tool_call['index']] = {
+                            'id': tool_call['id'],
+                            'name': tool_call['function']['name'],
+                            'arguments': ''
+                        }
+                        yield create_data_event({'message': f'Using tool: {tool_call["function"]["name"]}\n'})
+                    else:
+                        tool_calls[tool_call['index']
+                                   ]['arguments'] += tool_call['function']['arguments']
+                        yield create_data_event({'message': tool_call['function']['arguments']})
+                    continue
+
+                yield create_data_event({'message': value.content})
+
         yield create_data_event({'stream_complete': True})
 
     return StreamingResponse(event_stream(), media_type='text/event-stream')

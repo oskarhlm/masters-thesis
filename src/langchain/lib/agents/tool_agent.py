@@ -13,7 +13,11 @@ MEMORY_KEY = 'chat_memory'
 def create_tool_agent():
     prompt = ChatPromptTemplate.from_messages(
         [
-            SystemMessage(content='You are a helpful GIS agent/consultant.'),
+            SystemMessage(content=(
+                'You are a helpful GIS agent/consultant.\n'
+                'Everything response that is reliant upon whitespaces, newlines, etc., '
+                'should be surrounded in triple quotes (```<content here>```) for use in pre-tags.'
+            )),
             MessagesPlaceholder(variable_name=MEMORY_KEY),
             HumanMessagePromptTemplate.from_template('{input}'),
             MessagesPlaceholder(variable_name='agent_scratchpad')
@@ -24,7 +28,9 @@ def create_tool_agent():
     memory = ConversationBufferWindowMemory(
         k=6, memory_key=MEMORY_KEY, return_messages=True, input_key='input', output_key='output')
 
-    llm = ChatOpenAI(model="gpt-3.5-turbo-1106", temperature=0, streaming=True)
+    # llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, streaming=True)
+    llm = ChatOpenAI(model="gpt-3.5-turbo-1106", temperature=0,
+                     streaming=True)  # for multi-tool calling
     agent = create_openai_tools_agent(
         llm=llm, tools=tools, prompt=prompt)
     agent_executor = AgentExecutor.from_agent_and_tools(
