@@ -7,13 +7,13 @@ from langchain.tools import BaseTool
 import pkgutil
 import importlib
 import inspect
-import sys
 import os
 from langchain.tools import BaseTool
 import importlib.util
+from typing import List
 
 
-def get_custom_tools():
+def get_custom_tools() -> List[BaseTool]:
     tools = []
     root_package = str(__package__)
     spec = importlib.util.find_spec(root_package)
@@ -26,7 +26,7 @@ def get_custom_tools():
                 if inspect.isclass(obj) and issubclass(obj, BaseTool) and obj is not BaseTool:
                     tools.append(obj)
 
-        for cls in tools:
-            print(f"Imported class: {cls.__module__}.{cls.__name__}")
+        # for cls in tools:
+        #     print(f"Imported class: {cls.__module__}.{cls.__name__}")
 
     return tools

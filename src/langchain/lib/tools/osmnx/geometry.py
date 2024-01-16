@@ -29,7 +29,7 @@ class OSMnxGeometryTool(BaseTool):
         "Use this tool to get geometry of different features of the place like building footprints, parks, lakes, hospitals, schools etc. "
         "Pass the name of the place & tags of OSM as args."
     )
-    return_direct = True
+    # return_direct = True
 
     def _run(self, place: str, tags: Dict[str, str]) -> gpd.GeoDataFrame:
         gdf = ox.geometries_from_place(place, tags)

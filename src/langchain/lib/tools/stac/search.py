@@ -32,7 +32,7 @@ class STACSearchTool(BaseTool):
         "Use this tool to search for STAC items in a catalog. "
         "Pass the bbox of the place & date as args."
     )
-    return_direct = True
+    # return_direct = True
 
     def _run(self, bbox: str, datetime: str):
         catalog = Client.open(PC_STAC_API, modifier=pc.sign_inplace)

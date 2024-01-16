@@ -31,7 +31,7 @@ class OSMnxNetworkTool(BaseTool):
         "Use this tool to get road network of a place. "
         "Pass the name of the place & type of road network i.e walk, bike, drive or all."
     )
-    return_direct = True
+    # return_direct = True
 
     def _run(self, place: str, network_type: str) -> gpd.GeoDataFrame:
         G = ox.graph_from_place(
