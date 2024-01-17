@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "maplibre-gl": "^3.6.2",
+    "showdown": "^2.1.0",
     "solid-js": "^1.8.7"
   },
   "devDependencies": {
+    "@types/showdown": "^2.0.6",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
     "vite-plugin-solid": "^2.8.0"

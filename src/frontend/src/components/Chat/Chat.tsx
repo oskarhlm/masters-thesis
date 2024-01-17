@@ -13,6 +13,7 @@ const Chat = () => {
   function renderChatElement(el: ChatElement) {
     switch (el.type) {
       case 'message':
+        console.log(el.message);
         return <ChatMessage message={el.message} source={el.source} />;
       case 'messageGroupHeader':
         return <MessageHeader source={el.source} />;
@@ -21,9 +22,9 @@ const Chat = () => {
     }
   }
 
-  onCleanup(async () => {
-    await OpenInterpreter.clearHistory();
-  });
+  // onCleanup(async () => {
+  //   await OpenInterpreter.clearHistory();
+  // });
 
   return (
     <div class="chat">

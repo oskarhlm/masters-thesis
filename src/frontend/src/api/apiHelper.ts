@@ -4,7 +4,11 @@ type RequestOptions = {
   body?: BodyInit | null;
 };
 
-export const BASE_URL = 'http://127.0.0.1:8000';
+const port = import.meta.env.VITE_BACKEND_PORT;
+console.log(port);
+export const BASE_URL = `http://127.0.0.1:${port || 8000}`;
+console.log(BASE_URL);
+console.log(import.meta.env.OPENAI_API_KEY);
 
 async function fetchAPI(endpoint: string, options: RequestOptions) {
   const url = `${BASE_URL}${endpoint}`;
