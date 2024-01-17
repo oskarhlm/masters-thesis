@@ -28,8 +28,8 @@ class GeopyGeocodeTool(BaseTool):
         locator = Nominatim(user_agent="geocode")
         location = locator.geocode(place)
         if location is None:
-            return ("geocode", "Not a recognised address in Nomatim.")
-        return ("geocode", (location.latitude, location.longitude))
+            return "Not a recognised address in Nomatim."
+        return f'(lat, lon): {(location.latitude, location.longitude)}'
 
-    def _arun(self, place: str):
-        raise NotImplementedError
+    async def _arun(self, place: str):
+        return self._run(place)

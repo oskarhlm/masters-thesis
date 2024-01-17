@@ -17,7 +17,7 @@ class PlaceWithTags(BaseModel):
     "Name of a place on the map and tags in OSM."
 
     place: str = Field(..., description="name of a place on the map.")
-    tags: Dict[str, str] = Field(..., description="open street maps tags.")
+    # tags: Dict[str, str] = Field(..., description="open street maps tags.")
 
 
 class OSMnxGeometryTool(BaseTool):
@@ -30,12 +30,13 @@ class OSMnxGeometryTool(BaseTool):
         "Pass the name of the place & tags of OSM as args."
     )
     # return_direct = True
+    should_use = False
 
-    def _run(self, place: str, tags: Dict[str, str]) -> gpd.GeoDataFrame:
+    def _run(self, place: str, tags: Dict[str, str] = {}) -> gpd.GeoDataFrame:
         gdf = ox.geometries_from_place(place, tags)
         gdf = gdf[gdf["geometry"].type.isin({"Polygon", "MultiPolygon"})]
         gdf = gdf[["name", "geometry"]].reset_index(drop=True)
         return ("geometry", gdf)
 
-    def _arun(self, place: str):
-        raise NotImplementedError
+    async def _arun(self, place: str, tags: Dict[str, str] = {}):
+        return self._run(place, tags)

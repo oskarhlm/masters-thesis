@@ -8,7 +8,9 @@ export class OpenInterpreter {
     message: string,
     onMessageCallback: (message: string) => void
   ) {
-    const eventSource = new EventSource(`${BASE_URL}/streaming-chat?message=${message}`);
+    const eventSource = new EventSource(
+      `${BASE_URL}/streaming-chat?message=${message}`
+    );
 
     setIsStreaming(true);
 

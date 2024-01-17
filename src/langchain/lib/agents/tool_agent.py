@@ -36,8 +36,8 @@ def create_tool_agent():
             MessagesPlaceholder(variable_name='agent_scratchpad')
         ]
     )
-    # + [tool() for tool in get_custom_tools()]
-    tools = [PythonREPLTool(), ShellTool()]
+    tools = [PythonREPLTool(), ShellTool()] + [tool()
+                                               for tool in get_custom_tools()]
     print(tools)
     memory = ConversationBufferWindowMemory(
         k=6, memory_key=MEMORY_KEY, return_messages=True, input_key='input', output_key='output')
@@ -47,7 +47,7 @@ def create_tool_agent():
     agent = create_openai_tools_agent(
         llm=llm, tools=tools, prompt=prompt)
     agent_executor = AgentExecutor.from_agent_and_tools(
-        agent=agent, tools=tools, verbose=True, memory=memory,
+        agent=agent, tools=tools, verbose=True, memory=memory
     )
 
     return agent_executor

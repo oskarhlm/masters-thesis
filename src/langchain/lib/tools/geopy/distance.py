@@ -9,13 +9,16 @@ from typing import Type
 from geopy.distance import distance
 from pydantic import BaseModel, Field
 from langchain.tools import BaseTool
+from typing import List, Tuple
 
 
 class GeopyDistanceInput(BaseModel):
     """Input for GeopyDistanceTool."""
 
-    point_1: tuple[float, float] = Field(..., description="lat,lng of a place")
-    point_2: tuple[float, float] = Field(..., description="lat,lng of a place")
+    point_1: List[float] = Field(
+        ..., description="Tuple of lenght 2 representing the (lat, lng) of a place")
+    point_2: List[float] = Field(
+        ..., description="Tuple of lenght 2 representing the (lat, lng) of a place")
 
 
 class GeopyDistanceTool(BaseTool):
@@ -25,8 +28,8 @@ class GeopyDistanceTool(BaseTool):
     args_schema: Type[BaseModel] = GeopyDistanceInput
     description: str = "Use this tool to compute distance between two points available in lat,lng format."
 
-    def _run(self, point_1: tuple[int, int], point_2: tuple[int, int]) -> float:
-        return ("distance", distance(point_1, point_2).km)
+    def _run(self, point_1, point_2) -> float:
+        return f'{distance(point_1, point_2).km} kilometers'
 
-    def _arun(self, place: str):
-        raise NotImplementedError
+    async def _arun(self, point_1, point_2):
+        return self._run(point_1, point_2)

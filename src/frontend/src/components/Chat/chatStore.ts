@@ -35,14 +35,12 @@ export function addStreamingChatMessage(
   addChatMessage('', source, messageId);
 
   return (nextToken: string | undefined) => {
-    console.log(nextToken);
     if (nextToken) {
       setChatElements(
         (el) => el.type === 'message' && el.id === messageId,
         'message' as any,
         (msg) => msg + nextToken
       );
-      console.log(chatElements);
     }
 
     callback && callback();
