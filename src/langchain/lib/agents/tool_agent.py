@@ -42,7 +42,7 @@ def create_tool_agent():
     memory = ConversationBufferWindowMemory(
         k=6, memory_key=MEMORY_KEY, return_messages=True, input_key='input', output_key='output')
 
-    llm = ChatOpenAI(model="gpt-3.5-turbo-1106", temperature=0,
+    llm = ChatOpenAI(model="gpt-4-1106-preview", temperature=0,
                      streaming=True)
     agent = create_openai_tools_agent(
         llm=llm, tools=tools, prompt=prompt)

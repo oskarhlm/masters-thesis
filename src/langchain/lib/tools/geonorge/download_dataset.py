@@ -1,11 +1,36 @@
-from typing import List
-from langchain.tools import BaseTool
-from pydantic import BaseModel, Field
-from typing import Type
-import requests
-from typing import List
-from pydantic import BaseModel, Field
 import aiohttp
+import requests
+from typing import Type, Optional
+from pydantic import BaseModel, Field
+from langchain.tools import BaseTool
+from typing import List
+url = 'https://nedlasting.geonorge.no/api/codelists/projection'
+
+
+{
+    "orderLines": [
+        {
+            "metadataUuid": "24d7e9d1-87f6-45a0-b38e-3447f8d7f9a1",
+            "areas": [
+                {
+                    "code": "33",
+                    "name": "Buskerud",
+                    "type": "fylke"
+                }
+            ],
+            "formats": [
+                {
+                    "name": "SOSI 4.5"
+                }
+            ],
+            "projections": [
+                {
+                    "code": "25832"
+                }
+            ]
+        }
+    ]
+}
 
 
 class MetaData(BaseModel):
@@ -14,23 +39,26 @@ class MetaData(BaseModel):
     Abstract: str = Field(description='Abstract describing the result')
 
 
-class GeonorgeSearchResponse(BaseModel):
+class GeonorgeDownloadResponse(BaseModel):
     NumFound: int = Field(
         description='Number of search results for the given query')
     Results: List[MetaData] = Field(
         description='List of metadata for the results')
 
 
-class GeonorgeSearchInput(BaseModel):
+class GeonorgeDownloadInput(BaseModel):
     """Input for GeonorgeSearchTool."""
-    text: str = Field(..., description="The search query string")
+    metadata_uuid: str = Field(
+        description='Unique identifier for the item to download')
+    data_format: Optional[str] = Field(
+        description='Geospatial data format for downloaded data')
 
 
-class GeonorgeSearchTool(BaseTool):
+class GeonorgeDownloadTool(BaseTool):
     """Custom tool to search for geospatial data through the Geonorge API."""
 
     name: str = "geonorge-search"
-    args_schema: Type[BaseModel] = GeonorgeSearchInput
+    args_schema: Type[BaseModel] = GeonorgeDownloadInput
     description: str = "Use this tool for search for geospatial dataset and APIs through the Geonorge API."
 
     base_url = "https://kartkatalog.geonorge.no"

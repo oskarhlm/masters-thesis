@@ -11,12 +11,15 @@ class GeonorgeSearchInput(BaseModel):
     uuid: str = Field(description='Unique identifier for the data endpoint')
 
 
-class GeonorgeGetDatasetTool(BaseTool):
-    """Custom tool to retrieve a geospatial dataset through the Geonorge API."""
+class GeonorgeGetDatasetMetadataTool(BaseTool):
+    """Custom tool to retrieve metadata for a geospatial dataset through the Geonorge API."""
 
-    name: str = "geonorge-get-dataset"
+    name: str = "geonorge-get-dataset-metadata"
     args_schema: Type[BaseModel] = GeonorgeSearchInput
-    description: str = "Use this tool to retrieve a geospatial dataset through the Geonorge API."
+    description: str = (
+        "Use this tool to retrieve metadata for a geospatial dataset through the Geonorge API.\n"
+        'Useful when the user requests more detailed information about a dataset.'
+    )
 
     base_url = "https://kartkatalog.geonorge.no"
     endpoint = "/api/getdata"
