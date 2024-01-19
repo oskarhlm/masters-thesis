@@ -28,8 +28,6 @@ def create_tool_agent():
         [
             SystemMessage(content=(
                 'You are a helpful GIS agent/consultant.\n'
-                'Everything response that is reliant upon whitespaces, newlines, etc., '
-                'should be surrounded in triple quotes (```<content here>```) for use in pre-tags.'
             )),
             MessagesPlaceholder(variable_name=MEMORY_KEY),
             HumanMessagePromptTemplate.from_template('{input}'),
@@ -42,7 +40,9 @@ def create_tool_agent():
     memory = ConversationBufferWindowMemory(
         k=6, memory_key=MEMORY_KEY, return_messages=True, input_key='input', output_key='output')
 
-    llm = ChatOpenAI(model="gpt-4-1106-preview", temperature=0,
+    # llm = ChatOpenAI(model="gpt-4-1106-preview", temperature=0,
+    #                  streaming=True)
+    llm = ChatOpenAI(model="gpt-3.5-turbo-1106", temperature=0,
                      streaming=True)
     agent = create_openai_tools_agent(
         llm=llm, tools=tools, prompt=prompt)
