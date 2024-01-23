@@ -26,8 +26,7 @@ class AvailableFormatsAndProjectionsTool(BaseTool):
 
     def _run(self, metadata_uuid: str, area: str) -> str:
         """Use the tool."""
-        area = area.replace("\n", "")  # Remove newline characters
-        # Split names by hyphen, trimming spaces
+        area = area.replace("\n", "")
         possible_names = re.split(r'\s*-\s*', area)
 
         res = requests.get(

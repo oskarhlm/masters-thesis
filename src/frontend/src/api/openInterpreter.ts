@@ -1,9 +1,9 @@
 import { createSignal } from 'solid-js';
-import { get, BASE_URL, del } from './apiHelper';
+import { get, BASE_URL, del, post } from './apiHelper';
 
 export const [isStreaming, setIsStreaming] = createSignal(false);
 
-export class OpenInterpreter {
+export class LLMInterpreter {
   static async chatStream(
     message: string,
     onMessageCallback: (message: string) => void
@@ -36,6 +36,29 @@ export class OpenInterpreter {
     };
 
     return closeStream;
+  }
+
+  static async getSession(sessionId: string) {
+    try {
+      const response = await get('/session', {
+        session_id: sessionId,
+      });
+      return response;
+    } catch (error) {
+      console.error('Error in LLMInterpreter.chat:', error);
+      throw error;
+    }
+  }
+
+  static async createSession() {
+    try {
+      const response = await post('/session', {});
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.error('Error in OpenInterpreter.chat:', error);
+      throw error;
+    }
   }
 
   static async history() {

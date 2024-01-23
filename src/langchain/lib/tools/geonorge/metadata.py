@@ -14,7 +14,7 @@ class GeonorgeDatasetMetadataInput(BaseModel):
 class GeonorgeDatasetMetadataTool(BaseTool):
     """Custom tool to retrieve metadata for a geospatial dataset through the Geonorge API."""
 
-    name: str = "geonorge-dataset-metadata"
+    name: str = "geonorge_dataset_metadata"
     args_schema: Type[BaseModel] = GeonorgeDatasetMetadataInput
     description: str = (
         "Use this tool to retrieve metadata for a geospatial dataset through the Geonorge API.\n"

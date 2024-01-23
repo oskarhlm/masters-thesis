@@ -29,7 +29,7 @@ class GeonorgeSearchInput(BaseModel):
 class GeonorgeSearchTool(BaseTool):
     """Custom tool to search for geospatial data through the Geonorge API."""
 
-    name: str = "geonorge-search"
+    name: str = "geonorge_search"
     args_schema: Type[BaseModel] = GeonorgeSearchInput
     description: str = "Use this tool for search for geospatial dataset and APIs through the Geonorge API."
 

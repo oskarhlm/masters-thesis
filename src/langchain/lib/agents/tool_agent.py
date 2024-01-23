@@ -7,10 +7,11 @@ from langchain_core.messages import SystemMessage
 from langchain.agents import create_openai_tools_agent, AgentExecutor
 from langchain.chains.conversation.memory import ConversationBufferWindowMemory
 from tempfile import TemporaryDirectory
+from langchain_community.chat_message_histories import RedisChatMessageHistory
 
 from langchain_community.agent_toolkits import FileManagementToolkit
 
-MEMORY_KEY = 'chat_memory'
+from .sessions import MEMORY_KEY, get_session
 
 
 def get_file_management_tools():
@@ -23,7 +24,7 @@ def get_file_management_tools():
     return toolkit.get_tools()
 
 
-def create_tool_agent():
+def create_tool_agent(session_id: str = None):
     prompt = ChatPromptTemplate.from_messages(
         [
             SystemMessage(content=(
@@ -37,9 +38,8 @@ def create_tool_agent():
     tools = [PythonREPLTool(), ShellTool()] + [tool()
                                                for tool in get_custom_tools()]
     print(tools)
-    memory = ConversationBufferWindowMemory(
-        k=6, memory_key=MEMORY_KEY, return_messages=True, input_key='input', output_key='output')
 
+    session_id, memory = get_session(session_id)
     # llm = ChatOpenAI(model="gpt-4-1106-preview", temperature=0,
     #                  streaming=True)
     llm = ChatOpenAI(model="gpt-3.5-turbo-1106", temperature=0,
@@ -50,4 +50,4 @@ def create_tool_agent():
         agent=agent, tools=tools, verbose=True, memory=memory
     )
 
-    return agent_executor
+    return session_id, agent_executor

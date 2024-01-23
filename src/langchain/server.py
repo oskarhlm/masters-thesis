@@ -40,7 +40,39 @@ def create_data_event(data: Dict[Any, Any]):
     return f'data: {json.dumps(data)}\n\n'
 
 
-agent_executor = create_tool_agent()
+# agent_executor = create_tool_agent()
+agent_executor = None
+
+
+@app.get('/session')
+def get_session(session_id: str):
+    if not session_id:
+        return 'No session ID provided'
+
+    session_id, executor = create_tool_agent(session_id)
+    print(session_id)
+
+    global agent_executor
+    agent_executor = executor
+
+    return {
+        'session_id': session_id,
+        'chat_history': agent_executor.memory.chat_memory.messages
+    }
+
+
+@app.post('/session')
+def create_session():
+    session_id, executor = create_tool_agent()
+    print(session_id)
+
+    global agent_executor
+    agent_executor = executor
+
+    return {
+        'session_id': session_id,
+        'chat_history': agent_executor.memory.chat_memory.messages
+    }
 
 
 @app.get('/chat')
@@ -111,7 +143,12 @@ async def chat_endpoint(message: str):
 
 @app.get('/history')
 def history():
-    return agent_executor.memory.chat_memory.messages if agent_executor.memory else []
+    if not agent_executor:
+        return 'No current agent executor - agent_executor == None'
+
+    print(agent_executor.memory.dict())
+    # return agent_executor.memory.chat_memory.messages if agent_executor.memory else []
+    return agent_executor.memory.chat_memory.messages
 
 
 @app.post("/upload")

@@ -19,6 +19,13 @@ services:
   #     watch:
   #       - action: rebuild
   #         path: ./backend
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    # volumes:
+    #   - redis_data:/data
+
   langchain-server:
     build: ./langchain
     ports:
@@ -26,10 +33,14 @@ services:
     env_file: .env
     environment:
       - IS_DOCKER_CONTAINER=true
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
     develop:
       watch:
         - action: rebuild
           path: ./langchain
+
   solidjs-client:
     build: ./frontend
     ports:
@@ -39,3 +50,5 @@ services:
       watch:
         - action: rebuild
           path: ./frontend
+# volumes:
+#   redis_data:

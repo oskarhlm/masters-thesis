@@ -2,8 +2,6 @@ import requests
 from pydantic import BaseModel, UUID4
 from typing import List, Type, Optional
 import os
-import aiohttp
-import aiofiles
 
 from langchain.pydantic_v1 import BaseModel, Field
 from langchain.tools import BaseTool
@@ -44,7 +42,6 @@ class DownloadHelperTool(BaseTool):
 
     def _run(self, orderLines: List[OrderLine]) -> str:
         """Use the tool."""
-        print('running herlper')
         res = requests.post(
             f'https://nedlasting.geonorge.no/api/order', json=orderLines)
         if res.status_code != 200:
@@ -69,7 +66,7 @@ class DownloadHelperTool(BaseTool):
 
 
 def download_file(url, filename, save_dir: Optional[str] = None):
-    print('downloading...')
+    print('Downloading...')
     if save_dir:
         if not os.path.exists(save_dir):
             os.makedirs(save_dir)

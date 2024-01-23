@@ -1,5 +1,5 @@
 #map {
   background-color: var(--cg-secondary);
-  width: 20vw;
+  flex: 1;
   height: 100%;
 }

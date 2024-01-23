@@ -5,7 +5,7 @@ import { ChatElement } from './types';
 import { MessageHeader } from './MessageHeader';
 import Input from './Input';
 import { chatElements } from './chatStore';
-import { OpenInterpreter } from '../../api/openInterpreter';
+import { LLMInterpreter } from '../../api/openInterpreter';
 
 const Chat = () => {
   let chatBottomRef: HTMLDivElement;
