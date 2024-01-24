@@ -1,0 +1,198 @@
+\chapter{Background Theory}
+%OR: \chapter{Tools and Methods}
+\label{cha:background_theory}
+
+\begin{comment}
+The background theory depth and breadth depend on the depth needed to understand your project
+in the different disciplines that your project crosses.
+It is not a place to just write about everything you know that is vaguely connected to your project.
+The theory is here to help the readers that do not know the theoretical basis of your work so that they
+can gain sufficient understanding to understand your contributions --- and also for yourself to show that
+you have understood the underlying theory and are aware of the methods used in the field.
+In particular, the theory section provides
+an opportunity to introduce terminology that can later be used without disturbing the text with a definition.
+In some cases it will be more appropriate to have a separate section for different theories (or even separate chapters).
+However, be careful so that you do not end up with too short sections.
+Subsections may also be used to separate different background theories.
+
+Be aware that ``background'' is a general term that refers to everything done by somebody else,
+in contrast to the ``foreground'', which is your own work.
+Hence there can (and will) be several background chapters, with the background theory being one of them
+--- or several of them, since it thus is quite possible to split the background theory over more than one chapter,
+e.g., by having a chapter introducing the theory directly needed for the research field in question and another
+chapter discussing the machine learning theory, algorithms, tools, and evaluation methods commonly used in the field.
+The related work chapter is thus also part of the background, while a chapter about data might be background
+(if you only use somebody else datasets), but can also be part of the foreground (if you collect and/or annotate data
+yourself, or if you process or clean the data in ways that can make it part of your own contribution).
+
+It is ok to reuse material from other texts that you have written (e.g., the specialisation project), but if you do so, that must be clearly stated in the text, together with a description of how much of the text is new, old or rewritten/edited.
+Such a statement about recycling of material in the Background Theory chapter can thus come here in the chapter introduction.
+
+\section{Writing References in the Text}
+\label{sec:writing_references}
+
+When introducing techniques or results, always reference the source.
+Be careful to reference the original contributor of a technique and not just someone who happens to use the technique.%
+\footnote{But always make sure that you have read the work you are citing --- if not, cite someone who has!}
+For results relevant to your work,
+you would want to look particularly at newer results so that you have referenced the most up-to-date work in your area.
+A common rule of thumb is to at least reference the first paper introducing the issue and the paper containing the latest / state-of-the-art
+results. Additional papers making substantial contributions should also be referenced, as well as of course the ones you find most interesting.
+Remember to use the right verb form depending on the number of authors.
+
+If you do not have the source handy when writing, mark in the text that a reference is needed and add it later. \todo{add reference}
+Web pages are not reliable sources --- they might be there one day and removed the next; and thus should be avoided, if possible.
+A verbal discussion is not a source and should normally not be referenced
+(though you can reference ``personal communication'', if there are no other options).
+The bulk of citations in the report will appear in Chapter~\ref{cha:related_work}.
+However, you will often need to introduce some terminology and key citations already in this chapter.
+
+You can cite a paper in the following manner (and several other versions,
+see the \verb!natbib! package documentation):
+
+\begin{enumerate}[(i)]
+    \item When referring to authors, using their names in the text:\\
+          \citet{Authorson;Bobsen:10} stated something rather nice.
+          (using \verb!\citet!)
+    \item To cite indirectly: \\
+          Papers should be written nicely \citep{Authorson;Bobsen:10}
+          (using \verb!\citep!)
+          {\em or\/}\\
+          In \citet{Authorson;Bobsen:10}, a less detailed template was presented.
+    \item To just cite the authors: \\
+          \citeauthor{Authorson;Bobsen:10} wrote a nice paper
+          (using \verb!\citeauthor!).
+    \item Or just the year: \\ \citeyear{Authorson;Bobsen:10}
+          (using \verb!\citeyear!).
+    \item You can even cite specific pages or chapters: \citet[p. 3]{Authorson;Bobsen:10}
+          (using \verb!\citet[...]{...}!).
+\end{enumerate}
+
+You should obviously always cite your supervisor's work \citep{BenyonEA:13},
+even if it is completely irrelevant \citep{Das;Gamback:13a} or very old \citep{AlshawiEA:91b}.
+Digging up an even older book can also appear impressive \citep{Diderichsen:57}.
+(Or? ;-)
+
+\section{The Reference List}
+\label{sec:reference_list}
+
+In general, make sure that the references that appear in your reference list can be easily located and identified by the reader.
+So include not only authors and title, but year and place of publication, the full names of conferences and workshops,
+page numbers in proceedings and collections, etc.
+Hyperlinks or \acrfull{acr:doi} numbers are also nice to include.
+Just as in the text itself, it is important to be consistent in the reference list, so include the same type of information for all references and write it in the same way.
+
+Check out the reference list at the end of this document for examples of how to write references in \BibTeX.
+Note a particular quirk: Many \BibTeX\ styles convert uppercase letters to lowercase, unless specifically told not to.
+You might thus need to ``protect'' characters that should not be converted, e.g., by writing \texttt{\{T\}witter} as in the \citet{FountaEA:18} reference.
+
+Also, keep in mind that `et' is a word in its own right (`and'), so there is no period after it (even though there is a period after `al.', which is short for `alia', meaning `others').
+Of course, when including such a reference in the text, the authors should be referred to in plural form.
+So \citet{BenyonEA:13} state that life is good (not ``states'').
+
+Many sites, such as journals and \url{dblp.org} provide the matching \BibTeX\ entry for a reference.
+However, you might still need to edit the entry in order to be consistent with the rest of your references.
+If you find references from sites such as \url{scholar.google.com} or \url{arXiv.org}, keep in mind that they often not are complete,
+so that you might need to add information to the entry (and probably edit it as well).
+
+Some other good sites to find state-of-the-art work:
+\begin{itemize}
+    \item \url{paperswithcode.com}
+    \item \url{nlpprogress.com}
+
+\end{itemize}
+
+\textit{Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.}
+
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=0.5\columnwidth]{figs/figure1.pdf}
+    \caption[Boxes and arrows are nice]{Boxes and arrows are nice (adapted from \citealp{Authorson;Bobsen:10}, reprinted with permission)}
+    \label{fig:BoxesAndArrowsAreNice}
+\end{figure}
+
+\section{Introducing Figures}
+
+\LaTeX is a bit tricky when it comes to the placement of ``flooting bodies'' such as figures and tables. It is often a good idea to let their code appear right before the header of the (sub)section in which they appear.
+Note that you should anyhow always use an option for the placement (e.g., \verb|[t!]| to place it at the top of a page).
+
+Remember that if you reproduce someone else's figures you must credit the original author --- such as
+Figure~\ref{fig:BoxesAndArrowsAreNice} (adapted from \citealp{Authorson;Bobsen:10}),
+as well as state that you have permission to reprint it (e.g., if it is published under a Creative Commons License,
+or if you have gained explicit permission from the author).
+
+Do not just put the figure in and leave it to the reader to try to understand what the figure is.
+The figure should be included to convey a message and you need to help the reader to understand the message
+intended by explaining the figure in the text.
+Hence \textbf{all} figures and tables should always be referenced in the text, using the \verb!\ref! command.
+It is good practice to always combine it with a non-breakable space (\verb!~!) so that there will be no newline between the term referring to it and the reference, that is, using \verb!Figure~\ref{fig:BoxesAndArrowsAreNice}!.
+
+If a figure appears far from the text explaining it,
+it is a good idea to add its page number (using the \verb!\pageref! command), so that you can refer to Figure~\ref{fig:BoxesAndArrowsAreNice} (on Page~\pageref{fig:BoxesAndArrowsAreNice}).
+
+Also, note that you can have a longer version of the figure (and table) caption attached to the actual figure,
+while using the optional first argument to \verb!\caption! to include a shorter version in the list of figures (lof) or list of tables:
+\begin{quote}
+    \begin{verbatim}
+\caption[Shorter lof text]{Longer text appearing under the figure}
+\end{verbatim}
+\end{quote}
+
+It is good practice to add a note about a missing figure in the text,
+such as the completely amazing stuff that will appear in Figure~\ref{fig:AmazingFigure}.
+
+\begin{figure}[t!]
+    \centering
+    \missingfigure{Here we will add an amazing figure explaining it all}
+    \caption{A missing figure}
+    \label{fig:AmazingFigure}
+\end{figure}
+
+In general it is good to add notes about things that you plan on writing later.
+The \verb!todonotes! package is great for that kind of book-keeping, letting you write both shorter comments in the margin\todo{l8r dude} and longer comments inside the text, using the option \verb![inline]!.
+\todo[inline]{There are always some more stuff that you will need to add at some later point.
+    Be sure to at least make a note about it somewhere.}
+
+\textit{Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut.}
+
+\section{Introducing Tables in the Report}
+
+\newcommand\emc{-~~~~}
+\begin{table}[t!]
+    \centering
+    \caption[Example table]{Example table (F$_1$-scores); this table uses the optional shorter caption that will appear in the list of tables, so this long explanatory text will not appear in the list of tables and is only here in order to explain that to the reader.}
+    \begin{tabular}{c|c|rrrrrr}
+        \tabletop
+        Langs                  & Source                                           & \multicolumn{1}{c}{Lang1} & \multicolumn{1}{c}{Lang2} & \multicolumn{1}{c}{Univ} & \multicolumn{1}{c}{NE} & \multicolumn{1}{c}{Mixed} & \multicolumn{1}{c}{Undef}
+        \\ \tablemid
+        \multirow{5}{*}{EN-HI} & FB+TW                                            & 54.22                     & 22.00                     & 19.70                    & 4.00                   & 0.05                      & 0.03                      \\
+                               & FB                                               & 75.61                     & 4.17                      & 18.00                    & 2.19                   & 0.02                      & 0.01                      \\
+                               & TW                                               & 22.24                     & 48.48                     & 22.42                    & 6.71                   & 0.08                      & 0.07                      \\
+                               & Vyas                                             & 54.67                     & 45.27                     & 0.06                     & \emc                   & \emc                      & \emc                      \\
+                               & FIRE                                             & 45.57                     & 39.87                     & 14.52                    & \emc                   & 0.04                      & \emc                      \\ \tablemid
+        \multirow{2}{*}{EN-BN} & TW                                               & 55.00                     & 23.60                     & 19.04                    & 2.36                   & \emc                      & \emc                      \\
+                               & FIRE                                             & 32.47                     & 67.53                     & \emc                     & \emc                   & \emc                      & \emc                      \\ \tablemid
+        EN-GU                  & FIRE                                             & 5.01                      & \textbf{94.99}            & \emc                     & \emc                   & \emc                      & \emc                      \\
+        \tablemid
+        DU-TR                  & Nguyen                                           & 41.50                     & 36.98                     & 21.52                    & \emc                   & \emc                      & \emc                      \\ \tablemid
+
+        EN-ES                  & \multirow{4}{*}{\rotatebox[origin=c]{90}{EMNLP}}
+                               & 54.79                                            & 23.50                     & 19.35                     & 2.08                     & 0.04                   & 0.24                                                  \\
+        EN-ZH                  &                                                  & 69.50                     & 13.95                     & 5.88                     & 10.60                  & 0.07                      & \emc                      \\
+        EN-NE                  &                                                  & 31.14                     & 41.56                     & 24.41                    & 2.73                   & 0.08                      & 0.08                      \\
+        AR-AR                  &                                                  & 66.32                     & 13.65                     & 7.29                     & 11.83                  & 0.01                      & 0.90                      \\ \tablebot
+    \end{tabular}
+    \label{tab:ExampleTable}
+\end{table}
+
+As you can see from Table~\ref{tab:ExampleTable}, tables are nice.
+However, again, you need to discuss the contents of the table in the text.
+You do not need to describe every entry, but draw the reader's attention to what is important in the table,
+e.g., that 94.99 is an amazing F$_1$-score (and that probably something fishy happened there).
+Use boldface, boxes, colours, arrows, etc. to mark the important parts of the table.
+
+As can be seen in the example, elements in a table can sometimes benefit from being rotated (such as EMNLP in the `Source' column) or cover more than one row (EMNLP, as well as EN-HI and EN-BN in the `Langs' column) --- or more than one column, for that matter.
+
+\textit{Donec non turpis nec neque egestas faucibus nec id neque. Etiam consectetur, odio vitae gravida tempus, diam velit sagittis turpis, a molestie ligula tellus at nunc. Proin dolor neque, dapibus a pellentesque a, commodo a nibh.}
+\end{comment}
+\glsresetall

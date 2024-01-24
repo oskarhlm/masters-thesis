@@ -1,0 +1,77 @@
+\chapter{Datasets}
+% OR: \chapter{Data}
+\label{cha:data}
+
+\begin{comment}
+You will (probably) need to describe and discuss the dataset(s) that you use in your work.
+Depending on how much detail is needed and whether you have done any work on the data yourself
+(including analysing it, collecting or annotating some of it, or cleaning/preprocessing it),
+the data description can possibly be part of the Background chapter, the Related Work chapter,
+the Architecture chapter or the Experimental Setup.
+The dataset(s) can also be described in a separate chapter, either before or after the chapter on related work.
+Note that if you have put some effort of your own into the data, you will need to make sure that the text about it
+is part of the ``foreground'' (your own work) rather than the ``background'' (everything done by somebody else), which includes the theoretical
+background chapter(s) and the related work.
+
+\textit{Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar tempor enim eu hendrerit. Integer consequat ipsum ac erat malesuada, et aliquet dolor gravida. Sed pulvinar vehicula risus id sagittis. Nulla ut nisi ligula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nullam viverra elit magna, eget interdum enim placerat sed. Duis iaculis non sapien vel tincidunt. Aliquam malesuada molestie mauris ac congue. Nam sit amet felis ex. Nulla convallis tempor lacus eget accumsan. Phasellus arcu velit, pharetra in dolor at, commodo volutpat leo. Praesent nec purus quam. In dignissim vitae sem nec euismod. Maecenas sed feugiat nunc. Cras blandit condimentum libero. Aenean quis efficitur sem.}
+
+\textit{Duis lobortis, mauris a maximus consectetur, sem est interdum justo, eget varius orci augue a tellus. Vestibulum vehicula erat eu eros dignissim, non rhoncus lorem commodo. Mauris et leo vel urna feugiat ornare a ac dolor. Etiam faucibus velit vitae pellentesque ultrices. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec facilisis in enim nec fermentum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;}
+
+\textit{Maecenas ullamcorper et purus vel facilisis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean eget diam elit. Vestibulum dolor nunc, porttitor eget porta in, mollis at neque. Phasellus nec tempus diam, non scelerisque orci. Sed tincidunt, lorem a bibendum vehicula, nulla nunc vulputate purus, non viverra sem enim nec est. Aliquam erat volutpat. Praesent in sem tortor. Sed fringilla a nisl et dictum. Nullam faucibus venenatis diam, in sodales magna auctor vel. Suspendisse ornare turpis pulvinar nibh venenatis vulputate.}
+
+\textit{Aliquam eget vulputate tellus. Suspendisse viverra eros sem, eu dapibus diam finibus a. Aenean at lectus eget mi convallis rutrum ut sit amet elit. Curabitur nec nisl mauris. Nullam finibus, elit et vehicula posuere, ante ipsum tristique massa, vitae dictum lorem quam eu est.}
+
+\begin{table}[t!]
+    \centering
+    \begin{tabular}{l|cccc|c}
+        \tabletop
+        Dataset   & Normal & Offensive & Hateful & Spam    & Total           \\
+        \tablemid
+        Original  & 53,790 & 27,037    & 4,948   & 14,024  & \textbf{99,799} \\
+        Available & 41,784 & 14,202    & 2,941   & ~~9,372 & \textbf{68,299} \\
+        \tablebot
+    \end{tabular}
+    \caption[The \citeauthor{FountaEA:18} dataset]{The original \citet{FountaEA:18} dataset vs its availability in 2020, given by \citeauthor{Isaksen;Gamback:20}}
+    \label{tab:data}
+\end{table}
+
+You probably  want a table giving some statistics regarding the data.
+As an example, Table~\ref{tab:data} shows a common problem when working with Twitter (X) data:
+the authors of a dataset may only provide tweet IDs that other researches can use to retrieve tweets through the Twitter \gls{api};
+however, some tweets may for several reasons not be retrievable later on, e.g., since a tweet or the user account behind a tweet may have been deleted.
+Here, of $99,799$ tweet IDs provided by \citet{FountaEA:18}, only $68,299$ tweets could actually be retrieved two years later,
+as described by \citet{Isaksen;Gamback:20}.
+
+\textit{Morbi viverra ante et tortor faucibus finibus nec sit amet sem. In ultrices, augue sed vestibulum congue, tortor turpis sodales odio, at interdum leo justo non massa. Nunc aliquet, nisl non vestibulum rhoncus, libero tortor laoreet nibh, vel ultricies nunc erat nec nisl. Praesent sed lorem arcu. Sed ultricies, tellus at euismod posuere, felis nibh cursus justo, vitae placerat nisl lorem ut est. Suspendisse sollicitudin sagittis nibh, ac interdum erat hendrerit id. Fusce est mi, semper eget mauris sed, posuere ultrices orci. Aenean nec est eu augue blandit maximus. Morbi ut nisl at metus condimentum tincidunt nec consectetur nibh. Phasellus eleifend dapibus elit ut cursus. Donec lacinia turpis a justo dignissim, sit amet venenatis libero pellentesque. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.}
+\end{comment}
+
+
+
+\section{Data Sources}
+\label{sec:data-sources}
+
+
+
+\section{Data Access}
+\label{sec:data-access}
+
+While leading \glspl{acr:llm} are trained on increasingly large corpora, they are still only as familiar with a topic as the extent to which the training data exposes it to said topic. For instance, many \glspl{acr:llm} are trained specifically to generate Python code, and are therefore fed with a vast number of Python code examples during training in the hopes of improving its performance on benchmarks like \todo{Insert Python benchmark examples here}. As it is unlikely that the training data is evenly distributed among many different topics, it is useful to get familiarized with a model's capabilities in the areas of interest for a particular use case. In the case of an \acrshort{acr:llm}-powered \acrshort{acr:gis} agent that should be capable of performing geospatial analyses, it is useful to know what data formats such an agent is most comfortable to understand and work with.
+
+The upcoming experiments therefore seek to benchmark model performance on three different data access methods. The datasets from \autoref{sec:data-sources} are presented to the model in three different ways, as \autoref{subsec:files} through \autoref{subsec:sql-db} elaborate upon.
+
+\subsection{Files}
+\label{subsec:files}
+
+The first method of presentation is to have the files from \autoref{sec:data-sources} remain untouched.
+
+\subsection[STAC]{\acrshort{acr:stac} Api}
+\label{subsec:stac-data}
+
+The second method is to create a \acrshort{acr:stac} \acrshort{acr:api} from the data.
+
+\subsection[SQL Database]{\acrshort{acr:sql} Database}
+\label{subsec:sql-db}
+
+The third and final method is to load the data into a spatial \acrshort{acr:sql} database and provide the model with database schemas that can be used to generate queries.
+
+\glsresetall

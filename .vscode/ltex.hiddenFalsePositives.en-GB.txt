@@ -1,0 +1,1 @@
+{"rule":"NUMEROUS_DIFFERENT","sentence":"^\\QAs it is unlikely that the training data is evenly distributed among many different topics, making the\\E$"}

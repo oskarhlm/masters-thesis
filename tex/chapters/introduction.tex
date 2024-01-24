@@ -14,7 +14,7 @@ If you use direct quotes, unless the quote itself is very significant, you are c
 Such direct quotes also break the flow of the language (yours to someone else's).
 \end{comment}
 
-\section{Background and Motivation}\label{sec:background-and-motivation}
+\section{Background and Motivation}
 \label{sec:BackgroundAndMotivation}
 
 \begin{comment}
@@ -32,11 +32,10 @@ The motivation will be further elaborated on in Chapter~\ref{cha:related_work}, 
 
 Note that this template uses italics to highlight where Latin wording is inserted to represent text and the text of the template
 that we wish to draw your attention to. The italics themselves are not an indication that such sections should use italics.
+
 \end{comment}
 
-The field of \glspl{acr:llm} is an emerging one. \cite[2]{fanLargeLanguageModels2023} found that the proportion of papers about \glspl{acr:llm}\footnote{Including articles whose title or abstract includes \enquote{\acrshort{acr:llm}}, \enquote{\acrlong{acr:llm}}, or \enquote{\acrshort{acr:gpt}}.} to arXiv has skyrocketed since 2020, with a six-times increase in percent points from 2022 to 2023. Furthermore, they write that prompt engineering has been extensively used as a way to improve code generation \citep[7]{fanLargeLanguageModels2023}. \gls{acr:llm} technologies provide great opportunities for automation of tasks in a variety of fields, possibly also in the field of \gls{acr:gis} Data Analysis. With the capabilities of ChatGPT's Code Interpreter to generate, execute, and review its own code, research should be done to see if these capabilities can be applied to \gls{acr:gis}-related tasks.
-
-\section{Goals and Research Questions}\label{sec:goals-and-research-questions}
+\section{Goals and Research Questions}
 \label{sec:GoalsandResearchQuestions}
 
 \begin{comment}
@@ -81,95 +80,14 @@ Of course the Specialisation Project can also introduce novel work, but there is
 since the core of the project really is to figure out what is ``old'' before you can introduce something which is new.
 \end{comment}
 
-The overarching goal of this specialization project is to investigate how \acrlongpl{acr:llm} can be utilized to make \gls{acr:gis} analysis simpler, faster, and more accessible. As exemplified in the task description provided by Norkart (see \cref{app:task-description}), such a system should be able to create a meaningful response to user queries such as:
-
-\begin{quote}
-    "Find all buildings within a 100-meter belt that are more than 100 meters above sea level and have docks."
-\end{quote}
-
-\noindent The task is then to investigate how \acrlongpl{acr:llm} can be utilized to perform classical \acrshort{acr:gis} analyses using standard \acrshort{acr:gis} technologies like PostGIS and geospatial data catalogues adhering to \acrshort{acr:ogc} or \acrshort{acr:stac} standards, in order to answer such a query.
-
-Based on the task description, three research questions (RQs) have been constructed that this specialization project report will attempt to answer:
-
-\begin{enumerate}
-    \item What is the potential of \acrshort{acr:llm}-based \acrshort{acr:gis} analysis? \label{rq:llm-potential}
-    \item How can \acrshort{acr:ogc} \acrshort{acr:api} - Features be used in an overlay analysis with ChatGPT-4? \label{rq:overlay-analysis}
-    \item How can we give ChatGPT-4 access to external tools? \label{rq:external-tools}
-\end{enumerate}
-
-\rqref{rq:llm-potential} aims to assess the capabilities and limitations of integrating \glspl{acr:llm} with \glspl{acr:gis}. Researching the potential of using \glspl{acr:llm} in \gls{acr:gis} could uncover new methodologies for spatial analysis, predictive modelling, and decision-making.
-
-\rqref{rq:overlay-analysis} focuses on the feasibility of using the \acrshort{acr:ogc} \acrshort{acr:api} - Features standard in a typical overlay analysis within a conversational \acrshort{acr:ai} context like ChatGPT-4, enabling users to express themselves using natural language queries. Examples of such analyses could be intersecting of map layers or filtering features based on certain criteria.
-
-\rqref{rq:external-tools} delves into the technical considerations of expanding ChatGPT-4's capabilities through integration with external tools, such as \acrshort{acr:gis} software or data analytics platforms. It would also evaluate options for efficient data exchange, such as web \acrshortpl{acr:api}.
+\section{Research Method}
+\label{sec:researchMethod}
 
 \begin{comment}
-
-\section{Research Method}\label{sec:research-method}
-
-% What methodology will you apply to address the goals: theoretic/analytic, model/abstraction or design/experiment?
-% This section will describe the research methodology applied and the reason for this choice of research methodology.
-% You should return to the actual choices made in the work and the alternatives in the Discussion chapter.
-
-My research methods consist of a literature study and a set of experiments/proofs of concept, the latter of which is described in detail in \autoref{cha:experiments}.
-
-\subsection{Literature Study}\label{subsec:research-method-literature-study}
-
-I set out by deciding on some search terms, and used a "snowball sampling" technique to find relevant articles. \autoref{tbl:literature-search-results} shows the number of search results on various sites.
-
-In order to evaluate large amounts of literature, a strategy of filtering out papers that are \textit{not} relevant was put in place. The strategy involves reading the least time-consuming and more information- packed sections first, and then reading other parts of the paper if it is deemed relevant to the project. \autoref{fig:searching-strategy} shows the order in which the different types of elements/sections commonly were read, and at any point in this pipeline the paper could be deemed irrelevant, and would subsequently be discarded from the literature study. The literature study is presented in \autoref{cha:related-work}.
-
-\subsection{Experiments}\label{subsec:research-method-experiments}
-
-Three experiments were conducted in order to answer the research questions listed in \autoref{sec:goals-and-research-questions}. As the literature study is the main focus of this specialization project, the experiments are not very in depth, but serve to support some of the claims that are made about the potential of an \acrshort{acr:llm}-based \acrshort{acr:gis} agent. The experiments is are presented in \autoref{cha:experiments}.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{../figs/Literature study.png}
-    \caption{Seaching strategy}
-    \label{fig:searching-strategy}
-\end{figure}
-
-
-
-% \begin{table}
-%     \centering
-%     \begin{tabular}{p{5.5cm}|p{2cm}|p{2cm}|p{2cm}}
-%         \toprule
-%         Keyword  & arXiv  & Google Scholar & Web of Science \\
-%         \midrule
-%         \DTLforeach{literature_study}{
-%             \Keyword=Keyword, \arXiv=arXiv, \GoogleScholar=GoogleScholar, \WebOfScience=WebOfScience}{
-%         \Keyword & \arXiv & \GoogleScholar & \WebOfScience
-%             \DTLiflastrow{}{\\}
-%         }
-%         \\
-%         \bottomrule
-%     \end{tabular}
-%     \caption{Literature study search results}
-%     \label{tbl:literature-search-results}
-% \end{table}
-
-\begin{table}
-    \centering
-    \begin{tabular}{p{5.5cm}|p{2cm}p{2cm}p{2cm}}
-        \toprule
-        \textbf{Keyword}               & \textbf{arXiv} & \textbf{Google Scholar} & \textbf{Web of Science} \\
-        \midrule
-        Large Language Model           & 5,101          & 5.76e6                  & 36,463                  \\
-        Geographic Information System  & 588            & 7.36e6                  & 50,688                  \\
-        Geospatial standard            & 55             & 295,000                 & 3,363                   \\
-        Prompt engineering             & 1,081          & 1.02e6                  & 24,281                  \\
-        Retrieval-augmented generation & 491            & 3,050                   & 19                      \\
-        Text embedding                 & 4,730          & 402,000                 & 16,193                  \\
-        LLM fine-tuning                & 917            & 10,200                  & 22                      \\
-        \bottomrule
-    \end{tabular}
-    \caption{Literature study search results}
-    \label{tbl:literature-search-results}
-\end{table}
+What methodology will you apply to address the goals: theoretic/analytic, model/abstraction or design/experiment?
+This section will describe the research methodology applied and the reason for this choice of research methodology.
+You should return to the actual choices made in the work and the alternatives in the Discussion chapter.
 \end{comment}
-
 \section{Contributions}
 \label{sec:introContributions}
 
@@ -196,12 +114,6 @@ Hence most of the content on this list will be addressed 4--5 times in your text
 in the Results chapter.
 \end{comment}
 
-The main contributions of this specialization project are listed below:
-\begin{enumerate}
-    \item Gather relevant literature to facilitate development of state-of-the-art \acrshort{acr:llm}-based \acrshort{acr:gis} agents.
-    \item Conduct tests on ChatGPT-4 to explore its proficiency in manipulating geospatial data across different formats and access channels.
-\end{enumerate}
-
 \section{Thesis Structure}
 \label{sec:thesisStructure}
 
@@ -215,13 +127,5 @@ You want to say more than what is explicit in the chapter name, if possible, but
     \item Chapter~\ref{cha:conclusion} sums up the work and points to ways it can be improved or extended in the future.
 \end{itemize}
 \end{comment}
-
-The thesis is divided into four main sections:
-\begin{itemize}
-    \item \Autochapterref{cha:theory} lays the theoretical groundwork needed to understand the work.
-    \item \Autochapterref{cha:related-work} discusses previous work related to the thesis.
-    \item \Autochapterref{cha:experiments} explains the planning and setup for testing, and presents the results of the tests.
-    \item \Autochapterref{cha:discussion-and-conclusion} discusses finding from the tests, suggests areas of importance when developing \acrshort{acr:llm}-based \acrshort{acr:gis} agents, and concludes the project report.
-\end{itemize}
 
 \glsresetall
