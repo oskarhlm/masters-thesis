@@ -15,7 +15,7 @@
 \contentsline {section}{\numberline {4.1}Data Sources}{4}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Data Access}{4}{section.4.2}%
 \contentsline {subsection}{\numberline {4.2.1}Files}{4}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}STAC}{4}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.2}STAC API}{4}{subsection.4.2.2}%
 \contentsline {subsection}{\numberline {4.2.3}SQL Database}{4}{subsection.4.2.3}%
 \contentsline {chapter}{\numberline {5}Architecture}{5}{chapter.5}%
 \contentsline {chapter}{\numberline {6}Experiments and Results}{6}{chapter.6}%
@@ -27,7 +27,7 @@
 \contentsline {section}{\numberline {7.2}Discussion}{7}{section.7.2}%
 \contentsline {chapter}{\numberline {8}Conclusion and Future Work}{8}{chapter.8}%
 \contentsline {section}{\numberline {8.1}Contributions}{8}{section.8.1}%
-\contentsline {chapter}{Appendices}{9}{chapter*.7}%
-\contentsline {chapter}{\numberline {A}Task Description from Norkart}{10}{appendix.A}%
 \contentsline {chapter}{Bibliography}{9}{section*.6}%
+\contentsline {chapter}{Appendices}{10}{chapter*.8}%
+\contentsline {chapter}{\numberline {A}Task Description from Norkart}{11}{appendix.A}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

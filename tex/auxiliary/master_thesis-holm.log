@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.12.2)  24 JAN 2024 11:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.12.2)  24 JAN 2024 14:23
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1787,13 +1787,16 @@ chapter 8.
 
 
 
+] [9
+
+
+
+
+
 ]
-
-LaTeX Warning: Empty bibliography on input line 300.
-
 \openout2 = `appendices/appendices.aux'.
 
-(./appendices/appendices.tex
+ (./appendices/appendices.tex
 
 Class scrbook Warning: You are using `\begin{appendix}...\end{appendix}'.
 (scrbook)              You should note, that `\appendix' is a mostly globally
@@ -1808,10 +1811,7 @@ Class scrbook Warning: You are using `\begin{appendix}...\end{appendix}'.
 (scrbook)              and replace `\begin{appendix}' by command
 (scrbook)              `\appendix' on input line 1.
 
-[9
-
-
-
+[10
 
 
 
@@ -1851,7 +1851,7 @@ Class scrbook Warning: You are using `\begin{appendix}...\end{appendix}'.
 
 
 pdfTeX warning: pdflatex (file ./appendices/project_description.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<appendices/project_description.pdf, id=161, 614.295pt x 794.97pt>
+<appendices/project_description.pdf, id=174, 614.295pt x 794.97pt>
 File: appendices/project_description.pdf Graphic file (type pdf)
 <use appendices/project_description.pdf>
 Package pdftex.def Info: appendices/project_description.pdf  used on input line 6.
@@ -1869,7 +1869,7 @@ pdfTeX warning: pdflatex (file ./appendices/project_description.pdf): PDF inclus
 
 
 pdfTeX warning: pdflatex (file ./appendices/project_description.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<appendices/project_description.pdf, id=164, page=1, 614.295pt x 794.97pt>
+<appendices/project_description.pdf, id=177, page=1, 614.295pt x 794.97pt>
 File: appendices/project_description.pdf Graphic file (type pdf)
 <use appendices/project_description.pdf, page 1>
 Package pdftex.def Info: appendices/project_description.pdf , page1 used on input line 6.
@@ -1891,7 +1891,7 @@ File: appendices/project_description.pdf Graphic file (type pdf)
 <use appendices/project_description.pdf, page 1>
 Package pdftex.def Info: appendices/project_description.pdf , page1 used on input line 6.
 (pdftex.def)             Requested size: 430.00356pt x 556.4752pt.
-[10
+[11
 
 
 
@@ -1913,7 +1913,7 @@ pdfTeX warning: pdflatex (file ./appendices/project_description.pdf): PDF inclus
 
 
 pdfTeX warning: pdflatex (file ./appendices/project_description.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<appendices/project_description.pdf, id=175, page=2, 614.295pt x 794.97pt>
+<appendices/project_description.pdf, id=188, page=2, 614.295pt x 794.97pt>
 File: appendices/project_description.pdf Graphic file (type pdf)
 <use appendices/project_description.pdf, page 2>
 Package pdftex.def Info: appendices/project_description.pdf , page2 used on input line 6.
@@ -1934,11 +1934,11 @@ File: appendices/project_description.pdf Graphic file (type pdf)
 <use appendices/project_description.pdf, page 2>
 Package pdftex.def Info: appendices/project_description.pdf , page2 used on input line 6.
 (pdftex.def)             Requested size: 430.00356pt x 556.4752pt.
-[11
+[12
 
  <./appendices/project_description.pdf>])
 No file master_thesis-holm.acr.
-[12
+[13
 
 
 
@@ -1950,11 +1950,11 @@ Package logreq Info: Writing requests to 'master_thesis-holm.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 63376 strings out of 479647
- 1393675 string characters out of 5878802
- 2506583 words of memory out of 5000000
- 80206 multiletter control sequences out of 15000+600000
- 518827 words of font info for 92 fonts, out of 8000000 for 9000
+ 63615 strings out of 479647
+ 1398857 string characters out of 5878802
+ 2506715 words of memory out of 5000000
+ 80439 multiletter control sequences out of 15000+600000
+ 518910 words of font info for 93 fonts, out of 8000000 for 9000
  354 hyphenation exceptions out of 8191
  108i,18n,166p,10705b,8829s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{glo:acr:sql} has been referenced but does not exist, replaced by a fixed one
@@ -1968,10 +1968,10 @@ pdfTeX warning (dest): name{glo:acr:gis} has been referenced but does not exist,
 pdfTeX warning (dest): name{glo:acr:llm} has been referenced but does not exist, replaced by a fixed one
 
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr9.pfb></usr/share/texmf/fonts/type1/public/lm/lmro10.pfb>
-Output written on auxiliary/master_thesis-holm.pdf (18 pages, 3181387 bytes).
+Output written on auxiliary/master_thesis-holm.pdf (19 pages, 3183747 bytes).
 PDF statistics:
- 321 PDF objects out of 1000 (max. 8388607)
- 273 compressed objects within 3 object streams
- 56 named destinations out of 1000 (max. 500000)
+ 335 PDF objects out of 1000 (max. 8388607)
+ 286 compressed objects within 3 object streams
+ 59 named destinations out of 1000 (max. 500000)
  28965 words of extra memory for PDF output out of 29859 (max. 10000000)
 

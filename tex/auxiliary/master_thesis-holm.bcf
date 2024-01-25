@@ -2791,6 +2791,8 @@
     <bcf:datasource type="file" datatype="bibtex" glob="false">bib/bibliography.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
+    <bcf:citekey order="1">maiOpportunitiesChallengesFoundation2023b</bcf:citekey>
+    <bcf:citekey order="2">maiOpportunitiesChallengesFoundation2023b</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="apa">

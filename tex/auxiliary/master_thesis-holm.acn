@@ -49,11 +49,13 @@
 \glossaryentry{NLG?\glossentry{acr:nlg}|setentrycounter[]{page}"\glsnumberformat}{v}
 \glossaryentry{MBPP?\glossentry{acr:mbpp}|setentrycounter[]{page}"\glsnumberformat}{v}
 \glossaryentry{LLaMA?\glossentry{acr:llama}|setentrycounter[]{page}"\glsnumberformat}{v}
+\glossaryentry{LLM?\glossentry{acr:llm}|setentrycounter[]{page}"\glsnumberformat}{3}
 \glossaryentry{LLM?\glossentry{acr:llm}|setentrycounter[]{page}"\glsnumberformat}{4}
 \glossaryentry{LLM?\glossentry{acr:llm}|setentrycounter[]{page}"\glsnumberformat}{4}
 \glossaryentry{LLM?\glossentry{acr:llm}|setentrycounter[]{page}"\glsnumberformat}{4}
 \glossaryentry{GIS?\glossentry{acr:gis}|setentrycounter[]{page}"\glsnumberformat}{4}
 \glossaryentry{STAC?\glossentry{acr:stac}|setentrycounter[]{page}"\glsnumberformat}{4}
+\glossaryentry{API?\glossentry{acr:api}|setentrycounter[]{page}"\glsnumberformat}{4}
 \glossaryentry{STAC?\glossentry{acr:stac}|setentrycounter[]{page}"\glsnumberformat}{4}
 \glossaryentry{API?\glossentry{acr:api}|setentrycounter[]{page}"\glsnumberformat}{4}
 \glossaryentry{SQL?\glossentry{acr:sql}|setentrycounter[]{page}"\glsnumberformat}{4}

@@ -16,5 +16,141 @@
   {}
 \endgroup
 
+
+\refsection{0}
+  \datalist[entry]{apa/global//global/global}
+    \entry{maiOpportunitiesChallengesFoundation2023b}{misc}{}
+      \name{author}{14}{}{%
+        {{un=0,uniquepart=base,hash=3670e7a39d1c8a8d1c797f624772df56}{%
+           family={Mai},
+           familyi={M\bibinitperiod},
+           given={Gengchen},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=bd38ce9a35519b0e7aa0294573a32e74}{%
+           family={Huang},
+           familyi={H\bibinitperiod},
+           given={Weiming},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8fd7d49bf86823d5100ee335f17c3505}{%
+           family={Sun},
+           familyi={S\bibinitperiod},
+           given={Jin},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=0921a70240b6b1ebb461ce4421d47963}{%
+           family={Song},
+           familyi={S\bibinitperiod},
+           given={Suhang},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=0a30e65ae436a6d2d75a9086dad4226c}{%
+           family={Mishra},
+           familyi={M\bibinitperiod},
+           given={Deepak},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6462862c5b74b039231d999d3ccb3347}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Ninghao},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=80edc4011fde2f4defe68ef7e0b3c0cf}{%
+           family={Gao},
+           familyi={G\bibinitperiod},
+           given={Song},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7faa75cd0a9341fee33d1761b2b44234}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Tianming},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a261f3167350d9aac38a1ec2c2624662}{%
+           family={Cong},
+           familyi={C\bibinitperiod},
+           given={Gao},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4132c8a47fb7504e4f36340d98c3d109}{%
+           family={Hu},
+           familyi={H\bibinitperiod},
+           given={Yingjie},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f210a7146898d09978e1d7f8aab044a2}{%
+           family={Cundy},
+           familyi={C\bibinitperiod},
+           given={Chris},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f82e9a8ed926ab9d768ff175f8e7e634}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Ziyuan},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a409fcd3e2f9ae4fd6790ca28b9be27a}{%
+           family={Zhu},
+           familyi={Z\bibinitperiod},
+           given={Rui},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d9e5985236f468da29059654cd8447c4}{%
+           family={Lao},
+           familyi={L\bibinitperiod},
+           given={Ni},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{70e95c3a27438e1bd7f88014b531787a}
+      \strng{fullhash}{59bb336f4d7106f859628d9c95c0a8fa}
+      \strng{bibnamehash}{59bb336f4d7106f859628d9c95c0a8fa}
+      \strng{authorbibnamehash}{59bb336f4d7106f859628d9c95c0a8fa}
+      \strng{authornamehash}{70e95c3a27438e1bd7f88014b531787a}
+      \strng{authorfullhash}{59bb336f4d7106f859628d9c95c0a8fa}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Large pre-trained models, also known as foundation models (FMs), are trained in a task-agnostic manner on large-scale data and can be adapted to a wide range of downstream tasks by fine-tuning, few-shot, or even zero-shot learning. Despite their successes in language and vision tasks, we have yet seen an attempt to develop foundation models for geospatial artificial intelligence (GeoAI). In this work, we explore the promises and challenges of developing multimodal foundation models for GeoAI. We first investigate the potential of many existing FMs by testing their performances on seven tasks across multiple geospatial subdomains including Geospatial Semantics, Health Geography, Urban Geography, and Remote Sensing. Our results indicate that on several geospatial tasks that only involve text modality such as toponym recognition, location description recognition, and US state-level/county-level dementia time series forecasting, these task-agnostic LLMs can outperform task-specific fully-supervised models in a zero-shot or few-shot learning setting. However, on other geospatial tasks, especially tasks that involve multiple data modalities (e.g., POI-based urban function classification, street view image-based urban noise intensity classification, and remote sensing image scene classification), existing foundation models still underperform task-specific models. Based on these observations, we propose that one of the major challenges of developing a FM for GeoAI is to address the multimodality nature of geospatial tasks. After discussing the distinct challenges of each geospatial data modality, we suggest the possibility of a multimodal foundation model which can reason over various types of geospatial data through geospatial alignments. We conclude this paper by discussing the unique risks and challenges to develop such a model for GeoAI.}
+      \field{eprintclass}{cs}
+      \field{eprinttype}{arxiv}
+      \field{month}{4}
+      \field{number}{arXiv:2304.06798}
+      \field{title}{On the {{Opportunities}} and {{Challenges}} of {{Foundation Models}} for {{Geospatial Artificial Intelligence}}}
+      \field{urlday}{24}
+      \field{urlmonth}{1}
+      \field{urlyear}{2024}
+      \field{year}{2023}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2304.06798
+      \endverb
+      \verb{eprint}
+      \verb 2304.06798
+      \endverb
+      \verb{file}
+      \verb C\:\\Users\\oskar\\Zotero\\storage\\X82XT37U\\Mai et al. - 2023 - On the Opportunities and Challenges of Foundation .pdf;C\:\\Users\\oskar\\Zotero\\storage\\JUDG2RZS\\2304.html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2304.06798
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2304.06798
+      \endverb
+      \keyw{Computer Science - Artificial Intelligence,Computer Science - Computation and Language,Computer Science - Computer Vision and Pattern Recognition,I.2.0,I.2.10,I.2.4,I.2.7,I.5.1}
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
 

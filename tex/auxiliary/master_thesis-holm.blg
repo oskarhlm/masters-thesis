@@ -1,9 +1,15 @@
 [0] Config.pm:307> INFO - This is Biber 2.17
-[1] Config.pm:310> INFO - Logfile is 'auxiliary/master_thesis-holm.blg'
-[160] biber:340> INFO - === Wed Jan 24, 2024, 10:37:43
-[223] Biber.pm:418> INFO - Reading 'auxiliary/master_thesis-holm.bcf'
-[381] Biber.pm:972> INFO - Found 0 citekeys in bib section 0
-[412] bbl.pm:654> INFO - Writing 'auxiliary/master_thesis-holm.bbl' with encoding 'UTF-8'
-[412] bbl.pm:757> INFO - Output to auxiliary/master_thesis-holm.bbl
-[413] Biber.pm:130> WARN - The file 'auxiliary/master_thesis-holm.bcf' does not contain any citations!
-[413] Biber.pm:132> INFO - WARNINGS: 1
+[0] Config.pm:310> INFO - Logfile is 'auxiliary/master_thesis-holm.blg'
+[277] biber:340> INFO - === Wed Jan 24, 2024, 14:23:25
+[358] Biber.pm:418> INFO - Reading 'auxiliary/master_thesis-holm.bcf'
+[511] Biber.pm:972> INFO - Found 1 citekeys in bib section 0
+[535] Biber.pm:4383> INFO - Processing section 0
+[604] Biber.pm:4574> INFO - Looking for bibtex file 'bib/bibliography.bib' for section 0
+[606] bibtex.pm:1713> INFO - LaTeX decoding ...
+[630] bibtex.pm:1518> INFO - Found BibTeX data source 'bib/bibliography.bib'
+[917] UCollate.pm:68> INFO - Overriding locale 'en-GB' defaults 'variable = shifted' with 'variable = non-ignorable'
+[918] UCollate.pm:68> INFO - Overriding locale 'en-GB' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[918] Biber.pm:4203> INFO - Sorting list 'apa/global//global/global' of type 'entry' with template 'apa' and locale 'en-GB'
+[918] Biber.pm:4209> INFO - No sort tailoring available for locale 'en-GB'
+[937] bbl.pm:654> INFO - Writing 'auxiliary/master_thesis-holm.bbl' with encoding 'UTF-8'
+[951] bbl.pm:757> INFO - Output to auxiliary/master_thesis-holm.bbl
