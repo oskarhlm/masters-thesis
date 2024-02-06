@@ -22,6 +22,7 @@ services:
       - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgis-db/geogpt_db
       - DEBUG=true
       - DEVEL=true
+      - PGFS_PAGING_LIMITMAX=10000
     depends_on:
       - postgis-db
 
