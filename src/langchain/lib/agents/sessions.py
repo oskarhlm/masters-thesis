@@ -21,7 +21,7 @@ def get_session(session_id: str = None):
             url=os.getenv('REDIS_URL'), session_id=session_id)
 
     memory = ConversationBufferWindowMemory(
-        k=6, memory_key=MEMORY_KEY, chat_memory=message_history, return_messages=True, input_key='input', output_key='output')
+        k=10, memory_key=MEMORY_KEY, chat_memory=message_history, return_messages=True, input_key='input', output_key='output')
 
     if not memory:
         raise NameError('No memory')

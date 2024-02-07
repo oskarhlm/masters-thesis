@@ -5,9 +5,7 @@ from ..tools.utils import get_custom_tools
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder, HumanMessagePromptTemplate
 from langchain_core.messages import SystemMessage
 from langchain.agents import create_openai_tools_agent, AgentExecutor
-from langchain.chains.conversation.memory import ConversationBufferWindowMemory
 from tempfile import TemporaryDirectory
-from langchain_community.chat_message_histories import RedisChatMessageHistory
 
 from langchain_community.agent_toolkits import FileManagementToolkit
 
@@ -37,7 +35,6 @@ def create_tool_agent(session_id: str = None):
     )
     tools = [PythonREPLTool(), ShellTool()] + [tool()
                                                for tool in get_custom_tools()]
-    print(tools)
 
     session_id, memory = get_session(session_id)
     # llm = ChatOpenAI(model="gpt-4-1106-preview", temperature=0,

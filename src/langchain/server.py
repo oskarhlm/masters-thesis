@@ -1,18 +1,19 @@
 import os
 import json
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 
 from fastapi.responses import StreamingResponse
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from langchain_core.agents import AgentStep, AgentAction, AgentFinish
-from langchain_core.messages import AIMessageChunk
+from langchain_core.messages import AIMessageChunk, FunctionMessage
 from langchain_community.tools.file_management.write import WriteFileTool
 from fastapi import FastAPI, UploadFile, File, Form
 import tempfile
 
 from lib.agents.tool_agent import create_tool_agent, MEMORY_KEY
+from lib.agents.sql_agent import create_sql_agent
 
 
 if os.getenv('IS_DOCKER_CONTAINER'):
@@ -60,8 +61,13 @@ def get_session(session_id: str):
 
 
 @app.post('/session')
-def create_session():
-    session_id, executor = create_tool_agent()
+def create_session(agent_type: Optional[str] = 'sql'):
+    match agent_type:
+        case 'sql':
+            session_id, executor = create_sql_agent()
+        case _:
+            session_id, executor = create_tool_agent()
+
     print(session_id)
 
     global agent_executor
@@ -108,6 +114,9 @@ async def stream_response(message: str):
                 continue
 
             value = op['value']
+
+            if isinstance(value, FunctionMessage) and value.name == 'geojson_url':
+                yield create_data_event({'message': f'geojson babyyy: {value.content}'})
 
             if not isinstance(value, AIMessageChunk):
                 continue
