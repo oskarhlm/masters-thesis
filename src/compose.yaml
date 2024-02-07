@@ -2,7 +2,8 @@ version: '3'
 
 services:
   postgis-db:
-    image: postgis/postgis:16-3.4
+    build: ./postgres
+    # image: postgis/postgis:16-3.4
     ports:
       - 5433:5432
     command: postgres -c listen_addresses='*'
@@ -40,7 +41,7 @@ services:
     env_file: .env
     environment:
       - IS_DOCKER_CONTAINER=true
-      - REDIS_URL=redis://redis:6379
+      - REDIS_URL=redis://redis-db:6379docker
     depends_on:
       - redis-db
     develop:

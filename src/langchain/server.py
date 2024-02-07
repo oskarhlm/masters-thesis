@@ -1,4 +1,3 @@
-from langchain.chains.conversation.memory import ConversationBufferWindowMemory
 import os
 import json
 from typing import Dict, Any, List
@@ -40,7 +39,6 @@ def create_data_event(data: Dict[Any, Any]):
     return f'data: {json.dumps(data)}\n\n'
 
 
-# agent_executor = create_tool_agent()
 agent_executor = None
 
 
@@ -144,10 +142,7 @@ async def chat_endpoint(message: str):
 @app.get('/history')
 def history():
     if not agent_executor:
-        return 'No current agent executor - agent_executor == None'
-
-    print(agent_executor.memory.dict())
-    # return agent_executor.memory.chat_memory.messages if agent_executor.memory else []
+        return 'Agent executor is None'
     return agent_executor.memory.chat_memory.messages
 
 

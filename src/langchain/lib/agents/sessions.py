@@ -1,6 +1,6 @@
 import os
 import uuid
-from langchain_community.chat_message_histories import RedisChatMessageHistory
+from langchain_community.chat_message_histories import RedisChatMessageHistory, ChatMessageHistory
 from langchain.chains.conversation.memory import ConversationBufferWindowMemory
 from datetime import datetime
 
@@ -12,7 +12,7 @@ def get_session(session_id: str = None):
         current_date = datetime.now().strftime("%Y%m%d")  # Format: YYYYMMDD
         session_id = f'session-{uuid.uuid4()}-{current_date}'
 
-    message_history = []
+    message_history = ChatMessageHistory()
 
     if os.getenv('IS_DOCKER_CONTAINER'):
         if not os.getenv('REDIS_URL'):
