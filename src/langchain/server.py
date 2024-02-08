@@ -9,8 +9,10 @@ from dotenv import load_dotenv
 from langchain_core.agents import AgentStep, AgentAction, AgentFinish
 from langchain_core.messages import AIMessageChunk, FunctionMessage
 from langchain_community.tools.file_management.write import WriteFileTool
-from fastapi import FastAPI, UploadFile, File, Form
+from fastapi import FastAPI, UploadFile, File, Form, status
 import tempfile
+
+from fastapi.exceptions import HTTPException
 
 from lib.agents.tool_agent import create_tool_agent, MEMORY_KEY
 from lib.agents.sql_agent import create_sql_agent
@@ -115,8 +117,11 @@ async def stream_response(message: str):
 
             value = op['value']
 
-            if isinstance(value, FunctionMessage) and value.name == 'geojson_url':
-                yield create_data_event({'message': f'geojson babyyy: {value.content}'})
+            if isinstance(value, FunctionMessage) and value.name == 'sql_db_query':
+                try:
+                    yield create_data_event({'geojson_path': json.loads(value.content)["path"]})
+                except:
+                    print('Output type is not GeoJSON')
 
             if not isinstance(value, AIMessageChunk):
                 continue
@@ -146,6 +151,13 @@ async def stream_response(message: str):
 @app.get('/streaming-chat')
 async def chat_endpoint(message: str):
     return StreamingResponse(stream_response(message), media_type='text/event-stream')
+
+
+@app.get('/geojson')
+def get_geojson(geojson_path: str = "output.geojson"):
+    with open(geojson_path, "r") as file:
+        geojson_data = file.read()
+    return json.loads(geojson_data)
 
 
 @app.get('/history')

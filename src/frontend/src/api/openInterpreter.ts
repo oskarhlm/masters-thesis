@@ -1,5 +1,6 @@
 import { createSignal } from 'solid-js';
 import { get, BASE_URL, del, post } from './apiHelper';
+import { addGeoJSONToMap } from '../components/Map/Map';
 
 export const [isStreaming, setIsStreaming] = createSignal(false);
 
@@ -20,11 +21,18 @@ export class LLMInterpreter {
       setIsStreaming(false);
     };
 
-    eventSource.onmessage = (event) => {
+    eventSource.onmessage = async (event) => {
       const data = JSON.parse(event.data);
 
       if (data.stream_complete) {
         closeStream();
+      }
+
+      if (data.geojson_path) {
+        console.log(data.geojson_path);
+        const res = await get('/geojson');
+        console.log(res);
+        addGeoJSONToMap(res);
       }
 
       onMessageCallback(data.message);
