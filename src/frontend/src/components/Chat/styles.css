@@ -108,11 +108,17 @@
   }
 }
 
+.input-disabled {
+  pointer-events: none;
+  background-color: var(--cg-gray);
+}
+
 .message {
   border-radius: 5px;
   padding: 10px;
   width: 80%;
   margin-block: 0 5px;
+  overflow-wrap: break-word;
 }
 
 .message:empty {
@@ -158,7 +164,9 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 40px;
+  width: 60%;
+  margin: auto;
+  margin-block: 10px 40px;
 
   label {
     color: var(--cg-black);

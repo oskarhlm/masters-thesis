@@ -25,7 +25,6 @@ const AgentSelector: Component = () => {
 
   return (
     <div class="agent-select-wrapper">
-      <label for="agent-selector">Select Agent Type: </label>
       <select
         name="agent-selector"
         id="agent-selector"

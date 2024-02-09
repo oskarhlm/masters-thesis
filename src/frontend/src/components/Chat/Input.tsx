@@ -1,5 +1,9 @@
 import './styles.css';
-import { LLMInterpreter, isStreaming } from '../../api/llmInterpreter';
+import {
+  LLMInterpreter,
+  isStreaming,
+  sessionId,
+} from '../../api/llmInterpreter';
 import { addChatMessage, addStreamingChatMessage } from './chatStore';
 import {
   Component,
@@ -104,7 +108,10 @@ const Input: Component<Props> = (props) => {
           </For>
         </ul>
       </Show>
-      <div class="input-container">
+      <div
+        class="input-container"
+        style={`pointer-events: ${sessionId() ? 'all' : 'none'}`}
+      >
         <label for="file-upload">
           <img src="/file-icon.png" alt="Upload file" />
         </label>

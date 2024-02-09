@@ -4,6 +4,7 @@ import { addGeoJSONToMap } from '../components/Map/Map';
 import { AgentType } from '../components/Chat/types';
 
 export const [isStreaming, setIsStreaming] = createSignal(false);
+export const [sessionId, setSessionId] = createSignal<string | null>(null);
 
 export class LLMInterpreter {
   static async chatStream(
@@ -60,12 +61,13 @@ export class LLMInterpreter {
   }
 
   static async createSession(agentType: AgentType) {
-    console.log(agentType);
+    setSessionId(null);
     try {
       const response = await post('/session', {
         agent_type: agentType,
       });
       console.log(response);
+      setSessionId(response.session_id);
       return response;
     } catch (error) {
       console.error('Error in OpenInterpreter.chat:', error);

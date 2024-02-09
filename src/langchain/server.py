@@ -124,7 +124,7 @@ async def stream_response(message: str):
 
             value = op['value']
 
-            if isinstance(value, FunctionMessage) and value.name == 'sql_db_query':
+            if isinstance(value, FunctionMessage) and value.name in ['sql_db_query', 'ogc_features_cql_filtering']:
                 try:
                     yield create_data_event({'geojson_path': json.loads(value.content)["path"]})
                 except:
