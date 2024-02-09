@@ -6,16 +6,16 @@ from fastapi.responses import StreamingResponse
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
-from langchain_core.agents import AgentStep, AgentAction, AgentFinish
+from langchain_core.agents import AgentStep, AgentAction
 from langchain_core.messages import AIMessageChunk, FunctionMessage
-from langchain_community.tools.file_management.write import WriteFileTool
-from fastapi import FastAPI, UploadFile, File, Form, status
+from fastapi import FastAPI, UploadFile, File, Form
 import tempfile
 
-from fastapi.exceptions import HTTPException
-
 from lib.agents.tool_agent import create_tool_agent, MEMORY_KEY
-from lib.agents.sql_agent import create_sql_agent
+from lib.agents.sql_agent.agent import create_sql_agent
+from lib.agents.oaf_agent.agent import create_aof_agent
+
+from pydantic import BaseModel
 
 
 if os.getenv('IS_DOCKER_CONTAINER'):
@@ -62,11 +62,18 @@ def get_session(session_id: str):
     }
 
 
+class SessionBody(BaseModel):
+    agent_type: str
+
+
 @app.post('/session')
-def create_session(agent_type: Optional[str] = 'sql'):
-    match agent_type:
+def create_session(body: SessionBody):
+    print(f'agent type: {body.agent_type}')
+    match body.agent_type:
         case 'sql':
             session_id, executor = create_sql_agent()
+        case 'oaf':
+            session_id, executor = create_aof_agent()
         case _:
             session_id, executor = create_tool_agent()
 

@@ -1,5 +1,5 @@
 import './styles.css';
-import { LLMInterpreter, isStreaming } from '../../api/openInterpreter';
+import { LLMInterpreter, isStreaming } from '../../api/llmInterpreter';
 import { addChatMessage, addStreamingChatMessage } from './chatStore';
 import {
   Component,

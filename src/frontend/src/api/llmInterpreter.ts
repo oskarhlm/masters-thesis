@@ -1,6 +1,7 @@
 import { createSignal } from 'solid-js';
 import { get, BASE_URL, del, post } from './apiHelper';
 import { addGeoJSONToMap } from '../components/Map/Map';
+import { AgentType } from '../components/Chat/types';
 
 export const [isStreaming, setIsStreaming] = createSignal(false);
 
@@ -58,9 +59,12 @@ export class LLMInterpreter {
     }
   }
 
-  static async createSession() {
+  static async createSession(agentType: AgentType) {
+    console.log(agentType);
     try {
-      const response = await post('/session', {});
+      const response = await post('/session', {
+        agent_type: agentType,
+      });
       console.log(response);
       return response;
     } catch (error) {

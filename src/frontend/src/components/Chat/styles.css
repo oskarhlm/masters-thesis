@@ -153,3 +153,25 @@
 .group-header.human {
   text-align: right;
 }
+
+.agent-select-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+
+  label {
+    color: var(--cg-black);
+  }
+}
+
+select {
+  border: none;
+  font-size: 16px;
+  background-color: var(--cg-black);
+  color: var(--cg-white);
+  padding: 9px 3px;
+  flex: 1;
+
+  border-radius: 4px;
+}

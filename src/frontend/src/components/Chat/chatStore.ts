@@ -1,7 +1,9 @@
-import { ChatElement, MessageSource } from './types';
+import { AgentType, ChatElement, MessageSource } from './types';
 import { createStore } from 'solid-js/store';
 
-export const [chatElements, setChatElements] = createStore<ChatElement[]>([]);
+export const [chatElements, setChatElements] = createStore<ChatElement[]>([
+  { type: 'agentSelector', agentType: 'oaf' } satisfies ChatElement,
+]);
 
 function createUniqueId(): string {
   return `id-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
