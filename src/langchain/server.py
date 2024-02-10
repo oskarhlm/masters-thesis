@@ -1,19 +1,22 @@
 import os
 import json
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, Union
 
 from fastapi.responses import StreamingResponse
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from langchain_core.agents import AgentStep, AgentAction
+from langchain.agents import AgentExecutor
+from langchain.tools import BaseTool
 from langchain_core.messages import AIMessageChunk, FunctionMessage
 from fastapi import FastAPI, UploadFile, File, Form
 import tempfile
 
 from lib.agents.tool_agent import create_tool_agent, MEMORY_KEY
-from lib.agents.sql_agent.agent import create_sql_agent
+from lib.agents.sql_agent.agent import create_sql_agent, CustomQuerySQLDataBaseTool
 from lib.agents.oaf_agent.agent import create_aof_agent
+from lib.tools.aof_tools.query_collection import QueryOGCAPIFeaturesCollectionTool
 
 from pydantic import BaseModel
 
@@ -42,7 +45,7 @@ def create_data_event(data: Dict[Any, Any]):
     return f'data: {json.dumps(data)}\n\n'
 
 
-agent_executor = None
+agent_executor: AgentExecutor = None
 
 
 @app.get('/session')
@@ -112,8 +115,15 @@ def chat_endpoint(message: str):
     return StreamingResponse(event_stream(), media_type='text/event-stream')
 
 
+def get_tool_names(uninvoked_tools: list[BaseTool]):
+    overlapping_tools = filter(lambda t: type(t).__name__ in [
+        uit.__name__ for uit in uninvoked_tools], agent_executor.tools)
+    return list(map(lambda t: t.name, overlapping_tools))
+
+
 async def stream_response(message: str):
     tool_calls = {}
+
     async for chunk in agent_executor.astream_log(
         {'input': message},
         include_names=['ChatOpenAI']
@@ -124,7 +134,9 @@ async def stream_response(message: str):
 
             value = op['value']
 
-            if isinstance(value, FunctionMessage) and value.name in ['sql_db_query', 'ogc_features_cql_filtering']:
+            if isinstance(value, FunctionMessage) and value.name in get_tool_names([
+                    CustomQuerySQLDataBaseTool,
+                    QueryOGCAPIFeaturesCollectionTool]):
                 try:
                     yield create_data_event({'geojson_path': json.loads(value.content)["path"]})
                 except:
