@@ -1,11 +1,13 @@
-import { Component, For, createEffect, createSignal } from 'solid-js';
+import { Component, For, createEffect, createSignal, onMount } from 'solid-js';
 import './styles.css';
 import { AgentType, agentTypesArray } from './types';
 import { chatElements } from './chatStore';
 import { LLMInterpreter } from '../../api/llmInterpreter';
 
 export const [selectedAgentType, setSelectedAgentType] =
-  createSignal<AgentType>(agentTypesArray[0]);
+  createSignal<AgentType>(
+    (sessionStorage.getItem('agentType') as AgentType) || agentTypesArray[0]
+  );
 
 const AgentSelector: Component = () => {
   function agentTypeToHumanReadable(agentType: AgentType) {
@@ -19,6 +21,10 @@ const AgentSelector: Component = () => {
     }
   }
 
+  onMount(() => {
+    console.log(selectedAgentType());
+  });
+
   createEffect(() => {
     LLMInterpreter.createSession(selectedAgentType());
   });
@@ -29,11 +35,18 @@ const AgentSelector: Component = () => {
         name="agent-selector"
         id="agent-selector"
         disabled={chatElements.length > 1}
-        onchange={(e) => setSelectedAgentType(e.target.value as AgentType)}
+        onchange={(e) => {
+          const agentType = e.target.value as AgentType;
+          sessionStorage.setItem('agentType', agentType);
+          setSelectedAgentType(agentType);
+        }}
       >
         <For each={agentTypesArray}>
           {(agentType, _) => (
-            <option value={agentType}>
+            <option
+              value={agentType}
+              selected={agentType === selectedAgentType()}
+            >
               {agentTypeToHumanReadable(agentType)}
             </option>
           )}
