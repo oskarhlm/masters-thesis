@@ -1,0 +1,11 @@
+digraph {
+	Roads [fillcolor=lightgreen style=filled]
+	Houses [fillcolor=lightgreen style=filled]
+	Buffer [fillcolor=skyblue style=filled]
+	Intersect [fillcolor=skyblue style=filled]
+	Result [fillcolor=deeppink style=filled]
+	Roads -> Buffer
+	Houses -> Intersect
+	Buffer -> Intersect
+	Intersect -> Result
+}

@@ -32,8 +32,8 @@ def create_aof_agent(session_id: str = None):
 
     session_id, memory = get_session(session_id)
 
-    llm = ChatOpenAI(model="gpt-4-0125-preview", temperature=0, streaming=True)
-    # llm = ChatOpenAI(model="gpt-3.5-turbo-0125", temperature=0, streaming=True)
+    # llm = ChatOpenAI(model="gpt-4-0125-preview", temperature=0, streaming=True)
+    llm = ChatOpenAI(model="gpt-3.5-turbo-0125", temperature=0, streaming=True)
 
     tools = [RequestsGetTool(requests_wrapper=RequestsWrapper()),
              QueryOGCAPIFeaturesCollectionTool()]
