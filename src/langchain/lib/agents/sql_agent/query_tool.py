@@ -5,6 +5,7 @@ from langchain_community.tools.sql_database.tool import BaseSQLDatabaseTool
 from langchain_core.tools import BaseTool
 from pydantic import Field, BaseModel
 from typing import Type
+from sqlalchemy.exc import SQLAlchemyError
 
 
 collection_query_template = """
@@ -24,9 +25,9 @@ FROM (
 
 
 class CustomQuerySQLDataBaseInput(BaseModel):
-    query: str
+    query: str = Field(..., description='SQL query. Should NOT include conversion to GeoJSON, as this is handled by the function automatically.')
     return_geojson: bool = Field(
-        ..., description='`True` if the query uses the geometry column (`geom`)')
+        ..., description='Should be `True` if the user needs to see the result in a map')
 
 
 class CustomQuerySQLDataBaseTool(BaseSQLDatabaseTool, BaseTool):
@@ -38,7 +39,8 @@ class CustomQuerySQLDataBaseTool(BaseSQLDatabaseTool, BaseTool):
     Input to this tool is a detailed and correct SQL query, output is a path to a file storing the results.
     If the query is not correct, an error message will be returned.
     If an error is returned, rewrite the query, check the query, and try again.
-    The result will be a GeoJSON FeatureCollection that will be displayed in a map automatically. 
+    The result will be a GeoJSON FeatureCollection that will be displayed to the user in a map.
+    `return_geojson` should be true if the selected are expected to have geometries. 
     """
 
     def _run(
@@ -52,22 +54,41 @@ class CustomQuerySQLDataBaseTool(BaseSQLDatabaseTool, BaseTool):
 
         collection_query = collection_query_template.format(
             dynamic_query=query.strip(';'))
-        result = self.db.run_no_throw(collection_query, include_columns=True)
-        result = result.replace("'", '"').replace('None', 'null')
 
         try:
-            json_result = json.loads(result)[0]['jsonb_build_object']
-            path = 'output.json'
-            output_directory = os.getcwd()
-            path = os.path.join(output_directory, 'output.geojson')
-            with open(path, 'w') as file:
-                json.dump(json_result, file)
+            result = self.db._execute(collection_query)
+        except SQLAlchemyError as e:
+            """Format the error message"""
+            return f"Error: {e}"
+
+        try:
+            feature_collection = result[0]['jsonb_build_object']
+            output_path = os.path.join(os.getcwd(), 'output.geojson')
+
+            with open(output_path, 'w') as file:
+                json.dump(feature_collection, file)
 
             return {
-                'path': path,
-                'num_features': len(json_result['features'])
-                # 'geojson': json_result  # TODO: Compress this to avoid context window issues
+                'path': output_path,
+                'num_features': len(feature_collection['features'])
             }
+        except json.JSONDecodeError as e:
+            return f"Error parsing JSON result: {str(e)}"
 
-        except:
-            return result
+        # # try:
+        # print('hei', result)
+        # json_result = json.loads(result)[0]['jsonb_build_object']
+        # path = 'output.json'
+        # output_directory = os.getcwd()
+        # path = os.path.join(output_directory, 'output.geojson')
+        # with open(path, 'w') as file:
+        #     json.dump(json_result, file)
+
+        # return {
+        #     'path': path,
+        #     'num_features': len(json_result['features'])
+        #     # 'geojson': json_result  # TODO: Compress this to avoid context window issues
+        # }
+
+        # # except:
+        # #     return result

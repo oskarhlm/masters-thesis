@@ -1,11 +1,9 @@
 digraph {
-	Roads [fillcolor=lightgreen style=filled]
-	Houses [fillcolor=lightgreen style=filled]
-	Buffer [fillcolor=skyblue style=filled]
-	Intersect [fillcolor=skyblue style=filled]
-	Result [fillcolor=deeppink style=filled]
-	Roads -> Buffer
-	Houses -> Intersect
-	Buffer -> Intersect
-	Intersect -> Result
+	"Load Noise Pollution Data" [fillcolor=lightgreen style=filled]
+	"Filter High Noise Roads" [fillcolor=skyblue style=filled]
+	"High Noise Road Segments" [fillcolor=orange style=filled]
+	"Noisiest Roads in Trondheim" [fillcolor=deeppink style=filled]
+	"Load Noise Pollution Data" -> "Filter High Noise Roads"
+	"Filter High Noise Roads" -> "High Noise Road Segments"
+	"High Noise Road Segments" -> "Noisiest Roads in Trondheim"
 }

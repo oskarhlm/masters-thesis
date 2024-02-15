@@ -11,6 +11,9 @@ export function addGeoJSONToMap(geojson: GeoJSON.FeatureCollection) {
   const layerId = sourceId;
   console.log(sourceId);
 
+  const randomHexColor = () =>
+    '#' + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0');
+
   map()!.addSource(sourceId, {
     type: 'geojson',
     data: geojson,
@@ -18,21 +21,25 @@ export function addGeoJSONToMap(geojson: GeoJSON.FeatureCollection) {
   });
 
   if (geojson.features[0].geometry.type === 'MultiLineString') {
+    console.log(geojson);
     map()!.addLayer({
       id: layerId,
       type: 'line',
       source: sourceId,
       paint: {
-        'line-color':
-          '#' + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0'),
+        'line-color': randomHexColor(),
         'line-width': 3,
       },
     });
   } else if (geojson.features[0].geometry.type === 'Polygon') {
+    console.log(geojson);
     map()!.addLayer({
       id: layerId,
       type: 'fill',
       source: sourceId,
+      paint: {
+        'fill-color': randomHexColor(),
+      },
     });
   } else {
     console.error(

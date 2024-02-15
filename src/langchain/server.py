@@ -138,6 +138,7 @@ async def stream_response(message: str):
                     CustomQuerySQLDataBaseTool,
                     QueryOGCAPIFeaturesCollectionTool]):
                 try:
+                    # yield create_data_event({'geojson_path': json.loads(value.content)["path"]})
                     yield create_data_event({'geojson_path': json.loads(value.content)["path"]})
                 except:
                     print('Output type is not GeoJSON')

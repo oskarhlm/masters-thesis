@@ -34,30 +34,30 @@ services:
     volumes:
       - redis-data:/data
 
-  langchain-server:
-    build: ./langchain
-    ports:
-      - 8003:8000
-    env_file: .env
-    environment:
-      - IS_DOCKER_CONTAINER=true
-      - REDIS_URL=redis://redis-db:6379docker
-    depends_on:
-      - redis-db
-    develop:
-      watch:
-        - action: rebuild
-          path: ./langchain
+  # langchain-server:
+  #   build: ./langchain
+  #   ports:
+  #     - 8003:8000
+  #   env_file: .env
+  #   environment:
+  #     - IS_DOCKER_CONTAINER=true
+  #     - REDIS_URL=redis://redis-db:6379docker
+  #   depends_on:
+  #     - redis-db
+  #   develop:
+  #     watch:
+  #       - action: rebuild
+  #         path: ./langchain
 
-  solidjs-client:
-    build: ./frontend
-    ports:
-      - 3001:5173
-    env_file: .env
-    develop:
-      watch:
-        - action: rebuild
-          path: ./frontend
+  # solidjs-client:
+  #   build: ./frontend
+  #   ports:
+  #     - 3001:5173
+  #   env_file: .env
+  #   develop:
+  #     watch:
+  #       - action: rebuild
+  #         path: ./frontend
 
 volumes:
   redis-data:

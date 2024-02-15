@@ -18,6 +18,7 @@ def create_sql_agent(session_id: str = None):
         [
             SystemMessage(content=(
                 'You are a helpful GIS agent/consultant.\n'
+                'Table names should be surrounded in double quotes.\n'
             )),
             MessagesPlaceholder(variable_name=MEMORY_KEY),
             HumanMessagePromptTemplate.from_template("{input}"),
