@@ -5,7 +5,7 @@ from langchain.agents import create_openai_tools_agent, AgentExecutor
 from langchain.tools.requests.tool import RequestsGetTool
 from langchain.requests import RequestsWrapper
 
-from lib.tools.aof_tools.query_collection import QueryOGCAPIFeaturesCollectionTool
+from lib.tools.oaf_tools.query_collection import QueryOGCAPIFeaturesCollectionTool
 from ..sessions import MEMORY_KEY, get_session
 
 
@@ -14,7 +14,7 @@ Then I should query the properties of the relevant collection (http://localhost:
 before using CQL queries to answer the user's request."""
 
 
-def create_aof_agent(session_id: str = None):
+def create_oaf_agent(session_id: str = None):
     prompt = ChatPromptTemplate.from_messages(
         [
             SystemMessage(content=(

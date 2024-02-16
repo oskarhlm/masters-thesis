@@ -31,10 +31,9 @@ export class LLMInterpreter {
       }
 
       if (data.geojson_path) {
-        console.log(data.geojson_path);
+        console.log(data.layer_name);
         const res = await get('/geojson');
-        console.log(res);
-        addGeoJSONToMap(res);
+        addGeoJSONToMap(res, data.layer_name);
       }
 
       onMessageCallback(data.message);

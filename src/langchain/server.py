@@ -1,10 +1,11 @@
+from enum import Enum
 import os
 import json
-from typing import Dict, Any, List, Optional, Union
+from typing import Dict, Any, List
 
 from fastapi.responses import StreamingResponse
-from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import HTTPException
 from dotenv import load_dotenv
 from langchain_core.agents import AgentStep, AgentAction
 from langchain.agents import AgentExecutor
@@ -15,8 +16,9 @@ import tempfile
 
 from lib.agents.tool_agent import create_tool_agent, MEMORY_KEY
 from lib.agents.sql_agent.agent import create_sql_agent, CustomQuerySQLDataBaseTool
-from lib.agents.oaf_agent.agent import create_aof_agent
-from lib.tools.aof_tools.query_collection import QueryOGCAPIFeaturesCollectionTool
+from lib.agents.oaf_agent.agent import create_oaf_agent
+from lib.tools.oaf_tools.query_collection import QueryOGCAPIFeaturesCollectionTool
+from lib.utils.ai_suffix_selection import select_ai_suffix_message
 
 from pydantic import BaseModel
 
@@ -65,22 +67,29 @@ def get_session(session_id: str):
     }
 
 
-class SessionBody(BaseModel):
-    agent_type: str
+class AgentType(str, Enum):
+    SQL = 'sql'
+    OAF = 'oaf'
+    TOOL = 'tool'
+
+
+class SessionCreationRequest(BaseModel):
+    agent_type: AgentType
 
 
 @app.post('/session')
-def create_session(body: SessionBody):
+def create_session(body: SessionCreationRequest):
     print(f'agent type: {body.agent_type}')
     match body.agent_type:
-        case 'sql':
+        case AgentType.SQL:
             session_id, executor = create_sql_agent()
-        case 'oaf':
-            session_id, executor = create_aof_agent()
-        case _:
+        case AgentType.OAF:
+            session_id, executor = create_oaf_agent()
+        case AgentType.TOOL:
             session_id, executor = create_tool_agent()
-
-    print(session_id)
+        case _:
+            raise HTTPException(
+                status_code=400, detail="Unsupported agent type")
 
     global agent_executor
     agent_executor = executor
@@ -115,9 +124,9 @@ def chat_endpoint(message: str):
     return StreamingResponse(event_stream(), media_type='text/event-stream')
 
 
-def get_tool_names(uninvoked_tools: list[BaseTool]):
+def get_tool_names(tool_classes: list[BaseTool]):
     overlapping_tools = filter(lambda t: type(t).__name__ in [
-        uit.__name__ for uit in uninvoked_tools], agent_executor.tools)
+        tc.__name__ for tc in tool_classes], agent_executor.tools)
     return list(map(lambda t: t.name, overlapping_tools))
 
 
@@ -125,7 +134,10 @@ async def stream_response(message: str):
     tool_calls = {}
 
     async for chunk in agent_executor.astream_log(
-        {'input': message},
+        {
+            'input': message,
+            'ai_suffix': select_ai_suffix_message(agent_executor, message)
+        },
         include_names=['ChatOpenAI']
     ):
         for op in chunk.ops:
@@ -138,8 +150,8 @@ async def stream_response(message: str):
                     CustomQuerySQLDataBaseTool,
                     QueryOGCAPIFeaturesCollectionTool]):
                 try:
-                    # yield create_data_event({'geojson_path': json.loads(value.content)["path"]})
-                    yield create_data_event({'geojson_path': json.loads(value.content)["path"]})
+                    data = json.loads(value.content)
+                    yield create_data_event({'geojson_path': data["path"], 'layer_name': data['layer_name']})
                 except:
                     print('Output type is not GeoJSON')
 

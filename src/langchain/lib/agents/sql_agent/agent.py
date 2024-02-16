@@ -1,6 +1,6 @@
 from langchain_core.messages import AIMessage, SystemMessage
 from langchain_openai import ChatOpenAI
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder, HumanMessagePromptTemplate
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder, HumanMessagePromptTemplate, AIMessagePromptTemplate
 from langchain.agents import create_openai_tools_agent, AgentExecutor
 from langchain_community.agent_toolkits import SQLDatabaseToolkit
 from langchain.sql_database import SQLDatabase
@@ -9,8 +9,11 @@ from ..sessions import MEMORY_KEY, get_session
 from .query_tool import CustomQuerySQLDataBaseTool
 
 
-AI_SUFFIX = """I should look at the tables in the database to see what I can query.  
-Then I should query the schema of the most relevant tables, before doing an SQL query to answer the user's request."""
+# AI_SUFFIX = """I should look at the tables in the database to see what I can query.
+# Then I should query the schema of the most relevant tables, before doing an SQL query to answer the user's request.
+# If no relevant data is found in the database, I should use my background knowledge to give an approximate answer."""
+
+AI_SUFFIX = ''
 
 
 def create_sql_agent(session_id: str = None):
@@ -19,11 +22,12 @@ def create_sql_agent(session_id: str = None):
             SystemMessage(content=(
                 'You are a helpful GIS agent/consultant.\n'
                 'Table names should be surrounded in double quotes.\n'
+                'DO NOT waste time presenting schemas and example rows to the user.\n'
             )),
             MessagesPlaceholder(variable_name=MEMORY_KEY),
             HumanMessagePromptTemplate.from_template("{input}"),
-            # AIMessage(content=SQL_FUNCTIONS_SUFFIX),
-            AIMessage(content=AI_SUFFIX),
+            # AIMessage(content=AI_SUFFIX),
+            AIMessagePromptTemplate.from_template('{ai_suffix}'),
             MessagesPlaceholder(variable_name="agent_scratchpad"),
         ]
     )

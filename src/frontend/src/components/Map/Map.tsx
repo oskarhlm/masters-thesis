@@ -6,10 +6,13 @@ import { createSignal, onMount } from 'solid-js';
 
 export const [map, setMap] = createSignal<maplibregl.Map>();
 
-export function addGeoJSONToMap(geojson: GeoJSON.FeatureCollection) {
-  const sourceId = `geojson_data-${new Date().getTime()}`;
+export function addGeoJSONToMap(
+  geojson: GeoJSON.FeatureCollection,
+  layerName: string
+) {
+  // const sourceId = `geojson_data-${new Date().getTime()}`;
+  const sourceId = layerName;
   const layerId = sourceId;
-  console.log(sourceId);
 
   const randomHexColor = () =>
     '#' + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0');
@@ -17,34 +20,54 @@ export function addGeoJSONToMap(geojson: GeoJSON.FeatureCollection) {
   map()!.addSource(sourceId, {
     type: 'geojson',
     data: geojson,
-    // data: 'output.geojson',
   });
 
-  if (geojson.features[0].geometry.type === 'MultiLineString') {
-    console.log(geojson);
-    map()!.addLayer({
-      id: layerId,
-      type: 'line',
-      source: sourceId,
-      paint: {
-        'line-color': randomHexColor(),
-        'line-width': 3,
-      },
-    });
-  } else if (geojson.features[0].geometry.type === 'Polygon') {
-    console.log(geojson);
-    map()!.addLayer({
-      id: layerId,
-      type: 'fill',
-      source: sourceId,
-      paint: {
-        'fill-color': randomHexColor(),
-      },
-    });
-  } else {
-    console.error(
-      `Geometry ${geojson.features[0].geometry.type} is not yet supported.`
-    );
+  const geometryType = geojson.features[0].geometry.type;
+  if (!geometryType) {
+    console.error('Empty FeatureCollection');
+  }
+
+  switch (geometryType) {
+    case 'MultiLineString':
+    case 'LineString':
+      map()!.addLayer({
+        id: layerId,
+        type: 'line',
+        source: sourceId,
+        paint: {
+          'line-color': randomHexColor(),
+          'line-width': 3,
+        },
+      });
+      break;
+
+    case 'Polygon':
+    case 'MultiPolygon':
+      map()!.addLayer({
+        id: layerId,
+        type: 'fill',
+        source: sourceId,
+        paint: {
+          'fill-color': randomHexColor(),
+        },
+      });
+      break;
+
+    case 'Point':
+    case 'MultiPoint':
+      map()!.addLayer({
+        id: layerId,
+        type: 'circle',
+        source: sourceId,
+        paint: {
+          'circle-radius': 5,
+          'circle-color': randomHexColor(),
+        },
+      });
+      break;
+
+    default:
+      console.error(`Geometry ${geometryType} is not yet supported.`);
   }
 }
 
