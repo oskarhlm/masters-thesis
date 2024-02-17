@@ -13,8 +13,6 @@ from .query_tool import CustomQuerySQLDataBaseTool
 # Then I should query the schema of the most relevant tables, before doing an SQL query to answer the user's request.
 # If no relevant data is found in the database, I should use my background knowledge to give an approximate answer."""
 
-AI_SUFFIX = ''
-
 
 def create_sql_agent(session_id: str = None):
     prompt = ChatPromptTemplate.from_messages(

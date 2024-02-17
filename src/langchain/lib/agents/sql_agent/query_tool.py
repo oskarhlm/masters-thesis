@@ -7,6 +7,8 @@ from langchain_core.tools import BaseTool
 from pydantic import Field, BaseModel
 from sqlalchemy.exc import SQLAlchemyError
 
+from ...utils.token_limit import get_context_window_percentage
+
 
 collection_query_template = """
 SELECT jsonb_build_object(
@@ -27,7 +29,7 @@ FROM (
 class CustomQuerySQLDataBaseInput(BaseModel):
     query: str = Field(..., description=(
         'SQL query. NEVER perform conversion to GeoJSON; this is handled by the function automatically. '
-        'If show_in_map == True, select all columns.'
+        'Use column name `geom` to display results in a map.'
     ))
     # return_geojson: bool = Field(
     #     ..., description='Should be `True` if the the query is expected to include geometries.')
@@ -47,12 +49,11 @@ class CustomQuerySQLDataBaseTool(BaseSQLDatabaseTool, BaseTool):
     name: str = "sql_db_query"
     args_schema: Type[BaseModel] = CustomQuerySQLDataBaseInput
     description: str = """
-    Input to this tool is a detailed and correct SQL query, output is a path to a file storing the results.
+    Input to this tool is a detailed and correct SQL query.
+    The result will be a GeoJSON FeatureCollection that will be displayed to the user in a map.
     If the query is not correct, an error message will be returned.
     If an error is returned, rewrite the query, check the query, and try again.
-    If no database table seems to contain the information you need, just answer using you background knowledge.
-    The result will be a GeoJSON FeatureCollection that will be displayed to the user in a map.
-    `return_geojson` should be true if the selected are expected to have geometries. 
+    Be mindful of what units go with the CRS of the data. 
     """
 
     def _run(
@@ -64,11 +65,23 @@ class CustomQuerySQLDataBaseTool(BaseSQLDatabaseTool, BaseTool):
         """Execute the query, return the results or an error message."""
         try:
             result = self.db._execute(query)
+
             if len(result) and 'geom' not in result[0].keys():
+                if (percentage := get_context_window_percentage(
+                        str(result), os.getenv('GPT3_MODEL_NAME'))) > 0.5:
+                    raise ValueError(
+                        (
+                            f'The query result is probably too big in relation to your context window ({round(percentage*100)}%).\n'
+                            'Here is a preview of the result:\n\n'
+                            f'{str(result)[:1000]}'
+                        ))
+
                 return result
         except SQLAlchemyError as e:
             """Format the error message"""
             return f"Error: {e}"
+        except ValueError as e:
+            return str(e)
 
         collection_query = collection_query_template.format(
             dynamic_query=query.strip(';'))
