@@ -6,11 +6,12 @@ from langchain_core.callbacks import (
 from langchain_core.tools import BaseTool
 from langchain_community.tools.sql_database.tool import BaseSQLDatabaseTool
 
+# 'table_name', pg_namespace.nspname || '.' || pg_class.relname,
 
 QUERY = """
 SELECT 
     json_agg(json_build_object(
-        'table_name', pg_namespace.nspname || '.' || pg_class.relname,
+        'table_name', pg_class.relname,
         'comment', pd.description
     )) AS table_comments
 FROM 

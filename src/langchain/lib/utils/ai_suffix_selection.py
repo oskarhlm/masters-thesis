@@ -20,9 +20,9 @@ def select_ai_suffix_message(agent_executor: AgentExecutor, user_query: str) -> 
             "First, I should look at the tables in the database to see what I can query.\n"
             "Then I should query the schema of the most relevant tables (and not presenting unneccessary details to the human), before doing an SQL query to answer the user's request.\n"
             "Before querying, I should double check that the query is correct.\n"
-            "If all fails, I should use my background knowledge to give an approximate answer.",
+            "If all fails, I should use my background knowledge to give an approximate answer."
         ),
-        # "I should use my background knowledge to give an approximate answer.",
+        "I should use my background knowledge to give an approximate answer.",
     ]
 
     messages = agent_executor.agent.dict()['runnable']['middle'][0]['messages']

@@ -32,4 +32,5 @@ model_token_mapping = {
 
 def get_context_window_percentage(text: str, model_name: str) -> float:
     enc = tiktoken.encoding_for_model(model_name)
+    print(text, len(enc.encode(text)), model_token_mapping[model_name])
     return len(enc.encode(text)) / model_token_mapping[model_name]

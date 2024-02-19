@@ -8,6 +8,7 @@ from langchain.sql_database import SQLDatabase
 from ..sessions import MEMORY_KEY, get_session
 from .query_tool import CustomQuerySQLDataBaseTool
 from .db_list_tool import CustomListSQLDatabaseTool
+from .db_info_tool import CustomInfoSQLDatabaseTool
 
 
 # AI_SUFFIX = """I should look at the tables in the database to see what I can query.
@@ -40,12 +41,14 @@ def create_sql_agent(session_id: str = None):
 
     tools = list(filter(lambda x: x.name not in [
                  'sql_db_query',
-                 #  'sql_db_list_tables'
+                 'sql_db_list_tables',
+                 'sql_db_schema'
                  ], tools))
 
     tools += [
         CustomQuerySQLDataBaseTool(db=db),
-        CustomListSQLDatabaseTool(db=db)
+        CustomListSQLDatabaseTool(db=db),
+        CustomInfoSQLDatabaseTool(db=db)
     ]
 
     prompt = prompt.partial(**context)
