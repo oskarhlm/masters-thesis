@@ -1,8 +1,9 @@
 import './styles.css';
-import maplibregl from 'maplibre-gl';
+import maplibregl, { Padding } from 'maplibre-gl';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { createSignal, onMount } from 'solid-js';
+import bbox from '@turf/bbox';
 
 export const [map, setMap] = createSignal<maplibregl.Map>();
 
@@ -10,7 +11,6 @@ export function addGeoJSONToMap(
   geojson: GeoJSON.FeatureCollection,
   layerName: string
 ) {
-  // const sourceId = `geojson_data-${new Date().getTime()}`;
   const sourceId = layerName;
   const layerId = sourceId;
 
@@ -69,6 +69,10 @@ export function addGeoJSONToMap(
     default:
       console.error(`Geometry ${geometryType} is not yet supported.`);
   }
+
+  const bounds = bbox(geojson);
+  console.log(bounds);
+  map()!.fitBounds(bounds as any, { padding: 20 });
 }
 
 export default function Map() {

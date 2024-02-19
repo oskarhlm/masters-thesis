@@ -7,6 +7,7 @@ from langchain.sql_database import SQLDatabase
 
 from ..sessions import MEMORY_KEY, get_session
 from .query_tool import CustomQuerySQLDataBaseTool
+from .db_list_tool import CustomListSQLDatabaseTool
 
 
 # AI_SUFFIX = """I should look at the tables in the database to see what I can query.
@@ -20,7 +21,7 @@ def create_sql_agent(session_id: str = None):
             SystemMessage(content=(
                 'You are a helpful GIS agent/consultant.\n'
                 'Table names should be surrounded in double quotes.\n'
-                'DO NOT waste time presenting schemas and example rows to the user.\n'
+                # 'DO NOT waste time presenting schemas and example rows to the user.\n'
             )),
             MessagesPlaceholder(variable_name=MEMORY_KEY),
             HumanMessagePromptTemplate.from_template("{input}"),
@@ -36,8 +37,16 @@ def create_sql_agent(session_id: str = None):
     toolkit = SQLDatabaseToolkit(db=db, llm=ChatOpenAI(temperature=0))
     context = toolkit.get_context()  # Context not currently included in prompt
     tools = [*toolkit.get_tools()]
-    tools = list(filter(lambda x: x.name != 'sql_db_query', tools))
-    tools.append(CustomQuerySQLDataBaseTool(db=db))
+
+    tools = list(filter(lambda x: x.name not in [
+                 'sql_db_query',
+                 #  'sql_db_list_tables'
+                 ], tools))
+
+    tools += [
+        CustomQuerySQLDataBaseTool(db=db),
+        CustomListSQLDatabaseTool(db=db)
+    ]
 
     prompt = prompt.partial(**context)
 

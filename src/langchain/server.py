@@ -5,7 +5,7 @@ from typing import Dict, Any, List
 
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import HTTPException
+from fastapi import HTTPException, WebSocket
 from dotenv import load_dotenv
 from langchain_core.agents import AgentStep, AgentAction
 from langchain.agents import AgentExecutor
@@ -190,6 +190,15 @@ def get_geojson(geojson_path: str = "output.geojson"):
     with open(geojson_path, "r") as file:
         geojson_data = file.read()
     return json.loads(geojson_data)
+
+
+# @app.websocket("/ws")
+# async def websocket_endpoint(websocket: WebSocket):
+#     await websocket.accept()
+#     await websocket.send_text(f"Halla klienten")
+    # while True:
+    #     data = await websocket.receive_text()
+    #     await websocket.send_text(f"Message text was: {data}")
 
 
 @app.get('/history')

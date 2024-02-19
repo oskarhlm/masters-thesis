@@ -7,6 +7,15 @@ import Input from './Input';
 import { chatElements } from './chatStore';
 import AgentSelector from './AgentSelector';
 
+var ws = new WebSocket('ws://localhost:8000/ws');
+ws.onmessage = function (event) {
+  console.log(event.data);
+};
+
+function sendMessage(msg: string) {
+  ws.send(msg);
+}
+
 const Chat = () => {
   let chatBottomRef: HTMLDivElement;
 
@@ -30,6 +39,7 @@ const Chat = () => {
         <div ref={chatBottomRef!} />
       </div>
       <Input chatBottomRef={chatBottomRef!} />
+      {/* <button onclick={() => sendMessage('hello_there')}>Send via WS</button> */}
     </div>
   );
 };
