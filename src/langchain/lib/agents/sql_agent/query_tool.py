@@ -97,12 +97,13 @@ class CustomQuerySQLDataBaseTool(BaseSQLDatabaseTool, BaseTool):
             if len(feature_collection['features']) == 0:
                 raise ValueError("No features found in the result.")
 
-            output_path = os.path.join(os.getcwd(), 'output.geojson')
+            output_path = os.path.join(
+                os.getcwd(), 'output_data', f'{layer_name}.geojson')
             with open(output_path, 'w') as file:
                 json.dump(feature_collection, file)
 
             return {
-                'path': output_path,
+                # 'path': output_path,
                 'num_features': len(feature_collection['features']),
                 'layer_name': layer_name
             }

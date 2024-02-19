@@ -153,7 +153,10 @@ async def stream_response(message: str):
                     QueryOGCAPIFeaturesCollectionTool]):
                 try:
                     data = json.loads(value.content)
-                    yield create_data_event({'geojson_path': data["path"], 'layer_name': data['layer_name']})
+                    yield create_data_event({
+                        'geojson_path': f'/home/dev/master-thesis/src/langchain/output_data/{data["layer_name"]}.geojson',
+                        'layer_name': data['layer_name']
+                    })
                 except:
                     print('Output type is not GeoJSON')
 

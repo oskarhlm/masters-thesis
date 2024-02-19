@@ -7,6 +7,9 @@ cache/
 # C extensions
 *.so
 
+*.geojson
+output_data/
+
 # Distribution / packaging
 .Python
 build/

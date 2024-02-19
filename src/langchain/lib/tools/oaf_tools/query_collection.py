@@ -52,9 +52,7 @@ class QueryOGCAPIFeaturesCollectionTool(BaseTool):
         url = f'http://localhost:9000/collections/{collection_name}/items?filter={cql}&limit=5000'
         try:
             geojson_response = requests.get(url)
-            path = 'output.json'
-            output_directory = os.getcwd()
-            path = os.path.join(output_directory, 'output.geojson')
+            path = os.path.join(os.getcwd(), f'{layer_name}.geojson')
             with open(path, 'w') as file:
                 json.dump(geojson_response, file)
 
@@ -74,14 +72,13 @@ class QueryOGCAPIFeaturesCollectionTool(BaseTool):
                 res = await client.get(url)
                 res.raise_for_status()
                 geojson_response = res.json()
-                path = 'output.geojson'
-                output_directory = os.getcwd()
-                path = os.path.join(output_directory, path)
+                path = os.path.join(
+                    os.getcwd(), 'output_data', f'{layer_name}.geojson')
                 with open(path, 'w') as file:
                     json.dump(geojson_response, file)
 
                 return {
-                    'path': path,
+                    # 'path': path,
                     'geojson_description': describe_geojson_feature_collection(geojson_response),
                     'layer_name': layer_name
                 }
