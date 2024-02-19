@@ -2,6 +2,7 @@ from enum import Enum
 import os
 import json
 from typing import Dict, Any, List
+import re
 
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -141,6 +142,7 @@ async def stream_response(message: str):
         include_names=['ChatOpenAI']
     ):
         for op in chunk.ops:
+            # print(op)
             if op['op'] != 'add':
                 continue
 
@@ -154,6 +156,9 @@ async def stream_response(message: str):
                     yield create_data_event({'geojson_path': data["path"], 'layer_name': data['layer_name']})
                 except:
                     print('Output type is not GeoJSON')
+
+            if 'generations' in op['value'] and len(op['value']['generations'][0][0]['text']) > 0:
+                yield create_data_event({'message_end': True})
 
             if not isinstance(value, AIMessageChunk):
                 continue

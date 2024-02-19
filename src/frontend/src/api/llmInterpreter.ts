@@ -9,7 +9,7 @@ export const [sessionId, setSessionId] = createSignal<string | null>(null);
 export class LLMInterpreter {
   static async chatStream(
     message: string,
-    onMessageCallback: (message: string) => void
+    onMessageCallback: (message: string, messageEnd?: boolean) => void
   ) {
     const eventSource = new EventSource(
       `${BASE_URL}/streaming-chat?message=${message}`
@@ -34,6 +34,10 @@ export class LLMInterpreter {
         console.log(data.layer_name);
         const res = await get('/geojson');
         addGeoJSONToMap(res, data.layer_name);
+      }
+
+      if (data.message_end) {
+        onMessageCallback(undefined, true);
       }
 
       onMessageCallback(data.message);

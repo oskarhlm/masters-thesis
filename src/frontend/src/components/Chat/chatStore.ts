@@ -33,16 +33,29 @@ export function addStreamingChatMessage(
   source: MessageSource,
   callback?: () => void
 ) {
-  const messageId = createUniqueId();
+  let messageId = createUniqueId();
   addChatMessage('', source, messageId);
 
-  return (nextToken: string | undefined) => {
+  return (nextToken: string | undefined, messageEnd?: boolean) => {
     if (nextToken) {
+      if (
+        !chatElements.find((el) => el.type === 'message' && el.id === messageId)
+      ) {
+        addChatMessage('', source, messageId);
+      }
+
       setChatElements(
-        (el) => el.type === 'message' && el.id === messageId,
+        (el) => {
+          console.log(messageId);
+          return el.type === 'message' && el.id === messageId;
+        },
         'message' as any,
         (msg) => msg + nextToken
       );
+    }
+
+    if (messageEnd) {
+      messageId = createUniqueId();
     }
 
     callback && callback();

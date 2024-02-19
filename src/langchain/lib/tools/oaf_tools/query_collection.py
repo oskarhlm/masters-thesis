@@ -33,6 +33,8 @@ class QueryOGCAPIFeaturesCollectionInput(BaseModel):
         ..., description='The name of the collection to be queried')
     cql: str = Field(..., description=("CQL (common query language) to be used for filtering like:\n"
                                        "'http://{BASE_URL}/collections/{collection_name}/items?filter=< cql goes here >"))
+    layer_name: str = Field(...,
+                            description='Name of the layer that\'s created from the query')
 
 
 class QueryOGCAPIFeaturesCollectionTool(BaseTool):
@@ -46,7 +48,7 @@ class QueryOGCAPIFeaturesCollectionTool(BaseTool):
         "The items will be stored in a file, the path of which will be returned to you."
     )
 
-    def _run(self, collection_name: str, cql: str, *args: Any, **kwargs: Any) -> Any:
+    def _run(self, collection_name: str, cql: str, layer_name: str, *args: Any, **kwargs: Any) -> Any:
         url = f'http://localhost:9000/collections/{collection_name}/items?filter={cql}&limit=5000'
         try:
             geojson_response = requests.get(url)
@@ -58,12 +60,13 @@ class QueryOGCAPIFeaturesCollectionTool(BaseTool):
 
             return {
                 'path': path,
-                'geojson_description': describe_geojson_feature_collection(geojson_response)
+                'geojson_description': describe_geojson_feature_collection(geojson_response),
+                'layer_name': layer_name
             }
         except requests.RequestException as e:
             return {'error': str(e)}
 
-    async def _arun(self, collection_name: str, cql: str, *args: Any, **kwargs: Any) -> Any:
+    async def _arun(self, collection_name: str, cql: str, layer_name: str, *args: Any, **kwargs: Any) -> Any:
         url = f'http://localhost:9000/collections/{collection_name}/items?filter={cql}&limit=5000'
         print(url)
         try:
@@ -79,7 +82,8 @@ class QueryOGCAPIFeaturesCollectionTool(BaseTool):
 
                 return {
                     'path': path,
-                    'geojson_description': describe_geojson_feature_collection(geojson_response)
+                    'geojson_description': describe_geojson_feature_collection(geojson_response),
+                    'layer_name': layer_name
                 }
         except httpx.HTTPStatusError as e:
             return (

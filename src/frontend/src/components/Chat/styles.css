@@ -151,6 +151,10 @@
   background-color: var(--cg-white);
 }
 
+.message.bot + .group-header.bot {
+  display: none;
+}
+
 .group-header {
   color: var(--cg-black);
   font-size: 12px;

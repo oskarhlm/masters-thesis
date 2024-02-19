@@ -34,4 +34,4 @@ class CustomInfoSQLDatabaseTool(BaseSQLDatabaseTool, BaseTool):
 
         return self.db.get_table_info_no_throw(
             [t.strip() for t in table_names.split(",")]
-        ) + '\n\nTHIS IS FOR YOU USE ONLY, DO NOT PRESENT ALL THIS INFORMATION TO THE HUMAN.'
+        ) + '\n\nTHIS IS FOR YOUR USE ONLY, DO NOT PRESENT ALL THIS INFORMATION TO THE HUMAN.'
