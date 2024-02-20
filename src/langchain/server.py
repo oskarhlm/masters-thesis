@@ -2,20 +2,18 @@ from enum import Enum
 import os
 import json
 from typing import Dict, Any, List
-import re
 
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import HTTPException, WebSocket
+from fastapi import HTTPException, Request
 from dotenv import load_dotenv
-from langchain_core.agents import AgentStep, AgentAction
 from langchain.agents import AgentExecutor
 from langchain.tools import BaseTool
 from langchain_core.messages import AIMessageChunk, FunctionMessage
 from fastapi import FastAPI, UploadFile, File, Form
 import tempfile
 
-from lib.agents.tool_agent import create_tool_agent, MEMORY_KEY
+from lib.agents.tool_agent import create_tool_agent
 from lib.agents.sql_agent.agent import create_sql_agent, CustomQuerySQLDataBaseTool
 from lib.agents.oaf_agent.agent import create_oaf_agent
 from lib.tools.oaf_tools.query_collection import QueryOGCAPIFeaturesCollectionTool
@@ -58,7 +56,6 @@ def get_session(session_id: str):
         return 'No session ID provided'
 
     session_id, executor = create_tool_agent(session_id)
-    print(session_id)
 
     global agent_executor
     agent_executor = executor
@@ -100,30 +97,6 @@ def create_session(body: SessionCreationRequest):
         'session_id': session_id,
         'chat_history': agent_executor.memory.chat_memory.messages
     }
-
-
-@app.get('/chat')
-def chat_endpoint(message: str):
-    def event_stream():
-        for chunk in agent_executor.stream({'input': message, MEMORY_KEY: []}):
-            if 'actions' in chunk:
-                actions: List[AgentAction] = chunk['actions']
-                for action in actions:
-                    yield create_data_event({
-                        'message': f"Calling Tool `{action.tool}` with input `{action.tool_input}`"
-                    })
-            elif 'steps' in chunk:
-                steps: List[AgentStep] = chunk['steps']
-                for step in steps:
-                    yield create_data_event({
-                        'message': f'Got result: `{step.observation}`'
-                    })
-            if 'output' in chunk:
-                output: str = chunk['output']
-                yield create_data_event({'message': output})
-        yield create_data_event({'stream_complete': True})
-
-    return StreamingResponse(event_stream(), media_type='text/event-stream')
 
 
 def get_tool_names(tool_classes: list[BaseTool]):
@@ -202,38 +175,22 @@ async def chat_endpoint(message: str):
     return StreamingResponse(stream_response(message), media_type='text/event-stream')
 
 
+@app.post('/update-map-state')
+async def update_map_state(state_data: Request):
+    print(f'Received map state data: ', state_data)
+
+    file_path = 'map_state_data.json'
+    with open(file_path, 'w') as file:
+        json.dump(await state_data.json(), file, indent=4)
+
+    return {"message": "State data received and stored successfully"}
+
+
 @app.get('/geojson')
 def get_geojson(geojson_path: str = "output.geojson"):
     with open(geojson_path, "r") as file:
         geojson_data = file.read()
     return json.loads(geojson_data)
-
-
-# global ws
-
-
-# class WebSocketManager:
-#     def __init__(self):
-#         self.clients: List[WebSocket] = []
-
-#     async def connect(self, websocket: WebSocket):
-#         await websocket.accept()
-#         self.clients.append(websocket)
-
-#     def disconnect(self, websocket: WebSocket):
-#         self.clients.remove(websocket)
-
-#     async def send_message(self, message: str, client: WebSocket):
-#         await client.send_text(message)
-
-# websocket_manager = WebSocketManager()
-
-@app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket):
-    await websocket.accept()
-    while True:
-        data = await websocket.receive_json()
-        await websocket.send_text(f'Data was: {data}')
 
 
 @app.get('/history')

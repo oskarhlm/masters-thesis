@@ -23,6 +23,7 @@ def select_ai_suffix_message(agent_executor: AgentExecutor, user_query: str) -> 
             "If all fails, I should use my background knowledge to give an approximate answer."
         ),
         "I should use my background knowledge to give an approximate answer.",
+        "I should check the state of the map (which the user is looking at on the client), and then answer the their request.",
     ]
 
     messages = agent_executor.agent.dict()['runnable']['middle'][0]['messages']

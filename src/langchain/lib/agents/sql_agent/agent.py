@@ -14,6 +14,7 @@ from .db_list_tool import CustomListSQLDatabaseTool
 from .db_info_tool import CustomInfoSQLDatabaseTool
 from .query import INFO_QUERY
 # from ...tools.map_interaction.set_layer_paint import SetMapLayerPaintTool
+from ...tools.map_interaction.get_map_state import GetMapStateTool
 
 
 # AI_SUFFIX = """I should look at the tables in the database to see what I can query.
@@ -91,7 +92,8 @@ def create_sql_agent(session_id: str = None):
             db=db,
             llm=ChatOpenAI(temperature=0),
             template=QUERY_CHECKER
-        )
+        ),
+        GetMapStateTool()
         # SetMapLayerPaintTool()
     ]
 

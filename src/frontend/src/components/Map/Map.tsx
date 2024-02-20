@@ -4,6 +4,7 @@ import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { createSignal, onMount } from 'solid-js';
 import bbox from '@turf/bbox';
+import { updateMapState } from '../../api/mapState';
 
 export const [map, setMap] = createSignal<maplibregl.Map>();
 
@@ -81,21 +82,6 @@ export function addGeoJSONToMap(
       .getStyle()
       .layers.filter((l) => addedLayers.includes(l.id))
   );
-
-  sendMessage(
-    map()!
-      .getStyle()
-      .layers.filter((l) => addedLayers.includes(l.id))
-  );
-}
-
-const ws = new WebSocket('ws://localhost:8000/ws');
-ws.onmessage = (event) => {
-  console.log(event.data);
-};
-
-function sendMessage(msg: object) {
-  ws.send(JSON.stringify(msg));
 }
 
 export default function Map() {
@@ -109,6 +95,10 @@ export default function Map() {
       center: [10.421906, 63.4],
       zoom: 10,
     });
+
+    map.on('load', updateMapState);
+    map.on('moveend', updateMapState);
+
     setMap(map);
   });
 

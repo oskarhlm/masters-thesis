@@ -1,0 +1,32 @@
+{
+    "center": {
+        "lng": 10.315412783000056,
+        "lat": 63.32068482345329
+    },
+    "bounds": {
+        "_sw": {
+            "lng": 10.292858067746295,
+            "lat": 63.308939215105624
+        },
+        "_ne": {
+            "lng": 10.337967498251686,
+            "lat": 63.332425641980166
+        }
+    },
+    "zoom": {
+        "current": 12.913564928538856,
+        "max": 22,
+        "min": -2
+    },
+    "layers": [
+        {
+            "id": "veger_med_fartsgrense_100",
+            "type": "line",
+            "source": "veger_med_fartsgrense_100",
+            "paint": {
+                "line-color": "#4df972",
+                "line-width": 3
+            }
+        }
+    ]
+}

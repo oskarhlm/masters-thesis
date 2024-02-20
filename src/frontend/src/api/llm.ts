@@ -1,7 +1,8 @@
 import { createSignal } from 'solid-js';
-import { get, BASE_URL, del, post } from './apiHelper';
+import { get, BASE_URL, post } from './apiHelper';
 import { addGeoJSONToMap } from '../components/Map/Map';
 import { AgentType } from '../components/Chat/types';
+import { updateMapState } from './mapState';
 
 export const [isStreaming, setIsStreaming] = createSignal(false);
 export const [sessionId, setSessionId] = createSignal<string | null>(null);
@@ -20,10 +21,11 @@ export class LLM {
 
     setIsStreaming(true);
 
-    const closeStream = () => {
+    const closeStream = async () => {
       console.log('Closing the stream.');
       eventSource.close();
       setIsStreaming(false);
+      updateMapState();
     };
 
     eventSource.onmessage = async (event) => {
@@ -90,16 +92,6 @@ export class LLM {
       return response;
     } catch (error) {
       console.error('Error in OpenInterpreter.chat:', error);
-      throw error;
-    }
-  }
-
-  static async clearHistory() {
-    try {
-      const response = await del('/history');
-      return response;
-    } catch (error) {
-      console.error('Could not delete history stored on server:', error);
       throw error;
     }
   }
