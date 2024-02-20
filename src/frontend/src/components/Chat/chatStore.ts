@@ -1,4 +1,4 @@
-import { AgentType, ChatElement, MessageSource } from './types';
+import { ChatElement, MessageSource } from './types';
 import { createStore } from 'solid-js/store';
 
 export const [chatElements, setChatElements] = createStore<ChatElement[]>([
@@ -34,7 +34,6 @@ export function addStreamingChatMessage(
   callback?: () => void
 ) {
   let messageId = createUniqueId();
-  addChatMessage('', source, messageId);
 
   return (nextToken: string | undefined, messageEnd?: boolean) => {
     if (nextToken) {

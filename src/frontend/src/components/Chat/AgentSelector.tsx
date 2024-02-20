@@ -2,7 +2,7 @@ import { Component, For, createEffect, createSignal, onMount } from 'solid-js';
 import './styles.css';
 import { AgentType, agentTypesArray } from './types';
 import { chatElements } from './chatStore';
-import { LLMInterpreter } from '../../api/llmInterpreter';
+import { LLM } from '../../api/llm';
 
 export const [selectedAgentType, setSelectedAgentType] =
   createSignal<AgentType>(
@@ -26,7 +26,7 @@ const AgentSelector: Component = () => {
   });
 
   createEffect(() => {
-    LLMInterpreter.createSession(selectedAgentType());
+    LLM.createSession(selectedAgentType());
   });
 
   return (

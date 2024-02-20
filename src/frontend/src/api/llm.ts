@@ -6,7 +6,7 @@ import { AgentType } from '../components/Chat/types';
 export const [isStreaming, setIsStreaming] = createSignal(false);
 export const [sessionId, setSessionId] = createSignal<string | null>(null);
 
-export class LLMInterpreter {
+export class LLM {
   static async chatStream(
     message: string,
     onMessageCallback: (

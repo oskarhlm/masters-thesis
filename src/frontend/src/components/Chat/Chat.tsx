@@ -10,6 +10,7 @@ import AgentSelector from './AgentSelector';
 // var ws = new WebSocket('ws://localhost:8000/ws');
 // ws.onmessage = function (event) {
 //   console.log(event.data);
+//   sendMessage(event.data);
 // };
 
 // function sendMessage(msg: string) {
@@ -39,6 +40,7 @@ const Chat = () => {
         <div ref={chatBottomRef!} />
       </div>
       <Input chatBottomRef={chatBottomRef!} />
+      {/* <button onclick={() => sendMessage('hei')}>send</button> */}
     </div>
   );
 };

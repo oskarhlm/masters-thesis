@@ -20,6 +20,7 @@ from lib.agents.sql_agent.agent import create_sql_agent, CustomQuerySQLDataBaseT
 from lib.agents.oaf_agent.agent import create_oaf_agent
 from lib.tools.oaf_tools.query_collection import QueryOGCAPIFeaturesCollectionTool
 from lib.utils.ai_suffix_selection import select_ai_suffix_message
+# from lib.tools.map_interaction.set_layer_paint import SetMapLayerPaintTool
 
 from pydantic import BaseModel
 
@@ -148,6 +149,11 @@ async def stream_response(message: str):
 
             value = op['value']
 
+            # if isinstance(value, FunctionMessage) and value.name in get_tool_names([
+            #         SetMapLayerPaintTool]):
+            #     print(value.name, json.loads(value.content))
+            #     await ws.send_json(json.loads(value.content))
+
             if isinstance(value, FunctionMessage) and value.name in get_tool_names([
                     CustomQuerySQLDataBaseTool,
                     QueryOGCAPIFeaturesCollectionTool]):
@@ -200,14 +206,37 @@ def get_geojson(geojson_path: str = "output.geojson"):
     return json.loads(geojson_data)
 
 
+# global ws
+
+
+# class WebSocketManager:
+#     def __init__(self):
+#         self.clients: List[WebSocket] = []
+
+#     async def connect(self, websocket: WebSocket):
+#         await websocket.accept()
+#         self.clients.append(websocket)
+
+#     def disconnect(self, websocket: WebSocket):
+#         self.clients.remove(websocket)
+
+#     async def send_message(self, message: str, client: WebSocket):
+#         await client.send_text(message)
+
+# websocket_manager = WebSocketManager()
+
 # @app.websocket("/ws")
 # async def websocket_endpoint(websocket: WebSocket):
-#     await websocket.accept()
-#     await websocket.send_text(f"Halla klienten")
-    # while True:
-    #     data = await websocket.receive_text()
-    #     await websocket.send_text(f"Message text was: {data}")
-
+#     await websocket_manager.connect(websocket)
+#     try:
+#         while True:
+#             data = await websocket.receive_json()
+#             # Handle received data
+#             await websocket.send_text(f"Response to client: {data}")
+#     except Exception as e:
+#         print(f"WebSocket Error: {e}")
+#     finally:
+#         websocket_manager.disconnect(websocket)
 
 @app.get('/history')
 def history():

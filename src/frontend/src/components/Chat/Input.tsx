@@ -1,9 +1,5 @@
 import './styles.css';
-import {
-  LLMInterpreter,
-  isStreaming,
-  sessionId,
-} from '../../api/llmInterpreter';
+import { LLM, isStreaming, sessionId } from '../../api/llm';
 import { addChatMessage, addStreamingChatMessage } from './chatStore';
 import {
   Component,
@@ -29,7 +25,7 @@ const Input: Component<Props> = (props) => {
 
   async function sendMessage() {
     if (files().length) {
-      await LLMInterpreter.uploadFiles(
+      await LLM.uploadFiles(
         files(),
         !textareaRef.value.length
           ? addStreamingChatMessage('bot', () => {
@@ -50,7 +46,7 @@ const Input: Component<Props> = (props) => {
       behavior: 'smooth',
     });
 
-    closeStream = await LLMInterpreter.chatStream(
+    closeStream = await LLM.chatStream(
       textareaRef.value,
       addStreamingChatMessage('bot', () => {
         props.chatBottomRef?.scrollIntoView({
