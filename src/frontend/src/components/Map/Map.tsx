@@ -81,6 +81,21 @@ export function addGeoJSONToMap(
       .getStyle()
       .layers.filter((l) => addedLayers.includes(l.id))
   );
+
+  sendMessage(
+    map()!
+      .getStyle()
+      .layers.filter((l) => addedLayers.includes(l.id))
+  );
+}
+
+const ws = new WebSocket('ws://localhost:8000/ws');
+ws.onmessage = (event) => {
+  console.log(event.data);
+};
+
+function sendMessage(msg: object) {
+  ws.send(JSON.stringify(msg));
 }
 
 export default function Map() {

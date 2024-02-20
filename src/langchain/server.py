@@ -166,7 +166,10 @@ async def stream_response(message: str):
                 except:
                     print('Output type is not GeoJSON')
 
-            if 'generations' in op['value'] and len(op['value']['generations'][0][0]['text']) > 0:
+            if ('generations' in op['value']
+                and len(op['value']['generations'][0][0]['text']) > 0
+                    and op['value']['generations'][0][0]['type'] == 'ChatGenerationChunk'):
+                # print(op)
                 yield create_data_event({'message_end': True})
 
             if not isinstance(value, AIMessageChunk):
@@ -225,18 +228,13 @@ def get_geojson(geojson_path: str = "output.geojson"):
 
 # websocket_manager = WebSocketManager()
 
-# @app.websocket("/ws")
-# async def websocket_endpoint(websocket: WebSocket):
-#     await websocket_manager.connect(websocket)
-#     try:
-#         while True:
-#             data = await websocket.receive_json()
-#             # Handle received data
-#             await websocket.send_text(f"Response to client: {data}")
-#     except Exception as e:
-#         print(f"WebSocket Error: {e}")
-#     finally:
-#         websocket_manager.disconnect(websocket)
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        data = await websocket.receive_json()
+        await websocket.send_text(f'Data was: {data}')
+
 
 @app.get('/history')
 def history():

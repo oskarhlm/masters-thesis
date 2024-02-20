@@ -45,7 +45,6 @@ export function addStreamingChatMessage(
 
       setChatElements(
         (el) => {
-          console.log(messageId);
           return el.type === 'message' && el.id === messageId;
         },
         'message' as any,

@@ -43,6 +43,7 @@ export class LLM {
 
       if (data.message_end) {
         onMessageCallback(undefined, true);
+        return;
       }
 
       onMessageCallback(data.message);

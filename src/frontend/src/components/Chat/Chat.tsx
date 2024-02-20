@@ -7,16 +7,6 @@ import Input from './Input';
 import { chatElements } from './chatStore';
 import AgentSelector from './AgentSelector';
 
-// var ws = new WebSocket('ws://localhost:8000/ws');
-// ws.onmessage = function (event) {
-//   console.log(event.data);
-//   sendMessage(event.data);
-// };
-
-// function sendMessage(msg: string) {
-//   ws.send(msg);
-// }
-
 const Chat = () => {
   let chatBottomRef: HTMLDivElement;
 

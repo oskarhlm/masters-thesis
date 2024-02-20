@@ -104,10 +104,7 @@ const Input: Component<Props> = (props) => {
           </For>
         </ul>
       </Show>
-      <div
-        class="input-container"
-        style={`pointer-events: ${sessionId() ? 'all' : 'none'}`}
-      >
+      <div class="input-container">
         <label for="file-upload">
           <img src="/file-icon.png" alt="Upload file" />
         </label>
@@ -133,6 +130,7 @@ const Input: Component<Props> = (props) => {
           type="submit"
           value={''}
           ref={submitBtnRef!}
+          // style={`pointer-events: ${sessionId() ? 'all' : 'none'}`}
           onclick={() => {
             isStreaming() ? terminateResponse() : sendMessage();
           }}
