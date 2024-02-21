@@ -2,26 +2,24 @@ from enum import Enum
 import os
 import json
 from typing import Dict, Any, List
+import tempfile
 
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import HTTPException, Request
+from fastapi import FastAPI, UploadFile, File, Form
 from dotenv import load_dotenv
 from langchain.agents import AgentExecutor
 from langchain.tools import BaseTool
 from langchain_core.messages import AIMessageChunk, FunctionMessage
-from fastapi import FastAPI, UploadFile, File, Form
-import tempfile
+from pydantic import BaseModel
 
 from lib.agents.tool_agent import create_tool_agent
 from lib.agents.sql_agent.agent import create_sql_agent, CustomQuerySQLDataBaseTool
 from lib.agents.oaf_agent.agent import create_oaf_agent
 from lib.tools.oaf_tools.query_collection import QueryOGCAPIFeaturesCollectionTool
 from lib.utils.ai_suffix_selection import select_ai_suffix_message
-# from lib.tools.map_interaction.set_layer_paint import SetMapLayerPaintTool
 from lib.utils.tool_calls_handler import ToolCallsHandler
-
-from pydantic import BaseModel
 
 
 if os.getenv('IS_DOCKER_CONTAINER'):
@@ -42,11 +40,6 @@ app.add_middleware(
     allow_methods=['*'],
     allow_headers=['*'],
 )
-
-
-def create_data_event(data: Dict[Any, Any]):
-    return f'data: {json.dumps(data)}\n\n'
-
 
 agent_executor: AgentExecutor = None
 
@@ -106,9 +99,11 @@ def get_tool_names(tool_classes: list[BaseTool]):
     return list(map(lambda t: t.name, overlapping_tools))
 
 
-async def stream_response(message: str):
-    tool_calls = {}
+def create_data_event(data: Dict[Any, Any]):
+    return f'data: {json.dumps(data)}\n\n'
 
+
+async def stream_response(message: str):
     async for chunk in agent_executor.astream_log(
         {
             'input': message,
@@ -117,18 +112,12 @@ async def stream_response(message: str):
         include_names=['ChatOpenAI'],
     ):
         for op in chunk.ops:
-            # print(op)
             if op['op'] != 'add':
                 continue
 
             value = op['value']
 
-            # if isinstance(value, FunctionMessage) and value.name in get_tool_names([
-            #         SetMapLayerPaintTool]):
-            #     print(value.name, json.loads(value.content))
-            #     await ws.send_json(json.loads(value.content))
-
-            if (tool_call := ToolCallsHandler.pop()):
+            if isinstance(value, FunctionMessage) and (tool_call := ToolCallsHandler.pop()):
                 yield create_data_event({'tool_invokation': tool_call})
 
             if isinstance(value, FunctionMessage) and value.name in get_tool_names([
@@ -144,37 +133,16 @@ async def stream_response(message: str):
                     print('Output type is not GeoJSON')
 
             if ('generations' in op['value']
-                and len(op['value']['generations'][0][0]['text']) > 0
-                    and op['value']['generations'][0][0]['type'] == 'ChatGenerationChunk'):
+                    and len(op['value']['generations'][0][0]['text']) > 0):
+                # and op['value']['generations'][0][0]['type'] == 'ChatGenerationChunk'):
                 yield create_data_event({'message_end': True})
 
-            if not isinstance(value, AIMessageChunk):
-                continue
-
-            if 'tool_calls' in value.additional_kwargs:
-                tool_call = value.additional_kwargs['tool_calls'][0]
-
-                if tool_call['index'] not in tool_calls:
-                    if len(tool_calls.keys()) > 0:
-                        yield create_data_event({'message': '\n'})
-                    tool_calls[tool_call['index']] = {
-                        'id': tool_call['id'],
-                        'name': tool_call['function']['name'],
-                        'arguments': ''
-                    }
-                    # yield create_data_event({'tool_invokation': {
-                    #     'name': tool_call['function']['name'],
-                    #     'arguments': tool_call['function']['arguments']
-                    # }})
-                else:
-                    tool_calls[tool_call['index']
-                               ]['arguments'] += tool_call['function']['arguments']
-                    # yield create_data_event({'tool_arguments': tool_call['function']['arguments']})
-                continue
-
-            yield create_data_event({'message': value.content})
+            if isinstance(value, AIMessageChunk):
+                yield create_data_event({'message': value.content})
 
     yield create_data_event({'stream_complete': True})
+
+    assert len(ToolCallsHandler.tool_calls()) == 0
 
 
 @app.get('/streaming-chat')

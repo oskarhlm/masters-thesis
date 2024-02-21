@@ -30,7 +30,6 @@ const Chat = () => {
         <div ref={chatBottomRef!} />
       </div>
       <Input chatBottomRef={chatBottomRef!} />
-      {/* <button onclick={() => sendMessage('hei')}>send</button> */}
     </div>
   );
 };

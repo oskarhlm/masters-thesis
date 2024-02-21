@@ -15,13 +15,15 @@ export class LLM {
       messageEnd?: boolean
     ) => void
   ) {
+    await this.waitForSessionId();
+
     const eventSource = new EventSource(
       `${BASE_URL}/streaming-chat?message=${message}`
     );
 
     setIsStreaming(true);
 
-    const closeStream = async () => {
+    const closeStream = () => {
       console.log('Closing the stream.');
       eventSource.close();
       setIsStreaming(false);
@@ -40,7 +42,6 @@ export class LLM {
       }
 
       if (data.geojson_path) {
-        console.log(data.layer_name);
         const res = await get('/geojson', {
           geojson_path: data.geojson_path,
         });
@@ -75,13 +76,25 @@ export class LLM {
     }
   }
 
+  private static waitForSessionId() {
+    return new Promise((resolve) => {
+      const checkSessionId = () => {
+        if (sessionId()) {
+          resolve(true);
+        } else {
+          setTimeout(checkSessionId, 100);
+        }
+      };
+      checkSessionId();
+    });
+  }
+
   static async createSession(agentType: AgentType) {
     setSessionId(null);
     try {
       const response = await post('/session', {
         agent_type: agentType,
       });
-      console.log(response);
       setSessionId(response.session_id);
       return response;
     } catch (error) {

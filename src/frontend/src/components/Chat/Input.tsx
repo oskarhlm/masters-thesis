@@ -19,7 +19,7 @@ const Input: Component<Props> = (props) => {
   let submitBtnRef: HTMLInputElement;
   let textareaRef: HTMLTextAreaElement;
 
-  let closeStream: () => void | undefined;
+  let closeStream: (() => void) | undefined;
 
   const [files, setFiles] = createSignal<File[]>([]);
 
@@ -40,31 +40,23 @@ const Input: Component<Props> = (props) => {
     }
 
     if (textareaRef.value.length === 0) return;
+    const humanMessage = textareaRef.value;
 
-    addChatMessage(textareaRef.value, 'human');
+    addChatMessage(humanMessage, 'human');
     props.chatBottomRef?.scrollIntoView({
       behavior: 'smooth',
     });
 
+    textareaRef.value = '';
+
     closeStream = await LLM.chatStream(
-      textareaRef.value,
+      humanMessage,
       addStreamingChatMessage('bot', () => {
         props.chatBottomRef?.scrollIntoView({
           behavior: 'smooth',
         });
       })
     );
-
-    textareaRef.value = '';
-  }
-
-  function terminateResponse() {
-    if (!closeStream) {
-      console.error('Termination function undefined');
-      return;
-    }
-
-    closeStream();
   }
 
   const handleFileUpload: JSX.EventHandler<HTMLInputElement, InputEvent> = (
@@ -130,9 +122,8 @@ const Input: Component<Props> = (props) => {
           type="submit"
           value={''}
           ref={submitBtnRef!}
-          // style={`pointer-events: ${sessionId() ? 'all' : 'none'}`}
           onclick={() => {
-            isStreaming() ? terminateResponse() : sendMessage();
+            isStreaming() ? closeStream!() : sendMessage();
           }}
         />
       </div>
