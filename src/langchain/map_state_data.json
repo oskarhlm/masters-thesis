@@ -20,11 +20,11 @@
     },
     "layers": [
         {
-            "id": "veger_med_fartsgrense_100",
+            "id": "roads_speed_limit_100",
             "type": "line",
-            "source": "veger_med_fartsgrense_100",
+            "source": "roads_speed_limit_100",
             "paint": {
-                "line-color": "#4df972",
+                "line-color": "#daf7d1",
                 "line-width": 3
             }
         }

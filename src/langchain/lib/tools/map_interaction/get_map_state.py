@@ -29,9 +29,9 @@ sample_map_state = """
     },
     "layers": [
         {
-            "id": "roads_speed_limit_100",
+            "id": "layer_id",
             "type": "line",
-            "source": "roads_speed_limit_100",
+            "source": "layer_source_id",
             "paint": {
                 "line-color": "#eb76d8",
                 "line-width": 3
@@ -45,12 +45,13 @@ sample_map_state = """
 class GetMapStateTool(BaseTool):
     name = "get_map_state_tool"
     description = (
-        "Useful for get updated information about the state of the map.\n\n"
-        f"Sample return:\n{sample_map_state}"
+        "Useful for get updated information about the visual state of the map.\n\n"
+        f"Sample return:\n{sample_map_state}\n\n"
+        f"Should not be used for geospatial analysis."
     )
 
-    def _run(self) -> str:
+    def _run(self, tool_input: str = "") -> str:
         return load_map_state()
 
-    async def _arun(self) -> str:
+    async def _arun(self, tool_input: str = "") -> str:
         return self._run()

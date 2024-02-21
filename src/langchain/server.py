@@ -19,6 +19,7 @@ from lib.agents.oaf_agent.agent import create_oaf_agent
 from lib.tools.oaf_tools.query_collection import QueryOGCAPIFeaturesCollectionTool
 from lib.utils.ai_suffix_selection import select_ai_suffix_message
 # from lib.tools.map_interaction.set_layer_paint import SetMapLayerPaintTool
+from lib.utils.tool_calls_handler import ToolCallsHandler
 
 from pydantic import BaseModel
 
@@ -113,7 +114,7 @@ async def stream_response(message: str):
             'input': message,
             'ai_suffix': select_ai_suffix_message(agent_executor, message)
         },
-        include_names=['ChatOpenAI']
+        include_names=['ChatOpenAI'],
     ):
         for op in chunk.ops:
             # print(op)
@@ -126,6 +127,9 @@ async def stream_response(message: str):
             #         SetMapLayerPaintTool]):
             #     print(value.name, json.loads(value.content))
             #     await ws.send_json(json.loads(value.content))
+
+            if (tool_call := ToolCallsHandler.pop()):
+                yield create_data_event({'tool_invokation': tool_call})
 
             if isinstance(value, FunctionMessage) and value.name in get_tool_names([
                     CustomQuerySQLDataBaseTool,
@@ -142,7 +146,6 @@ async def stream_response(message: str):
             if ('generations' in op['value']
                 and len(op['value']['generations'][0][0]['text']) > 0
                     and op['value']['generations'][0][0]['type'] == 'ChatGenerationChunk'):
-                # print(op)
                 yield create_data_event({'message_end': True})
 
             if not isinstance(value, AIMessageChunk):
@@ -150,6 +153,7 @@ async def stream_response(message: str):
 
             if 'tool_calls' in value.additional_kwargs:
                 tool_call = value.additional_kwargs['tool_calls'][0]
+
                 if tool_call['index'] not in tool_calls:
                     if len(tool_calls.keys()) > 0:
                         yield create_data_event({'message': '\n'})
@@ -158,11 +162,14 @@ async def stream_response(message: str):
                         'name': tool_call['function']['name'],
                         'arguments': ''
                     }
-                    yield create_data_event({'tool_invokation': f'Using tool: {tool_call["function"]["name"]}\n'})
+                    # yield create_data_event({'tool_invokation': {
+                    #     'name': tool_call['function']['name'],
+                    #     'arguments': tool_call['function']['arguments']
+                    # }})
                 else:
                     tool_calls[tool_call['index']
                                ]['arguments'] += tool_call['function']['arguments']
-                    yield create_data_event({'tool_arguments': tool_call['function']['arguments']})
+                    # yield create_data_event({'tool_arguments': tool_call['function']['arguments']})
                 continue
 
             yield create_data_event({'message': value.content})
@@ -177,13 +184,9 @@ async def chat_endpoint(message: str):
 
 @app.post('/update-map-state')
 async def update_map_state(state_data: Request):
-    print(f'Received map state data: ', state_data)
-
     file_path = 'map_state_data.json'
     with open(file_path, 'w') as file:
         json.dump(await state_data.json(), file, indent=4)
-
-    return {"message": "State data received and stored successfully"}
 
 
 @app.get('/geojson')

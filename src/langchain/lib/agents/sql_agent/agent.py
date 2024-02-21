@@ -1,4 +1,7 @@
 import json
+from typing import List, Any, Dict
+from uuid import UUID
+from langchain_core.agents import AgentAction
 
 from langchain_core.messages import AIMessage, SystemMessage
 from langchain_openai import ChatOpenAI
@@ -13,13 +16,11 @@ from .query_tool import CustomQuerySQLDataBaseTool
 from .db_list_tool import CustomListSQLDatabaseTool
 from .db_info_tool import CustomInfoSQLDatabaseTool
 from .query import INFO_QUERY
-# from ...tools.map_interaction.set_layer_paint import SetMapLayerPaintTool
 from ...tools.map_interaction.get_map_state import GetMapStateTool
+from langchain.callbacks.base import BaseCallbackHandler, AsyncCallbackHandler
+from ...utils.tool_calls_handler import ToolCallsHandler
 
-
-# AI_SUFFIX = """I should look at the tables in the database to see what I can query.
-# Then I should query the schema of the most relevant tables, before doing an SQL query to answer the user's request.
-# If no relevant data is found in the database, I should use my background knowledge to give an approximate answer."""
+import ast
 
 QUERY_CHECKER = """
 {query}
@@ -40,6 +41,27 @@ If there are any of the above mistakes, rewrite the query. If there are no mista
 Output the final SQL query only.
 
 SQL Query: """
+
+
+def create_data_event(data: Dict[Any, Any]):
+    return f'data: {json.dumps(data)}\n\n'
+
+
+class MyCustomHandler(AsyncCallbackHandler):
+    async def on_tool_start(self, serialized: Dict[Any, Any], input_str: Any, *, run_id: UUID, parent_run_id: UUID | None = None, tags: List[str] | None = None, metadata: Dict[str, Any] | None = None, inputs: Dict[str, Any] | None = None, **kwargs: Any) -> None:
+        try:
+            arguments = ast.literal_eval(input_str)
+        except SyntaxError as e:
+            print(f"Failed to convert arguments to JSON: {e}")
+            arguments = input_str
+
+        ToolCallsHandler.push({
+            'name': serialized['name'],
+            'arguments': arguments
+        })
+
+    # async def on_tool_end(self, output: Any, *, run_id: UUID, parent_run_id: UUID | None = None, tags: List[str] | None = None, **kwargs: Any) -> None:
+    #     print(output)
 
 
 def create_sql_agent(session_id: str = None):
@@ -64,45 +86,38 @@ def create_sql_agent(session_id: str = None):
     )
 
     res = db._execute(INFO_QUERY)
-    # print(res)
     result_dict = {}
     for r in res:
         table_name = r['table_name']
         result_dict[table_name] = json.dumps(r, indent=4)
-        # print(json.dumps(r, indent=4))
 
     db._custom_table_info = result_dict
 
-    toolkit = SQLDatabaseToolkit(db=db, llm=ChatOpenAI(temperature=0))
-    context = toolkit.get_context()  # Context not currently included in prompt
-    tools = [*toolkit.get_tools()]
+    tool_cb = MyCustomHandler()
 
-    tools = list(filter(lambda x: x.name not in [
-                 'sql_db_query',
-                 'sql_db_list_tables',
-                 'sql_db_schema'
-                 'sql_db_query_checker'
-                 ], tools))
+    ToolCallsHandler.initialize_file()
 
-    tools += [
-        CustomQuerySQLDataBaseTool(db=db),
-        CustomListSQLDatabaseTool(db=db),
-        CustomInfoSQLDatabaseTool(db=db),
+    tools = [
+        CustomQuerySQLDataBaseTool(db=db, callbacks=[tool_cb]),
+        CustomListSQLDatabaseTool(db=db, callbacks=[tool_cb]),
+        CustomInfoSQLDatabaseTool(db=db, callbacks=[tool_cb]),
         QuerySQLCheckerTool(
             db=db,
             llm=ChatOpenAI(temperature=0),
-            template=QUERY_CHECKER
+            template=QUERY_CHECKER,
+            callbacks=[tool_cb]
         ),
-        GetMapStateTool()
+        GetMapStateTool(callbacks=[tool_cb])
         # SetMapLayerPaintTool()
     ]
 
-    prompt = prompt.partial(**context)
+    # prompt = prompt.partial(**context)
 
     session_id, memory = get_session(session_id)
 
     # llm = ChatOpenAI(model="gpt-4-1106-preview", temperature=0, streaming=True)
-    llm = ChatOpenAI(model="gpt-3.5-turbo-0125", temperature=0, streaming=True)
+    llm = ChatOpenAI(model="gpt-3.5-turbo-0125", temperature=0,
+                     streaming=True)
 
     agent = create_openai_tools_agent(llm, tools, prompt)
 
@@ -110,7 +125,7 @@ def create_sql_agent(session_id: str = None):
         agent=agent,
         tools=tools,
         verbose=True,
-        memory=memory
+        memory=memory,
     )
 
     return session_id, agent_executor
