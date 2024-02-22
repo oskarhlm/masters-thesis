@@ -64,7 +64,7 @@ class MyCustomHandler(AsyncCallbackHandler):
     #     print(output)
 
 
-def create_sql_agent(session_id: str = None):
+def create_sql_agent_executor(session_id: str = None):
     prompt = ChatPromptTemplate.from_messages(
         [
             SystemMessage(content=(

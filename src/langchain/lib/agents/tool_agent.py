@@ -22,7 +22,7 @@ def get_file_management_tools():
     return toolkit.get_tools()
 
 
-def create_tool_agent(session_id: str = None):
+def create_tool_agent_executor(session_id: str = None):
     prompt = ChatPromptTemplate.from_messages(
         [
             SystemMessage(content=(

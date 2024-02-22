@@ -14,7 +14,7 @@ Then I should query the properties of the relevant collection (http://localhost:
 before using CQL queries to answer the user's request."""
 
 
-def create_oaf_agent(session_id: str = None):
+def create_oaf_agent_executor(session_id: str = None):
     prompt = ChatPromptTemplate.from_messages(
         [
             SystemMessage(content=(

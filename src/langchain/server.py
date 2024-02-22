@@ -14,9 +14,9 @@ from langchain.tools import BaseTool
 from langchain_core.messages import AIMessageChunk, FunctionMessage
 from pydantic import BaseModel
 
-from lib.agents.tool_agent import create_tool_agent
-from lib.agents.sql_agent.agent import create_sql_agent, CustomQuerySQLDataBaseTool
-from lib.agents.oaf_agent.agent import create_oaf_agent
+from lib.agents.tool_agent import create_tool_agent_executor
+from lib.agents.sql_agent.agent import create_sql_agent_executor, CustomQuerySQLDataBaseTool
+from lib.agents.oaf_agent.agent import create_oaf_agent_executor
 from lib.tools.oaf_tools.query_collection import QueryOGCAPIFeaturesCollectionTool
 from lib.utils.ai_suffix_selection import select_ai_suffix_message
 from lib.utils.tool_calls_handler import ToolCallsHandler
@@ -49,7 +49,7 @@ def get_session(session_id: str):
     if not session_id:
         return 'No session ID provided'
 
-    session_id, executor = create_tool_agent(session_id)
+    session_id, executor = create_tool_agent_executor(session_id)
 
     global agent_executor
     agent_executor = executor
@@ -72,14 +72,13 @@ class SessionCreationRequest(BaseModel):
 
 @app.post('/session')
 def create_session(body: SessionCreationRequest):
-    print(f'agent type: {body.agent_type}')
     match body.agent_type:
         case AgentType.SQL:
-            session_id, executor = create_sql_agent()
+            session_id, executor = create_sql_agent_executor()
         case AgentType.OAF:
-            session_id, executor = create_oaf_agent()
+            session_id, executor = create_oaf_agent_executor()
         case AgentType.TOOL:
-            session_id, executor = create_tool_agent()
+            session_id, executor = create_tool_agent_executor()
         case _:
             raise HTTPException(
                 status_code=400, detail="Unsupported agent type")
