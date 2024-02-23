@@ -14,6 +14,7 @@ from langchain_core.output_parsers import StrOutputParser
 class Worker(Enum):
     ANALYSIS = 'analysis_worker'
     MAP = 'map_worker'
+    SQL = 'sql_worker'
 
     @classmethod
     def get_description(cls, worker: 'Worker'):
@@ -25,6 +26,10 @@ class Worker(Enum):
             Worker.MAP.value: (
                 'A worker/agent that controls a client-side map'
                 ' that is visible to the user/human'
+            ),
+            Worker.SQL.value: (
+                'A worker/agent that has access to, and can query,'
+                ' a geospatial PostGIS database'
             )
         }.get(worker.value)
 

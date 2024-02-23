@@ -3,10 +3,11 @@ import os
 from langgraph.graph import StateGraph, END
 from langgraph.checkpoint.sqlite import SqliteSaver
 
-from .supervisor_agent import create_agent_supervisor_node
+from .supervisor import create_agent_supervisor_node
 from .common import Worker, AgentState
-from .analysis_agent import create_analysis_node
-from .map_controller_agent import create_map_controller_node
+from .analysis_worker import create_analysis_node
+from .map_controller_worker import create_map_controller_node
+from .sql_worker import create_sql_node
 from ..sessions import generate_session_id
 from ..redis_checkpointer import RedisSaver
 
@@ -16,12 +17,14 @@ def create_multi_agent_runnable(session_id: str = None):
 
     analysis_node = create_analysis_node()
     map_controller_node = create_map_controller_node()
+    sql_node = create_sql_node()
 
     SUPERVISOR = 'supervisor'
 
     workflow = StateGraph(AgentState)
     workflow.add_node(Worker.ANALYSIS.value, analysis_node)
     workflow.add_node(Worker.MAP.value, map_controller_node)
+    workflow.add_node(Worker.SQL.value, sql_node)
     workflow.add_node(SUPERVISOR, supervisor_chain)
 
     for worker in Worker:
@@ -41,5 +44,4 @@ def create_multi_agent_runnable(session_id: str = None):
     else:
         memory = SqliteSaver.from_conn_string(':memory:')
 
-    # return session_id, workflow.compile(checkpointer=memory, interrupt_before=[Worker.ANALYSIS.value])
     return session_id, workflow.compile(checkpointer=memory)

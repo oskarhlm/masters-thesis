@@ -21,7 +21,7 @@ from lib.agents.oaf_agent.agent import create_oaf_agent_executor
 from lib.tools.oaf_tools.query_collection import QueryOGCAPIFeaturesCollectionTool
 from lib.utils.ai_suffix_selection import select_ai_suffix_message
 from lib.utils.tool_calls_handler import ToolCallsHandler
-from lib.agents.multi_agent.graph import create_multi_agent_runnable
+from lib.agents.multi_agent.agent import create_multi_agent_runnable
 
 
 if os.getenv('IS_DOCKER_CONTAINER'):
