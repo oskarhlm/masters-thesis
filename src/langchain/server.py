@@ -10,6 +10,7 @@ from fastapi import HTTPException, Request
 from fastapi import FastAPI, UploadFile, File, Form
 from dotenv import load_dotenv
 from langchain.agents import AgentExecutor
+from langchain_core.runnables.base import Runnable
 from langchain.tools import BaseTool
 from langchain_core.messages import AIMessageChunk, FunctionMessage, HumanMessage
 from pydantic import BaseModel
@@ -50,8 +51,9 @@ class AgentType(str, Enum):
     TOOL = 'tool'
 
 
-agent_executor: AgentExecutor = None
+agent_executor: Runnable = None
 agent_type: AgentType = None
+session_id: str = None
 
 
 @app.get('/session')
@@ -81,22 +83,23 @@ def create_session(body: SessionCreationRequest):
 
     match body.agent_type:
         case AgentType.SQL:
-            session_id, executor = create_sql_agent_executor()
+            session_id_lok, executor = create_sql_agent_executor()
         case AgentType.OAF:
-            session_id, executor = create_oaf_agent_executor()
+            session_id_lok, executor = create_oaf_agent_executor()
         case AgentType.TOOL:
-            session_id, executor = create_tool_agent_executor()
+            session_id_lok, executor = create_tool_agent_executor()
         case AgentType.LG_AGENT_SUPERVISOR:
-            session_id, executor = create_multi_agent_runnable()
+            session_id_lok, executor = create_multi_agent_runnable()
         case _:
             raise HTTPException(
                 status_code=400, detail="Unsupported agent type")
 
-    global agent_executor
+    global agent_executor, session_id
     agent_executor = executor
+    session_id = session_id_lok
 
     return {
-        'session_id': session_id,
+        'session_id': session_id_lok,
         # 'chat_history': agent_executor.memory.chat_memory.messages
     }
 
@@ -157,9 +160,9 @@ async def langgraph_stream_response(message: str):
     async for s in agent_executor.astream(
         {
             'initial_query': message,
-            "messages": [HumanMessage(
-            content=message)]},
-        {"recursion_limit": 100},
+            "messages": [HumanMessage(content=message)]
+        },
+        {"recursion_limit": 100, 'configurable': {'thread_id': session_id}},
     ):
         print(s)
         if "supervisor" in s:
@@ -167,10 +170,10 @@ async def langgraph_stream_response(message: str):
             yield create_data_event({'message_end': True})
             continue
         elif '__end__' not in s:
-            for key, value in s.items():
+            for value in s.values():
                 if 'messages' in value:
                     for message in value['messages']:
-                        yield create_data_event({'message': f'[{message.name}] {message.content}'})
+                        yield create_data_event({'message': f'<strong>[{message.name}]</strong> {message.content}'})
                         yield create_data_event({'message_end': True})
             continue
 

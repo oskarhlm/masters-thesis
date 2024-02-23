@@ -7,10 +7,14 @@ from datetime import datetime
 MEMORY_KEY = 'chat_memory'
 
 
+def generate_session_id():
+    current_date = datetime.now().strftime("%Y%m%d")  # Format: YYYYMMDD
+    return f'session-{uuid.uuid4()}-{current_date}'
+
+
 def get_session(session_id: str = None):
     if not session_id:
-        current_date = datetime.now().strftime("%Y%m%d")  # Format: YYYYMMDD
-        session_id = f'session-{uuid.uuid4()}-{current_date}'
+        session_id = generate_session_id()
 
     message_history = ChatMessageHistory()
 
