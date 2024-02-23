@@ -11,7 +11,7 @@ from fastapi import FastAPI, UploadFile, File, Form
 from dotenv import load_dotenv
 from langchain.agents import AgentExecutor
 from langchain.tools import BaseTool
-from langchain_core.messages import AIMessageChunk, FunctionMessage
+from langchain_core.messages import AIMessageChunk, FunctionMessage, HumanMessage
 from pydantic import BaseModel
 
 from lib.agents.tool_agent import create_tool_agent_executor
@@ -20,6 +20,7 @@ from lib.agents.oaf_agent.agent import create_oaf_agent_executor
 from lib.tools.oaf_tools.query_collection import QueryOGCAPIFeaturesCollectionTool
 from lib.utils.ai_suffix_selection import select_ai_suffix_message
 from lib.utils.tool_calls_handler import ToolCallsHandler
+from lib.agents.multi_agent.graph import create_multi_agent_runnable
 
 
 if os.getenv('IS_DOCKER_CONTAINER'):
@@ -41,7 +42,16 @@ app.add_middleware(
     allow_headers=['*'],
 )
 
+
+class AgentType(str, Enum):
+    SQL = 'sql'
+    OAF = 'oaf'
+    LG_AGENT_SUPERVISOR = 'lg-agent-supervisor'
+    TOOL = 'tool'
+
+
 agent_executor: AgentExecutor = None
+agent_type: AgentType = None
 
 
 @app.get('/session')
@@ -60,18 +70,15 @@ def get_session(session_id: str):
     }
 
 
-class AgentType(str, Enum):
-    SQL = 'sql'
-    OAF = 'oaf'
-    TOOL = 'tool'
-
-
 class SessionCreationRequest(BaseModel):
     agent_type: AgentType
 
 
 @app.post('/session')
 def create_session(body: SessionCreationRequest):
+    global agent_type
+    agent_type = body.agent_type
+
     match body.agent_type:
         case AgentType.SQL:
             session_id, executor = create_sql_agent_executor()
@@ -79,6 +86,8 @@ def create_session(body: SessionCreationRequest):
             session_id, executor = create_oaf_agent_executor()
         case AgentType.TOOL:
             session_id, executor = create_tool_agent_executor()
+        case AgentType.LG_AGENT_SUPERVISOR:
+            session_id, executor = create_multi_agent_runnable()
         case _:
             raise HTTPException(
                 status_code=400, detail="Unsupported agent type")
@@ -88,7 +97,7 @@ def create_session(body: SessionCreationRequest):
 
     return {
         'session_id': session_id,
-        'chat_history': agent_executor.memory.chat_memory.messages
+        # 'chat_history': agent_executor.memory.chat_memory.messages
     }
 
 
@@ -144,8 +153,35 @@ async def stream_response(message: str):
     assert len(ToolCallsHandler.tool_calls()) == 0
 
 
+async def langgraph_stream_response(message: str):
+    async for s in agent_executor.astream(
+        {
+            'initial_query': message,
+            "messages": [HumanMessage(
+            content=message)]},
+        {"recursion_limit": 100},
+    ):
+        print(s)
+        if "supervisor" in s:
+            yield create_data_event({'message': f'Supervisor selected  {s["supervisor"]["next"]}'})
+            yield create_data_event({'message_end': True})
+            continue
+        elif '__end__' not in s:
+            for key, value in s.items():
+                if 'messages' in value:
+                    for message in value['messages']:
+                        yield create_data_event({'message': f'[{message.name}] {message.content}'})
+                        yield create_data_event({'message_end': True})
+            continue
+
+        yield create_data_event({'stream_complete': True})
+
+
 @app.get('/streaming-chat')
 async def chat_endpoint(message: str):
+    if agent_type == AgentType.LG_AGENT_SUPERVISOR:
+        return StreamingResponse(langgraph_stream_response(message), media_type='text/event-stream')
+
     return StreamingResponse(stream_response(message), media_type='text/event-stream')
 
 
@@ -163,11 +199,11 @@ def get_geojson(geojson_path: str = "output.geojson"):
     return json.loads(geojson_data)
 
 
-@app.get('/history')
-def history():
-    if not agent_executor:
-        return 'Agent executor is None'
-    return agent_executor.memory.chat_memory.messages
+# @app.get('/history')
+# def history():
+#     if not agent_executor:
+#         return 'Agent executor is None'
+#     return agent_executor.memory.chat_memory.messages
 
 
 @app.post("/upload")

@@ -1,7 +1,7 @@
-import { Component, For, createEffect, createSignal } from 'solid-js';
+import { Component, For, createEffect, createSignal, onMount } from 'solid-js';
 import './styles.css';
 import { AgentType, agentTypesArray } from './types';
-import { chatElements } from './chatStore';
+import { chatElements, setChatElements } from './chatStore';
 import { LLM } from '../../api/llm';
 
 export const [selectedAgentType, setSelectedAgentType] =
@@ -16,8 +16,29 @@ const AgentSelector: Component = () => {
         return 'SQL Agent';
       case 'oaf':
         return 'OGC API Features Agent';
+      case 'lg-agent-supervisor':
+        return 'Agent Supervisor Pattern';
       default:
         break;
+    }
+  }
+
+  onMount(() => addAgentTypeInformationMessage(selectedAgentType()));
+
+  function addAgentTypeInformationMessage(agentType: AgentType) {
+    if (agentType === 'lg-agent-supervisor') {
+      setChatElements([
+        ...chatElements,
+        {
+          type: 'information',
+          content: (
+            <>
+              <i>{'Agent Supervisor Pattern'}</i> does not support token
+              streaming.
+            </>
+          ),
+        },
+      ]);
     }
   }
 
@@ -30,11 +51,12 @@ const AgentSelector: Component = () => {
       <select
         name="agent-selector"
         id="agent-selector"
-        disabled={chatElements.length > 1}
+        disabled={chatElements.filter((el) => el.type === 'message').length > 0}
         onchange={(e) => {
           const agentType = e.target.value as AgentType;
           sessionStorage.setItem('agentType', agentType);
           setSelectedAgentType(agentType);
+          addAgentTypeInformationMessage(agentType);
         }}
       >
         <For each={agentTypesArray}>

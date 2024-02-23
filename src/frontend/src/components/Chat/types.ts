@@ -1,6 +1,8 @@
+import { JSX } from 'solid-js/jsx-runtime';
+
 export type MessageSource = 'bot' | 'human';
 
-export const agentTypesArray = ['sql', 'oaf'] as const;
+export const agentTypesArray = ['sql', 'oaf', 'lg-agent-supervisor'] as const;
 
 export type AgentType = (typeof agentTypesArray)[number];
 
@@ -22,4 +24,8 @@ export type ChatElement =
       id: string;
       source: MessageSource;
       message: string;
+    }
+  | {
+      type: 'information';
+      content: string | JSX.Element;
     };

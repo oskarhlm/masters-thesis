@@ -187,3 +187,17 @@ select {
 
   border-radius: 4px;
 }
+
+.info-msg {
+  background-color: rgba(67, 177, 255, 0.167);
+  padding: 15px 20px;
+  text-align: center;
+  width: 70%;
+  border-radius: 10px;
+  margin-inline: auto;
+  margin-bottom: 20px;
+
+  i {
+    font-weight: bold;
+  }
+}

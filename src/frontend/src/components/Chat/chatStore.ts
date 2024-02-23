@@ -2,7 +2,7 @@ import { ChatElement, MessageSource } from './types';
 import { createStore } from 'solid-js/store';
 
 export const [chatElements, setChatElements] = createStore<ChatElement[]>([
-  { type: 'agentSelector', agentType: 'oaf' } satisfies ChatElement,
+  { type: 'agentSelector', agentType: 'sql' } satisfies ChatElement,
 ]);
 
 function createUniqueId(): string {

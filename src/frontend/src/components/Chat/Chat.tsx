@@ -6,6 +6,7 @@ import { MessageHeader } from './MessageHeader';
 import Input from './Input';
 import { chatElements } from './chatStore';
 import AgentSelector from './AgentSelector';
+import InfoMessage from './InfoMessage';
 
 const Chat = () => {
   let chatBottomRef: HTMLDivElement;
@@ -14,6 +15,8 @@ const Chat = () => {
     switch (el.type) {
       case 'agentSelector':
         return <AgentSelector />;
+      case 'information':
+        return <InfoMessage content={el.content} />;
       case 'message':
         return <ChatMessage message={el.message} source={el.source} />;
       case 'messageGroupHeader':
