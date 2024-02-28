@@ -1,8 +1,14 @@
 from pydantic import BaseModel
 from typing import Type, Dict, Literal, Optional
+from pathlib import Path
 
 from langchain.tools import BaseTool
 from langchain.pydantic_v1 import BaseModel, Field
+import geojson
+from geojson import GeoJSON
+
+
+from ...utils.workdir_manager import WorkDirManager
 
 LINE_PAINT_EXAMPLE = {
     "line-color": "#eb76d8",
@@ -11,9 +17,9 @@ LINE_PAINT_EXAMPLE = {
 
 
 class PublishGeoJSONInput(BaseModel):
-    # geojson_path: Optional[str] = Field(...,
-    #                                     description='Path to the .geojson file to publish')
-    geojson_data: Optional[str] = Field(..., description='GeoJSON data')
+    geojson_path: Optional[str] = Field(...,
+                                        description='Path to the .geojson file to publish')
+    # geojson_data: Optional[str] = Field(..., description='GeoJSON data')
     layer_name: str = Field(...,
                             description='Name of the layer (should be snake_case)')
     # layer_type: Literal["fill", "line",
@@ -37,4 +43,24 @@ class PublishGeoJSONTool(BaseTool):
     async def _arun(self, geojson_path: Optional[str] = None, geojson_data: Optional[str] = None, layer_name: str = None) -> str:
         if not (geojson_path or geojson_data):
             return 'Error: Specify either `geojson_path` or `geojson_data`'
+
+        if not geojson_data:
+            loaded_geojson_path: Path = WorkDirManager.load_file(
+                filename=geojson_path, return_path=True)
+            if loaded_geojson_path:
+                with open(loaded_geojson_path, 'r') as file:
+                    geojson_data: GeoJSON = geojson.load(file)
+            else:
+                available_files = ', '.join(
+                    [str(f.name) for f in WorkDirManager.list_files()])
+                return (
+                    f'Could not find GeoJSON file `{geojson_path}`.\n'
+                    f'Available files are: {available_files}'
+                )
+        else:
+            geojson_data: GeoJSON = geojson.loads(geojson_data)
+
+        if not geojson_data.is_valid:
+            return f'Errors found in geojson file:\n{geojson_data.errors()}'
+
         return {'geojson_path': geojson_path or geojson_data, 'layer_name': layer_name}

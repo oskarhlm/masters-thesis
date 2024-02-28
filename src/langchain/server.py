@@ -12,9 +12,10 @@ from fastapi import FastAPI, UploadFile, File
 from dotenv import load_dotenv
 from langchain.agents import AgentExecutor
 from langchain.tools import BaseTool
-from langchain_core.messages import AIMessageChunk, FunctionMessage, HumanMessage
+from langchain_core.messages import AIMessageChunk, FunctionMessage, HumanMessage, AIMessage
 from pydantic import BaseModel
 from langgraph.pregel import Pregel
+from contextlib import asynccontextmanager
 
 from lib.agents.tool_agent import create_tool_agent_executor
 from lib.agents.sql_agent.agent import create_sql_agent_executor, CustomQuerySQLDataBaseTool
@@ -26,8 +27,6 @@ from lib.utils.tool_calls_handler import ToolCallsHandler
 from lib.agents.multi_agent.agent import create_multi_agent_runnable
 from lib.utils.workdir_manager import WorkDirManager
 
-WorkDirManager.add_file('random.geojson', 'random.geojson')
-print(WorkDirManager.list_files())
 
 if os.getenv('IS_DOCKER_CONTAINER'):
     load_dotenv()
@@ -37,7 +36,20 @@ else:
         raise FileNotFoundError(f'Could not find .env file at {env_file_path}')
     load_dotenv(env_file_path)
 
-app = FastAPI()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    print('Booting up...')
+    WorkDirManager()
+    WorkDirManager.add_file('random.geojson', 'random.geojson')
+    print(WorkDirManager.list_files())
+    yield
+
+    WorkDirManager.cleanup()
+    print('Shutting down...')
+
+
+app = FastAPI(lifespan=lifespan)
 
 origins = ['*']
 app.add_middleware(
@@ -183,20 +195,16 @@ async def langgraph_stream_response(message: str):
                 print(value)
                 if 'messages' in value:
                     for message in value['messages']:
-                        yield create_data_event({'message': f'<strong>[{message.name}]</strong><br>{message.content}'})
-                        yield create_data_event({'message_end': True})
-                if 'function_messages' in value:
-                    print(value)
-                    for message in value['function_messages']:
-                        if message.name in geojson_outputting_tools:
-                            try:
-                                data = json.loads(message.content)
-                                # yield create_data_event({
-                                #     'geojson_path': f'/home/dev/master-thesis/src/langchain/output_data/{data["layer_name"]}.geojson',
-                                #     'layer_name': data['layer_name']
-                                # })
-                            except:
-                                print('Output type is not GeoJSON')
+                        if isinstance(message, AIMessage):
+                            yield create_data_event({'message': f'<strong>[{message.name}]</strong><br>{message.content}'})
+                            yield create_data_event({'message_end': True})
+                        elif isinstance(message, FunctionMessage):
+                            if message.name in geojson_outputting_tools:
+                                try:
+                                    data = json.loads(message.content)
+                                    yield create_data_event(data)
+                                except:
+                                    print('Output type is not GeoJSON')
             continue
 
         yield create_data_event({'stream_complete': True})
@@ -204,10 +212,8 @@ async def langgraph_stream_response(message: str):
 
 @app.get('/streaming-chat')
 async def chat_endpoint(message: str):
-    # if agent_type == AgentType.LG_AGENT_SUPERVISOR:
     if isinstance(agent_executor, Pregel):
         return StreamingResponse(langgraph_stream_response(message), media_type='text/event-stream')
-
     return StreamingResponse(stream_response(message), media_type='text/event-stream')
 
 
@@ -238,22 +244,22 @@ async def history():
 
 
 @app.post("/upload")
-def upload(files: List[UploadFile] = File(...)):
-    temp_dir = tempfile.gettempdir()
+async def upload(files: List[UploadFile] = File(...)):
     for file in files:
         try:
             contents = file.file.read()
-            save_loc = f'{temp_dir}/{file.filename}'
-            with open(save_loc, 'wb') as f:
-                f.write(contents)
+            WorkDirManager.add_file(
+                filename=file.filename, content_or_path=contents)
         except Exception as e:
             print(f"There was an error uploading the file(s): {e}")
         finally:
             file.file.close()
 
+    print(WorkDirManager.list_files())
+
     success_msg = f'I just uploaded file(s) {[file.filename for file in files]} to the /tmp in the current environment.'
 
-    return StreamingResponse(stream_response(success_msg), media_type='text/event-stream')
+    return StreamingResponse(langgraph_stream_response(success_msg), media_type='text/event-stream')
 
 
 @app.get('/docker')

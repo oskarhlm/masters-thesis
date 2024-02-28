@@ -18,12 +18,13 @@ class WorkDirManager:
         return cls._instance
 
     @classmethod
-    def add_file(cls, filename, content_or_path: Union[str, Path]):
+    def add_file(cls, filename, content_or_path: Union[str, bytes, Path]):
         target_path = cls._working_directory / filename
         if isinstance(content_or_path, Path) or os.path.isfile(content_or_path):
             shutil.copy(content_or_path, target_path)
         else:
-            with open(target_path, 'w') as file:
+            mode = 'wb' if isinstance(content_or_path, bytes) else 'w'
+            with open(target_path, mode) as file:
                 file.write(content_or_path)
         return target_path
 

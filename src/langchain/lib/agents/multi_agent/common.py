@@ -58,22 +58,11 @@ def prelude(state: AgentState):
 
 
 def create_agent(llm: ChatOpenAI, tools: Sequence[BaseTool], system_prompt: str, suffix: str = None):
-    # prompt = ChatPromptTemplate.from_messages(
-    #     [
-    #         SystemMessage(content=system_prompt),
-    #         MessagesPlaceholder(variable_name="messages"),
-    #         AIMessage(content=suffix or ''),
-    #         MessagesPlaceholder(variable_name="agent_scratchpad"),
-    #     ]
-    # )
-
     prompt = ChatPromptTemplate.from_messages(
         [
-            (
-                "system",
-                system_prompt,
-            ),
+            ('system', system_prompt),
             MessagesPlaceholder(variable_name="messages"),
+            AIMessage(content=suffix or ''),
             MessagesPlaceholder(variable_name="agent_scratchpad"),
         ]
     )
@@ -98,8 +87,9 @@ async def agent_node(state: AgentState, agent, name):
     function_messages = []
     async for s in agent.astream(state):
         message = s['messages'][-1]
-        if isinstance(message, FunctionMessage):
-            function_messages.append(message)
-        elif isinstance(message, AIMessage) and message.content:
-            messages.append(HumanMessage(content=message.content, name=name))
+        if isinstance(message, AIMessage) and message.content:
+            message.name = name
+            messages.append(message)
+        elif isinstance(message, FunctionMessage):
+            messages.append(message)
     return {"messages": messages, 'function_messages': function_messages}
