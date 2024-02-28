@@ -1,20 +1,29 @@
 import functools
 import os
 
-from langchain_experimental.tools import PythonREPLTool
 from langchain_openai import ChatOpenAI
 
-from .common import agent_node, create_agent
+from ...tools.map_interaction.get_map_state import GetMapStateTool
+from ...tools.map_interaction.publish_geojson import PublishGeoJSONTool
+from .common import agent_node, create_agent, prelude
 
 
 def create_map_controller_node():
     llm = ChatOpenAI(model=os.getenv('GPT3_MODEL_NAME'))
 
-    map_controller_agent = create_agent(
-        llm=llm,
-        tools=[PythonREPLTool()],
-        system_prompt="You are a coding agent.",
-    )
+    map_controller_agent = (
+        prelude
+        | create_agent(
+            llm=llm,
+            tools=[GetMapStateTool(), PublishGeoJSONTool()],
+            system_prompt=(
+                "You are a map controller."
+                " Client-side, the user has access to a MapBox/MapLibre map,"
+                " and you are equipped with tools to interact with the visual aspects of this map.\n\n"
+                "{current_files}"
+            ),
+        ))
+
     map_controller_agent_node = functools.partial(
         agent_node, agent=map_controller_agent, name="Map Controller")
 

@@ -55,7 +55,8 @@ def create_agent_supervisor_node(workers: Sequence[Worker]):
         ]
     ).partial(options=options, workers=bullet_point_list)
 
-    llm = ChatOpenAI(model=os.getenv('GPT4_MODEL_NAME'), streaming=True)
+    # llm = ChatOpenAI(model=os.getenv('GPT4_MODEL_NAME'), streaming=True)
+    llm = ChatOpenAI(model=os.getenv('GPT3_MODEL_NAME'), streaming=True)
 
     return (
         prompt

@@ -1,28 +1,33 @@
 from enum import Enum
 import os
 import json
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Union
 import tempfile
+from enum import Enum
 
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import HTTPException, Request
-from fastapi import FastAPI, UploadFile, File, Form
+from fastapi import FastAPI, UploadFile, File
 from dotenv import load_dotenv
 from langchain.agents import AgentExecutor
-from langchain_core.runnables.base import Runnable
 from langchain.tools import BaseTool
 from langchain_core.messages import AIMessageChunk, FunctionMessage, HumanMessage
 from pydantic import BaseModel
+from langgraph.pregel import Pregel
 
 from lib.agents.tool_agent import create_tool_agent_executor
 from lib.agents.sql_agent.agent import create_sql_agent_executor, CustomQuerySQLDataBaseTool
+from lib.tools.map_interaction.publish_geojson import PublishGeoJSONTool
 from lib.agents.oaf_agent.agent import create_oaf_agent_executor
 from lib.tools.oaf_tools.query_collection import QueryOGCAPIFeaturesCollectionTool
 from lib.utils.ai_suffix_selection import select_ai_suffix_message
 from lib.utils.tool_calls_handler import ToolCallsHandler
 from lib.agents.multi_agent.agent import create_multi_agent_runnable
+from lib.utils.workdir_manager import WorkDirManager
 
+WorkDirManager.add_file('random.geojson', 'random.geojson')
+print(WorkDirManager.list_files())
 
 if os.getenv('IS_DOCKER_CONTAINER'):
     load_dotenv()
@@ -51,9 +56,15 @@ class AgentType(str, Enum):
     TOOL = 'tool'
 
 
-agent_executor: Runnable = None
+agent_executor: Union[AgentExecutor, Pregel] = None
 agent_type: AgentType = None
 session_id: str = None
+
+
+def get_tool_names(tool_classes: list[BaseTool]):
+    overlapping_tools = filter(lambda t: type(t).__name__ in [
+        tc.__name__ for tc in tool_classes], agent_executor.tools)
+    return list(map(lambda t: t.name, overlapping_tools))
 
 
 @app.get('/session')
@@ -100,14 +111,7 @@ def create_session(body: SessionCreationRequest):
 
     return {
         'session_id': session_id_lok,
-        # 'chat_history': agent_executor.memory.chat_memory.messages
     }
-
-
-def get_tool_names(tool_classes: list[BaseTool]):
-    overlapping_tools = filter(lambda t: type(t).__name__ in [
-        tc.__name__ for tc in tool_classes], agent_executor.tools)
-    return list(map(lambda t: t.name, overlapping_tools))
 
 
 def create_data_event(data: Dict[Any, Any]):
@@ -115,6 +119,12 @@ def create_data_event(data: Dict[Any, Any]):
 
 
 async def stream_response(message: str):
+    geojson_outputting_tools = get_tool_names([
+        CustomQuerySQLDataBaseTool,
+        QueryOGCAPIFeaturesCollectionTool,
+        PublishGeoJSONTool
+    ])
+
     async for chunk in agent_executor.astream_log(
         {
             'input': message,
@@ -131,9 +141,7 @@ async def stream_response(message: str):
             if isinstance(value, FunctionMessage) and (tool_call := ToolCallsHandler.pop()):
                 yield create_data_event({'tool_invokation': tool_call})
 
-            if isinstance(value, FunctionMessage) and value.name in get_tool_names([
-                    CustomQuerySQLDataBaseTool,
-                    QueryOGCAPIFeaturesCollectionTool]):
+            if isinstance(value, FunctionMessage) and value.name in geojson_outputting_tools:
                 try:
                     data = json.loads(value.content)
                     yield create_data_event({
@@ -157,6 +165,8 @@ async def stream_response(message: str):
 
 
 async def langgraph_stream_response(message: str):
+    geojson_outputting_tools = ['sql_db_query', 'add_geojson_to_map']
+
     async for s in agent_executor.astream(
         {
             'initial_query': message,
@@ -164,17 +174,29 @@ async def langgraph_stream_response(message: str):
         },
         {"recursion_limit": 100, 'configurable': {'thread_id': session_id}},
     ):
-        print(s)
         if "supervisor" in s:
             yield create_data_event({'message': f'Supervisor selected  {s["supervisor"]["next"]}'})
             yield create_data_event({'message_end': True})
             continue
         elif '__end__' not in s:
             for value in s.values():
+                print(value)
                 if 'messages' in value:
                     for message in value['messages']:
-                        yield create_data_event({'message': f'<strong>[{message.name}]</strong> {message.content}'})
+                        yield create_data_event({'message': f'<strong>[{message.name}]</strong><br>{message.content}'})
                         yield create_data_event({'message_end': True})
+                if 'function_messages' in value:
+                    print(value)
+                    for message in value['function_messages']:
+                        if message.name in geojson_outputting_tools:
+                            try:
+                                data = json.loads(message.content)
+                                # yield create_data_event({
+                                #     'geojson_path': f'/home/dev/master-thesis/src/langchain/output_data/{data["layer_name"]}.geojson',
+                                #     'layer_name': data['layer_name']
+                                # })
+                            except:
+                                print('Output type is not GeoJSON')
             continue
 
         yield create_data_event({'stream_complete': True})
@@ -182,7 +204,8 @@ async def langgraph_stream_response(message: str):
 
 @app.get('/streaming-chat')
 async def chat_endpoint(message: str):
-    if agent_type == AgentType.LG_AGENT_SUPERVISOR:
+    # if agent_type == AgentType.LG_AGENT_SUPERVISOR:
+    if isinstance(agent_executor, Pregel):
         return StreamingResponse(langgraph_stream_response(message), media_type='text/event-stream')
 
     return StreamingResponse(stream_response(message), media_type='text/event-stream')
@@ -202,15 +225,20 @@ def get_geojson(geojson_path: str = "output.geojson"):
     return json.loads(geojson_data)
 
 
-# @app.get('/history')
-# def history():
-#     if not agent_executor:
-#         return 'Agent executor is None'
-#     return agent_executor.memory.chat_memory.messages
+@app.get('/history')
+async def history():
+    if not agent_executor:
+        return 'Agent executor is None'
+
+    if isinstance(agent_executor, Pregel):
+        checkpoint = await agent_executor.checkpointer.aget({'configurable': {'thread_id': session_id}})
+        return checkpoint['channel_values']['messages']
+
+    return agent_executor.memory.chat_memory.messages
 
 
 @app.post("/upload")
-def upload(files: List[UploadFile] = File(...), should_respond: bool = Form(...)):
+def upload(files: List[UploadFile] = File(...)):
     temp_dir = tempfile.gettempdir()
     for file in files:
         try:

@@ -1,0 +1,16 @@
+- disposisjon 
+	- gjøre klart til skriving før påske
+- "As described in Holm (2023)..."
+
+Lillehammer: 
+- Det som har blitt gjort
+- Forklare hvorfor, kontekst, motivasjon
+- Plan
+	- Hva skal jeg/skal ikke gjøre
+- Teknisk 
+	1) Høynivå - LLMs, hvordan funker det?
+	2) Konkrete caser
+- KartAI-logo
+- Arkitektur  
+
+

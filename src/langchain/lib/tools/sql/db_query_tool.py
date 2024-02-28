@@ -1,6 +1,7 @@
 import json
 import os
 from typing import Type
+from pathlib import Path
 
 from langchain_community.tools.sql_database.tool import BaseSQLDatabaseTool
 from langchain_core.tools import BaseTool
@@ -47,6 +48,8 @@ class CustomQuerySQLDataBaseTool(BaseSQLDatabaseTool, BaseTool):
     If an error is returned, rewrite the query, check the query, and try again.
     Be mindful of what units go with the CRS of the data. 
     """
+
+    workdir: Path = Field(exclude=True)
 
     def _run(
         self,

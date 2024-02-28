@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from langchain_community.utilities.sql_database import SQLDatabase
 from langchain_community.tools.sql_database.tool import (
     QuerySQLCheckerTool,
@@ -5,7 +7,6 @@ from langchain_community.tools.sql_database.tool import (
 from langchain_core.pydantic_v1 import Field
 from langchain_core.language_models import BaseLanguageModel
 from langchain_community.agent_toolkits.base import BaseToolkit
-import os
 from typing import List
 from langchain_community.tools import BaseTool
 
@@ -41,6 +42,7 @@ SQL Query: """
 class CustomSQLDatabaseToolkit(BaseToolkit):
     db: SQLDatabase = Field(exclude=True)
     llm: BaseLanguageModel = Field(exclude=True)
+    workdir: Path = Field(exclude=True)
 
     class Config:
         """Configuration for this pydantic object."""
@@ -49,7 +51,7 @@ class CustomSQLDatabaseToolkit(BaseToolkit):
 
     def get_tools(self) -> List[BaseTool]:
         return [
-            CustomQuerySQLDataBaseTool(db=self.db),
+            CustomQuerySQLDataBaseTool(db=self.db, workdir=self.workdir),
             CustomListSQLDatabaseTool(db=self.db),
             CustomInfoSQLDatabaseTool(db=self.db),
             QuerySQLCheckerTool(
