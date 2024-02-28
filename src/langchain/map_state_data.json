@@ -1,30 +1,30 @@
 {
     "center": {
-        "lng": 10.410362004502076,
-        "lat": 63.41585117545233
+        "lng": 10.315412783000056,
+        "lat": 63.32068482345329
     },
     "bounds": {
         "_sw": {
-            "lng": 10.363602208178463,
-            "lat": 63.373927172706715
+            "lng": 10.292858067746295,
+            "lat": 63.308939215105624
         },
         "_ne": {
-            "lng": 10.45712180082873,
-            "lat": 63.45771396621382
+            "lng": 10.337967498251686,
+            "lat": 63.332425641980166
         }
     },
     "zoom": {
-        "current": 11.861725355241713,
+        "current": 12.913564928538856,
         "max": 22,
         "min": -2
     },
     "layers": [
         {
-            "id": "random_geojson",
+            "id": "veger_med_fartsgrense_100",
             "type": "line",
-            "source": "random_geojson",
+            "source": "veger_med_fartsgrense_100",
             "paint": {
-                "line-color": "#4c3b67",
+                "line-color": "#276bbe",
                 "line-width": 3
             }
         }

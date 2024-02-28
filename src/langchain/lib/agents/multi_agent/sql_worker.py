@@ -21,7 +21,7 @@ def create_sql_node():
         database_uri=os.getenv('POSTGRES_CONN'),
         sample_rows_in_table_info=1,
     )
-    toolkit = CustomSQLDatabaseToolkit(llm=llm, db=db, workdir='')
+    toolkit = CustomSQLDatabaseToolkit(llm=llm, db=db)
     tools = toolkit.get_tools()
 
     sql_agent = create_agent(

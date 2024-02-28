@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Annotated, Sequence, TypedDict
+from typing import Annotated, Sequence, TypedDict,  Callable, Dict
 import operator
 from typing_extensions import TypedDict
 
@@ -12,29 +12,6 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.output_parsers import StrOutputParser
 
 from ...utils.workdir_manager import WorkDirManager
-
-
-class Worker(Enum):
-    ANALYSIS = 'analysis_worker'
-    MAP = 'map_worker'
-    SQL = 'sql_worker'
-
-    @classmethod
-    def get_description(cls, worker: 'Worker'):
-        return {
-            Worker.ANALYSIS.value: (
-                'A worker/agent that can perform geospatial analyses'
-                ' using Python code and other geospatial tooling'
-            ),
-            Worker.MAP.value: (
-                'A worker/agent that controls a client-side map'
-                ' that is visible to the user/human'
-            ),
-            Worker.SQL.value: (
-                'A worker/agent that has access to, and can query,'
-                ' a geospatial PostGIS database'
-            )
-        }.get(worker.value)
 
 
 class AgentState(TypedDict):
@@ -80,9 +57,6 @@ def create_agent(llm: ChatOpenAI, tools: Sequence[BaseTool], system_prompt: str,
 
 
 async def agent_node(state: AgentState, agent, name):
-    # result = await agent.ainvoke(state)
-    # return {"messages": [HumanMessage(content=result["output"], name=name)]}
-
     messages = []
     function_messages = []
     async for s in agent.astream(state):

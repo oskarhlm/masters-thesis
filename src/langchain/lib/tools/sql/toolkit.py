@@ -42,7 +42,6 @@ SQL Query: """
 class CustomSQLDatabaseToolkit(BaseToolkit):
     db: SQLDatabase = Field(exclude=True)
     llm: BaseLanguageModel = Field(exclude=True)
-    workdir: Path = Field(exclude=True)
 
     class Config:
         """Configuration for this pydantic object."""
@@ -51,7 +50,7 @@ class CustomSQLDatabaseToolkit(BaseToolkit):
 
     def get_tools(self) -> List[BaseTool]:
         return [
-            CustomQuerySQLDataBaseTool(db=self.db, workdir=self.workdir),
+            CustomQuerySQLDataBaseTool(db=self.db),
             CustomListSQLDatabaseTool(db=self.db),
             CustomInfoSQLDatabaseTool(db=self.db),
             QuerySQLCheckerTool(

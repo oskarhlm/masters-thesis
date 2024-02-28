@@ -177,7 +177,8 @@ async def stream_response(message: str):
 
 
 async def langgraph_stream_response(message: str):
-    geojson_outputting_tools = ['sql_db_query', 'add_geojson_to_map']
+    # geojson_outputting_tools = ['sql_db_query', 'add_geojson_to_map']
+    geojson_outputting_tools = ['add_geojson_to_map']
 
     async for s in agent_executor.astream(
         {

@@ -9,6 +9,7 @@ from pydantic import Field, BaseModel
 from sqlalchemy.exc import SQLAlchemyError
 
 from ...utils.token_limit import get_context_window_percentage
+from ...utils.workdir_manager import WorkDirManager
 
 
 collection_query_template = """
@@ -43,18 +44,15 @@ class CustomQuerySQLDataBaseTool(BaseSQLDatabaseTool, BaseTool):
     args_schema: Type[BaseModel] = CustomQuerySQLDataBaseInput
     description: str = """
     Input to this tool is a detailed and correct SQL query.
-    The result will be a GeoJSON FeatureCollection that will be displayed to the user in a map.
+    The result will be a GeoJSON FeatureCollection that is stored in a working directory on the server.
     If the query is not correct, an error message will be returned.
     If an error is returned, rewrite the query, check the query, and try again.
     Be mindful of what units go with the CRS of the data. 
     """
 
-    workdir: Path = Field(exclude=True)
-
     def _run(
         self,
         query: str,
-        # show_in_map: bool,
         layer_name: str
     ) -> str:
         """Execute the query, return the results or an error message."""
@@ -92,13 +90,12 @@ class CustomQuerySQLDataBaseTool(BaseSQLDatabaseTool, BaseTool):
             if len(feature_collection['features']) == 0:
                 raise ValueError("No features found in the result.")
 
-            output_path = os.path.join(
-                os.getcwd(), 'output_data', f'{layer_name}.geojson')
-            with open(output_path, 'w') as file:
-                json.dump(feature_collection, file)
+            filename = f'{layer_name}.geojson'
+            output_path = WorkDirManager.add_file(
+                filename, feature_collection, save_as_json=True)
 
             return {
-                # 'path': output_path,
+                'geojson_path': str(output_path),
                 'num_features': len(feature_collection['features']),
                 'layer_name': layer_name
             }

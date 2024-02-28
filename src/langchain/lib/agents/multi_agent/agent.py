@@ -4,38 +4,36 @@ from langgraph.graph import StateGraph, END
 from langgraph.checkpoint.sqlite import SqliteSaver
 
 from .supervisor import create_agent_supervisor_node
-from .common import Worker, AgentState, prelude
-from .analysis_worker import create_analysis_node
+from .common import AgentState
 from .map_controller_worker import create_map_controller_node
 from .sql_worker import create_sql_node
 from ..sessions import generate_session_id
 from ..redis_checkpointer import RedisSaver
+from .worker import Worker, workers
 
 
 def create_multi_agent_runnable(session_id: str = None):
-    # analysis_node = create_analysis_node()
-    map_controller_node = create_map_controller_node()
-    sql_node = create_sql_node()
-
     SUPERVISOR = 'supervisor'
 
     workflow = StateGraph(AgentState)
-    # workflow.add_node(Worker.ANALYSIS.value, analysis_node)
-    workflow.add_node(Worker.MAP.value, map_controller_node)
-    workflow.add_node(Worker.SQL.value, sql_node)
 
-    # workers = list(filter(lambda n: n != SUPERVISOR, workflow.nodes))
-    workers = list(
-        filter(lambda w: w.value in workflow.nodes and w.value != SUPERVISOR, Worker))
-    print(workers)
+    workers_to_use = ['sql_worker', 'map_worker']
+    for worker_key in workers_to_use:
+        if not workers.get(worker_key):
+            raise KeyError(f'No worker `{worker_key}` in worker dict')
 
-    supervisor_chain = create_agent_supervisor_node([e for e in workers])
+    worker_objs = [workers[w] for w in workers_to_use]
+
+    for worker in worker_objs:
+        workflow.add_node(worker.name, worker.create_node())
+
+    supervisor_chain = create_agent_supervisor_node([e for e in worker_objs])
     workflow.add_node(SUPERVISOR, supervisor_chain)
 
-    for worker in workers:
-        workflow.add_edge(worker.value, SUPERVISOR)
+    for worker in worker_objs:
+        workflow.add_edge(worker.name, SUPERVISOR)
 
-    conditional_map = {k.value: k.value for k in workers}
+    conditional_map = {k.name: k.name for k in worker_objs}
     conditional_map["FINISH"] = END
     workflow.add_conditional_edges(
         SUPERVISOR, lambda x: x["next"], conditional_map)

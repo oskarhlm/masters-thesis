@@ -5,19 +5,19 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_openai import ChatOpenAI
 from langchain.output_parsers.openai_functions import JsonOutputFunctionsParser
 
-from .common import Worker
+from .worker import Worker
 
 
 def create_agent_supervisor_node(workers: Sequence[Worker]):
     system_prompt = (
         "You are a supervisor tasked with managing a conversation between the"
-        " following workers:\n{workers}\n\n Given the following user request,"
+        " following workers:\n{workers}\n\nGiven the following user request,"
         " respond with the worker to act next. Each worker will perform a"
         " task and respond with their results and status. When finished,"
         " respond with FINISH."
     )
 
-    options = ["FINISH"] + [m.value for m in workers]
+    options = ["FINISH"] + [m.name for m in workers]
 
     function_def = {
         "name": "route",
@@ -37,7 +37,7 @@ def create_agent_supervisor_node(workers: Sequence[Worker]):
         },
     }
 
-    bullet_point_list = "\n".join(f"{i+1}) {worker.value} - {Worker.get_description(worker)}"
+    bullet_point_list = "\n".join(f"{i+1}) {worker.name} - {worker.description}"
                                   for i, worker in enumerate(workers))
 
     prompt = ChatPromptTemplate.from_messages(

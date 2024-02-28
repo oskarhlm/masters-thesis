@@ -3,6 +3,7 @@ from tempfile import TemporaryDirectory
 from typing import Union
 import os
 import shutil
+import json
 
 
 class WorkDirManager:
@@ -18,14 +19,18 @@ class WorkDirManager:
         return cls._instance
 
     @classmethod
-    def add_file(cls, filename, content_or_path: Union[str, bytes, Path]):
+    def add_file(cls, filename, content_or_path: Union[str, bytes, Path], save_as_json=False):
         target_path = cls._working_directory / filename
-        if isinstance(content_or_path, Path) or os.path.isfile(content_or_path):
+        if save_as_json:
+            with open(target_path, 'w') as file:
+                json.dump(content_or_path, file)
+        elif isinstance(content_or_path, Path) or os.path.isfile(content_or_path):
             shutil.copy(content_or_path, target_path)
         else:
             mode = 'wb' if isinstance(content_or_path, bytes) else 'w'
             with open(target_path, mode) as file:
                 file.write(content_or_path)
+
         return target_path
 
     @classmethod
