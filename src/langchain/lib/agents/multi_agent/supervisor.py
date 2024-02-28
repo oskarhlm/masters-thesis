@@ -3,7 +3,9 @@ import os
 
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_openai import ChatOpenAI
-from langchain.output_parsers.openai_functions import JsonOutputFunctionsParser
+from langchain.output_parsers.openai_tools import JsonOutputToolsParser
+from langchain_core.utils.function_calling import convert_to_openai_tool
+from langchain_core.runnables import RunnableLambda
 
 from .worker import Worker
 
@@ -48,7 +50,7 @@ def create_agent_supervisor_node(workers: Sequence[Worker]):
                 "system",
                 (
                     "Given the conversation above, who should act next, if any?"
-                    ' Return "FINISH" if the initial human query ("{initial_query}") has been answered?\n\n'
+                    ' Return "FINISH" if the initial question has been answered?\n\n'
                     "Select one of: {options}\n\n"
                 )
             )
@@ -60,6 +62,11 @@ def create_agent_supervisor_node(workers: Sequence[Worker]):
 
     return (
         prompt
-        | llm.bind_functions(functions=[function_def], function_call="route")
-        | JsonOutputFunctionsParser()
+        # | llm.bind_functions(functions=[function_def], function_call="route")
+        | llm.bind_tools(
+            tools=[convert_to_openai_tool(function_def)],
+            tool_choice={'type': 'function', 'function': {'name': 'route'}}
+        )
+        | JsonOutputToolsParser()
+        | RunnableLambda(lambda x: x[0]['args'])
     )

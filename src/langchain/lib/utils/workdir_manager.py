@@ -58,6 +58,10 @@ class WorkDirManager:
         return False
 
     @classmethod
+    def get_abs_path(self):
+        return str(self._working_directory)
+
+    @classmethod
     def cleanup(cls):
         if cls._temp_dir:
             cls._temp_dir.cleanup()

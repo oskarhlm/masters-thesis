@@ -1,9 +1,6 @@
-from enum import Enum
 import os
 import json
-from typing import Dict, Any, List, Union
-import tempfile
-from enum import Enum
+from typing import Dict, Any, List, Union, Sequence
 
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -12,10 +9,11 @@ from fastapi import FastAPI, UploadFile, File
 from dotenv import load_dotenv
 from langchain.agents import AgentExecutor
 from langchain.tools import BaseTool
-from langchain_core.messages import AIMessageChunk, FunctionMessage, HumanMessage, AIMessage
+from langchain_core.messages import AIMessageChunk, FunctionMessage, HumanMessage, AIMessage, SystemMessage
 from pydantic import BaseModel
 from langgraph.pregel import Pregel
 from contextlib import asynccontextmanager
+from langchain_core.messages import BaseMessage
 
 from lib.agents.tool_agent import create_tool_agent_executor
 from lib.agents.sql_agent.agent import create_sql_agent_executor, CustomQuerySQLDataBaseTool
@@ -61,15 +59,7 @@ app.add_middleware(
 )
 
 
-class AgentType(str, Enum):
-    SQL = 'sql'
-    OAF = 'oaf'
-    LG_AGENT_SUPERVISOR = 'lg-agent-supervisor'
-    TOOL = 'tool'
-
-
 agent_executor: Union[AgentExecutor, Pregel] = None
-agent_type: AgentType = None
 session_id: str = None
 
 
@@ -96,7 +86,7 @@ def get_session(session_id: str):
 
 
 class SessionCreationRequest(BaseModel):
-    agent_type: AgentType
+    agent_type: str
 
 
 @app.post('/session')
@@ -105,13 +95,13 @@ def create_session(body: SessionCreationRequest):
     agent_type = body.agent_type
 
     match body.agent_type:
-        case AgentType.SQL:
+        case 'sql':
             session_id_lok, executor = create_sql_agent_executor()
-        case AgentType.OAF:
+        case 'oaf':
             session_id_lok, executor = create_oaf_agent_executor()
-        case AgentType.TOOL:
+        case 'tool':
             session_id_lok, executor = create_tool_agent_executor()
-        case AgentType.LG_AGENT_SUPERVISOR:
+        case 'lg-agent-supervisor':
             session_id_lok, executor = create_multi_agent_runnable()
         case _:
             raise HTTPException(
@@ -121,9 +111,7 @@ def create_session(body: SessionCreationRequest):
     agent_executor = executor
     session_id = session_id_lok
 
-    return {
-        'session_id': session_id_lok,
-    }
+    return {'session_id': session_id_lok}
 
 
 def create_data_event(data: Dict[Any, Any]):
@@ -176,14 +164,19 @@ async def stream_response(message: str):
     assert len(ToolCallsHandler.tool_calls()) == 0
 
 
-async def langgraph_stream_response(message: str):
-    # geojson_outputting_tools = ['sql_db_query', 'add_geojson_to_map']
+async def langgraph_stream_response(message: Union[str, BaseMessage, Sequence[BaseMessage]]):
     geojson_outputting_tools = ['add_geojson_to_map']
+
+    if isinstance(message, str):
+        messages = [HumanMessage(content=message)]
+    elif isinstance(message, BaseMessage):
+        messages = [message]
+    elif isinstance(message, Sequence):
+        messages = message
 
     async for s in agent_executor.astream(
         {
-            'initial_query': message,
-            "messages": [HumanMessage(content=message)]
+            "messages": messages
         },
         {"recursion_limit": 100, 'configurable': {'thread_id': session_id}},
     ):
@@ -258,9 +251,10 @@ async def upload(files: List[UploadFile] = File(...)):
 
     print(WorkDirManager.list_files())
 
-    success_msg = f'I just uploaded file(s) {[file.filename for file in files]} to the /tmp in the current environment.'
+    message = SystemMessage(
+        content=f'File(s) {[file.filename for file in files]} where just to the /tmp in the current environment.')
 
-    return StreamingResponse(langgraph_stream_response(success_msg), media_type='text/event-stream')
+    return StreamingResponse(langgraph_stream_response(message), media_type='text/event-stream')
 
 
 @app.get('/docker')
