@@ -3,12 +3,13 @@ import operator
 from typing_extensions import TypedDict
 
 from langchain_core.messages import BaseMessage
-from langchain.agents import AgentExecutor, create_openai_tools_agent
-from langchain_core.messages import AIMessage, FunctionMessage
+from langchain_core.messages import AIMessage
 from langchain.tools import BaseTool
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.output_parsers import StrOutputParser
+
+from .agent_executor import create_tool_calling_executor
 
 from ...utils.workdir_manager import WorkDirManager
 
@@ -34,14 +35,12 @@ def prelude(state: AgentState) -> AgentState:
 
 
 def create_agent(llm: ChatOpenAI, tools: Sequence[BaseTool], system_prompt: str, suffix: str = None):
-    prompt = ChatPromptTemplate.from_messages(
-        [
-            ('system', system_prompt),
-            MessagesPlaceholder(variable_name="messages"),
-            AIMessage(content=suffix or ''),
-            MessagesPlaceholder(variable_name="agent_scratchpad"),
-        ]
-    )
+    prompt = ChatPromptTemplate.from_messages([
+        ('system', system_prompt),
+        MessagesPlaceholder(variable_name="messages"),
+        *([AIMessage(content=suffix)] if suffix is not None else []),
+        MessagesPlaceholder(variable_name="agent_scratchpad")
+    ])
 
     if len(tools) == 0:
         return (
@@ -50,18 +49,18 @@ def create_agent(llm: ChatOpenAI, tools: Sequence[BaseTool], system_prompt: str,
             | StrOutputParser()
         )
 
-    agent = create_openai_tools_agent(llm, tools, prompt)
-    executor = AgentExecutor(agent=agent, tools=tools)
+    # agent = create_openai_tools_agent(llm, tools, prompt)
+    # executor = AgentExecutor(agent=agent, tools=tools)
+
+    executor = create_tool_calling_executor(
+        model=llm, tools=tools, input_schema=AgentState)
+
     return executor
 
 
 async def agent_node(state: AgentState, agent, name):
-    messages = []
-    async for s in agent.astream(state):
-        message = s['messages'][-1]
-        if isinstance(message, AIMessage) and message.content:
-            message.name = name
-            messages.append(message)
-        elif isinstance(message, FunctionMessage):
-            messages.append(message)
-    return {"messages": messages}
+    res = await agent.ainvoke(state)
+    for msg in res['messages']:
+        if isinstance(msg, AIMessage):
+            msg.name = name
+    return {"messages": res['messages']}

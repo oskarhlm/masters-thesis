@@ -2,6 +2,7 @@ from typing import Callable, Dict
 
 from .sql_worker import create_sql_node
 from .map_controller_worker import create_map_controller_node
+from .python_analysis_worker import create_python_analysis_node
 
 
 class Worker:
@@ -12,6 +13,17 @@ class Worker:
 
     def create_node(self):
         return self.node_creator()
+
+
+python_analysis_worker = Worker(
+    name="python_analysis_worker",
+    description=(
+        "A worker/agent that can generate and execute Python code."
+        " Suitable for doing spatial analysis on files that are stored on the server,"
+        " or uploaded to the server from the client."
+    ),
+    node_creator=create_python_analysis_node
+)
 
 
 map_worker = Worker(
@@ -27,13 +39,23 @@ sql_worker = Worker(
     name="sql_worker",
     description=(
         "A worker/agent that has access to, and can query, a geospatial PostGIS database."
-        " Suitable for doing spatial analysis and generating GeoJSON files that are stored on the server,"
-        " and in turn can be added to the map by map_worker."
+        " Suitable for doing spatial analysis on the tables found in the database."
+        " The analysis results can be added to the map by map_worker."
     ),
     node_creator=create_sql_node
 )
 
+# workers: Dict[str, Worker] = {
+#     "python_analysis_worker": python_analysis_worker,
+#     "map_worker": map_worker,
+#     "sql_worker": sql_worker,
+# }
+
 workers: Dict[str, Worker] = {
-    "map_worker": map_worker,
-    "sql_worker": sql_worker,
+    worker.name: worker
+    for worker in [
+        python_analysis_worker,
+        map_worker,
+        sql_worker
+    ]
 }

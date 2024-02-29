@@ -1,6 +1,7 @@
 import os
 import json
 from typing import Dict, Any, List, Union, Sequence
+from pathlib import Path
 
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -37,14 +38,18 @@ else:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    print('Booting up...')
-    WorkDirManager()
-    WorkDirManager.add_file('random.geojson', 'random.geojson')
-    print(WorkDirManager.list_files())
-    yield
-
-    WorkDirManager.cleanup()
-    print('Shutting down...')
+    import asyncio
+    try:
+        print('Booting up...')
+        WorkDirManager()
+        WorkDirManager.add_file('random.geojson', 'random.geojson')
+        print(WorkDirManager.list_files())
+        yield
+    except asyncio.exceptions.CancelledError:
+        pass
+    finally:
+        WorkDirManager.cleanup()
+        print('Shutting down...')
 
 
 app = FastAPI(lifespan=lifespan)
@@ -186,10 +191,11 @@ async def langgraph_stream_response(message: Union[str, BaseMessage, Sequence[Ba
             continue
         elif '__end__' not in s:
             for value in s.values():
-                print(value)
+                print(f'{value}\n')
                 if 'messages' in value:
                     for message in value['messages']:
-                        if isinstance(message, AIMessage):
+                        print(type(message))
+                        if isinstance(message, AIMessage) and len(message.content) > 0:
                             yield create_data_event({'message': f'<strong>[{message.name}]</strong><br>{message.content}'})
                             yield create_data_event({'message_end': True})
                         elif isinstance(message, FunctionMessage):
@@ -220,8 +226,7 @@ async def update_map_state(state_data: Request):
 
 @app.get('/geojson')
 def get_geojson(geojson_path: str = "output.geojson"):
-    with open(geojson_path, "r") as file:
-        geojson_data = file.read()
+    geojson_data = WorkDirManager.load_file(geojson_path)
     return json.loads(geojson_data)
 
 

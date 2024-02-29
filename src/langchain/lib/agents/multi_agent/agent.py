@@ -17,7 +17,7 @@ def create_multi_agent_runnable(session_id: str = None):
 
     workflow = StateGraph(AgentState)
 
-    workers_to_use = ['sql_worker', 'map_worker']
+    workers_to_use = ['sql_worker', 'map_worker', 'python_analysis_worker']
     for worker_key in workers_to_use:
         if not workers.get(worker_key):
             raise KeyError(f'No worker `{worker_key}` in worker dict')

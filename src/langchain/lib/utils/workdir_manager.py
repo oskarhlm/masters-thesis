@@ -34,7 +34,9 @@ class WorkDirManager:
         return target_path
 
     @classmethod
-    def load_file(cls, filename: Path, return_path=False):
+    def load_file(cls, filename: Union[str, Path], return_path=False):
+        if isinstance(filename, str):
+            filename = Path(filename)
         file_path = cls._working_directory / filename
         if not file_path.exists():
             return None
