@@ -207,7 +207,8 @@ async def langgraph_stream_response(message: Union[str, BaseMessage, Sequence[Ba
                             yield create_data_event({'message_end': True})
                         elif isinstance(message, ToolMessage):
                             try:
-                                yield create_data_event(message.content)
+                                if ast.literal_eval(message.content)['add_to_map']:
+                                    yield create_data_event(message.content)
                             except:
                                 print('Output type is not GeoJSON')
             continue
