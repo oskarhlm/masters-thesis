@@ -34,6 +34,7 @@ class CustomListSQLDatabaseTool(BaseSQLDatabaseTool, BaseTool):
         self,
         tool_input: str = "",
         run_manager: Optional[CallbackManagerForToolRun] = None,
+        **kwargs
     ) -> str:
         """Get the schema for a specific table."""
         results = self.db._execute(QUERY)[0]['table_comments']

@@ -1,30 +1,39 @@
 {
     "center": {
-        "lng": 10.408287491543206,
-        "lat": 63.41985838875556
+        "lng": 10.441210284500016,
+        "lat": 63.33804948856613
     },
     "bounds": {
         "_sw": {
-            "lng": 10.385045865608447,
-            "lat": 63.4077966966899
+            "lng": 10.169788108902338,
+            "lat": 63.196470471843185
         },
         "_ne": {
-            "lng": 10.431529117476941,
-            "lat": 63.43191500793398
+            "lng": 10.71263246010011,
+            "lat": 63.47893517683576
         }
     },
     "zoom": {
-        "current": 12.870283000948362,
+        "current": 9.324527310262958,
         "max": 22,
         "min": -2
     },
     "layers": [
         {
-            "id": "random",
+            "id": "veger_med_fartsgrense_100",
             "type": "line",
-            "source": "random",
+            "source": "veger_med_fartsgrense_100",
             "paint": {
-                "line-color": "#8c2109",
+                "line-color": "#f8172a",
+                "line-width": 3
+            }
+        },
+        {
+            "id": "veger_med_fartsgrense_80",
+            "type": "line",
+            "source": "veger_med_fartsgrense_80",
+            "paint": {
+                "line-color": "#e6459c",
                 "line-width": 3
             }
         }

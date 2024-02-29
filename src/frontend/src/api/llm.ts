@@ -33,6 +33,8 @@ export class LLM {
     eventSource.onmessage = async (event) => {
       const data = JSON.parse(event.data);
 
+      console.log(data);
+
       if (data.tool_invokation || data.tool_arguments) {
         console.log(data);
       }

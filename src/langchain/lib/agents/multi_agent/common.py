@@ -3,12 +3,14 @@ import operator
 from typing_extensions import TypedDict
 
 from langchain_core.messages import BaseMessage
-from langchain_core.messages import AIMessage
+from langchain_core.messages import AIMessage, ToolMessage
 from langchain.tools import BaseTool
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.agents import AgentAction
+
+import uuid
 
 from .agent_executor import create_tool_calling_executor
 
@@ -21,6 +23,7 @@ class AgentState(TypedDict):
     working_directory: str
     current_files: str
     intermediate_steps: Annotated[list[tuple[AgentAction, str]], operator.add]
+    last_message_id: str | None
 
 
 def prelude(state: AgentState) -> AgentState:
@@ -60,9 +63,20 @@ def create_agent(llm: ChatOpenAI, tools: Sequence[BaseTool], system_prompt: str,
     return executor
 
 
-async def agent_node(state: AgentState, agent, name):
+async def agent_node(state: AgentState, agent, name) -> AgentState:
     res = await agent.ainvoke(state)
-    for msg in res['messages']:
+    last_message_id = state.get("last_message_id", None)
+    messages = res.get('messages', [])
+
+    last_message_index = next((i for i, msg in enumerate(
+        messages) if msg.additional_kwargs.get('message_id') == last_message_id), -1)
+
+    new_messages = messages[last_message_index + 1:]
+    for msg in new_messages:
+        msg.additional_kwargs['message_id'] = str(uuid.uuid4())
         if isinstance(msg, AIMessage):
             msg.name = name
-    return {"messages": res['messages']}
+    return {
+        "messages": new_messages,
+        'last_message_id': new_messages[-1].additional_kwargs['message_id']
+    }

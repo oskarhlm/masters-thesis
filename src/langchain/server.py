@@ -2,6 +2,7 @@ import os
 import json
 from typing import Dict, Any, List, Union, Sequence
 import ast
+import uuid
 
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -24,7 +25,7 @@ from lib.agents.oaf_agent.agent import create_oaf_agent_executor
 from lib.tools.oaf_tools.query_collection import QueryOGCAPIFeaturesCollectionTool
 from lib.utils.ai_suffix_selection import select_ai_suffix_message
 from lib.utils.tool_calls_handler import ToolCallsHandler
-from lib.agents.multi_agent.agent import create_multi_agent_runnable
+from lib.agents.multi_agent.graph import create_multi_agent_runnable
 from lib.utils.workdir_manager import WorkDirManager
 
 
@@ -120,7 +121,9 @@ def create_session(body: SessionCreationRequest):
     return {'session_id': session_id_lok}
 
 
-def create_data_event(data: Dict[Any, Any]):
+def create_data_event(data: Union[str, Dict[Any, Any]]):
+    if isinstance(data, str):
+        data = ast.literal_eval(data)
     return f'data: {json.dumps(data)}\n\n'
 
 
@@ -180,27 +183,31 @@ async def langgraph_stream_response(message: Union[str, BaseMessage, Sequence[Ba
     elif isinstance(message, Sequence):
         messages = message
 
+    for msg in messages:
+        msg.additional_kwargs['message_id'] = str(uuid.uuid4())
+
     async for s in agent_executor.astream(
         {
-            "messages": messages
+            "messages": messages,
+            'last_message_id': messages[-1].additional_kwargs['message_id']
         },
         {"recursion_limit": 100, 'configurable': {'thread_id': session_id}},
     ):
         if "supervisor" in s:
-            yield create_data_event({'message': f'Supervisor selected  {s["supervisor"]["next"]}'})
+            yield create_data_event({'message': f'Supervisor selected {s["supervisor"]["next"]}'})
             yield create_data_event({'message_end': True})
             continue
         elif '__end__' not in s:
             for value in s.values():
                 if 'messages' in value:
                     for message in value['messages']:
-                        print(type(message))
+                        print(message)
                         if isinstance(message, AIMessage) and len(message.content) > 0:
                             yield create_data_event({'message': f'<strong>[{message.name}]</strong><br>{message.content}'})
                             yield create_data_event({'message_end': True})
                         elif isinstance(message, ToolMessage):
                             try:
-                                yield create_data_event(ast.literal_eval(message.content))
+                                yield create_data_event(message.content)
                             except:
                                 print('Output type is not GeoJSON')
             continue

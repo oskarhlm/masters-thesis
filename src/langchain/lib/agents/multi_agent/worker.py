@@ -45,12 +45,6 @@ sql_worker = Worker(
     node_creator=create_sql_node
 )
 
-# workers: Dict[str, Worker] = {
-#     "python_analysis_worker": python_analysis_worker,
-#     "map_worker": map_worker,
-#     "sql_worker": sql_worker,
-# }
-
 workers: Dict[str, Worker] = {
     worker.name: worker
     for worker in [
