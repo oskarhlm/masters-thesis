@@ -8,6 +8,7 @@ from langchain.tools import BaseTool
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.output_parsers import StrOutputParser
+from langchain_core.agents import AgentAction
 
 from .agent_executor import create_tool_calling_executor
 
@@ -19,6 +20,7 @@ class AgentState(TypedDict):
     next: str
     working_directory: str
     current_files: str
+    intermediate_steps: Annotated[list[tuple[AgentAction, str]], operator.add]
 
 
 def prelude(state: AgentState) -> AgentState:
@@ -53,7 +55,7 @@ def create_agent(llm: ChatOpenAI, tools: Sequence[BaseTool], system_prompt: str,
     # executor = AgentExecutor(agent=agent, tools=tools)
 
     executor = create_tool_calling_executor(
-        model=llm, tools=tools, input_schema=AgentState)
+        model=llm, tools=tools, input_schema=AgentState, prompt=prompt)
 
     return executor
 

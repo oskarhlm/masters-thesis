@@ -6,6 +6,13 @@ from langchain_core.messages import ToolMessage
 from langchain_core.runnables import RunnableLambda
 from langchain_core.tools import BaseTool
 from langchain_core.utils.function_calling import convert_to_openai_tool
+from langchain_core.prompts import ChatPromptTemplate
+from langchain.agents.output_parsers.openai_tools import OpenAIToolsAgentOutputParser
+from langchain_core.runnables import RunnablePassthrough
+
+from langchain.agents.format_scratchpad.openai_tools import (
+    format_to_openai_tool_messages,
+)
 
 from langgraph.graph import END, StateGraph
 from langgraph.prebuilt.tool_executor import ToolExecutor, ToolInvocation
@@ -14,7 +21,8 @@ from langgraph.prebuilt.tool_executor import ToolExecutor, ToolInvocation
 def create_tool_calling_executor(
     model: LanguageModelLike,
     tools: Union[ToolExecutor, Sequence[BaseTool]],
-    input_schema: Any | None = None
+    input_schema: Any | None = None,
+    prompt: ChatPromptTemplate = None
 ):
     if isinstance(tools, ToolExecutor):
         tool_executor = tools
@@ -22,7 +30,16 @@ def create_tool_calling_executor(
     else:
         tool_executor = ToolExecutor(tools)
         tool_classes = tools
-    model = model.bind(tools=[convert_to_openai_tool(t) for t in tool_classes])
+
+    model = (
+        RunnablePassthrough.assign(
+            agent_scratchpad=lambda x: format_to_openai_tool_messages(
+                x["intermediate_steps"]
+            )
+        )
+        | prompt
+        | model.bind(tools=[convert_to_openai_tool(t) for t in tool_classes])
+    )
 
     def should_continue(state: input_schema):
         messages = state["messages"]
@@ -33,13 +50,11 @@ def create_tool_calling_executor(
             return "continue"
 
     def call_model(state: input_schema):
-        messages = state["messages"]
-        response = model.invoke(messages)
+        response = model.invoke(state)
         return {"messages": [response]}
 
     async def acall_model(state: input_schema):
-        messages = state["messages"]
-        response = await model.ainvoke(messages)
+        response = await model.ainvoke(state)
         return {"messages": [response]}
 
     def _get_actions(state: input_schema):

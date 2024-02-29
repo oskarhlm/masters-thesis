@@ -1,7 +1,7 @@
 import os
 import json
 from typing import Dict, Any, List, Union, Sequence
-from pathlib import Path
+import ast
 
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -10,7 +10,8 @@ from fastapi import FastAPI, UploadFile, File
 from dotenv import load_dotenv
 from langchain.agents import AgentExecutor
 from langchain.tools import BaseTool
-from langchain_core.messages import AIMessageChunk, FunctionMessage, HumanMessage, AIMessage, SystemMessage
+from langchain_core.messages import (
+    AIMessageChunk, FunctionMessage, HumanMessage, AIMessage, SystemMessage, ToolMessage)
 from pydantic import BaseModel
 from langgraph.pregel import Pregel
 from contextlib import asynccontextmanager
@@ -191,20 +192,17 @@ async def langgraph_stream_response(message: Union[str, BaseMessage, Sequence[Ba
             continue
         elif '__end__' not in s:
             for value in s.values():
-                print(f'{value}\n')
                 if 'messages' in value:
                     for message in value['messages']:
                         print(type(message))
                         if isinstance(message, AIMessage) and len(message.content) > 0:
                             yield create_data_event({'message': f'<strong>[{message.name}]</strong><br>{message.content}'})
                             yield create_data_event({'message_end': True})
-                        elif isinstance(message, FunctionMessage):
-                            if message.name in geojson_outputting_tools:
-                                try:
-                                    data = json.loads(message.content)
-                                    yield create_data_event(data)
-                                except:
-                                    print('Output type is not GeoJSON')
+                        elif isinstance(message, ToolMessage):
+                            try:
+                                yield create_data_event(ast.literal_eval(message.content))
+                            except:
+                                print('Output type is not GeoJSON')
             continue
 
         yield create_data_event({'stream_complete': True})
