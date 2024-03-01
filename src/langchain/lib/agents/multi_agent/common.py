@@ -32,9 +32,14 @@ class AgentState(TypedDict):
 def prelude(state: AgentState) -> AgentState:
     written_files = WorkDirManager.list_files()
     if not written_files:
-        return {**state, "current_files": "No files written."}
+        return {
+            **state,
+            'working_directory': WorkDirManager.get_abs_path(),
+            "current_files": "No files written."
+        }
     else:
-        formatted_files = "\n".join([f" - {f.name}" for f in written_files])
+        formatted_files = "\n".join(
+            [f" - {f}" for f in written_files])
         return {
             **state,
             'working_directory': WorkDirManager.get_abs_path(),

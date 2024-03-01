@@ -20,6 +20,7 @@ class WorkDirManager:
 
     @classmethod
     def add_file(cls, filename, content_or_path: Union[str, bytes, Path], save_as_json=False) -> Path:
+        filename = Path(filename).name
         target_path: Path = cls._working_directory / filename
         if save_as_json:
             with open(target_path, 'w') as file:
@@ -35,6 +36,7 @@ class WorkDirManager:
 
     @classmethod
     def load_file(cls, filename: Union[str, Path], return_path=False):
+        filename = Path(filename).name
         if isinstance(filename, str):
             filename = Path(filename)
         file_path = cls._working_directory / filename
@@ -53,6 +55,7 @@ class WorkDirManager:
 
     @classmethod
     def delete_file(cls, filename):
+        filename = Path(filename).name
         file_path = cls._working_directory / filename
         if file_path.exists():
             file_path.unlink()
@@ -60,8 +63,8 @@ class WorkDirManager:
         return False
 
     @classmethod
-    def get_abs_path(self):
-        return str(self._working_directory)
+    def get_abs_path(cls):
+        return str(cls._working_directory)
 
     @classmethod
     def cleanup(cls):

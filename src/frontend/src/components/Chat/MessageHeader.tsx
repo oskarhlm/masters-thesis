@@ -6,5 +6,9 @@ type Props = {
 };
 
 export function MessageHeader(props: Props) {
-  return <div class={`group-header ${props.source}`}>{props.source}</div>;
+  return (
+    <div class={`group-header ${props.source}`}>
+      {props.source === 'bot' ? 'GeoGPT' : 'You'}
+    </div>
+  );
 }

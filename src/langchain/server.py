@@ -28,6 +28,10 @@ from lib.utils.tool_calls_handler import ToolCallsHandler
 from lib.agents.multi_agent.graph import create_multi_agent_runnable
 from lib.utils.workdir_manager import WorkDirManager
 
+import logging
+
+# TODO: Fix this, but mayby not actually...
+logging.basicConfig(level=logging.ERROR)
 
 if os.getenv('IS_DOCKER_CONTAINER'):
     load_dotenv()
@@ -42,14 +46,12 @@ else:
 async def lifespan(app: FastAPI):
     import asyncio
     try:
-        print('Booting up...')
         WorkDirManager()
         yield
     except asyncio.exceptions.CancelledError:
         pass
     finally:
         WorkDirManager.cleanup()
-        print('Shutting down...')
 
 
 app = FastAPI(lifespan=lifespan)
@@ -182,6 +184,37 @@ async def langgraph_stream_response(message: Union[str, BaseMessage, Sequence[Ba
     for msg in messages:
         msg.additional_kwargs['message_id'] = str(uuid.uuid4())
 
+    async for event in agent_executor.astream_events({
+            "messages": messages,
+            'last_message_id': messages[-1].additional_kwargs['message_id']
+        },
+        config={"recursion_limit": 100,
+                'configurable': {'thread_id': session_id}},
+        version="v1"
+    ):
+        kind = event["event"]
+        if kind == "on_chat_model_stream":
+            content = event["data"]["chunk"].content
+            if content:
+                # print(content, end="|")
+                yield create_data_event({'message': content})
+        elif kind == "on_tool_start":
+            # print("--")
+            # print(
+            #     f"Starting tool: {event['name']} with inputs: {event['data'].get('input')}"
+            # )
+            yield create_data_event({
+                'message': f'Using tool <i>{event["name"]}</i>',
+            })
+            yield create_data_event({'message_end': True})
+        elif kind == "on_tool_end":
+            # print(f"Done tool: {event['name']}")
+            # print(f"Tool output was: {event['data'].get('output')}")
+            # print("--")
+            pass
+
+    return
+
     async for s in agent_executor.astream(
         {
             "messages": messages,
@@ -220,7 +253,7 @@ async def langgraph_stream_response(message: Union[str, BaseMessage, Sequence[Ba
 
 @app.get('/streaming-chat')
 async def chat_endpoint(message: str):
-    if isinstance(agent_executor, Pregel):
+    if not isinstance(agent_executor, AgentExecutor):
         return StreamingResponse(langgraph_stream_response(message), media_type='text/event-stream')
     return StreamingResponse(stream_response(message), media_type='text/event-stream')
 

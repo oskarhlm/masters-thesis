@@ -16,7 +16,7 @@ AI_SUFFIX = (
 
 
 def create_sql_node():
-    llm = ChatOpenAI(model=os.getenv('GPT3_MODEL_NAME'))
+    llm = ChatOpenAI(model=os.getenv('GPT3_MODEL_NAME'), streaming=True)
     db = SQLDatabase.from_uri(
         database_uri=os.getenv('POSTGRES_CONN'),
         sample_rows_in_table_info=1,

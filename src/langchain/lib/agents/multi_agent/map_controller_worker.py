@@ -9,7 +9,7 @@ from .common import agent_node, create_agent, prelude, postlude
 
 
 def create_map_controller_node():
-    llm = ChatOpenAI(model=os.getenv('GPT3_MODEL_NAME'))
+    llm = ChatOpenAI(model=os.getenv('GPT3_MODEL_NAME'), streaming=True)
 
     map_controller_agent = (
         prelude

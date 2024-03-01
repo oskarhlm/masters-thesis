@@ -8,7 +8,7 @@ from .common import agent_node, create_agent
 
 
 def create_analysis_node():
-    llm = ChatOpenAI(model=os.getenv('GPT3_MODEL_NAME'))
+    llm = ChatOpenAI(model=os.getenv('GPT3_MODEL_NAME'), streaming=True)
 
     code_agent = create_agent(
         llm=llm,

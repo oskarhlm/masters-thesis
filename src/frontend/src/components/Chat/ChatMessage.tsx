@@ -7,6 +7,7 @@ type Props = {
   source: 'human' | 'bot';
 };
 
+showdown.setFlavor('github');
 const converter = new showdown.Converter();
 
 const ChatMessage: Component<Props> = (props) => {
