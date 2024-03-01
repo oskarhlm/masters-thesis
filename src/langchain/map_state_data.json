@@ -20,11 +20,11 @@
     },
     "layers": [
         {
-            "id": "roads_speed_limit_100",
+            "id": "roads_with_speed_limit_100",
             "type": "line",
-            "source": "roads_speed_limit_100",
+            "source": "roads_with_speed_limit_100",
             "paint": {
-                "line-color": "#35dc2c",
+                "line-color": "#a43e3e",
                 "line-width": 3
             }
         }

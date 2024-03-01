@@ -3,6 +3,7 @@ import { get, BASE_URL, post } from './apiHelper';
 import { addGeoJSONToMap } from '../components/Map/Map';
 import { AgentType } from '../components/Chat/types';
 import { updateMapState } from './mapState';
+import { chatElements, setChatElements } from '../components/Chat/chatStore';
 
 export const [isStreaming, setIsStreaming] = createSignal(false);
 export const [sessionId, setSessionId] = createSignal<string | null>(null);
@@ -33,12 +34,6 @@ export class LLM {
     eventSource.onmessage = async (event) => {
       const data = JSON.parse(event.data);
 
-      console.log(data);
-
-      if (data.tool_invokation || data.tool_arguments) {
-        console.log(data);
-      }
-
       if (data.stream_complete) {
         closeStream();
       }
@@ -50,10 +45,23 @@ export class LLM {
         addGeoJSONToMap(res, data.layer_name);
       }
 
+      if (data.supervisor) {
+        setChatElements([
+          ...chatElements,
+          {
+            type: 'spinner',
+            content: `${data.agent_selected} is working...`,
+          },
+        ]);
+        return;
+      }
+
       if (data.message_end) {
         onMessageCallback(undefined, true);
         return;
       }
+
+      setChatElements(chatElements.filter((ce) => ce.type !== 'spinner'));
 
       onMessageCallback(data.message);
     };

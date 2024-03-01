@@ -1,4 +1,4 @@
-import { Component, onMount } from 'solid-js';
+import { Component } from 'solid-js';
 import showdown from 'showdown';
 import './styles.css';
 

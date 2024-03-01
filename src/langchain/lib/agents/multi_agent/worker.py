@@ -6,8 +6,9 @@ from .python_analysis_worker import create_python_analysis_node
 
 
 class Worker:
-    def __init__(self, name: str, description: str, node_creator: Callable):
+    def __init__(self, name: str,  readable_name: str, description: str, node_creator: Callable):
         self.name = name
+        self.readable_name = readable_name
         self.description = description
         self.node_creator = node_creator
 
@@ -17,6 +18,7 @@ class Worker:
 
 python_analysis_worker = Worker(
     name="python_analysis_worker",
+    readable_name='Python Coder',
     description=(
         "A worker/agent that can generate and execute Python code."
         " Suitable for doing spatial analysis on files that are stored on the server,"
@@ -28,6 +30,7 @@ python_analysis_worker = Worker(
 
 map_worker = Worker(
     name="map_worker",
+    readable_name='Map Controller',
     description=(
         "A worker/agent that controls a client-side map that is visible to the user/human."
         " Has tools for adding GeoJSON to the map, changing layer color, etc."
@@ -37,6 +40,7 @@ map_worker = Worker(
 
 sql_worker = Worker(
     name="sql_worker",
+    readable_name='SQL Coder',
     description=(
         "A worker/agent that has access to, and can query, a geospatial PostGIS database."
         " Suitable for doing spatial analysis on the tables found in the database."

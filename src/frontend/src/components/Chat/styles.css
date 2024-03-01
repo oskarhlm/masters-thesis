@@ -201,3 +201,36 @@ select {
     font-weight: bold;
   }
 }
+
+.spinner-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  /* width: max(60%, 100px); */
+  width: fit-content;
+  color: var(--cg-primary);
+  padding-top: 20px;
+  margin-inline: auto;
+}
+
+.loader {
+  width: 30px;
+  height: 30px;
+  border: 3px solid var(--cg-primary);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  /* flex-grow: 1; */
+  flex-shrink: 0;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

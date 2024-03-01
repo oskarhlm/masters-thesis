@@ -174,8 +174,6 @@ async def stream_response(message: str):
 
 
 async def langgraph_stream_response(message: Union[str, BaseMessage, Sequence[BaseMessage]]):
-    geojson_outputting_tools = ['add_geojson_to_map']
-
     if isinstance(message, str):
         messages = [HumanMessage(content=message)]
     elif isinstance(message, BaseMessage):
@@ -194,7 +192,13 @@ async def langgraph_stream_response(message: Union[str, BaseMessage, Sequence[Ba
         {"recursion_limit": 100, 'configurable': {'thread_id': session_id}},
     ):
         if "supervisor" in s:
-            yield create_data_event({'message': f'Supervisor selected {s["supervisor"]["next"]}'})
+            agent_selected = s["supervisor"]["next"]
+            if agent_selected != 'FINISH':
+                yield create_data_event({
+                    'message': f'Supervisor selected {agent_selected}',
+                    'supervisor': True,
+                    'agent_selected': agent_selected
+                })
             yield create_data_event({'message_end': True})
             continue
         elif '__end__' not in s:

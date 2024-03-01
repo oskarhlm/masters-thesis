@@ -28,4 +28,8 @@ export type ChatElement =
   | {
       type: 'information';
       content: string | JSX.Element;
+    }
+  | {
+      type: 'spinner';
+      content: string | JSX.Element;
     };
