@@ -19,7 +19,7 @@ def create_agent_supervisor_node(workers: Sequence[Worker]):
         " respond with FINISH."
     )
 
-    options = ["FINISH"] + [m.name for m in workers]
+    options = ["FINISH"] + [m.readable_name for m in workers]
 
     function_def = {
         "name": "route",
@@ -39,7 +39,7 @@ def create_agent_supervisor_node(workers: Sequence[Worker]):
         },
     }
 
-    bullet_point_list = "\n".join(f"{i+1}) {worker.name} - {worker.description}"
+    bullet_point_list = "\n".join(f"{i+1}) {worker.readable_name} - {worker.description}"
                                   for i, worker in enumerate(workers))
 
     prompt = ChatPromptTemplate.from_messages(

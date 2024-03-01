@@ -1,8 +1,9 @@
-from typing import Annotated, Sequence, TypedDict
+from typing import Annotated, Sequence, TypedDict, Union
 import operator
 from typing_extensions import TypedDict
 
 from langchain_core.messages import BaseMessage
+from langchain_core.agents import AgentAction, AgentFinish
 from langchain_core.messages import AIMessage, ToolMessage
 from langchain.tools import BaseTool
 from langchain_openai import ChatOpenAI
@@ -24,6 +25,7 @@ class AgentState(TypedDict):
     current_files: str
     intermediate_steps: Annotated[list[tuple[AgentAction, str]], operator.add]
     last_message_id: str | None
+    agent_outcome: Union[AgentAction, AgentFinish, None]
 
 
 def prelude(state: AgentState) -> AgentState:

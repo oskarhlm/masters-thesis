@@ -50,8 +50,8 @@ class GetMapStateTool(BaseTool):
         f"Should not be used for geospatial analysis."
     )
 
-    def _run(self, tool_input: str = "") -> str:
+    def _run(self, tool_input: str = "", **kwargs) -> str:
         return load_map_state()
 
-    async def _arun(self, tool_input: str = "") -> str:
+    async def _arun(self, tool_input: str = "", **kwargs) -> str:
         return self._run()

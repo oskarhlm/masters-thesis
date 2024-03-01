@@ -33,7 +33,7 @@ def create_multi_agent_runnable(session_id: str = None):
     for worker in worker_objs:
         workflow.add_edge(worker.name, SUPERVISOR)
 
-    conditional_map = {k.name: k.name for k in worker_objs}
+    conditional_map = {k.readable_name: k.name for k in worker_objs}
     conditional_map["FINISH"] = END
     workflow.add_conditional_edges(
         SUPERVISOR, lambda x: x["next"], conditional_map)

@@ -50,7 +50,7 @@ export class LLM {
           ...chatElements,
           {
             type: 'spinner',
-            content: `${data.agent_selected} is working...`,
+            content: `**${data.agent_selected}** is working...`,
           },
         ]);
         return;
@@ -68,6 +68,7 @@ export class LLM {
 
     eventSource.onerror = (error) => {
       console.error('EventSource failed:', error);
+      setChatElements(chatElements.filter((ce) => ce.type !== 'spinner'));
       closeStream();
     };
 
