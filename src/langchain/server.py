@@ -44,8 +44,6 @@ async def lifespan(app: FastAPI):
     try:
         print('Booting up...')
         WorkDirManager()
-        WorkDirManager.add_file('random.geojson', 'random.geojson')
-        print(WorkDirManager.list_files())
         yield
     except asyncio.exceptions.CancelledError:
         pass
@@ -272,6 +270,6 @@ async def upload(files: List[UploadFile] = File(...)):
     return StreamingResponse(langgraph_stream_response(message), media_type='text/event-stream')
 
 
-@app.get('/docker')
-def docker():
-    return f'Docker: {os.getenv("IS_DOCKER_CONTAINER") or "false"}'
+@app.delete('/clear-workdir')
+def clear_workdir():
+    WorkDirManager.cleanup()

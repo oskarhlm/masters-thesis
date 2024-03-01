@@ -26,6 +26,7 @@ class AgentState(TypedDict):
     intermediate_steps: Annotated[list[tuple[AgentAction, str]], operator.add]
     last_message_id: str | None
     agent_outcome: Union[AgentAction, AgentFinish, None]
+    test: str
 
 
 def prelude(state: AgentState) -> AgentState:
@@ -38,7 +39,15 @@ def prelude(state: AgentState) -> AgentState:
             **state,
             'working_directory': WorkDirManager.get_abs_path(),
             "current_files": "Below are files your team has written to the working directory:\n" + formatted_files,
+            'intermediate_steps': []
         }
+
+
+def postlude(state: AgentState) -> AgentState:
+    return {
+        **state,
+        # 'messages': state['messages']
+    }
 
 
 def create_agent(llm: ChatOpenAI, tools: Sequence[BaseTool], system_prompt: str, suffix: str = None):

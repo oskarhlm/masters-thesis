@@ -19,8 +19,8 @@ class WorkDirManager:
         return cls._instance
 
     @classmethod
-    def add_file(cls, filename, content_or_path: Union[str, bytes, Path], save_as_json=False):
-        target_path = cls._working_directory / filename
+    def add_file(cls, filename, content_or_path: Union[str, bytes, Path], save_as_json=False) -> Path:
+        target_path: Path = cls._working_directory / filename
         if save_as_json:
             with open(target_path, 'w') as file:
                 json.dump(content_or_path, file)
@@ -70,7 +70,3 @@ class WorkDirManager:
             cls._temp_dir = None
             cls._instance = None
             cls._working_directory = None
-
-
-# Probably not best practice instantiating it here...
-WorkDirManager()

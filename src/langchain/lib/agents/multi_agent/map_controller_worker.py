@@ -5,7 +5,7 @@ from langchain_openai import ChatOpenAI
 
 from ...tools.map_interaction.get_map_state import GetMapStateTool
 from ...tools.map_interaction.publish_geojson import PublishGeoJSONTool
-from .common import agent_node, create_agent, prelude
+from .common import agent_node, create_agent, prelude, postlude
 
 
 def create_map_controller_node():
@@ -22,7 +22,9 @@ def create_map_controller_node():
                 " and you are equipped with tools to interact with the visual aspects of this map.\n\n"
                 "{current_files}"
             ),
-        ))
+        )
+        | postlude
+    )
 
     map_controller_agent_node = functools.partial(
         agent_node, agent=map_controller_agent, name="Map Controller")

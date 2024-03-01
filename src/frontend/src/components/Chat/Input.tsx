@@ -117,6 +117,7 @@ const Input: Component<Props> = (props) => {
             }
           }}
           ref={textareaRef!}
+          autofocus
         />
         <input
           type="submit"

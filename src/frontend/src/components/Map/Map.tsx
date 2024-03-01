@@ -94,6 +94,7 @@ export default function Map() {
         'https://api.maptiler.com/maps/bright-v2/style.json?key=Ef2vgWdLvtIRszls4CV1',
       center: [10.421906, 63.4],
       zoom: 10,
+      maxZoom: 17,
     });
 
     map.on('load', updateMapState);
