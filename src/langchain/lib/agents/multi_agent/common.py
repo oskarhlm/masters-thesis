@@ -3,15 +3,11 @@ import operator
 from typing_extensions import TypedDict
 
 from langchain_core.messages import BaseMessage
-from langchain_core.agents import AgentAction, AgentFinish
 from langchain_core.messages import AIMessage, ToolMessage
 from langchain.tools import BaseTool
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.agents import AgentAction
-
-import uuid
 
 from .agent_executor import create_tool_calling_executor
 
@@ -23,10 +19,9 @@ class AgentState(TypedDict):
     next: str
     working_directory: str
     current_files: str
-    intermediate_steps: Annotated[list[tuple[AgentAction, str]], operator.add]
+    agent_outcome: Union[AIMessage, None]
+    intermediate_steps: Annotated[Sequence[ToolMessage], operator.add]
     last_message_id: str | None
-    agent_outcome: Union[AgentAction, AgentFinish, None]
-    test: str
 
 
 def prelude(state: AgentState) -> AgentState:
@@ -35,7 +30,8 @@ def prelude(state: AgentState) -> AgentState:
         return {
             **state,
             'working_directory': WorkDirManager.get_abs_path(),
-            "current_files": "No files written."
+            "current_files": "No files written.",
+            'intermediate_steps': []
         }
     else:
         formatted_files = "\n".join(
@@ -51,7 +47,9 @@ def prelude(state: AgentState) -> AgentState:
 def postlude(state: AgentState) -> AgentState:
     return {
         **state,
-        # 'messages': state['messages']
+        'messages': [state['agent_outcome']],
+        'agent_outcome': None,
+        'intermediate_steps': []
     }
 
 
@@ -60,7 +58,7 @@ def create_agent(llm: ChatOpenAI, tools: Sequence[BaseTool], system_prompt: str,
         ('system', system_prompt),
         MessagesPlaceholder(variable_name="messages"),
         *([AIMessage(content=suffix)] if suffix is not None else []),
-        MessagesPlaceholder(variable_name="agent_scratchpad")
+        MessagesPlaceholder(variable_name="intermediate_steps")
     ])
 
     if len(tools) == 0:
@@ -70,9 +68,6 @@ def create_agent(llm: ChatOpenAI, tools: Sequence[BaseTool], system_prompt: str,
             | StrOutputParser()
         )
 
-    # agent = create_openai_tools_agent(llm, tools, prompt)
-    # executor = AgentExecutor(agent=agent, tools=tools)
-
     executor = create_tool_calling_executor(
         model=llm, tools=tools, input_schema=AgentState, prompt=prompt)
 
@@ -80,19 +75,9 @@ def create_agent(llm: ChatOpenAI, tools: Sequence[BaseTool], system_prompt: str,
 
 
 async def agent_node(state: AgentState, agent, name) -> AgentState:
-    res = await agent.ainvoke(state)
-    last_message_id = state.get("last_message_id", None)
-    messages = res.get('messages', [])
-
-    last_message_index = next((i for i, msg in enumerate(
-        messages) if msg.additional_kwargs.get('message_id') == last_message_id), -1)
-
-    new_messages = messages[last_message_index + 1:]
-    for msg in new_messages:
-        msg.additional_kwargs['message_id'] = str(uuid.uuid4())
-        if isinstance(msg, AIMessage):
-            msg.name = name
-    return {
-        "messages": new_messages,
-        'last_message_id': new_messages[-1].additional_kwargs['message_id']
-    }
+    agent_outcome = await (
+        prelude
+        | agent
+        | postlude
+    ).ainvoke(state)
+    return agent_outcome

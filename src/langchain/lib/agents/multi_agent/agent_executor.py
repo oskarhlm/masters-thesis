@@ -7,7 +7,6 @@ from langchain_core.runnables import RunnableLambda
 from langchain_core.tools import BaseTool
 from langchain_core.utils.function_calling import convert_to_openai_tool
 from langchain_core.prompts import ChatPromptTemplate
-from langchain.agents.output_parsers.openai_tools import OpenAIToolsAgentOutputParser
 from langchain_core.runnables import RunnablePassthrough
 
 from langchain.agents.format_scratchpad.openai_tools import (
@@ -32,45 +31,40 @@ def create_tool_calling_executor(
         tool_classes = tools
 
     model = (
-        RunnablePassthrough.assign(
-            agent_scratchpad=lambda x: format_to_openai_tool_messages(
-                x["intermediate_steps"]
-            )
-        )
-        | prompt
+        prompt
         | model.bind(tools=[convert_to_openai_tool(t) for t in tool_classes])
     )
 
     def should_continue(state: input_schema):
-        messages = state["messages"]
-        last_message = messages[-1]
-        if "tool_calls" not in last_message.additional_kwargs:
-            return "end"
-        else:
-            return "continue"
+        last_message = state['agent_outcome']
+        return 'tool_calls' in last_message.additional_kwargs
 
     def call_model(state: input_schema):
         response = model.invoke(state)
-        return {"messages": [response]}
+        return {"agent_outcome": response}
 
     async def acall_model(state: input_schema):
         response = await model.ainvoke(state)
-        return {"messages": [response]}
+        response.name = state['next']
+        print(type(response), response)
+        return {
+            "agent_outcome": response,
+            'intermediate_steps': [response]
+        }
 
     def _get_actions(state: input_schema):
-        messages = state["messages"]
-        last_message = messages[-1]
+        agent_outcome = state['agent_outcome']
         return (
             [
                 ToolInvocation(
                     tool=tool_call["function"]["name"],
                     tool_input=json.loads(tool_call["function"]["arguments"]),
                 )
-                for tool_call in last_message.additional_kwargs["tool_calls"]
+                for tool_call in agent_outcome.additional_kwargs["tool_calls"]
             ],
             [
                 tool_call["id"]
-                for tool_call in last_message.additional_kwargs["tool_calls"]
+                for tool_call in agent_outcome.additional_kwargs["tool_calls"]
             ],
         )
 
@@ -81,7 +75,7 @@ def create_tool_calling_executor(
             ToolMessage(content=str(response), tool_call_id=id)
             for response, id in zip(responses, ids)
         ]
-        return {"messages": tool_messages}
+        return {"intermediate_steps": tool_messages}
 
     async def acall_tool(state: input_schema):
         actions, ids = _get_actions(state)
@@ -90,7 +84,7 @@ def create_tool_calling_executor(
             ToolMessage(content=str(response), tool_call_id=id)
             for response, id in zip(responses, ids)
         ]
-        return {"messages": tool_messages}
+        return {"intermediate_steps": tool_messages}
 
     workflow = StateGraph(input_schema)
 
@@ -103,8 +97,8 @@ def create_tool_calling_executor(
         "agent",
         should_continue,
         {
-            "continue": "action",
-            "end": END,
+            True: "action",
+            False: END,
         },
     )
 

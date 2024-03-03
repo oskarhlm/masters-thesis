@@ -15,8 +15,8 @@ def create_agent_supervisor_node(workers: Sequence[Worker]):
         "You are a supervisor tasked with managing a conversation between the"
         " following workers:\n{workers}\n\nGiven the following user request,"
         " respond with the worker to act next. Each worker will perform a"
-        " task and respond with their results and status. When finished,"
-        " respond with FINISH."
+        " actions in the background and return their response to the main conversation."
+        ' When the user\'s question has been answered, respond with "FINISH".'
     )
 
     options = ["FINISH"] + [m.readable_name for m in workers]
@@ -50,15 +50,15 @@ def create_agent_supervisor_node(workers: Sequence[Worker]):
                 "system",
                 (
                     "Given the conversation above, who should act next, if any?"
-                    ' Return "FINISH" if the initial question has been answered?\n\n'
+                    ' Return "FINISH" if the initial user question has been answered.\n\n'
                     "Select one of: {options}\n\n"
                 )
             )
         ]
     ).partial(options=options, workers=bullet_point_list)
 
-    # llm = ChatOpenAI(model=os.getenv('GPT4_MODEL_NAME'), streaming=True)
-    llm = ChatOpenAI(model=os.getenv('GPT3_MODEL_NAME'), streaming=True)
+    llm = ChatOpenAI(model=os.getenv('GPT4_MODEL_NAME'), streaming=True)
+    # llm = ChatOpenAI(model=os.getenv('GPT3_MODEL_NAME'), streaming=True)
 
     return (
         prompt

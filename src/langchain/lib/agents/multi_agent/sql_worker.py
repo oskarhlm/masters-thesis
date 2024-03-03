@@ -30,6 +30,7 @@ def create_sql_node():
         system_prompt="You are an SQL agent that has access to a PostGIS database.",
         suffix=AI_SUFFIX
     )
+
     sql_agent_node = functools.partial(
         agent_node, agent=sql_agent, name="SQL Coder")
 

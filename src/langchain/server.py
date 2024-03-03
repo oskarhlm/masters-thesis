@@ -200,7 +200,6 @@ async def langgraph_stream_response(message: Union[str, BaseMessage, Sequence[Ba
         if kind == 'on_chat_model_end':
             yield create_data_event({'message_end': True})
         elif kind == "on_tool_start":
-            print(event)
             yield create_data_event({
                 'tool_start': True,
                 'run_id': event['run_id'],
@@ -208,10 +207,8 @@ async def langgraph_stream_response(message: Union[str, BaseMessage, Sequence[Ba
                 'tool_input': event['data'].get('input')
             })
         elif kind == "on_tool_end":
-            print(event)
             tool_output = event['data'].get('output')
             if event['name'] == 'add_geojson_to_map':
-                print(tool_output)
                 try:
                     tool_output = ast.literal_eval(tool_output)
                 except Exception as e:

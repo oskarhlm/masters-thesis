@@ -4,7 +4,7 @@ import os
 from langchain_openai import ChatOpenAI
 from langchain_experimental.tools.python.tool import PythonAstREPLTool
 
-from .common import agent_node, create_agent, prelude
+from .common import agent_node, create_agent
 
 
 def create_python_analysis_node():
@@ -12,7 +12,7 @@ def create_python_analysis_node():
 
     tools = [PythonAstREPLTool()]
 
-    python_analysis_agent = prelude | create_agent(
+    python_analysis_agent = create_agent(
         llm=llm,
         tools=tools,
         system_prompt=(
@@ -24,6 +24,7 @@ def create_python_analysis_node():
             '{current_files}'
         )
     )
+
     python_analysis_agent_node = functools.partial(
         agent_node, agent=python_analysis_agent, name="Python Coder")
 
