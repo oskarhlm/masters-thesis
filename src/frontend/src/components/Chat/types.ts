@@ -31,7 +31,7 @@ export type ChatElement =
     }
   | {
       type: 'spinner';
-      content: string | JSX.Element;
+      content?: string | JSX.Element;
     }
   | {
       type: 'tool';

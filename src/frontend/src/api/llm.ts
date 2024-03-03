@@ -35,6 +35,7 @@ export class LLM {
       const data = JSON.parse(event.data);
 
       if (data.stream_complete) {
+        setChatElements(chatElements.filter((el) => el.type !== 'spinner'));
         closeStream();
       }
 
@@ -48,10 +49,9 @@ export class LLM {
 
       if (data.supervisor) {
         setChatElements([
-          ...chatElements,
+          ...chatElements.filter((el) => el.type !== 'spinner'),
           {
             type: 'spinner',
-            content: `**${data.agent_selected}** is working...`,
           },
         ]);
         return;
@@ -60,7 +60,7 @@ export class LLM {
       if (data.tool_start) {
         console.log(data);
         setChatElements([
-          ...chatElements,
+          ...chatElements.filter((el) => el.type !== 'spinner'),
           {
             type: 'messageGroupHeader',
             source: 'bot',
@@ -71,6 +71,9 @@ export class LLM {
             runId: data.run_id,
             input: data.tool_input,
           } satisfies ChatElement,
+          {
+            type: 'spinner',
+          },
         ]);
         return;
       }
@@ -87,8 +90,6 @@ export class LLM {
         onMessageCallback(undefined, true);
         return;
       }
-
-      setChatElements(chatElements.filter((ce) => ce.type !== 'spinner'));
 
       onMessageCallback(data.message);
     };

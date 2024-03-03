@@ -1,4 +1,4 @@
-import { Component } from 'solid-js';
+import { Component, Show } from 'solid-js';
 import showdown from 'showdown';
 import './styles.css';
 
@@ -11,7 +11,9 @@ const converter = new showdown.Converter();
 const SpinnerMessage: Component<Props> = (props) => {
   return (
     <span class="spinner-wrapper">
-      <div class={`message`} innerHTML={converter.makeHtml(props.message)} />
+      <Show when={props.message}>
+        <div class={`message`} innerHTML={converter.makeHtml(props.message)} />
+      </Show>
       <span class="loader"></span>
     </span>
   );

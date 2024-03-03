@@ -15,7 +15,7 @@ export function addChatMessage(
   id?: string
 ) {
   setChatElements([
-    ...chatElements,
+    ...chatElements.filter((el) => el.type !== 'spinner'),
     {
       type: 'messageGroupHeader',
       source: source,
@@ -25,6 +25,9 @@ export function addChatMessage(
       id: id || createUniqueId(),
       source: source,
       message: message,
+    },
+    {
+      type: 'spinner',
     },
   ] satisfies ChatElement[]);
 }

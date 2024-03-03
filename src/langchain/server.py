@@ -223,6 +223,7 @@ async def langgraph_stream_response(message: Union[str, BaseMessage, Sequence[Ba
                 'tool_output': tool_output,
             })
 
+    yield create_data_event({'stream_complete': True})
     return
 
     async for s in agent_executor.astream(
