@@ -1,7 +1,7 @@
 import { createSignal } from 'solid-js';
 import { get, BASE_URL, post } from './apiHelper';
 import { addGeoJSONToMap } from '../components/Map/Map';
-import { AgentType } from '../components/Chat/types';
+import { AgentType, ChatElement } from '../components/Chat/types';
 import { updateMapState } from './mapState';
 import { chatElements, setChatElements } from '../components/Chat/chatStore';
 
@@ -38,7 +38,8 @@ export class LLM {
         closeStream();
       }
 
-      if (data.geojson_path) {
+      if (data?.geojson_path) {
+        console.log(data);
         const res = await get('/geojson', {
           geojson_path: data.geojson_path,
         });
@@ -54,6 +55,32 @@ export class LLM {
           },
         ]);
         return;
+      }
+
+      if (data.tool_start) {
+        console.log(data);
+        setChatElements([
+          ...chatElements,
+          {
+            type: 'messageGroupHeader',
+            source: 'bot',
+          } satisfies ChatElement,
+          {
+            type: 'tool',
+            toolName: data.tool_name,
+            runId: data.run_id,
+            input: data.tool_input,
+          } satisfies ChatElement,
+        ]);
+        return;
+      }
+
+      if (data.tool_end && data.tool_output.geojson_path) {
+        console.log(data);
+        const res = await get('/geojson', {
+          geojson_path: data.tool_output.geojson_path,
+        });
+        addGeoJSONToMap(res, data.tool_output.layer_name);
       }
 
       if (data.message_end) {

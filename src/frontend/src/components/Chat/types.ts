@@ -32,4 +32,11 @@ export type ChatElement =
   | {
       type: 'spinner';
       content: string | JSX.Element;
+    }
+  | {
+      type: 'tool';
+      toolName: string;
+      runId: string;
+      input?: string | null;
+      output?: string | null;
     };

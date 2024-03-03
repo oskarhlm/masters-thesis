@@ -1,5 +1,6 @@
 from typing import Any, Optional, Type
 from pathlib import Path
+from json import JSONDecodeError
 
 import geojson
 from geojson import GeoJSON
@@ -7,6 +8,20 @@ from langchain_core.tools import BaseTool
 from langchain.pydantic_v1 import BaseModel, Field, root_validator
 
 from ...utils.workdir_manager import WorkDirManager
+
+
+GEOJSON_EXAPLE = """
+{
+    "type": "Feature",
+    "geometry": {
+        "type": "Point",
+        "coordinates": [102.0, 0.5]
+    },
+    "properties": {
+        "prop0": "value0"
+    }
+}
+"""
 
 
 class PublishGeoJSONInput(BaseModel):
@@ -31,7 +46,9 @@ class PublishGeoJSONTool(BaseTool):
     name = "add_geojson_to_map"
     description = (
         "Use this to add arbitrary geojson data to a client-side map visible to the user.\n"
-        "Provide either a path to a file containing GeoJSON, or the data itself using the geojson_data parameter."
+        "Provide either a path to a file containing GeoJSON, or the data itself using the geojson_data parameter.\n"
+        "If providing data, GeoJSON features should follow this structure:\n"
+        f'{GEOJSON_EXAPLE}'
     )
     args_schema: Type[BaseModel] = PublishGeoJSONInput
 
@@ -55,7 +72,11 @@ class PublishGeoJSONTool(BaseTool):
                     [str(f.name) for f in WorkDirManager.list_files()])
                 return f'Could not find GeoJSON file `{geojson_path}`.\nAvailable files are: {available_files}'
         elif geojson_data:
-            geojson_data: GeoJSON = geojson.loads(geojson_data)
+            try:
+                geojson_data: GeoJSON = geojson.loads(geojson_data)
+            except JSONDecodeError as e:
+                return f'Error: {e}'
+
             geojson_path = str(
                 WorkDirManager.add_file(
                     f'{layer_name}.geojson', geojson_data, save_as_json=True)

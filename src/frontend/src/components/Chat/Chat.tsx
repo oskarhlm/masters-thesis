@@ -8,6 +8,7 @@ import { chatElements } from './chatStore';
 import AgentSelector from './AgentSelector';
 import InfoMessage from './InfoMessage';
 import SpinnerMessage from './SpinnerMessage';
+import ToolMessage from './ToolMessage';
 
 const Chat = () => {
   let chatBottomRef: HTMLDivElement;
@@ -24,6 +25,8 @@ const Chat = () => {
         return <MessageHeader source={el.source} />;
       case 'spinner':
         return <SpinnerMessage message={el.content as string} />;
+      case 'tool':
+        return <ToolMessage toolName={el.toolName} />;
       default:
         break;
     }

@@ -196,22 +196,32 @@ async def langgraph_stream_response(message: Union[str, BaseMessage, Sequence[Ba
         if kind == "on_chat_model_stream":
             content = event["data"]["chunk"].content
             if content:
-                # print(content, end="|")
                 yield create_data_event({'message': content})
-        elif kind == "on_tool_start":
-            # print("--")
-            # print(
-            #     f"Starting tool: {event['name']} with inputs: {event['data'].get('input')}"
-            # )
-            yield create_data_event({
-                'message': f'Using tool <i>{event["name"]}</i>',
-            })
+        if kind == 'on_chat_model_end':
             yield create_data_event({'message_end': True})
+        elif kind == "on_tool_start":
+            print(event)
+            yield create_data_event({
+                'tool_start': True,
+                'run_id': event['run_id'],
+                'tool_name': event['name'],
+                'tool_input': event['data'].get('input')
+            })
         elif kind == "on_tool_end":
-            # print(f"Done tool: {event['name']}")
-            # print(f"Tool output was: {event['data'].get('output')}")
-            # print("--")
-            pass
+            print(event)
+            tool_output = event['data'].get('output')
+            if event['name'] == 'add_geojson_to_map':
+                print(tool_output)
+                try:
+                    tool_output = ast.literal_eval(tool_output)
+                except Exception as e:
+                    print(e)
+            yield create_data_event({
+                'tool_end': True,
+                'run_id': event['run_id'],
+                'tool_name': event['name'],
+                'tool_output': tool_output,
+            })
 
     return
 

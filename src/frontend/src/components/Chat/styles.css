@@ -234,3 +234,19 @@ select {
     transform: rotate(360deg);
   }
 }
+
+.tool {
+  padding: 9px;
+  border: 2px solid var(--cg-primary);
+  font-style: italic;
+  font-weight: bold;
+}
+
+.tool p::before {
+  content: url('/tools-solid.svg');
+  display: inline-block;
+  height: 18px;
+  width: 18px;
+  padding-right: 10px;
+  vertical-align: middle;
+}
