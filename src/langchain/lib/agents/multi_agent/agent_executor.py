@@ -46,7 +46,6 @@ def create_tool_calling_executor(
     async def acall_model(state: input_schema):
         response = await model.ainvoke(state)
         response.name = state['next']
-        print(type(response), response)
         return {
             "agent_outcome": response,
             'intermediate_steps': [response]

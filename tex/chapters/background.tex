@@ -1,6 +1,6 @@
 \chapter{Background Theory}
 %OR: \chapter{Tools and Methods}
-\label{cha:background_theory}
+\label{cha:background-theory}
 
 \begin{comment}
 The background theory depth and breadth depend on the depth needed to understand your project
@@ -195,4 +195,71 @@ As can be seen in the example, elements in a table can sometimes benefit from be
 
 \textit{Donec non turpis nec neque egestas faucibus nec id neque. Etiam consectetur, odio vitae gravida tempus, diam velit sagittis turpis, a molestie ligula tellus at nunc. Proin dolor neque, dapibus a pellentesque a, commodo a nibh.}
 \end{comment}
+
+\Autochapterref{cha:background-theory} will lay a theoretical basis for the work done in this master thesis, providing the user with the required understanding in order to understand the contributions of the work. \Autosectionref{sec:generative-llms} will explain the theoretical basis of the component which most modern \glspl{acr:llm} are based upon --- namely the Transformer --- and the attention mechanism within it. The section will also touch upon a new architecture aimed at text generation called \textit{state-space}\todo{check this}, which has yielded very promising results for small \glspl{acr:llm}.
+
+\vspace{12pt}
+
+\begin{itshape}
+    \noindent Parts of the Background chapter is reused material from the specialization project \citep{holmLLMsDeathGIS2023} preceding this master thesis. Below are the sections in question, together with a description of the extent to which, and how, the material is reused:
+
+    \begin{itemize}
+        \item \Autosubsectionref{subsec:attention-and-the-transformer-architecture}: Reused without modification.
+        \item \Autosubsectionref{subsec:the-gpt-family}: Reused without modification.
+    \end{itemize}
+\end{itshape}
+
+
+\section[The Theory Behind Generative Large Language Models]{The Theory Behind Generative \acrlongpl{acr:llm}}
+\label{sec:generative-llms}
+
+\Autosubsectionref{subsec:attention-and-the-transformer-architecture} will explain the theoretical basis behind most modern \glspl{acr:llm}, which are based upon the attention mechanism built into the Transformer architecture. \Autosubsectionref{subsec:state-space} will explain the new state-space architecture.
+
+\subsection{Attention and the Transformer Architecture}
+\label{subsec:attention-and-the-transformer-architecture}
+
+
+\cite{vaswaniAttentionAllYou2017} managed to achieve new state-of-the-art results for machine translation tasks with their introduction of the Transformer architecture. The Transformer has later been proved effective for numerous downstream tasks, and for a variety of modalities. Titling their paper \citetitle{vaswaniAttentionAllYou2017}, \citeauthor{vaswaniAttentionAllYou2017} suggest that their attention-based architecture renders network architectures like \glspl{acr:rnn} redundant, due to its superior parallelization abilities and the shorter path between combinations of position input and output sequences, making it easier to learn long-range dependencies \citep[6]{vaswaniAttentionAllYou2017}.
+
+The Transformer employs self-attention, which enables the model to draw connections between arbitrary parts of a given sequence, bypassing the long-range dependency issue commonly found with \glspl{acr:rnn}. An attention function maps a query and a set of key-value pairs to an output, calculating the compatibility between a query and a corresponding key \citep[3]{vaswaniAttentionAllYou2017}. Looking at \citeauthor{vaswaniAttentionAllYou2017}'s proposed attention function \eqref{eq:attention}, we observe that it takes the dot product between the query $Q$ and the keys $K$, where $Q$ is the token that we want to compare all the keys to. Keys similar to $Q$ will get a higher score, i.e., be \textit{more attended to}. These differences in attention are further emphasized by applying the softmax function. The final matrix multiplication with the values $V$ (the initial embeddings of the input tokens) will yield a new embedding in which all individual tokens have some context from all other tokens. We improve the attention mechanism by multiplying queries, keys, and values with weight matrices that are learned through backpropagation. Self-attention is a special kind of attention in which queries, keys, and values are all the same sequence.
+
+\begin{equation}
+    \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+    \label{eq:attention}
+\end{equation}
+
+Attention blocks can be found in three places in the Transformer architecture \citep[5]{vaswaniAttentionAllYou2017} (I will use machine translation from Norwegian to German as an example):
+
+\begin{enumerate}
+    \item In the encoder block to perform self-attention on the input sequence (which is in Norwegian)
+    \item In the decoder block to perform self-attention on the output sequence (which is in German)
+    \item In the decoder block to perform cross-attention (also known as encoder-decoder attention) where each position in the decoder attends to all positions in the encoder
+\end{enumerate}
+
+The Transformer represented a breakthrough in the field of \gls{acr:nlp}, and is the fundamental building block of modern \glspl{acr:llm}, most famous of which are the \acrshort{acr:gpt}'s.
+
+\subsection{State-Space}
+\label{subsec:state-space}
+
+
+\section[Function Calling LLMs]{Function Calling \acrshortpl{acr:llm}}
+
+\textit{Function calling}---first introduced by OpenAI \citep{eletiFunctionCallingOther2023}---allows developers to provide function definitions to an \gls{acr:llm} and have said \gls{acr:llm} output a \acrshort{acr:json} object containing the name of one or more of the functions provided, as well as suitable arguments to these. Made possible through fine-tuning models to detect when functions should be calling, function calling makes it possible to give an \gls{acr:llm} \textit{hooks} into the real world, and provides a more reliable way for developers to integrate \glspl{acr:llm} into applications.
+
+Possible use cases include using functions provide correct and up-to-date information that would otherwise require extensive training and fine-tuning. Having the \gls{acr:llm} use function calling for information retrieval also make them more transparent, making it possible to trace a claim back to its source, something that is normally a difficult feat with \gls{acr:llm}. Another use case might be code execution. One could imagine a rather simple function \texttt{execute\_python\_code(code: string) -> string} that takes Python code as a string and returns the standard output that results from executing that code. This is likely the principle behind products like OpenAI's Data Analysis mode (previously Code Interpreter), in which ChatGPT functions as a code executing agent that can generate, execute, and self-correct its own code. Similar functions could be constructed for \acrshort{acr:sql}, making it possible for \glspl{acr:llm} to work against relational databases. As \cite{eletiFunctionCallingOther2023} describes, function calling can also be used to extract structured data from text.
+
+
+\section[State-of-the-Art Large Language Models]{State-of-the-Art \acrlongpl{acr:llm}}
+
+\subsection{The GPT Family}
+\label{subsec:the-gpt-family}
+
+\gls{acr:gpt} is a type of \gls{acr:llm} that was introduced by OpenAI in 2018 \citep{radfordImprovingLanguageUnderstanding2018}. Specifically designed for text generation, a \acrshort{acr:gpt} is essentially a stack of Transformer \textit{decoders}. It demonstrates through its vast pre-training on unlabelled data that such unsupervised training can help a language model learn good representations, providing a significant performance boost while alleviating the dependence on supervised learning. While the original Transformer architecture as described by \cite{vaswaniAttentionAllYou2017} was intended for machine translation---thus having encoders to learn the representation of the origin language representation of a given input sequence and decoders to learn the representation in the target language and perform cross-attention between the two---the \acrshort{acr:gpt} is designed only to \textit{imitate} language. This is why there are no encoders to be found in the \acrshort{acr:gpt} architecture, only decoders. The model employs masked multi-head attention (running the input sequence through multiple attention heads in parallel), and is restricted to only see the last $k$ tokens---with $k$ being the size of the context window---and tasked to predict the next one.
+
+Training consists of two stages: unsupervised pre-training and supervised fine-tuning. The former is used to find a good initialization point, essentially teaching the model to imitate the corpora upon which it is trained. This results in a model that will ramble on uncontrollably, just trying to elaborate upon the input sequence it's given to the best of its knowledge. This will naturally produce undefined behaviour, and it is therefore necessary to fine-tune the model on target tasks in a supervised manner. \cite[4]{radfordImprovingLanguageUnderstanding2018} explain how the model can be fine-tuned directly on tasks like text classification, but how one for other tasks needs to convert structured inputs into ordered sequences because the pre-trained model was trained on contiguous sequences of text. In the case of ChatGPT, \citeauthor{openaiIntroducingChatGPT2022} used \gls{acr:rlhf} by employing a three-step strategy: first training using a supervised policy, then using trained reward models to rank alternative completions produced by ChatGPT models, before fine-tuning the model using \gls{acr:ppo}, which is a way of training \acrshort{acr:ai} policies. This pipeline is then performed for several iterations until the model produces the desired behaviour \citep{openaiIntroducingChatGPT2022}.
+
+\subsection{The Gemini  Family}
+\subsection{The Claude Family}
+\subsection{Open-Source Alternatives and Honourable Mentions}
+
 \glsresetall

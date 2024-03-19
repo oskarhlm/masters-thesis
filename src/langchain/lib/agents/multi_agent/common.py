@@ -21,7 +21,6 @@ class AgentState(TypedDict):
     current_files: str
     agent_outcome: Union[AIMessage, None]
     intermediate_steps: Annotated[Sequence[ToolMessage], operator.add]
-    last_message_id: str | None
 
 
 def prelude(state: AgentState) -> AgentState:
@@ -31,6 +30,7 @@ def prelude(state: AgentState) -> AgentState:
             **state,
             'working_directory': WorkDirManager.get_abs_path(),
             "current_files": "No files written.",
+            'agent_outcome': None,
             'intermediate_steps': []
         }
     else:
@@ -48,8 +48,6 @@ def postlude(state: AgentState) -> AgentState:
     return {
         **state,
         'messages': [state['agent_outcome']],
-        'agent_outcome': None,
-        'intermediate_steps': []
     }
 
 
@@ -74,7 +72,7 @@ def create_agent(llm: ChatOpenAI, tools: Sequence[BaseTool], system_prompt: str,
     return executor
 
 
-async def agent_node(state: AgentState, agent, name) -> AgentState:
+async def agent_node(state: AgentState, agent) -> AgentState:
     agent_outcome = await (
         prelude
         | agent

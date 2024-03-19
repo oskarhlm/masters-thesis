@@ -40,7 +40,6 @@ export class LLM {
       }
 
       if (data?.geojson_path) {
-        console.log(data);
         const res = await get('/geojson', {
           geojson_path: data.geojson_path,
         });
@@ -58,7 +57,6 @@ export class LLM {
       }
 
       if (data.tool_start) {
-        console.log(data);
         setChatElements([
           ...chatElements.filter((el) => el.type !== 'spinner'),
           {
@@ -79,7 +77,6 @@ export class LLM {
       }
 
       if (data.tool_end && data.tool_output.geojson_path) {
-        console.log(data);
         const res = await get('/geojson', {
           geojson_path: data.tool_output.geojson_path,
         });
@@ -110,7 +107,7 @@ export class LLM {
       });
       return response;
     } catch (error) {
-      console.error('Error in LLMInterpreter.chat:', error);
+      console.error('Error in LLM.chat:', error);
       throw error;
     }
   }
@@ -137,7 +134,7 @@ export class LLM {
       setSessionId(response.session_id);
       return response;
     } catch (error) {
-      console.error('Error in OpenInterpreter.chat:', error);
+      console.error('Error in LLM.chat:', error);
       throw error;
     }
   }
@@ -147,7 +144,7 @@ export class LLM {
       const response = await get('/history');
       return response;
     } catch (error) {
-      console.error('Error in OpenInterpreter.chat:', error);
+      console.error('Error in LLM.chat:', error);
       throw error;
     }
   }

@@ -31,10 +31,10 @@ FROM (
 class CustomQuerySQLDataBaseInput(BaseModel):
     query: str = Field(..., description=(
         'SQL query. NEVER perform conversion to GeoJSON; this is handled by the function automatically. '
-        'Use column name `geom` to display results in a map.'
+        'Use column `geom` to retrieve geospatial results.'
     ))
     layer_name: str = Field(...,
-                            description='Name of the layer that\'s created from the query')
+                            description='A descriptive name for the result data. Should be snake_case.')
 
 
 class CustomQuerySQLDataBaseTool(BaseSQLDatabaseTool, BaseTool):
@@ -45,7 +45,7 @@ class CustomQuerySQLDataBaseTool(BaseSQLDatabaseTool, BaseTool):
     description: str = """
     Input to this tool is a detailed and correct SQL query.
     The result will be a GeoJSON FeatureCollection that is stored in a working directory on the server.
-    If the query is not correct, an error message will be returned.
+    If the query is incorrect, an error message will be returned.
     If an error is returned, rewrite the query, check the query, and try again.
     Be mindful of what units go with the CRS of the data. 
     """

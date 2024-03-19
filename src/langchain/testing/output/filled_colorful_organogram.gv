@@ -1,6 +1,0 @@
-digraph {
-	mobility_api_url [label=mobility_api_url fillcolor=green style=filled]
-	mobility_api_url -> load_mobility_data
-	france_shp_uri [label=france_shp_uri fillcolor=green style=filled]
-	load_mobility_data [label=load_mobility_data fillcolor=blue style=filled]
-}

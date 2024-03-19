@@ -15,7 +15,8 @@ def create_agent_supervisor_node(workers: Sequence[Worker]):
         "You are a supervisor tasked with managing a conversation between the"
         " following workers:\n{workers}\n\nGiven the following user request,"
         " respond with the worker to act next. Each worker will perform a"
-        " actions in the background and return their response to the main conversation."
+        " actions in the background and return their response to the main conversation.\n"
+        "Remember to add any geospatial results to the map using the appropriate worker."
         ' When the user\'s question has been answered, respond with "FINISH".'
     )
 
@@ -62,7 +63,6 @@ def create_agent_supervisor_node(workers: Sequence[Worker]):
 
     return (
         prompt
-        # | llm.bind_functions(functions=[function_def], function_call="route")
         | llm.bind_tools(
             tools=[convert_to_openai_tool(function_def)],
             tool_choice={'type': 'function', 'function': {'name': 'route'}}

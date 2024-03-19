@@ -8,6 +8,7 @@ from .common import AgentState
 from ..sessions import generate_session_id
 from ..redis_checkpointer import RedisSaver
 from .worker import workers
+from .utils import check_valid_workers
 
 
 def create_multi_agent_runnable(session_id: str = None):
@@ -16,9 +17,7 @@ def create_multi_agent_runnable(session_id: str = None):
     workflow = StateGraph(AgentState)
 
     workers_to_use = ['sql_worker', 'map_worker', 'python_analysis_worker']
-    for worker_key in workers_to_use:
-        if not workers.get(worker_key):
-            raise KeyError(f'No worker `{worker_key}` in worker dict')
+    check_valid_workers(workers_to_use)
 
     worker_objs = [workers[w] for w in workers_to_use]
 

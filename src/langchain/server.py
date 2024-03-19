@@ -181,12 +181,8 @@ async def langgraph_stream_response(message: Union[str, BaseMessage, Sequence[Ba
     elif isinstance(message, Sequence):
         messages = message
 
-    for msg in messages:
-        msg.additional_kwargs['message_id'] = str(uuid.uuid4())
-
     async for event in agent_executor.astream_events({
             "messages": messages,
-            'last_message_id': messages[-1].additional_kwargs['message_id']
         },
         config={"recursion_limit": 100,
                 'configurable': {'thread_id': session_id}},
@@ -222,41 +218,6 @@ async def langgraph_stream_response(message: Union[str, BaseMessage, Sequence[Ba
 
     yield create_data_event({'stream_complete': True})
     return
-
-    async for s in agent_executor.astream(
-        {
-            "messages": messages,
-            'last_message_id': messages[-1].additional_kwargs['message_id']
-        },
-        {"recursion_limit": 100, 'configurable': {'thread_id': session_id}},
-    ):
-        if "supervisor" in s:
-            agent_selected = s["supervisor"]["next"]
-            if agent_selected != 'FINISH':
-                yield create_data_event({
-                    'message': f'Supervisor selected {agent_selected}',
-                    'supervisor': True,
-                    'agent_selected': agent_selected
-                })
-            yield create_data_event({'message_end': True})
-            continue
-        elif '__end__' not in s:
-            for value in s.values():
-                if 'messages' in value:
-                    for message in value['messages']:
-                        print(message)
-                        if isinstance(message, AIMessage) and len(message.content) > 0:
-                            yield create_data_event({'message': f'<strong>[{message.name}]</strong><br>{message.content}'})
-                            yield create_data_event({'message_end': True})
-                        elif isinstance(message, ToolMessage):
-                            try:
-                                if ast.literal_eval(message.content)['add_to_map']:
-                                    yield create_data_event(message.content)
-                            except:
-                                print('Output type is not GeoJSON')
-            continue
-
-        yield create_data_event({'stream_complete': True})
 
 
 @app.get('/streaming-chat')

@@ -20,6 +20,6 @@ def create_analysis_node():
     )
 
     code_node = functools.partial(
-        agent_node, agent=code_agent, name="Spatial Analyst")
+        agent_node, agent=code_agent)
 
     return code_node

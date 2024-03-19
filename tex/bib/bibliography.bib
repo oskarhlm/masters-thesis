@@ -1,3 +1,57 @@
+@misc{chaseLangChain2022,
+  title = {{{LangChain}}},
+  author = {Chase, Harrison},
+  year = {2022},
+  month = oct,
+  url = {https://github.com/langchain-ai/langchain},
+  urldate = {2023-10-05},
+  abstract = {⚡ Building applications with LLMs through composability ⚡},
+  copyright = {MIT}
+}
+
+@misc{eletiFunctionCallingOther2023,
+  title = {Function Calling and Other {{API}} Updates},
+  author = {Eleti, Atty and Harris, Jeff and Kilpatrick, Logan},
+  year = {2023},
+  month = jun,
+  url = {https://openai.com/blog/function-calling-and-other-api-updates},
+  urldate = {2024-03-10},
+  abstract = {We're announcing updates including more steerable API models, function calling capabilities, longer context, and lower prices.},
+  langid = {american},
+  file = {C:\Users\oskar\Zotero\storage\6X3BUD24\function-calling-and-other-api-updates.html}
+}
+
+@misc{guMambaLinearTimeSequence2023,
+  title = {Mamba: {{Linear-Time Sequence Modeling}} with {{Selective State Spaces}}},
+  shorttitle = {Mamba},
+  author = {Gu, Albert and Dao, Tri},
+  year = {2023},
+  month = dec,
+  number = {arXiv:2312.00752},
+  eprint = {2312.00752},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  url = {http://arxiv.org/abs/2312.00752},
+  urldate = {2024-03-15},
+  abstract = {Foundation models, now powering most of the exciting applications in deep learning, are almost universally based on the Transformer architecture and its core attention module. Many subquadratic-time architectures such as linear attention, gated convolution and recurrent models, and structured state space models (SSMs) have been developed to address Transformers' computational inefficiency on long sequences, but they have not performed as well as attention on important modalities such as language. We identify that a key weakness of such models is their inability to perform content-based reasoning, and make several improvements. First, simply letting the SSM parameters be functions of the input addresses their weakness with discrete modalities, allowing the model to selectively propagate or forget information along the sequence length dimension depending on the current token. Second, even though this change prevents the use of efficient convolutions, we design a hardware-aware parallel algorithm in recurrent mode. We integrate these selective SSMs into a simplified end-to-end neural network architecture without attention or even MLP blocks (Mamba). Mamba enjoys fast inference (5\${\textbackslash}times\$ higher throughput than Transformers) and linear scaling in sequence length, and its performance improves on real data up to million-length sequences. As a general sequence model backbone, Mamba achieves state-of-the-art performance across several modalities such as language, audio, and genomics. On language modeling, our Mamba-3B model outperforms Transformers of the same size and matches Transformers twice its size, both in pretraining and downstream evaluation.},
+  archiveprefix = {arxiv},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Machine Learning},
+  file = {C\:\\Users\\oskar\\Zotero\\storage\\FHDRYWMI\\Gu and Dao - 2023 - Mamba Linear-Time Sequence Modeling with Selectiv.pdf;C\:\\Users\\oskar\\Zotero\\storage\\DDJWCSFP\\2312.html}
+}
+
+@phdthesis{holmLLMsDeathGIS2023,
+  type = {Specialization Project},
+  title = {{{LLMs}} - {{The Death}} of {{GIS Analysis}}?},
+  author = {Holm, Oskar},
+  year = {2023},
+  month = dec,
+  address = {Trondheim},
+  url = {https://github.com/oskarhlm/prosjektoppgave/blob/main/tex/auxiliary/main.pdf},
+  abstract = {The emergence of powerful LLMs with remarkable reasoning and coding capabilities - like GPT-4, the latest additions to the GPT series - enables automation of a wide range of tasks. ChatGPT's Code Interpreter is able to generate, execute, and review its own code, making development of autonomous AI agents far easier than before. This specialization project report explores the feasibility of LLM-based GIS agents, investigating how ChatGPT is currently being used in the field of GIS, how such LLMs could be used if applied in larger systems, and how such systems can be implemented. This report seeks to highlight the strengths of current LLM-based technologies, but also their weaknesses, and suggest areas of improvements and possible solutions to overcome current limitations. These goals are achieved through a literature study and three experiments that aim to support the findings of the literature study. The literature study presents the body of work that has already been done in regard to the position of LLMs in the field of GIS, as well as planning strategies applied in LLM-based agents, and retrieval-augmented generation - that is, giving the LLM hooks into the real world. The three experiments focus on ChatGPT's ability to handle geospatial data in various formats and through different access channels. The overall goal of this specialisation project is to lay the groundwork for development of LLM-based GIS agents.},
+  langid = {english},
+  school = {NTNU}
+}
+
 @misc{longLargeLanguageModel2023,
   title = {Large {{Language Model Guided Tree-of-Thought}}},
   author = {Long, Jieyi},
@@ -6,7 +60,7 @@
   number = {arXiv:2305.08291},
   eprint = {2305.08291},
   primaryclass = {cs},
-  publisher = {{arXiv}},
+  publisher = {arXiv},
   url = {http://arxiv.org/abs/2305.08291},
   urldate = {2024-02-12},
   abstract = {In this paper, we introduce the Tree-of-Thought (ToT) framework, a novel approach aimed at improving the problem-solving capabilities of auto-regressive large language models (LLMs). The ToT technique is inspired by the human mind's approach for solving complex reasoning tasks through trial and error. In this process, the human mind explores the solution space through a tree-like thought process, allowing for backtracking when necessary. To implement ToT as a software system, we augment an LLM with additional modules including a prompter agent, a checker module, a memory module, and a ToT controller. In order to solve a given problem, these modules engage in a multi-round conversation with the LLM. The memory module records the conversation and state history of the problem solving process, which allows the system to backtrack to the previous steps of the thought-process and explore other directions from there. To verify the effectiveness of the proposed technique, we implemented a ToT-based solver for the Sudoku Puzzle. Experimental results show that the ToT framework can significantly increase the success rate of Sudoku puzzle solving. Our implementation of the ToT-based Sudoku solver is available on GitHub: {\textbackslash}url\{https://github.com/jieyilong/tree-of-thought-puzzle-solver\}.},
@@ -23,7 +77,7 @@
   number = {arXiv:2304.06798},
   eprint = {2304.06798},
   primaryclass = {cs},
-  publisher = {{arXiv}},
+  publisher = {arXiv},
   doi = {10.48550/arXiv.2304.06798},
   url = {http://arxiv.org/abs/2304.06798},
   urldate = {2024-01-24},
@@ -31,6 +85,46 @@
   archiveprefix = {arxiv},
   keywords = {Computer Science - Artificial Intelligence,Computer Science - Computation and Language,Computer Science - Computer Vision and Pattern Recognition,I.2.0,I.2.10,I.2.4,I.2.7,I.5.1},
   file = {C\:\\Users\\oskar\\Zotero\\storage\\X82XT37U\\Mai et al. - 2023 - On the Opportunities and Challenges of Foundation .pdf;C\:\\Users\\oskar\\Zotero\\storage\\JUDG2RZS\\2304.html}
+}
+
+@misc{openaiGPT4TechnicalReport2023,
+  title = {{{GPT-4 Technical Report}}},
+  author = {OpenAI},
+  year = {2023},
+  month = mar,
+  number = {arXiv:2303.08774},
+  eprint = {2303.08774},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2303.08774},
+  url = {http://arxiv.org/abs/2303.08774},
+  urldate = {2023-10-09},
+  abstract = {We report the development of GPT-4, a large-scale, multimodal model which can accept image and text inputs and produce text outputs. While less capable than humans in many real-world scenarios, GPT-4 exhibits human-level performance on various professional and academic benchmarks, including passing a simulated bar exam with a score around the top 10\% of test takers. GPT-4 is a Transformer-based model pre-trained to predict the next token in a document. The post-training alignment process results in improved performance on measures of factuality and adherence to desired behavior. A core component of this project was developing infrastructure and optimization methods that behave predictably across a wide range of scales. This allowed us to accurately predict some aspects of GPT-4's performance based on models trained with no more than 1/1,000th the compute of GPT-4.},
+  archiveprefix = {arxiv},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Computation and Language},
+  file = {C\:\\Users\\oskar\\Zotero\\storage\\U4ISGUBN\\OpenAI - 2023 - GPT-4 Technical Report.pdf;C\:\\Users\\oskar\\Zotero\\storage\\ANYBWPS8\\2303.html}
+}
+
+@misc{openaiIntroducingChatGPT2022,
+  title = {Introducing {{ChatGPT}}},
+  author = {{OpenAI}},
+  year = {2022},
+  month = nov,
+  url = {https://openai.com/blog/chatgpt},
+  urldate = {2023-10-26},
+  abstract = {We've trained a model called ChatGPT which interacts in a conversational way. The dialogue format makes it possible for ChatGPT to answer followup questions, admit its mistakes, challenge incorrect premises, and reject inappropriate requests.},
+  langid = {american},
+  file = {C:\Users\oskar\Zotero\storage\BXCIMZNC\chatgpt.html}
+}
+
+@inproceedings{radfordImprovingLanguageUnderstanding2018,
+  title = {Improving {{Language Understanding}} by {{Generative Pre-Training}}},
+  author = {Radford, Alec and Narasimhan, Karthik},
+  year = {2018},
+  url = {https://www.semanticscholar.org/paper/Improving-Language-Understanding-by-Generative-Radford-Narasimhan/cd18800a0fe0b668a1cc19f2ec95b5003d0a5035},
+  urldate = {2023-10-09},
+  abstract = {Natural language understanding comprises a wide range of diverse tasks such as textual entailment, question answering, semantic similarity assessment, and document classification. Although large unlabeled text corpora are abundant, labeled data for learning these specific tasks is scarce, making it challenging for discriminatively trained models to perform adequately. We demonstrate that large gains on these tasks can be realized by generative pre-training of a language model on a diverse corpus of unlabeled text, followed by discriminative fine-tuning on each specific task. In contrast to previous approaches, we make use of task-aware input transformations during fine-tuning to achieve effective transfer while requiring minimal changes to the model architecture. We demonstrate the effectiveness of our approach on a wide range of benchmarks for natural language understanding. Our general task-agnostic model outperforms discriminatively trained models that use architectures specifically crafted for each task, significantly improving upon the state of the art in 9 out of the 12 tasks studied. For instance, we achieve absolute improvements of 8.9\% on commonsense reasoning (Stories Cloze Test), 5.7\% on question answering (RACE), and 1.5\% on textual entailment (MultiNLI).},
+  file = {C:\Users\oskar\Zotero\storage\HR6GDGYQ\Radford and Narasimhan - 2018 - Improving Language Understanding by Generative Pre.pdf}
 }
 
 @misc{rajkumarEvaluatingTexttoSQLCapabilities2022,
@@ -41,7 +135,7 @@
   number = {arXiv:2204.00498},
   eprint = {2204.00498},
   primaryclass = {cs},
-  publisher = {{arXiv}},
+  publisher = {arXiv},
   doi = {10.48550/arXiv.2204.00498},
   url = {http://arxiv.org/abs/2204.00498},
   urldate = {2024-02-08},
@@ -49,4 +143,17 @@
   archiveprefix = {arxiv},
   keywords = {Computer Science - Computation and Language,Computer Science - Databases,Computer Science - Machine Learning},
   file = {C\:\\Users\\oskar\\Zotero\\storage\\E9NBMPWI\\Rajkumar et al. - 2022 - Evaluating the Text-to-SQL Capabilities of Large L.pdf;C\:\\Users\\oskar\\Zotero\\storage\\HWQVPKL2\\2204.html}
+}
+
+@misc{vaswaniAttentionAllYou2017,
+  title = {Attention {{Is All You Need}}},
+  author = {Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N. and Kaiser, Lukasz and Polosukhin, Illia},
+  year = {2017},
+  month = jun,
+  journal = {arXiv.org},
+  url = {https://arxiv.org/abs/1706.03762v7},
+  urldate = {2023-10-10},
+  abstract = {The dominant sequence transduction models are based on complex recurrent or convolutional neural networks in an encoder-decoder configuration. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train. Our model achieves 28.4 BLEU on the WMT 2014 English-to-German translation task, improving over the existing best results, including ensembles by over 2 BLEU. On the WMT 2014 English-to-French translation task, our model establishes a new single-model state-of-the-art BLEU score of 41.8 after training for 3.5 days on eight GPUs, a small fraction of the training costs of the best models from the literature. We show that the Transformer generalizes well to other tasks by applying it successfully to English constituency parsing both with large and limited training data.},
+  langid = {english},
+  file = {C:\Users\oskar\Zotero\storage\KG8K58TW\Vaswani et al. - 2017 - Attention Is All You Need.pdf}
 }

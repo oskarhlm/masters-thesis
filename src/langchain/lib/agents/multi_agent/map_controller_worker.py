@@ -23,6 +23,6 @@ def create_map_controller_node():
     )
 
     map_controller_agent_node = functools.partial(
-        agent_node, agent=map_controller_agent, name="Map Controller")
+        agent_node, agent=map_controller_agent)
 
     return map_controller_agent_node

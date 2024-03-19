@@ -34,5 +34,30 @@ Those choices should then also be discussed and elaborated on in the Discussion 
 \end{figure}
 \end{comment}
 
+\section{High-Level Application Architecture}
+
+A microservice architecture was employed in order to simplify development and separate concerns between the different microservices. The services are deployed as Docker Containers, and they are orchestrated using Docker Compose. \autoref{fig:architecture-overview} shows how the application is divided into five distinct services.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{microservices.png}
+    \caption{Architecture overview}
+    \label{fig:architecture-overview}
+\end{figure}
+
+The \textit{LangChain server} is the heart of the application, and is where the \gls{acr:llm}-related logic is situated.
+
+\section{LangChain Server}\label{sec:langchain}
+
+LangChain \citep{chaseLangChain2022} is an open-source project that provides tooling that can be used to create autonomous \acrshort{acr:ai} agents. It is designed to help with prompt management and optimization, creating chains of calls to \acrshortpl{acr:llm}, data-augmented generation, autonomous agent creation, and memory-related tasks.
+
+LangGraph is nice.
+
+\section{Redis for Conversations}
+\section{PostGres + PostGIS}
+\section[OGC API Features]{\acrshort{acr:ogc} \acrshort{acr:api} Features}
+\section[Web UI]{Web \acrshort{acr:ui}}
+
+
 \glsresetall
 

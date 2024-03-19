@@ -19,136 +19,303 @@
 
 \refsection{0}
   \datalist[entry]{apa/global//global/global}
-    \entry{maiOpportunitiesChallengesFoundation2023b}{misc}{}
-      \name{author}{14}{}{%
-        {{un=0,uniquepart=base,hash=3670e7a39d1c8a8d1c797f624772df56}{%
-           family={Mai},
-           familyi={M\bibinitperiod},
-           given={Gengchen},
-           giveni={G\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=bd38ce9a35519b0e7aa0294573a32e74}{%
-           family={Huang},
-           familyi={H\bibinitperiod},
-           given={Weiming},
-           giveni={W\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=8fd7d49bf86823d5100ee335f17c3505}{%
-           family={Sun},
-           familyi={S\bibinitperiod},
-           given={Jin},
-           giveni={J\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=0921a70240b6b1ebb461ce4421d47963}{%
-           family={Song},
-           familyi={S\bibinitperiod},
-           given={Suhang},
-           giveni={S\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=0a30e65ae436a6d2d75a9086dad4226c}{%
-           family={Mishra},
-           familyi={M\bibinitperiod},
-           given={Deepak},
-           giveni={D\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=6462862c5b74b039231d999d3ccb3347}{%
-           family={Liu},
-           familyi={L\bibinitperiod},
-           given={Ninghao},
-           giveni={N\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=80edc4011fde2f4defe68ef7e0b3c0cf}{%
-           family={Gao},
-           familyi={G\bibinitperiod},
-           given={Song},
-           giveni={S\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=7faa75cd0a9341fee33d1761b2b44234}{%
-           family={Liu},
-           familyi={L\bibinitperiod},
-           given={Tianming},
-           giveni={T\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=a261f3167350d9aac38a1ec2c2624662}{%
-           family={Cong},
+    \entry{chaseLangChain2022}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=c6b41fd745709d65ec7ab70864b8b466}{%
+           family={Chase},
            familyi={C\bibinitperiod},
-           given={Gao},
-           giveni={G\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=4132c8a47fb7504e4f36340d98c3d109}{%
-           family={Hu},
-           familyi={H\bibinitperiod},
-           given={Yingjie},
-           giveni={Y\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=f210a7146898d09978e1d7f8aab044a2}{%
-           family={Cundy},
-           familyi={C\bibinitperiod},
-           given={Chris},
-           giveni={C\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=f82e9a8ed926ab9d768ff175f8e7e634}{%
-           family={Li},
-           familyi={L\bibinitperiod},
-           given={Ziyuan},
-           giveni={Z\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=a409fcd3e2f9ae4fd6790ca28b9be27a}{%
-           family={Zhu},
-           familyi={Z\bibinitperiod},
-           given={Rui},
-           giveni={R\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=d9e5985236f468da29059654cd8447c4}{%
-           family={Lao},
-           familyi={L\bibinitperiod},
-           given={Ni},
-           giveni={N\bibinitperiod},
+           given={Harrison},
+           giveni={H\bibinitperiod},
            givenun=0}}%
       }
-      \list{publisher}{1}{%
-        {arXiv}%
-      }
-      \strng{namehash}{70e95c3a27438e1bd7f88014b531787a}
-      \strng{fullhash}{59bb336f4d7106f859628d9c95c0a8fa}
-      \strng{bibnamehash}{59bb336f4d7106f859628d9c95c0a8fa}
-      \strng{authorbibnamehash}{59bb336f4d7106f859628d9c95c0a8fa}
-      \strng{authornamehash}{70e95c3a27438e1bd7f88014b531787a}
-      \strng{authorfullhash}{59bb336f4d7106f859628d9c95c0a8fa}
-      \field{sortinit}{M}
-      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \strng{namehash}{c6b41fd745709d65ec7ab70864b8b466}
+      \strng{fullhash}{c6b41fd745709d65ec7ab70864b8b466}
+      \strng{bibnamehash}{c6b41fd745709d65ec7ab70864b8b466}
+      \strng{authorbibnamehash}{c6b41fd745709d65ec7ab70864b8b466}
+      \strng{authornamehash}{c6b41fd745709d65ec7ab70864b8b466}
+      \strng{authorfullhash}{c6b41fd745709d65ec7ab70864b8b466}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
       \field{extradatescope}{labelyear}
       \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{Large pre-trained models, also known as foundation models (FMs), are trained in a task-agnostic manner on large-scale data and can be adapted to a wide range of downstream tasks by fine-tuning, few-shot, or even zero-shot learning. Despite their successes in language and vision tasks, we have yet seen an attempt to develop foundation models for geospatial artificial intelligence (GeoAI). In this work, we explore the promises and challenges of developing multimodal foundation models for GeoAI. We first investigate the potential of many existing FMs by testing their performances on seven tasks across multiple geospatial subdomains including Geospatial Semantics, Health Geography, Urban Geography, and Remote Sensing. Our results indicate that on several geospatial tasks that only involve text modality such as toponym recognition, location description recognition, and US state-level/county-level dementia time series forecasting, these task-agnostic LLMs can outperform task-specific fully-supervised models in a zero-shot or few-shot learning setting. However, on other geospatial tasks, especially tasks that involve multiple data modalities (e.g., POI-based urban function classification, street view image-based urban noise intensity classification, and remote sensing image scene classification), existing foundation models still underperform task-specific models. Based on these observations, we propose that one of the major challenges of developing a FM for GeoAI is to address the multimodality nature of geospatial tasks. After discussing the distinct challenges of each geospatial data modality, we suggest the possibility of a multimodal foundation model which can reason over various types of geospatial data through geospatial alignments. We conclude this paper by discussing the unique risks and challenges to develop such a model for GeoAI.}
-      \field{eprintclass}{cs}
-      \field{eprinttype}{arxiv}
-      \field{month}{4}
-      \field{number}{arXiv:2304.06798}
-      \field{title}{On the {{Opportunities}} and {{Challenges}} of {{Foundation Models}} for {{Geospatial Artificial Intelligence}}}
-      \field{urlday}{24}
-      \field{urlmonth}{1}
+      \field{abstract}{⚡ Building applications with LLMs through composability ⚡}
+      \field{month}{10}
+      \field{title}{{{LangChain}}}
+      \field{urlday}{5}
+      \field{urlmonth}{10}
+      \field{urlyear}{2023}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/langchain-ai/langchain
+      \endverb
+      \verb{url}
+      \verb https://github.com/langchain-ai/langchain
+      \endverb
+    \endentry
+    \entry{eletiFunctionCallingOther2023}{misc}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=03285595b2a21f9031cc188e80917e56}{%
+           family={Eleti},
+           familyi={E\bibinitperiod},
+           given={Atty},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4e5decf4e915d76af51b79287d4751e1}{%
+           family={Harris},
+           familyi={H\bibinitperiod},
+           given={Jeff},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8cfa1b83e7a1a06a25480667bca5be30}{%
+           family={Kilpatrick},
+           familyi={K\bibinitperiod},
+           given={Logan},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{5adffc21b072dfdd98bac4f782b2d4da}
+      \strng{fullhash}{00695b5a0fb3e1d43267162449b2bccf}
+      \strng{bibnamehash}{00695b5a0fb3e1d43267162449b2bccf}
+      \strng{authorbibnamehash}{00695b5a0fb3e1d43267162449b2bccf}
+      \strng{authornamehash}{5adffc21b072dfdd98bac4f782b2d4da}
+      \strng{authorfullhash}{00695b5a0fb3e1d43267162449b2bccf}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We're announcing updates including more steerable API models, function calling capabilities, longer context, and lower prices.}
+      \field{langid}{american}
+      \field{month}{6}
+      \field{title}{Function Calling and Other {{API}} Updates}
+      \field{urlday}{10}
+      \field{urlmonth}{3}
       \field{urlyear}{2024}
       \field{year}{2023}
       \field{urldateera}{ce}
-      \verb{doi}
-      \verb 10.48550/arXiv.2304.06798
-      \endverb
-      \verb{eprint}
-      \verb 2304.06798
-      \endverb
       \verb{file}
-      \verb C\:\\Users\\oskar\\Zotero\\storage\\X82XT37U\\Mai et al. - 2023 - On the Opportunities and Challenges of Foundation .pdf;C\:\\Users\\oskar\\Zotero\\storage\\JUDG2RZS\\2304.html
+      \verb C:\Users\oskar\Zotero\storage\6X3BUD24\function-calling-and-other-api-updates.html
       \endverb
       \verb{urlraw}
-      \verb http://arxiv.org/abs/2304.06798
+      \verb https://openai.com/blog/function-calling-and-other-api-updates
       \endverb
       \verb{url}
-      \verb http://arxiv.org/abs/2304.06798
+      \verb https://openai.com/blog/function-calling-and-other-api-updates
       \endverb
-      \keyw{Computer Science - Artificial Intelligence,Computer Science - Computation and Language,Computer Science - Computer Vision and Pattern Recognition,I.2.0,I.2.10,I.2.4,I.2.7,I.5.1}
+    \endentry
+    \entry{holmLLMsDeathGIS2023}{thesis}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=8f8aaf460591a8f44b3bf1617c246e2d}{%
+           family={Holm},
+           familyi={H\bibinitperiod},
+           given={Oskar},
+           giveni={O\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{institution}{1}{%
+        {NTNU}%
+      }
+      \list{location}{1}{%
+        {Trondheim}%
+      }
+      \strng{namehash}{8f8aaf460591a8f44b3bf1617c246e2d}
+      \strng{fullhash}{8f8aaf460591a8f44b3bf1617c246e2d}
+      \strng{bibnamehash}{8f8aaf460591a8f44b3bf1617c246e2d}
+      \strng{authorbibnamehash}{8f8aaf460591a8f44b3bf1617c246e2d}
+      \strng{authornamehash}{8f8aaf460591a8f44b3bf1617c246e2d}
+      \strng{authorfullhash}{8f8aaf460591a8f44b3bf1617c246e2d}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The emergence of powerful LLMs with remarkable reasoning and coding capabilities - like GPT-4, the latest additions to the GPT series - enables automation of a wide range of tasks. ChatGPT's Code Interpreter is able to generate, execute, and review its own code, making development of autonomous AI agents far easier than before. This specialization project report explores the feasibility of LLM-based GIS agents, investigating how ChatGPT is currently being used in the field of GIS, how such LLMs could be used if applied in larger systems, and how such systems can be implemented. This report seeks to highlight the strengths of current LLM-based technologies, but also their weaknesses, and suggest areas of improvements and possible solutions to overcome current limitations. These goals are achieved through a literature study and three experiments that aim to support the findings of the literature study. The literature study presents the body of work that has already been done in regard to the position of LLMs in the field of GIS, as well as planning strategies applied in LLM-based agents, and retrieval-augmented generation - that is, giving the LLM hooks into the real world. The three experiments focus on ChatGPT's ability to handle geospatial data in various formats and through different access channels. The overall goal of this specialisation project is to lay the groundwork for development of LLM-based GIS agents.}
+      \field{langid}{english}
+      \field{month}{12}
+      \field{title}{{{LLMs}} - {{The Death}} of {{GIS Analysis}}?}
+      \field{type}{Specialization Project}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://github.com/oskarhlm/prosjektoppgave/blob/main/tex/auxiliary/main.pdf
+      \endverb
+      \verb{url}
+      \verb https://github.com/oskarhlm/prosjektoppgave/blob/main/tex/auxiliary/main.pdf
+      \endverb
+    \endentry
+    \entry{openaiIntroducingChatGPT2022}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=0523b13262b12c215d8009938f5c14f1}{%
+           family={{OpenAI}},
+           familyi={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{0523b13262b12c215d8009938f5c14f1}
+      \strng{fullhash}{0523b13262b12c215d8009938f5c14f1}
+      \strng{bibnamehash}{0523b13262b12c215d8009938f5c14f1}
+      \strng{authorbibnamehash}{0523b13262b12c215d8009938f5c14f1}
+      \strng{authornamehash}{0523b13262b12c215d8009938f5c14f1}
+      \strng{authorfullhash}{0523b13262b12c215d8009938f5c14f1}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We've trained a model called ChatGPT which interacts in a conversational way. The dialogue format makes it possible for ChatGPT to answer followup questions, admit its mistakes, challenge incorrect premises, and reject inappropriate requests.}
+      \field{langid}{american}
+      \field{month}{11}
+      \field{title}{Introducing {{ChatGPT}}}
+      \field{urlday}{26}
+      \field{urlmonth}{10}
+      \field{urlyear}{2023}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb C:\Users\oskar\Zotero\storage\BXCIMZNC\chatgpt.html
+      \endverb
+      \verb{urlraw}
+      \verb https://openai.com/blog/chatgpt
+      \endverb
+      \verb{url}
+      \verb https://openai.com/blog/chatgpt
+      \endverb
+    \endentry
+    \entry{radfordImprovingLanguageUnderstanding2018}{article}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=a812c46caad94fc8701be37871f303ba}{%
+           family={Radford},
+           familyi={R\bibinitperiod},
+           given={Alec},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=997c3143c2e5d593e816d2ff704fbf98}{%
+           family={Narasimhan},
+           familyi={N\bibinitperiod},
+           given={Karthik},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{93049198c7ea4c7c282daf6e881b2cbc}
+      \strng{fullhash}{93049198c7ea4c7c282daf6e881b2cbc}
+      \strng{bibnamehash}{93049198c7ea4c7c282daf6e881b2cbc}
+      \strng{authorbibnamehash}{93049198c7ea4c7c282daf6e881b2cbc}
+      \strng{authornamehash}{93049198c7ea4c7c282daf6e881b2cbc}
+      \strng{authorfullhash}{93049198c7ea4c7c282daf6e881b2cbc}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Natural language understanding comprises a wide range of diverse tasks such as textual entailment, question answering, semantic similarity assessment, and document classification. Although large unlabeled text corpora are abundant, labeled data for learning these specific tasks is scarce, making it challenging for discriminatively trained models to perform adequately. We demonstrate that large gains on these tasks can be realized by generative pre-training of a language model on a diverse corpus of unlabeled text, followed by discriminative fine-tuning on each specific task. In contrast to previous approaches, we make use of task-aware input transformations during fine-tuning to achieve effective transfer while requiring minimal changes to the model architecture. We demonstrate the effectiveness of our approach on a wide range of benchmarks for natural language understanding. Our general task-agnostic model outperforms discriminatively trained models that use architectures specifically crafted for each task, significantly improving upon the state of the art in 9 out of the 12 tasks studied. For instance, we achieve absolute improvements of 8.9\% on commonsense reasoning (Stories Cloze Test), 5.7\% on question answering (RACE), and 1.5\% on textual entailment (MultiNLI).}
+      \field{title}{Improving {{Language Understanding}} by {{Generative Pre-Training}}}
+      \field{urlday}{9}
+      \field{urlmonth}{10}
+      \field{urlyear}{2023}
+      \field{year}{2018}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb C:\Users\oskar\Zotero\storage\HR6GDGYQ\Radford and Narasimhan - 2018 - Improving Language Understanding by Generative Pre.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.semanticscholar.org/paper/Improving-Language-Understanding-by-Generative-Radford-Narasimhan/cd18800a0fe0b668a1cc19f2ec95b5003d0a5035
+      \endverb
+      \verb{url}
+      \verb https://www.semanticscholar.org/paper/Improving-Language-Understanding-by-Generative-Radford-Narasimhan/cd18800a0fe0b668a1cc19f2ec95b5003d0a5035
+      \endverb
+    \endentry
+    \entry{vaswaniAttentionAllYou2017}{misc}{}
+      \name{author}{8}{}{%
+        {{un=0,uniquepart=base,hash=7f28e84700536646dd6620a0db07ad09}{%
+           family={Vaswani},
+           familyi={V\bibinitperiod},
+           given={Ashish},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=62efade83d70f0323fe248755e6c90c5}{%
+           family={Shazeer},
+           familyi={S\bibinitperiod},
+           given={Noam},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=06649ebab1ea5cac0250746a19764975}{%
+           family={Parmar},
+           familyi={P\bibinitperiod},
+           given={Niki},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=831027ee0ebf22375e2a86afc1881909}{%
+           family={Uszkoreit},
+           familyi={U\bibinitperiod},
+           given={Jakob},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=2fd2982e30ebcec93ec1cf76e0d797fd}{%
+           family={Jones},
+           familyi={J\bibinitperiod},
+           given={Llion},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=27b07e4eacbf4ef7a1438e3badb7dd8d}{%
+           family={Gomez},
+           familyi={G\bibinitperiod},
+           given={Aidan\bibnamedelima N.},
+           giveni={A\bibinitperiod\bibinitdelim N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f2bc899b1160163417da7bf510f15d33}{%
+           family={Kaiser},
+           familyi={K\bibinitperiod},
+           given={Lukasz},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=95595a0fefb86187cbc36e551017d332}{%
+           family={Polosukhin},
+           familyi={P\bibinitperiod},
+           given={Illia},
+           giveni={I\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{ee273ab30cfb889666f8c4d806eb9ce7}
+      \strng{fullhash}{f82970bbd2bdd7a002d2af62b743d5cc}
+      \strng{bibnamehash}{f82970bbd2bdd7a002d2af62b743d5cc}
+      \strng{authorbibnamehash}{f82970bbd2bdd7a002d2af62b743d5cc}
+      \strng{authornamehash}{ee273ab30cfb889666f8c4d806eb9ce7}
+      \strng{authorfullhash}{f82970bbd2bdd7a002d2af62b743d5cc}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The dominant sequence transduction models are based on complex recurrent or convolutional neural networks in an encoder-decoder configuration. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train. Our model achieves 28.4 BLEU on the WMT 2014 English-to-German translation task, improving over the existing best results, including ensembles by over 2 BLEU. On the WMT 2014 English-to-French translation task, our model establishes a new single-model state-of-the-art BLEU score of 41.8 after training for 3.5 days on eight GPUs, a small fraction of the training costs of the best models from the literature. We show that the Transformer generalizes well to other tasks by applying it successfully to English constituency parsing both with large and limited training data.}
+      \field{journaltitle}{arXiv.org}
+      \field{langid}{english}
+      \field{month}{6}
+      \field{title}{Attention {{Is All You Need}}}
+      \field{urlday}{10}
+      \field{urlmonth}{10}
+      \field{urlyear}{2023}
+      \field{year}{2017}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb C:\Users\oskar\Zotero\storage\KG8K58TW\Vaswani et al. - 2017 - Attention Is All You Need.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/1706.03762v7
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/1706.03762v7
+      \endverb
     \endentry
   \enddatalist
 \endrefsection

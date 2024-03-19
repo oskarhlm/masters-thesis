@@ -2,3 +2,7 @@
 node_modules
 *.cache
 data/
+.vscode/
+*.mp4
+__pycache__/
+src/misc/backend/open-gis-interpreter/

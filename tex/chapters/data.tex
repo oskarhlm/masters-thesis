@@ -45,11 +45,40 @@ as described by \citet{Isaksen;Gamback:20}.
 \textit{Morbi viverra ante et tortor faucibus finibus nec sit amet sem. In ultrices, augue sed vestibulum congue, tortor turpis sodales odio, at interdum leo justo non massa. Nunc aliquet, nisl non vestibulum rhoncus, libero tortor laoreet nibh, vel ultricies nunc erat nec nisl. Praesent sed lorem arcu. Sed ultricies, tellus at euismod posuere, felis nibh cursus justo, vitae placerat nisl lorem ut est. Suspendisse sollicitudin sagittis nibh, ac interdum erat hendrerit id. Fusce est mi, semper eget mauris sed, posuere ultrices orci. Aenean nec est eu augue blandit maximus. Morbi ut nisl at metus condimentum tincidunt nec consectetur nibh. Phasellus eleifend dapibus elit ut cursus. Donec lacinia turpis a justo dignissim, sit amet venenatis libero pellentesque. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.}
 \end{comment}
 
-
+With the interest of investigating the ability of a \gls{acr:llm}-based system to perform geospatial analysis, relevant datasets should be accessible to said system. \Autosectionref{sec:data-sources} provides a description of the datasets used in the experiments. Furthermore, it was decided to explore different access channels to this data. \Autosectionref{sec:data-access} elaborates on this.
 
 \section{Data Sources}
 \label{sec:data-sources}
 
+A total of eight datasets were used in the experiments. All datasets were downloaded through Geonorge\footnote{\url{https://geonorge.no}}, a webpage administered by The Norwegian Mapping Authority that serves as a portal to a large catalogue of Norwegian geographical data. The datasets were selected to provide a diverse pool of geographical data to perform analysis upon. \autoref{tbl:datasets} shows the datasets used along with a description.
+
+
+\begin{table}[htbp]
+    \centering
+    \caption{Datasets used in experiments}
+    \label{tbl:datasets}
+    \begin{tabularx}{\textwidth}{p{3cm}|X}
+        \toprule
+        \textbf{Dataset}                          & \textbf{Description}                                                                                                                                                                                                                                                                              \\
+        \midrule
+        AR50 - Land Use Map                       & A nationwide dataset that displays main types of land use adapted for use in scales from 1:20,000 to 1:100,000.                                                                                                                                                                                   \\
+        \midrule
+        Strategic Noise Mapping from Road Traffic & The strategic noise mapping shows the noise situation from road traffic at the turn of the year 2016/2017 for the largest urban areas in the country and in addition along national and county roads where more than 8,200 vehicles pass per day.                                                 \\
+        \midrule
+        Elveg 2.0 - Road Network                  & A road network dataset that includes all drivable roads that are longer than 50 meters, or part of a network, as well as pedestrian and bicycle paths and bicycle paths represented as road link geometry.                                                                                        \\
+        \midrule
+        Cadastrial Register - Building Points     & The Matrikkelen-Building point dataset contains a small excerpt of the building information registered in the Matrikkelen, Norway's official register of real property, including buildings. The dataset contains representation points, building type, building number, current building status. \\
+        \midrule
+        Outdoor Recreation Areas                  & The purpose of the dataset is to provide an overview of areas that are important for the public's outdoor life, and it should be easy to account for which assessments and criteria have been the basis for the work and the final product.                                                       \\
+        \midrule
+        Cultural Monuments - Protected Buildings  & Buildings and churches that are automatically, decision, regulation, or temporarily protected under law and churches that have the status as listed.                                                                                                                                              \\
+        \midrule
+        Flood Zones                               & Flood zones show areas that are flooded by different flood sizes (recurrence interval). Flood zones are prepared for 20-, 200-, and 1000-year floods.                                                                                                                                             \\
+        \midrule
+        Quick Clay Zones                          & Provides an overview of zones with potential danger (precautionary areas) for major quick clay landslides.                                                                                                                                                                                        \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
 
 
 \section{Data Access}
@@ -62,16 +91,18 @@ The upcoming experiments therefore seek to benchmark model performance on three 
 \subsection{Files}
 \label{subsec:files}
 
-The first method of presentation is to have the files from \autoref{sec:data-sources} remain untouched.
-
-\subsection[STAC API]{\acrshort{acr:stac} \acrshort{acr:api}}
-\label{subsec:stac-data}
-
-The second method is to create a \acrshort{acr:stac} \acrshort{acr:api} from the data.
+The first method of presentation is to have the files from \autoref{sec:data-sources} remain untouched. The datasets were stored such that each dataset has its own folder. This is because some of the file types used require multiple files in order to correctly store the data—--for instance, the shapefile format, which has three mandatory files: .shp, which contains the actual feature geometry; .shx, which provides a positional index of the feature geometry; and .dbf, which holds attributes for each shape.\todo{reference}
 
 \subsection[SQL Database]{\acrshort{acr:sql} Database}
 \label{subsec:sql-db}
 
-The third and final method is to load the data into a spatial \acrshort{acr:sql} database and provide the model with database schemas that can be used to generate queries.
+The second method used is to load the data into a spatial \acrshort{acr:sql} database and provide the model with database schemas that can be used to generate queries. The datasets were uploaded to a dockerized PostGIS database using QGIS's DB Manager plugin.
+
+Some of the datasets come in the \acrshort{acr:gml} data format, which can include multiple layers with potentially different geometries. For this reason, they cannot be loaded directly into a PostGIS database such that they are stored in the same database table. Furthermore, several of the layers in the multi-layer \acrshort{acr:gml} files are irrelevant for most analysis situations. For instance, the flood zone data were downloaded as a multi-layer \acrshort{acr:gml} file and includes a total of eight layers: polygon and multi-line border for the analysis area, polygon layers for rivers, ocean surfaces, and lakes, polygon and multi-line border for the flood zones, and a layer containing cross-sectional profile lines for the rivers. The quick clay dataset was similar. For brevity, a decision was made not to load all these layers into the PostGIS database. Only the polygon for the flood zones and two polygon layers from the quick clay dataset were loaded into the database.
+
+\subsection[OGC API Features]{\acrshort{acr:ogc} \acrshort{acr:api} Features}
+\label{subsec:ogc-api-features-data}
+
+The third method for data access is to use the \acrshort{acr:ogc} \acrshort{acr:api} Features standard.
 
 \glsresetall

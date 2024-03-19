@@ -14,8 +14,10 @@ If you use direct quotes, unless the quote itself is very significant, you are c
 Such direct quotes also break the flow of the language (yours to someone else's).
 \end{comment}
 
+The introductory chapter will explain the motivation behind the thesis, as well as its goals and the research questions it will attempt to answer. \Autosectionref{sec:contributions} will list the main contributions of the thesis, and \autoref{sec:thesis-structure} will give a high-level overview over the thesis.
+
 \section{Background and Motivation}
-\label{sec:BackgroundAndMotivation}
+\label{sec:background-and-motivation}
 
 \begin{comment}
 Having a template to work from provides a starting point.
@@ -35,8 +37,12 @@ that we wish to draw your attention to. The italics themselves are not an indica
 
 \end{comment}
 
+The release of OpenAI's ChatGPT in November, 2023\todo{ref} generated a hype within the general population and chat-based systems are flourishing. Such \glspl{acr:llm} provide a natural interface between human and machine, one in which technical know-how is not necessarily required in order to perform technical tasks, as modern \glspl{acr:llm} are often able to interpret the user's intent regardless of the preciseness of their prompt.
+
+\acrshort{acr:gis} analysis has traditionally been reserved for \acrshort{acr:gis} \textit{experts}.
+
 \section{Goals and Research Questions}
-\label{sec:GoalsandResearchQuestions}
+\label{sec:goals-and-research-questions}
 
 \begin{comment}
 A research project needs to have one or several question(s) that should be answered.
@@ -80,6 +86,14 @@ Of course the Specialisation Project can also introduce novel work, but there is
 since the core of the project really is to figure out what is ``old'' before you can introduce something which is new.
 \end{comment}
 
+
+
+\begin{enumerate}
+    \item Can an \gls{acr:llm}-based system answer advanced \acrshort{acr:gis} problems? \label{rq:gis-question-answering}
+    \item What are state-of-the-art methods of creating autonomous \acrshort{acr:llm}-based agents? \label{rq:llm-agents-sota}
+    \item What are core challenges in developing such systems? \label{rq:development-challenges}
+\end{enumerate}
+
 \section{Research Method}
 \label{sec:researchMethod}
 
@@ -88,6 +102,11 @@ What methodology will you apply to address the goals: theoretic/analytic, model/
 This section will describe the research methodology applied and the reason for this choice of research methodology.
 You should return to the actual choices made in the work and the alternatives in the Discussion chapter.
 \end{comment}
+
+The specialization project which this thesis is based upon \citep{holmLLMsDeathGIS2023} was of a theoretical character, though it was supplemented by some simple experiments based around direct prompting with ChatGPT. This master thesis will, however, be more practical. As explained in \autoref{sec:goals-and-research-questions}, the overarching goal is to create a \enquote{proof of concept}. The resulting prototype will then be used to answer the research questions.
+
+
+
 \section{Contributions}
 \label{sec:introContributions}
 
@@ -115,7 +134,7 @@ in the Results chapter.
 \end{comment}
 
 \section{Thesis Structure}
-\label{sec:thesisStructure}
+\label{sec:thesis-structure}
 
 \begin{comment}
 This section provides the reader with an overview of what is coming in the next chapters.
