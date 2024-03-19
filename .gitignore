@@ -6,3 +6,4 @@ data/
 *.mp4
 __pycache__/
 src/misc/backend/open-gis-interpreter/
+*.pptx
