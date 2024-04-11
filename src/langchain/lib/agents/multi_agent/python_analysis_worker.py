@@ -22,10 +22,11 @@ def create_python_analysis_node():
             ' when doing unit-depended analyses, such as buffer, distance, etc.\n'
             'Save all results from analysis as GeoJSON in this folder: `{working_directory}`\n'
             '{current_files}'
-        )
+        ),
+        query_from_supervisor=True
     )
 
     python_analysis_agent_node = functools.partial(
-        agent_node, agent=python_analysis_agent, name="Python Coder")
+        agent_node, agent=python_analysis_agent)
 
     return python_analysis_agent_node

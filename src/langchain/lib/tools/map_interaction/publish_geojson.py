@@ -25,30 +25,30 @@ GEOJSON_EXAPLE = """
 
 
 class PublishGeoJSONInput(BaseModel):
-    geojson_path: Optional[str] = Field(
-        None, description='Path to the .geojson file to publish')
-    geojson_data: Optional[str] = Field(
-        None, description='GeoJSON data as a raw string')
+    geojson_path: str = Field(
+        None, description='Path to the .geojson file that will be added to the map')
+    # geojson_data: Optional[str] = Field(
+    #     None, description='GeoJSON data as a raw string')
     layer_name: str = Field(...,
                             description='Name of the layer (should be snake_case)')
 
-    @root_validator
-    def check_geojson_source(cls, values):
-        geojson_path, geojson_data = values.get(
-            'geojson_path'), values.get('geojson_data')
-        if not geojson_path and not geojson_data:
-            raise ValueError(
-                'Either geojson_path or geojson_data must be provided')
-        return values
+    # @root_validator
+    # def check_geojson_source(cls, values):
+    #     geojson_path, geojson_data = values.get(
+    #         'geojson_path'), values.get('geojson_data')
+    #     if not geojson_path and not geojson_data:
+    #         raise ValueError(
+    #             'Either geojson_path or geojson_data must be provided')
+    #     return values
 
 
 class PublishGeoJSONTool(BaseTool):
     name = "add_geojson_to_map"
     description = (
         "Use this to add arbitrary geojson data to a client-side map visible to the user.\n"
-        "Provide either a path to a file containing GeoJSON, or the data itself using the geojson_data parameter.\n"
-        "If providing data, GeoJSON features should follow this structure:\n"
-        f'{GEOJSON_EXAPLE}'
+        # "Provide either a path to a file containing GeoJSON, or the data itself using the geojson_data parameter.\n"
+        # "If providing data, GeoJSON features should follow this structure:\n"
+        # f'{GEOJSON_EXAPLE}'
     )
     args_schema: Type[BaseModel] = PublishGeoJSONInput
 
@@ -58,7 +58,7 @@ class PublishGeoJSONTool(BaseTool):
     async def _arun(
         self,
         geojson_path: Optional[str] = None,
-        geojson_data: Optional[str] = None,
+        # geojson_data: Optional[str] = None,
         layer_name: str = None,
     ) -> str:
         if geojson_path:

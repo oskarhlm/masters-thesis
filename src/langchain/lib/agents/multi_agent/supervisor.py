@@ -5,20 +5,22 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_openai import ChatOpenAI
 from langchain.output_parsers.openai_tools import JsonOutputToolsParser
 from langchain_core.utils.function_calling import convert_to_openai_tool
-from langchain_core.runnables import RunnableLambda
+from langchain_core.messages import AIMessage
+from langchain_core.runnables import RunnableLambda, RunnablePassthrough, RunnableAssign
 
 from .worker import Worker
 
 
-def create_agent_supervisor_node(workers: Sequence[Worker]):
-    system_prompt = (
-        "You are a supervisor tasked with managing a conversation between the"
-        " following workers:\n{workers}\n\nGiven the following user request,"
-        " respond with the worker to act next. Each worker will perform a"
-        " actions in the background and return their response to the main conversation.\n"
-        "Remember to add any geospatial results to the map using the appropriate worker."
-        ' When the user\'s question has been answered, respond with "FINISH".'
-    )
+def create_agent_supervisor_node(workers: Sequence[Worker], system_prompt: str = None):
+    if not system_prompt:
+        system_prompt = (
+            "You are a supervisor tasked with managing a conversation between the"
+            " following workers:\n{workers}\n\nGiven the following user request,"
+            " respond with the worker to act next. Each worker will perform a"
+            " actions in the background and return their response to the main conversation.\n"
+            "Remember to add any geospatial data retrieved to the map using `map_controller`."
+            ' When the user\'s question has been answered, respond with "FINISH".'
+        )
 
     options = ["FINISH"] + [m.readable_name for m in workers]
 
@@ -30,10 +32,12 @@ def create_agent_supervisor_node(workers: Sequence[Worker]):
             "type": "object",
             "properties": {
                 "next": {
-                    "title": "Next",
-                    "anyOf": [
-                        {"enum": options},
-                    ],
+                    'type': 'string',
+                    'enum': options
+                },
+                "worker_query": {
+                    'type': 'string',
+                    "description": "A description of what subtask the worker is expected do or and return to you, the supervisor."
                 },
             },
             "required": ["next"],

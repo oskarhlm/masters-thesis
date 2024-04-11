@@ -3,7 +3,7 @@ import operator
 from typing_extensions import TypedDict
 
 from langchain_core.messages import BaseMessage
-from langchain_core.messages import AIMessage, ToolMessage
+from langchain_core.messages import AIMessage, ToolMessage, HumanMessage
 from langchain.tools import BaseTool
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
@@ -17,6 +17,7 @@ from ...utils.workdir_manager import WorkDirManager
 class AgentState(TypedDict):
     messages: Annotated[Sequence[BaseMessage], operator.add]
     next: str
+    worker_query: str
     working_directory: str
     current_files: str
     agent_outcome: Union[AIMessage, None]
@@ -51,20 +52,22 @@ def postlude(state: AgentState) -> AgentState:
     }
 
 
-def create_agent(llm: ChatOpenAI, tools: Sequence[BaseTool], system_prompt: str, suffix: str = None):
-    prompt = ChatPromptTemplate.from_messages([
-        ('system', system_prompt),
-        MessagesPlaceholder(variable_name="messages"),
-        *([AIMessage(content=suffix)] if suffix is not None else []),
-        MessagesPlaceholder(variable_name="intermediate_steps")
-    ])
-
+def create_agent(llm: ChatOpenAI, tools: Sequence[BaseTool],
+                 system_prompt: str, suffix: str = None, query_from_supervisor=False):
     if len(tools) == 0:
         return (
             ChatPromptTemplate.from_template(system_prompt)
             | llm
             | StrOutputParser()
         )
+
+    prompt = ChatPromptTemplate.from_messages([
+        ('system', system_prompt),
+        *(MessagesPlaceholder(variable_name="messages")
+          if not query_from_supervisor else [('human', '{worker_query}')]),
+        *([AIMessage(content=suffix)] if suffix is not None else []),
+        MessagesPlaceholder(variable_name="intermediate_steps")
+    ])
 
     executor = create_tool_calling_executor(
         model=llm, tools=tools, input_schema=AgentState, prompt=prompt)

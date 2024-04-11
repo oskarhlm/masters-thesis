@@ -30,7 +30,7 @@ def create_sql_node():
         sample_rows_in_table_info=1,
     )
     toolkit = CustomSQLDatabaseToolkit(llm=llm, db=db)
-    tools = toolkit.get_tools()  # + [QueryDocsTool()]
+    tools = toolkit.get_tools() + [QueryDocsTool()]
 
     sql_agent = create_agent(
         llm=llm,

@@ -1,5 +1,6 @@
 import json
 from typing import Sequence, Union, Any
+from typing import Sequence, Union
 
 from langchain_core.language_models import LanguageModelLike
 from langchain_core.messages import ToolMessage
@@ -7,14 +8,14 @@ from langchain_core.runnables import RunnableLambda
 from langchain_core.tools import BaseTool
 from langchain_core.utils.function_calling import convert_to_openai_tool
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.runnables import RunnablePassthrough
-
-from langchain.agents.format_scratchpad.openai_tools import (
-    format_to_openai_tool_messages,
-)
-
 from langgraph.graph import END, StateGraph
 from langgraph.prebuilt.tool_executor import ToolExecutor, ToolInvocation
+
+from langchain_core.messages import AIMessage, ToolMessage
+from langchain.tools import BaseTool
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.output_parsers import StrOutputParser
 
 
 def create_tool_calling_executor(
@@ -37,19 +38,21 @@ def create_tool_calling_executor(
     )
 
     def should_continue(state: input_schema):
-        last_message = state['agent_outcome']
+        # last_message = state['agent_outcome']
+        last_message = state['messages'][-1]
+        print(last_message)
+        print(last_message.additional_kwargs)
         return 'tool_calls' in last_message.additional_kwargs
 
     def call_model(state: input_schema):
-        response = model.invoke(state)
-        return {"agent_outcome": response}
+        raise NotImplementedError
 
     async def acall_model(state: input_schema):
         response = await model.ainvoke(state)
-        response.name = state['next']
         return {
             "agent_outcome": response,
-            'intermediate_steps': [response]
+            # 'intermediate_steps': [response]
+            'messages': [response]
         }
 
     def _get_actions(state: input_schema):
@@ -69,13 +72,7 @@ def create_tool_calling_executor(
         )
 
     def call_tool(state: input_schema):
-        actions, ids = _get_actions(state)
-        responses = tool_executor.batch(actions)
-        tool_messages = [
-            ToolMessage(content=str(response), tool_call_id=id)
-            for response, id in zip(responses, ids)
-        ]
-        return {"intermediate_steps": tool_messages}
+        raise NotImplementedError
 
     async def acall_tool(state: input_schema):
         actions, ids = _get_actions(state)
@@ -84,7 +81,8 @@ def create_tool_calling_executor(
             ToolMessage(content=str(response), tool_call_id=id)
             for response, id in zip(responses, ids)
         ]
-        return {"intermediate_steps": tool_messages}
+        # return {"intermediate_steps": tool_messages}
+        return {"messages": tool_messages}
 
     workflow = StateGraph(input_schema)
 

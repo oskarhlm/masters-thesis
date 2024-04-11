@@ -1,12 +1,14 @@
-import json
-from typing import Dict, Any
-from langchain.tools import BaseTool
-from pydantic import BaseModel, Field
-from typing import Type
-import requests
-from pydantic import BaseModel, Field
-import os
+from typing import Type, Dict, Any
 import httpx
+import os
+
+from langchain.tools import BaseTool
+from langchain_openai import ChatOpenAI
+from pydantic import BaseModel, Field
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
+
+from ...utils.workdir_manager import WorkDirManager
 
 
 def describe_geojson_feature_collection(feature_collection: Dict[str, Any]) -> str:
@@ -27,12 +29,33 @@ def describe_geojson_feature_collection(feature_collection: Dict[str, Any]) -> s
     return description
 
 
+QUERY_CHECKER_PROMPT = """
+{query}
+
+Double check the CQL filter above for common mistakes, including:
+- Using single quotation marks around strings (VERY IMPORTANT), e.g. 
+
+Examples: 
+fclass=building --> fclass='building'
+type=garage --> type='garage'
+
+If there are any of the above mistakes, rewrite the query. If there are no mistakes, just reproduce the original query.
+
+Output the final CQL filter only.
+
+CQL Query: """
+
+
 class QueryOGCAPIFeaturesCollectionInput(BaseModel):
     """Input for GetOGCAPIFeaturesDescriptionTool."""
     collection_name: str = Field(
         ..., description='The name of the collection to be queried')
-    cql: str = Field(..., description=("CQL (common query language) to be used for filtering like:\n"
-                                       "'http://{BASE_URL}/collections/{collection_name}/items?filter=< cql goes here >"))
+    cql_filter: str = Field(None, description=(
+        "Optional CQL (common query language) query to be used for retrieving a subset of the collection.\n"
+        "Examples include filtering on `fclass` (fclass=<class name>) and `name` (name=<feature name>) attributes."
+    ))
+    bbox: str = Field(None,
+                      description='Optional bounding box, like `160.6,-55.95,-170,-25.89`. Do not use unless absolutely necessary.')
     layer_name: str = Field(...,
                             description='Name of the layer that\'s created from the query')
 
@@ -40,46 +63,58 @@ class QueryOGCAPIFeaturesCollectionInput(BaseModel):
 class QueryOGCAPIFeaturesCollectionTool(BaseTool):
     """Tool"""
 
-    name: str = "ogc_api_features_cql_filtering"
+    name: str = "query_collection"
     args_schema: Type[BaseModel] = QueryOGCAPIFeaturesCollectionInput
     description: str = (
         "Use this tool to retrieve specific items from an OGC API Features collection.\n"
-        "Use CQL (Common Query Language) to filter the returned items.\n"
-        "The items will be stored in a file, the path of which will be returned to you."
+        "Use CQL (Common Query Language) to filter the returned items"
+        " and the bounding box parameter to retrieve more specific data.\n"
+        "The items will be stored in a file on the server, the path of which will be returned to you."
     )
+    base_url: str = Field(exclude=True)
 
-    def _run(self, collection_name: str, cql: str, layer_name: str, *args: Any, **kwargs: Any) -> Any:
-        url = f'http://localhost:9000/collections/{collection_name}/items?filter={cql}&limit=5000'
-        try:
-            geojson_response = requests.get(url)
-            path = os.path.join(os.getcwd(), f'{layer_name}.geojson')
-            with open(path, 'w') as file:
-                json.dump(geojson_response, file)
+    def _run(self, *args: Any, **kwargs: Any) -> Any:
+        raise NotImplementedError
 
-            return {
-                'path': path,
-                'geojson_description': describe_geojson_feature_collection(geojson_response),
-                'layer_name': layer_name
-            }
-        except requests.RequestException as e:
-            return {'error': str(e)}
+    async def _arun(self, collection_name: str, layer_name: str, *args: Any, **kwargs: Any) -> Any:
 
-    async def _arun(self, collection_name: str, cql: str, layer_name: str, *args: Any, **kwargs: Any) -> Any:
-        url = f'http://localhost:9000/collections/{collection_name}/items?filter={cql}&limit=5000'
+        if not collection_name.startswith('public.'):
+            collection_name = 'public.' + collection_name
+
+        url = f'{self.base_url}/collections/{collection_name}/items?limit=10000'
+
+        if 'cql_filter' in kwargs and kwargs['cql_filter'] is not None:
+            cql_filter = kwargs['cql_filter']
+            llm = ChatOpenAI(model=os.getenv('GPT3_MODEL_NAME'))
+            prompt = ChatPromptTemplate.from_template(QUERY_CHECKER_PROMPT)
+            chain = prompt | llm | StrOutputParser()
+            corrected_cql_filter = chain.invoke({'query': cql_filter})
+            print(corrected_cql_filter)
+            url += f"&filter={corrected_cql_filter}"
+        if 'bbox' in kwargs and kwargs['bbox']:
+            url += f"&bbox={kwargs['bbox']}"
+
         print(url)
+
         try:
             async with httpx.AsyncClient() as client:
-                res = await client.get(url)
+                res = await client.get(url, timeout=None)
                 res.raise_for_status()
                 geojson_response = res.json()
-                path = os.path.join(
-                    os.getcwd(), 'output_data', f'{layer_name}.geojson')
-                with open(path, 'w') as file:
-                    json.dump(geojson_response, file)
+                filename = f'{layer_name}.geojson'
+                output_path = WorkDirManager.add_file(
+                    filename, geojson_response, save_as_json=True)
+
+                num_features = len(geojson_response['features'])
+                if num_features == 0:
+                    return (
+                        f'No features were found at {url}.\n'
+                        'Try to change the parameters, or make them less restrictive.'
+                    )
 
                 return {
-                    # 'path': path,
-                    'geojson_description': describe_geojson_feature_collection(geojson_response),
+                    'geojson_path_on_server': str(output_path),
+                    'num_features': len(geojson_response['features']),
                     'layer_name': layer_name
                 }
         except httpx.HTTPStatusError as e:

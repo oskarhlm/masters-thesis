@@ -33,8 +33,8 @@ class CustomSQLDatabaseToolkit(BaseToolkit):
             CustomQuerySQLDataBaseTool(db=self.db),
             CustomListSQLDatabaseTool(db=self.db),
             CustomInfoSQLDatabaseTool(db=self.db),
-            CustomQuerySQLCheckerTool(
-                db=self.db,
-                llm=ChatOpenAI(temperature=0),
-            ),
+            # CustomQuerySQLCheckerTool(
+            #     db=self.db,
+            #     llm=ChatOpenAI(temperature=0),
+            # ),
         ]

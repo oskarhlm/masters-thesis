@@ -20,6 +20,7 @@ def create_map_controller_node():
             " and you are equipped with tools to interact with the visual aspects of this map.\n\n"
             "{current_files}"
         ),
+        query_from_supervisor=True
     )
 
     map_controller_agent_node = functools.partial(

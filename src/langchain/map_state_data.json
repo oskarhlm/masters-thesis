@@ -1,31 +1,30 @@
 {
     "center": {
-        "lng": 10.441210284500016,
-        "lat": 63.33804948956612
+        "lng": 10.396903550000047,
+        "lat": 63.426917600918955
     },
     "bounds": {
         "_sw": {
-            "lng": 10.169788108902168,
-            "lat": 63.17940458981866
+            "lng": 10.395575856536851,
+            "lat": 63.42614248307197
         },
         "_ne": {
-            "lng": 10.712632460099599,
-            "lat": 63.49582435350533
+            "lng": 10.398231243461225,
+            "lat": 63.42769269780209
         }
     },
     "zoom": {
-        "current": 9.324527310262944,
+        "current": 17,
         "max": 17,
         "min": -2
     },
     "layers": [
         {
-            "id": "roads_speed_limit_80",
-            "type": "line",
-            "source": "roads_speed_limit_80",
+            "id": "nidarosdomen_polygon",
+            "type": "fill",
+            "source": "nidarosdomen_polygon",
             "paint": {
-                "line-color": "#d7ec3b",
-                "line-width": 3
+                "fill-color": "#8e720f"
             }
         }
     ]

@@ -3,6 +3,7 @@ from typing import Callable, Dict
 from .sql_worker import create_sql_node
 from .map_controller_worker import create_map_controller_node
 from .python_analysis_worker import create_python_analysis_node
+from .oaf_worker import create_oaf_node
 
 
 class Worker:
@@ -18,7 +19,7 @@ class Worker:
 
 python_analysis_worker = Worker(
     name="python_analysis_worker",
-    readable_name='Python Coder',
+    readable_name='Data Analyst',
     description=(
         "A worker/agent that can generate and execute Python code."
         " Suitable for doing spatial analysis on files that are stored on the server,"
@@ -49,11 +50,24 @@ sql_worker = Worker(
     node_creator=create_sql_node
 )
 
+oaf_worker = Worker(
+    name="oaf_worker",
+    readable_name='Data Retriever',
+    description=(
+        "A worker/agent that has access to, and can query, an OGC API Features endpoint"
+        " containing Norwegian OpenStreetMap data.\n"
+        "Suitable for fetching geospatial data that can be stored on the server."
+        f" The analysis results can be added to the map by `{map_worker.readable_name}`."
+    ),
+    node_creator=create_oaf_node
+)
+
 workers: Dict[str, Worker] = {
     worker.name: worker
     for worker in [
         python_analysis_worker,
         map_worker,
-        sql_worker
+        # sql_worker,
+        oaf_worker
     ]
 }

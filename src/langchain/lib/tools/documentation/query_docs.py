@@ -1,21 +1,13 @@
-import fnmatch
-from typing import Coroutine, Optional, Type, List
+from typing import Type
 import os
 
-from langchain_core.callbacks import (
-    CallbackManagerForToolRun,
-)
 from langchain_openai import ChatOpenAI
 from langchain_core.tools import BaseTool
 from langchain_core.pydantic_v1 import BaseModel, Field
-from langchain_core.messages import HumanMessage
 from langchain_core.prompts import ChatPromptTemplate
-from langchain.tools import tool
 from langchain.schema.output_parser import StrOutputParser
 
-
 from .get_docs import get_documentation
-
 
 SYSTEM_PROMPT = (
     "You are a helper that will respond to a question"
@@ -30,8 +22,10 @@ SYSTEM_PROMPT = (
 class _QueryDocsInput(BaseModel):
     dataset_name: str = Field(...,
                               description="The dataset which documentation is to be queried.")
-    query: str = Field(...,
-                       description="Fields etc. in the dataset that are important to the task task you a trying to solve.")
+    query: str = Field(..., description=(
+        "Fields etc. in the dataset that are important to the task task you a trying to solve,"
+        " or the question from the human. Do not leave empty."
+    ))
 
 
 class QueryDocsTool(BaseTool):

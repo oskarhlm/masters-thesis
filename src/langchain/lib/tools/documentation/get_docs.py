@@ -1,17 +1,17 @@
 from langchain_openai import OpenAIEmbeddings
 from xml.dom.minidom import parseString
 from langchain_core.documents import Document
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.document_loaders import UnstructuredXMLLoader
 import os
 import fnmatch
 from langchain_openai import ChatOpenAI
 from langchain.tools import tool
 from langchain.prompts import ChatPromptTemplate
 from langchain.output_parsers.openai_tools import JsonOutputToolsParser
-from langchain_core.runnables import RunnableLambda, RunnableBranch
+from langchain_core.runnables import RunnableLambda
 import xml.etree.ElementTree as ET
 from langchain_community.vectorstores import FAISS
+
+from .utils import clean_xml_docs
 
 
 def find_files(root_folder, extensions):
@@ -44,10 +44,11 @@ def get_full_docs_tool(path: str):
 @tool('get_most_relevant_doc_chunks', return_direct=True)
 def get_most_relevant_doc_chunks_tool(path: str, query: str):
     """Tool to get most relevant parts of dataset documentation using similarity search."""
-    tree = ET.parse(path)
-    root = tree.getroot()
-    docs = [Document(page_content=parseString(ET.tostring(child)
-                                              ).toprettyxml(newl="")) for child in root]
+    # tree = ET.parse(path)
+    # root = tree.getroot()
+    # docs = [Document(page_content=parseString(ET.tostring(child)
+    #                                           ).toprettyxml(newl="")) for child in root]
+    docs = clean_xml_docs(path)
     faiss_index = FAISS.from_documents(docs, OpenAIEmbeddings())
     for doc in faiss_index.similarity_search(query, k=5):
         print(doc.page_content + f'\n\n{"-" * 100}\n')
@@ -66,21 +67,8 @@ async def get_documentation(dataset_name: str, query: str = None, return_chunks=
         ('human', 'Give me the docs for {dataset_name}.')
     ])
 
-    # branch = RunnableBranch(
-    #     (lambda _: not return_chunks, llm.bind_tools(
-    #         tools=[get_full_docs_tool],
-    #         tool_choice={'type': 'function',
-    #                      'function': {'name': 'get_full_docs'}})),
-    #     (lambda _: return_chunks, )
-    # )
-
     chain = (
         prompt
-        # | llm.bind_tools(
-        #     tools=[get_full_docs_tool],
-        #     tool_choice={'type': 'function',
-        #                  'function': {'name': 'get_full_docs'}}
-        # )
         | llm.bind_tools(
             tools=[get_most_relevant_doc_chunks_tool],
             tool_choice={'type': 'function',

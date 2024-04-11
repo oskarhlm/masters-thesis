@@ -11,7 +11,7 @@ export const [map, setMap] = createSignal<maplibregl.Map>();
 export const addedLayers: string[] = [];
 
 export function addGeoJSONToMap(
-  geojson: GeoJSON.FeatureCollection,
+  geojson: GeoJSON.FeatureCollection | GeoJSON.Feature,
   layerName: string
 ) {
   const sourceId = layerName;
@@ -20,12 +20,41 @@ export function addGeoJSONToMap(
   const randomHexColor = () =>
     '#' + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0');
 
+  function adjustColor(color: string, amount: number) {
+    color = color.replace(/^#/, '');
+    if (color.length === 3)
+      color = color[0] + color[0] + color[1] + color[1] + color[2] + color[2];
+
+    let [r, g, b]: any = color.match(/.{2}/g);
+    [r, g, b] = [
+      parseInt(r, 16) + amount,
+      parseInt(g, 16) + amount,
+      parseInt(b, 16) + amount,
+    ];
+
+    r = Math.max(Math.min(255, r), 0).toString(16);
+    g = Math.max(Math.min(255, g), 0).toString(16);
+    b = Math.max(Math.min(255, b), 0).toString(16);
+
+    const rr = (r.length < 2 ? '0' : '') + r;
+    const gg = (g.length < 2 ? '0' : '') + g;
+    const bb = (b.length < 2 ? '0' : '') + b;
+
+    return `#${rr}${gg}${bb}`;
+  }
+
   map()!.addSource(sourceId, {
     type: 'geojson',
     data: geojson,
   });
 
-  const geometryType = geojson.features[0].geometry.type;
+  console.log(geojson);
+
+  const geometryType =
+    geojson.type === 'Feature'
+      ? geojson.geometry.type
+      : geojson.features[0].geometry.type;
+
   if (!geometryType) {
     console.error('Empty FeatureCollection');
   }
@@ -46,12 +75,24 @@ export function addGeoJSONToMap(
 
     case 'Polygon':
     case 'MultiPolygon':
+      const hex = randomHexColor();
       map()!.addLayer({
         id: layerId,
         type: 'fill',
         source: sourceId,
         paint: {
           'fill-color': randomHexColor(),
+        },
+      });
+
+      const borderColor = adjustColor(hex, -40);
+      map()!.addLayer({
+        id: layerId + '-border',
+        type: 'line',
+        source: sourceId,
+        paint: {
+          'line-color': borderColor,
+          'line-width': 2,
         },
       });
       break;

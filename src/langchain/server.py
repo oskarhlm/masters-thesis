@@ -2,7 +2,6 @@ import os
 import json
 from typing import Dict, Any, List, Union, Sequence
 import ast
-import uuid
 
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -12,7 +11,7 @@ from dotenv import load_dotenv
 from langchain.agents import AgentExecutor
 from langchain.tools import BaseTool
 from langchain_core.messages import (
-    AIMessageChunk, FunctionMessage, HumanMessage, AIMessage, SystemMessage, ToolMessage)
+    AIMessageChunk, FunctionMessage, HumanMessage, SystemMessage)
 from pydantic import BaseModel
 from langgraph.pregel import Pregel
 from contextlib import asynccontextmanager
@@ -20,12 +19,13 @@ from langchain_core.messages import BaseMessage
 
 from lib.agents.tool_agent import create_tool_agent_executor
 from lib.agents.sql_agent.agent import create_sql_agent_executor, CustomQuerySQLDataBaseTool
+from lib.agents.oaf_agent.lg_agent import create_oaf_lg_agent_runnable
 from lib.tools.map_interaction.publish_geojson import PublishGeoJSONTool
 from lib.agents.oaf_agent.agent import create_oaf_agent_executor
 from lib.tools.oaf_tools.query_collection import QueryOGCAPIFeaturesCollectionTool
 from lib.utils.ai_suffix_selection import select_ai_suffix_message
 from lib.utils.tool_calls_handler import ToolCallsHandler
-from lib.agents.multi_agent.graph import create_multi_agent_runnable
+from lib.agents.multi_agent.graph import create_oaf_multi_agent_runnable, create_sql_multi_agent_runnable
 from lib.utils.workdir_manager import WorkDirManager
 
 import logging
@@ -98,6 +98,9 @@ class SessionCreationRequest(BaseModel):
 
 @app.post('/session')
 def create_session(body: SessionCreationRequest):
+    WorkDirManager().cleanup()
+    WorkDirManager()
+
     global agent_type
     agent_type = body.agent_type
 
@@ -105,11 +108,11 @@ def create_session(body: SessionCreationRequest):
         case 'sql':
             session_id_lok, executor = create_sql_agent_executor()
         case 'oaf':
-            session_id_lok, executor = create_oaf_agent_executor()
+            session_id_lok, executor = create_oaf_lg_agent_runnable()
         case 'tool':
             session_id_lok, executor = create_tool_agent_executor()
         case 'lg-agent-supervisor':
-            session_id_lok, executor = create_multi_agent_runnable()
+            session_id_lok, executor = create_oaf_multi_agent_runnable()
         case _:
             raise HTTPException(
                 status_code=400, detail="Unsupported agent type")
@@ -180,6 +183,8 @@ async def langgraph_stream_response(message: Union[str, BaseMessage, Sequence[Ba
         messages = [message]
     elif isinstance(message, Sequence):
         messages = message
+
+    print(session_id)
 
     async for event in agent_executor.astream_events({
             "messages": messages,
@@ -270,8 +275,3 @@ async def upload(files: List[UploadFile] = File(...)):
         content=f'File(s) {[file.filename for file in files]} where just to the /tmp in the current environment.')
 
     return StreamingResponse(langgraph_stream_response(message), media_type='text/event-stream')
-
-
-@app.delete('/clear-workdir')
-def clear_workdir():
-    WorkDirManager.cleanup()
