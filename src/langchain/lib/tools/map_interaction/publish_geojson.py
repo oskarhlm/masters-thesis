@@ -87,4 +87,5 @@ class PublishGeoJSONTool(BaseTool):
         if not geojson_data.is_valid:
             return f'Errors found in geojson file:\n{geojson_data.errors()}'
 
-        return {'geojson_path': geojson_path, 'layer_name': layer_name, 'add_to_map': True}
+        # return {'geojson_path': geojson_path, 'layer_name': layer_name, 'add_to_map': True}
+        return f'`{geojson_path}` sent to client...'

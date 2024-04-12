@@ -12,7 +12,7 @@ from langchain_core.utils.function_calling import convert_to_openai_tool
 from langchain_core.prompts import ChatPromptTemplate
 from langgraph.graph import END, StateGraph
 from langgraph.prebuilt.tool_executor import ToolExecutor, ToolInvocation
-from langchain_core.messages import ToolMessage, AIMessage
+from langchain_core.messages import ToolMessage
 from langchain.tools import BaseTool
 
 from ..utils.workdir_manager import WorkDirManager
@@ -51,7 +51,6 @@ def create_tool_calling_executor(
         response = await model.ainvoke(state)
         return {
             "agent_outcome": response,
-            # 'intermediate_steps': [response]
             'messages': [response]
         }
 
@@ -115,7 +114,6 @@ def create_tool_calling_executor(
             tool_messages.append(('system', system_message_content))
             state['last_system_message_time'] = datetime.now()
 
-        # return {"intermediate_steps": tool_messages}
         return {
             **state,
             "messages": tool_messages
@@ -125,7 +123,6 @@ def create_tool_calling_executor(
 
     workflow.add_node("agent", RunnableLambda(call_model, acall_model))
     workflow.add_node("action", RunnableLambda(call_tool, acall_tool))
-    # workflow.add_node("system_updates", RunnableLambda(get_system_updates))
 
     workflow.set_entry_point("agent")
 
@@ -137,9 +134,6 @@ def create_tool_calling_executor(
             False: END,
         },
     )
-
-    # workflow.add_edge("action", "system_updates")
-    # workflow.add_edge("system_updates", "agent")
 
     workflow.add_edge("action", "agent")
 

@@ -113,7 +113,7 @@ class QueryOGCAPIFeaturesCollectionTool(BaseTool):
                 WorkDirManager.add_file(
                     filename, geojson_response, save_as_json=True)
                 num_features = len(geojson_response['features'])
-                return f"Query returned {num_features} feature{'s' if num_features else ''}."
+                return f"Query returned {num_features} feature{'s' if num_features > 0 else ''}."
 
         except httpx.HTTPStatusError as e:
             return (

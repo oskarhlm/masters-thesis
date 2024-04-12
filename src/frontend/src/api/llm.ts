@@ -56,6 +56,13 @@ export class LLM {
         return;
       }
 
+      if (data.tool_start && data.tool_input.geojson_path) {
+        const res = await get('/geojson', {
+          geojson_path: data.tool_input.geojson_path,
+        });
+        addGeoJSONToMap(res, data.tool_input.layer_name);
+      }
+
       if (data.tool_start) {
         setChatElements([
           ...chatElements.filter((el) => el.type !== 'spinner'),
@@ -74,13 +81,6 @@ export class LLM {
           },
         ]);
         return;
-      }
-
-      if (data.tool_end && data.tool_output.geojson_path) {
-        const res = await get('/geojson', {
-          geojson_path: data.tool_output.geojson_path,
-        });
-        addGeoJSONToMap(res, data.tool_output.layer_name);
       }
 
       if (data.message_end) {

@@ -17,10 +17,13 @@ FROM
 JOIN 
     pg_namespace ON pg_class.relnamespace = pg_namespace.oid
 LEFT JOIN 
-    pg_description pd ON pg_class.oid = pd.objoid
+    pg_description pd ON pg_class.oid = pd.objoid AND pd.objsubid = 0
+JOIN 
+    information_schema.columns ON pg_class.relname = information_schema.columns.table_name 
+    AND pg_namespace.nspname = information_schema.columns.table_schema
 WHERE 
     pg_class.relkind = 'r'
-    AND pd.objsubid = 0;
+    AND information_schema.columns.column_name = 'geom';
 """
 
 
@@ -38,4 +41,12 @@ class CustomListSQLDatabaseTool(BaseSQLDatabaseTool, BaseTool):
     ) -> str:
         """Get the schema for a specific table."""
         results = self.db._execute(QUERY)[0]['table_comments']
-        return '\n'.join([f"{r['table_name']} ({r['comment']})" for r in results])
+
+        table_descriptions = []
+        for table in results:
+            desc = f"`{table['table_name']}`"
+            if (comment := table['comment']):
+                desc += f' -- {comment}'
+            table_descriptions.append(desc)
+
+        return '\n'.join(table_descriptions)

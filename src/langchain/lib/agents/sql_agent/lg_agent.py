@@ -5,7 +5,7 @@ from typing_extensions import TypedDict, NotRequired
 from datetime import datetime
 
 from langchain_core.messages import BaseMessage
-from langchain_core.messages import AIMessage, ToolMessage
+from langchain_core.messages import AIMessage
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.sql_database import SQLDatabase
@@ -23,41 +23,37 @@ class AgentState(TypedDict):
     working_directory: str
     current_files: str
     agent_outcome: Union[AIMessage, None]
-    intermediate_steps: Annotated[Sequence[ToolMessage], operator.add]
     last_system_message_time: NotRequired[datetime]
 
 
 def prelude(state: AgentState) -> AgentState:
     written_files = WorkDirManager.list_files()
+    working_directory_path = WorkDirManager.get_abs_path()
+
     if not written_files:
-        return {
-            **state,
-            'working_directory': WorkDirManager.get_abs_path(),
-            "current_files": "There are currently no files written to the working directory.",
-            'agent_outcome': None,
-            'intermediate_steps': []
-        }
+        current_files_msg = "There are currently no files written to the working directory."
     else:
-        formatted_files = "\n".join(
-            [f" - {f}" for f in written_files])
-        return {
-            **state,
-            'working_directory': WorkDirManager.get_abs_path(),
-            "current_files": (
-                f"Below are files that are written to the working directory:\n{formatted_files}\n\n"
-                'You can use Python to perform analyses on these files, if they are sufficient for the problem at hand.'
-            ),
-            'intermediate_steps': []
-        }
+        formatted_files = "\n".join([f" - {f}" for f in written_files])
+        current_files_msg = f"Below are files that are written to the working directory:\n{formatted_files}\n\nYou can use Python to perform analyses on these files, if they are sufficient for the problem at hand."
+
+    return {
+        **state,
+        'working_directory': working_directory_path,
+        "current_files": current_files_msg,
+        'agent_outcome': None,
+        'last_system_message_time': datetime.now()
+    }
 
 
 def postlude(state: AgentState) -> AgentState:
     return state
 
 
-PYTHON_CHECKLIST = """Checklist when generating Python code for GIS-tasks: 
+SQL_CHECKLIST = """Checklist when generating SQL code for GIS-tasks: 
     - All input data uses lat/lon. Keep this in mind when working with metric units (common in buffering tasks, etc.)
-    - ALWAYS save results as GeoJSON in EPSG:4326 (WGS84) 
+    - ALWAYS return all columns (`SELECT *`, etc.).
+    - If more than one layer is selected, perform separate queries in order to create separate files. 
+    - NEVER perform conversion to GeoJSON in the SQL query.
 """
 
 
@@ -67,18 +63,17 @@ def create_sql_lg_agent_runnable() -> AgentState:
         sample_rows_in_table_info=1,
     )
     llm = ChatOpenAI(model=os.getenv('GPT4_MODEL_NAME'), streaming=True)
-    toolkit = CustomSQLDatabaseToolkit(db, llm).get_tools()
+    toolkit = CustomSQLDatabaseToolkit(db=db, llm=llm).get_tools()
     tools = toolkit + [PublishGeoJSONTool()]
 
     system_prompt = (
-        'You are a helpful GIS agent/consultant that has access to an OGC API Features data catalog.\n'
-        'To retrieve data, list all collections, find info about relevant collections, and then fetch features from the collections.\n'
-        'Retrieve data by using  these tools (in order): `list_collections` --> `get_collections_info` --> `query_collection`\n\n'
-        'Use Python to perform additional analyses on the retrieved data.\n'
+        'You are a helpful GIS agent/consultant that has access to an SQL database containing OpenStreetMap data from Norway.\n'
+        'To retrieve data, list all tables, find info about relevant tables, and construct an SQL query to answer the human\'s question.\n'
+        'Retrieve data by using  these tools (in order): `sql_db_list_tables` --> `sql_db_schema` --> `sql_db_query`\n\n'
         'Add data to the map to allow the human user to see the results of the analyses you perform.\n\n'
-        'The working directory is {working_directory}. Make sure to save all files to this directory.\n'
+        'Results from `sql_db_query` are stored in {working_directory}.\n'
         '{current_files}\n\n'
-        f'{PYTHON_CHECKLIST}'
+        f'{SQL_CHECKLIST}'
     )
     prompt = ChatPromptTemplate.from_messages([
         ('system', system_prompt),

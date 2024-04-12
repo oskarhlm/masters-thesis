@@ -29,10 +29,7 @@ FROM (
 
 
 class CustomQuerySQLDataBaseInput(BaseModel):
-    query: str = Field(..., description=(
-        'SQL query. NEVER perform conversion to GeoJSON; this is handled by the function automatically. '
-        'Use column `geom` to retrieve geospatial results.'
-    ))
+    query: str = Field(..., description='SQL query to be executed.')
     layer_name: str = Field(...,
                             description='A descriptive name for the result data. Should be snake_case.')
 
@@ -44,10 +41,10 @@ class CustomQuerySQLDataBaseTool(BaseSQLDatabaseTool, BaseTool):
     args_schema: Type[BaseModel] = CustomQuerySQLDataBaseInput
     description: str = """
     Input to this tool is a detailed and correct SQL query.
-    The result will be a GeoJSON FeatureCollection that is stored in a working directory on the server.
+    The result will be stored in a working directory on the server.
     If the query is incorrect, an error message will be returned.
     If an error is returned, rewrite the query, check the query, and try again.
-    Be mindful of what units go with the CRS of the data. 
+    Input data is in WGS84 (which uses lat/lon). Keep this in mind when querying with metric units.
     """
 
     def _run(
@@ -91,14 +88,13 @@ class CustomQuerySQLDataBaseTool(BaseSQLDatabaseTool, BaseTool):
                 raise ValueError("No features found in the result.")
 
             filename = f'{layer_name}.geojson'
-            output_path = WorkDirManager.add_file(
+            WorkDirManager.add_file(
                 filename, feature_collection, save_as_json=True)
 
-            return {
-                'geojson_path': str(output_path),
-                'num_features': len(feature_collection['features']),
-                'layer_name': layer_name
-            }
+            num_features = len(feature_collection['features'])
+
+            return f"Query returned {num_features} feature{'s' if num_features > 0 else ''}."
+
         except json.JSONDecodeError as e:
             return f"Error parsing JSON result: {str(e)}"
         except ValueError as e:

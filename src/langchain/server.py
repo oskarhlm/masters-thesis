@@ -18,7 +18,8 @@ from contextlib import asynccontextmanager
 from langchain_core.messages import BaseMessage
 
 from lib.agents.tool_agent import create_tool_agent_executor
-from lib.agents.sql_agent.agent import create_sql_agent_executor, CustomQuerySQLDataBaseTool
+# from lib.agents.sql_agent.agent import create_sql_agent_executor, CustomQuerySQLDataBaseTool
+from lib.agents.sql_agent.lg_agent import create_sql_lg_agent_runnable
 from lib.agents.oaf_agent.lg_agent import create_oaf_lg_agent_runnable
 from lib.tools.map_interaction.publish_geojson import PublishGeoJSONTool
 from lib.agents.oaf_agent.agent import create_oaf_agent_executor
@@ -106,7 +107,7 @@ def create_session(body: SessionCreationRequest):
 
     match body.agent_type:
         case 'sql':
-            session_id_lok, executor = create_sql_agent_executor()
+            session_id_lok, executor = create_sql_lg_agent_runnable()
         case 'oaf':
             session_id_lok, executor = create_oaf_lg_agent_runnable()
         case 'tool':
@@ -201,11 +202,18 @@ async def langgraph_stream_response(message: Union[str, BaseMessage, Sequence[Ba
         if kind == 'on_chat_model_end':
             yield create_data_event({'message_end': True})
         elif kind == "on_tool_start":
+            print(event)
+            tool_input = event['data'].get('input')
+            # if event['name'] == 'add_geojson_to_map':
+            #     try:
+            #         tool_input = ast.literal_eval(tool_input)
+            #     except Exception as e:
+            #         print(e)
             yield create_data_event({
                 'tool_start': True,
                 'run_id': event['run_id'],
                 'tool_name': event['name'],
-                'tool_input': event['data'].get('input')
+                'tool_input': tool_input
             })
         elif kind == "on_tool_end":
             tool_output = event['data'].get('output')

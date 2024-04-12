@@ -5,11 +5,9 @@ from typing_extensions import TypedDict, NotRequired
 from datetime import datetime
 
 from langchain_core.messages import BaseMessage
-from langchain_core.messages import AIMessage, ToolMessage
-from langchain.tools import BaseTool
+from langchain_core.messages import AIMessage
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain_core.output_parsers import StrOutputParser
 from langchain_experimental.tools.python.tool import PythonAstREPLTool
 
 from ..redis_checkpointer import RedisSaver
@@ -25,40 +23,29 @@ class AgentState(TypedDict):
     working_directory: str
     current_files: str
     agent_outcome: Union[AIMessage, None]
-    intermediate_steps: Annotated[Sequence[ToolMessage], operator.add]
     last_system_message_time: NotRequired[datetime]
 
 
 def prelude(state: AgentState) -> AgentState:
     written_files = WorkDirManager.list_files()
+    working_directory_path = WorkDirManager.get_abs_path()
+
     if not written_files:
-        return {
-            **state,
-            'working_directory': WorkDirManager.get_abs_path(),
-            "current_files": "There are currently no files written to the working directory.",
-            'agent_outcome': None,
-            'intermediate_steps': [],
-            'last_system_message_time': datetime.now()
-        }
+        current_files_msg = "There are currently no files written to the working directory."
     else:
-        formatted_files = "\n".join(
-            [f" - {f}" for f in written_files])
-        return {
-            **state,
-            'working_directory': WorkDirManager.get_abs_path(),
-            "current_files": (
-                f"Below are files that are written to the working directory:\n{formatted_files}\n\n"
-                'You can use Python to perform analyses on these files, if they are sufficient for the problem at hand.'
-            ),
-            'intermediate_steps': [],
-            'last_system_message_time': datetime.now()
-        }
+        formatted_files = "\n".join([f" - {f}" for f in written_files])
+        current_files_msg = f"Below are files that are written to the working directory:\n{formatted_files}\n\nYou can use Python to perform analyses on these files, if they are sufficient for the problem at hand."
+
+    return {
+        **state,
+        'working_directory': working_directory_path,
+        "current_files": current_files_msg,
+        'agent_outcome': None,
+        'last_system_message_time': datetime.now()
+    }
 
 
 def postlude(state: AgentState) -> AgentState:
-    # print(state['__end__']['agent_outcome'])
-    # state['__end__']['messages'] += state['__end__']['agent_outcome']
-    # print(state)
     return state
 
 
