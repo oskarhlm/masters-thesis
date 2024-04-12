@@ -6,17 +6,15 @@ from datetime import datetime
 
 from langchain_core.messages import BaseMessage
 from langchain_core.messages import AIMessage, ToolMessage
-from langchain.tools import BaseTool
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain_core.output_parsers import StrOutputParser
-from langchain_experimental.tools.python.tool import PythonAstREPLTool
+from langchain.sql_database import SQLDatabase
 
 from ..redis_checkpointer import RedisSaver
 from ..sessions import generate_session_id
 from ..agent_executor import create_tool_calling_executor
 from ...utils.workdir_manager import WorkDirManager
-from ...tools.oaf_tools.toolkit import OAFToolkit
+from ...tools.sql.toolkit import CustomSQLDatabaseToolkit
 from ...tools.map_interaction.publish_geojson import PublishGeoJSONTool
 
 
@@ -37,8 +35,7 @@ def prelude(state: AgentState) -> AgentState:
             'working_directory': WorkDirManager.get_abs_path(),
             "current_files": "There are currently no files written to the working directory.",
             'agent_outcome': None,
-            'intermediate_steps': [],
-            'last_system_message_time': datetime.now()
+            'intermediate_steps': []
         }
     else:
         formatted_files = "\n".join(
@@ -50,15 +47,11 @@ def prelude(state: AgentState) -> AgentState:
                 f"Below are files that are written to the working directory:\n{formatted_files}\n\n"
                 'You can use Python to perform analyses on these files, if they are sufficient for the problem at hand.'
             ),
-            'intermediate_steps': [],
-            'last_system_message_time': datetime.now()
+            'intermediate_steps': []
         }
 
 
 def postlude(state: AgentState) -> AgentState:
-    # print(state['__end__']['agent_outcome'])
-    # state['__end__']['messages'] += state['__end__']['agent_outcome']
-    # print(state)
     return state
 
 
@@ -68,11 +61,15 @@ PYTHON_CHECKLIST = """Checklist when generating Python code for GIS-tasks:
 """
 
 
-def create_oaf_lg_agent_runnable() -> AgentState:
-    # llm = ChatOpenAI(model=os.getenv('GPT3_MODEL_NAME'), streaming=True)
+def create_sql_lg_agent_runnable() -> AgentState:
+    db = SQLDatabase.from_uri(
+        database_uri=os.getenv('POSTGRES_CONN'),
+        sample_rows_in_table_info=1,
+    )
     llm = ChatOpenAI(model=os.getenv('GPT4_MODEL_NAME'), streaming=True)
-    tools = OAFToolkit(base_url=os.getenv('OGC_API_FEATURES_BASE_URL'), llm=llm).get_tools() + \
-        [PythonAstREPLTool(), PublishGeoJSONTool()]
+    toolkit = CustomSQLDatabaseToolkit(db, llm).get_tools()
+    tools = toolkit + [PublishGeoJSONTool()]
+
     system_prompt = (
         'You are a helpful GIS agent/consultant that has access to an OGC API Features data catalog.\n'
         'To retrieve data, list all collections, find info about relevant collections, and then fetch features from the collections.\n'
@@ -83,11 +80,9 @@ def create_oaf_lg_agent_runnable() -> AgentState:
         '{current_files}\n\n'
         f'{PYTHON_CHECKLIST}'
     )
-
     prompt = ChatPromptTemplate.from_messages([
         ('system', system_prompt),
         MessagesPlaceholder(variable_name="messages"),
-        MessagesPlaceholder(variable_name="intermediate_steps")
     ])
 
     session_id = generate_session_id()

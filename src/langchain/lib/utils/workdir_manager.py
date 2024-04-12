@@ -4,6 +4,7 @@ from typing import Union
 import os
 import shutil
 import json
+from datetime import datetime
 
 
 class WorkDirManager:
@@ -73,3 +74,12 @@ class WorkDirManager:
             cls._temp_dir = None
             cls._instance = None
             cls._working_directory = None
+
+    @classmethod
+    def get_latest_file_added(cls):
+        files = cls.list_files()
+        if not files:
+            return None
+
+        latest_file = max(files, key=lambda f: f.stat().st_mtime)
+        return datetime.fromtimestamp(latest_file.stat().st_mtime)

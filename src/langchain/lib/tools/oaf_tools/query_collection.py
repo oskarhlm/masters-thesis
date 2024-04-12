@@ -102,8 +102,6 @@ class QueryOGCAPIFeaturesCollectionTool(BaseTool):
                 res.raise_for_status()
                 geojson_response = res.json()
                 filename = f'{layer_name}.geojson'
-                output_path = WorkDirManager.add_file(
-                    filename, geojson_response, save_as_json=True)
 
                 num_features = len(geojson_response['features'])
                 if num_features == 0:
@@ -112,13 +110,13 @@ class QueryOGCAPIFeaturesCollectionTool(BaseTool):
                         'Try to change the parameters, or make them less restrictive.'
                     )
 
-                return {
-                    'geojson_path_on_server': str(output_path),
-                    'num_features': len(geojson_response['features']),
-                    'layer_name': layer_name
-                }
+                WorkDirManager.add_file(
+                    filename, geojson_response, save_as_json=True)
+                num_features = len(geojson_response['features'])
+                return f"Query returned {num_features} feature{'s' if num_features else ''}."
+
         except httpx.HTTPStatusError as e:
             return (
                 f"Error response {e.response.status_code}. "
-                f'Make sure that there is no issue with the CQL included in the URL: {e.request.url!r}.'
+                f'Make sure that there is no issue with the CQL included in the URL: {e.request.url}.'
             )

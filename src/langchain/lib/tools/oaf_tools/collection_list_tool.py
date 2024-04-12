@@ -28,7 +28,7 @@ class ListOGCAPIFeaturesCollectionsTool(BaseTool):
     async def _arun(self, *args: Any, **kwargs: Any) -> Any:
         url = f'{self.base_url}/collections.json'
         async with httpx.AsyncClient() as client:
-            res = await client.get(url)
+            res = await client.get(url, timeout=None)
             res.raise_for_status()
 
             data = res.json()

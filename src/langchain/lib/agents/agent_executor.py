@@ -1,6 +1,8 @@
 import json
 from typing import Sequence, Union, Any
 from typing import Sequence, Union
+from datetime import datetime
+import asyncio
 
 from langchain_core.language_models import LanguageModelLike
 from langchain_core.messages import ToolMessage
@@ -10,12 +12,11 @@ from langchain_core.utils.function_calling import convert_to_openai_tool
 from langchain_core.prompts import ChatPromptTemplate
 from langgraph.graph import END, StateGraph
 from langgraph.prebuilt.tool_executor import ToolExecutor, ToolInvocation
-
-from langchain_core.messages import AIMessage, ToolMessage
+from langchain_core.messages import ToolMessage, AIMessage
 from langchain.tools import BaseTool
-from langchain_openai import ChatOpenAI
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain_core.output_parsers import StrOutputParser
+
+from ..utils.workdir_manager import WorkDirManager
+from ..utils.map_state import load_map_state, get_map_state_modified_time
 
 
 def create_tool_calling_executor(
@@ -38,8 +39,7 @@ def create_tool_calling_executor(
     )
 
     def should_continue(state: input_schema):
-        # last_message = state['agent_outcome']
-        last_message = state['messages'][-1]
+        last_message = state['agent_outcome']
         print(last_message)
         print(last_message.additional_kwargs)
         return 'tool_calls' in last_message.additional_kwargs
@@ -71,6 +71,34 @@ def create_tool_calling_executor(
             ],
         )
 
+    async def generate_system_messages(state):
+        system_message_content = ''
+        time_latest_file_added = WorkDirManager.get_latest_file_added()
+        new_file_added = time_latest_file_added and (
+            time_latest_file_added > state.get(
+                'last_system_message_time', datetime.min)
+        )
+        if new_file_added:
+            formatted_files = "\n".join(
+                [f" - {f}" for f in WorkDirManager.list_files()])
+            system_message_content += f'Files written to the working directory (`{WorkDirManager.get_abs_path()}`):\n{formatted_files}'
+
+        if 'add_geojson_to_map' in [action.tool for action in _get_actions(state)[0]]:
+            if system_message_content:
+                system_message_content += '\n\n'
+            for _ in range(10):
+                print(get_map_state_modified_time(), state.get(
+                    'last_system_message_time', datetime.min))
+                if get_map_state_modified_time() > state.get('last_system_message_time', datetime.min):
+                    map_state = load_map_state()
+                    system_message_content += f'State of map on client:\n{json.dumps(map_state, indent=4)}'
+                    break
+                await asyncio.sleep(1)
+            else:
+                system_message_content += 'Call to `add_geojson_to-map` unsuccessful --- no update to client map.'
+
+        return system_message_content
+
     def call_tool(state: input_schema):
         raise NotImplementedError
 
@@ -81,13 +109,23 @@ def create_tool_calling_executor(
             ToolMessage(content=str(response), tool_call_id=id)
             for response, id in zip(responses, ids)
         ]
+
+        system_message_content = await generate_system_messages(state)
+        if system_message_content:
+            tool_messages.append(('system', system_message_content))
+            state['last_system_message_time'] = datetime.now()
+
         # return {"intermediate_steps": tool_messages}
-        return {"messages": tool_messages}
+        return {
+            **state,
+            "messages": tool_messages
+        }
 
     workflow = StateGraph(input_schema)
 
     workflow.add_node("agent", RunnableLambda(call_model, acall_model))
     workflow.add_node("action", RunnableLambda(call_tool, acall_tool))
+    # workflow.add_node("system_updates", RunnableLambda(get_system_updates))
 
     workflow.set_entry_point("agent")
 
@@ -99,6 +137,9 @@ def create_tool_calling_executor(
             False: END,
         },
     )
+
+    # workflow.add_edge("action", "system_updates")
+    # workflow.add_edge("system_updates", "agent")
 
     workflow.add_edge("action", "agent")
 
