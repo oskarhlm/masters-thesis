@@ -36,7 +36,7 @@ Those choices should then also be discussed and elaborated on in the Discussion 
 
 \section{High-Level Application Architecture}
 
-A microservice architecture was employed in order to simplify development and separate concerns between the different microservices. The services are deployed as Docker Containers, and they are orchestrated using Docker Compose. \autoref{fig:architecture-overview} shows how the application is divided into five distinct services.
+A microservice architecture was employed in order to simplify development and separate concerns between the different microservices. The services are deployed as Docker Containers, and they are orchestrated using Docker Compose. \autoref{fig:architecture-overview} shows how the application is divided into five distinct services, and the direction of information flow between these.
 
 \begin{figure}[h]
     \centering
@@ -45,18 +45,51 @@ A microservice architecture was employed in order to simplify development and se
     \label{fig:architecture-overview}
 \end{figure}
 
-The \textit{LangChain server} is the heart of the application, and is where the \gls{acr:llm}-related logic is situated.
+
 
 \section{LangChain Server}\label{sec:langchain}
 
-LangChain \citep{chaseLangChain2022} is an open-source project that provides tooling that can be used to create autonomous \acrshort{acr:ai} agents. It is designed to help with prompt management and optimization, creating chains of calls to \acrshortpl{acr:llm}, data-augmented generation, autonomous agent creation, and memory-related tasks.
+The \texttt{LangChain Server} service is the heart of the application, and is where the \gls{acr:llm}-related logic is situated. It is responsible for taking requests from the \texttt{Web \acrshort{acr:ui}} and returning suitable responses in what becomes a client-server architecture between the two services. \autoref{tbl:server-endpoints} show the endpoints exposed by the server and how they can be used by a client.
 
-LangGraph is nice.
+\begin{table}[h]
+    \centering
+    \caption{Summary of Server Endpoints}
+    \label{tbl:server-endpoints}
+    \begin{tabular}{p{0.22\textwidth}p{0.1\textwidth}p{0.55\textwidth}}
+        \toprule
+        \textbf{Endpoint} & \textbf{Method} & \textbf{Description}                                                                                                                                                         \\
+        \midrule
+        /session          & GET             & Takes a \texttt{session\_id} as a query parameter, allowing the client to continue on a pre-existing session.                                                                \\
+        /session          & POST            & Creates a new session with an empty conversation.                                                                                                                            \\
+        /streaming-chat   & GET             & Endpoint for chatting the \acrshort{acr:llm}. Takes a \texttt{message} as a query parameter and returns an event stream, allowing for token streaming from server to client. \\
+        /update-map-state & POST            & Send the state of the client map to the server. Keeps the server updated on what layers are present in the map, their color, etc.                                            \\
+        /geojson          & GET             & Takes a \texttt{geojson\_path} as a query parameter. Allows the client to retrieve a given GeoJSON file that is stored in the working directory on the server.               \\
+        /history          & GET             & Used to retrieve the chat history of the current session.                                                                                                                    \\
+        /upload           & POST            & Allows the client to upload one or more files to the working directory on the server.                                                                                        \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
 
 \section{Redis for Conversations}
+
+
+
+
 \section{PostGres + PostGIS}
 \section[OGC API Features]{\acrshort{acr:ogc} \acrshort{acr:api} Features}
+
 \section[Web UI]{Web \acrshort{acr:ui}}
+
+The user interface is made with SolidJS. By design, it is very minimal. One of the goals of the project is to simplify the way we do \acrshort{acr:gis} analysis. One of the key design goals was therefore to make the interface as familiar to the user as possible and lowering the chance of the user doing something wrong. The chat interface was designed to imitate the interface of OpenAI's
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{web_ui_overview.png}
+    \caption{Web \acrshort{acr:ui}}
+    \label{fig:web-ui}
+\end{figure}
 
 
 \glsresetall

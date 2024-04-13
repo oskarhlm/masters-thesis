@@ -19,43 +19,6 @@
 
 \refsection{0}
   \datalist[entry]{apa/global//global/global}
-    \entry{chaseLangChain2022}{misc}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=c6b41fd745709d65ec7ab70864b8b466}{%
-           family={Chase},
-           familyi={C\bibinitperiod},
-           given={Harrison},
-           giveni={H\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{c6b41fd745709d65ec7ab70864b8b466}
-      \strng{fullhash}{c6b41fd745709d65ec7ab70864b8b466}
-      \strng{bibnamehash}{c6b41fd745709d65ec7ab70864b8b466}
-      \strng{authorbibnamehash}{c6b41fd745709d65ec7ab70864b8b466}
-      \strng{authornamehash}{c6b41fd745709d65ec7ab70864b8b466}
-      \strng{authorfullhash}{c6b41fd745709d65ec7ab70864b8b466}
-      \field{sortinit}{C}
-      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{abstract}{⚡ Building applications with LLMs through composability ⚡}
-      \field{month}{10}
-      \field{title}{{{LangChain}}}
-      \field{urlday}{5}
-      \field{urlmonth}{10}
-      \field{urlyear}{2023}
-      \field{year}{2022}
-      \field{urldateera}{ce}
-      \verb{urlraw}
-      \verb https://github.com/langchain-ai/langchain
-      \endverb
-      \verb{url}
-      \verb https://github.com/langchain-ai/langchain
-      \endverb
-    \endentry
     \entry{eletiFunctionCallingOther2023}{misc}{}
       \name{author}{3}{}{%
         {{un=0,uniquepart=base,hash=03285595b2a21f9031cc188e80917e56}{%
@@ -148,6 +111,215 @@
       \endverb
       \verb{url}
       \verb https://github.com/oskarhlm/prosjektoppgave/blob/main/tex/auxiliary/main.pdf
+      \endverb
+    \endentry
+    \entry{hongMetaGPTMetaProgramming2023}{misc}{}
+      \name{author}{15}{}{%
+        {{un=0,uniquepart=base,hash=58cefe84ca110e5bd39615f1625f9b33}{%
+           family={Hong},
+           familyi={H\bibinitperiod},
+           given={Sirui},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=77364610487c0143544a5cc057113162}{%
+           family={Zhuge},
+           familyi={Z\bibinitperiod},
+           given={Mingchen},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=66bedc5963761dd7d309a6a5dfb11d22}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Jonathan},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fd6700fd96df0b9fc4f90895c852ba35}{%
+           family={Zheng},
+           familyi={Z\bibinitperiod},
+           given={Xiawu},
+           giveni={X\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b57824ce0bfd90c42c549fc48683f112}{%
+           family={Cheng},
+           familyi={C\bibinitperiod},
+           given={Yuheng},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=089723525f6e8213fda4baed3611d73f}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Ceyao},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f43c6d0c6aa19220250a9b9f3019f1f9}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Jinlin},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=656cacebef49796a42ffd57a6ee592e8}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Zili},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=2e9a94507227e83a98ea436926abaf3d}{%
+           family={Yau},
+           familyi={Y\bibinitperiod},
+           given={Steven\bibnamedelimb Ka\bibnamedelima Shing},
+           giveni={S\bibinitperiod\bibinitdelim K\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c4d243e6447e13a3154cf40a384897c9}{%
+           family={Lin},
+           familyi={L\bibinitperiod},
+           given={Zijuan},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=55fa47950521ca20b6922fd6837910cc}{%
+           family={Zhou},
+           familyi={Z\bibinitperiod},
+           given={Liyang},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c7d41d2722b5b70845b83233ffcb0347}{%
+           family={Ran},
+           familyi={R\bibinitperiod},
+           given={Chenyu},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=63f9fd322374bb0624a3f276886f9ffe}{%
+           family={Xiao},
+           familyi={X\bibinitperiod},
+           given={Lingfeng},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ec229a627d2e73106c4339d85bbe1612}{%
+           family={Wu},
+           familyi={W\bibinitperiod},
+           given={Chenglin},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=288bdbcfe1b91ad7484d7a24f74f99ed}{%
+           family={Schmidhuber},
+           familyi={S\bibinitperiod},
+           given={Jürgen},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{45b9f2fb8ef5c092dc3fc5544616b65c}
+      \strng{fullhash}{9169c4f0f2cc058ad5ffc17ccf1ae3e6}
+      \strng{bibnamehash}{9169c4f0f2cc058ad5ffc17ccf1ae3e6}
+      \strng{authorbibnamehash}{9169c4f0f2cc058ad5ffc17ccf1ae3e6}
+      \strng{authornamehash}{45b9f2fb8ef5c092dc3fc5544616b65c}
+      \strng{authorfullhash}{9169c4f0f2cc058ad5ffc17ccf1ae3e6}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Remarkable progress has been made on automated problem solving through societies of agents based on large language models (LLMs). Existing LLM-based multi-agent systems can already solve simple dialogue tasks. Solutions to more complex tasks, however, are complicated through logic inconsistencies due to cascading hallucinations caused by naively chaining LLMs. Here we introduce MetaGPT, an innovative meta-programming framework incorporating efficient human workflows into LLM-based multi-agent collaborations. MetaGPT encodes Standardized Operating Procedures (SOPs) into prompt sequences for more streamlined workflows, thus allowing agents with human-like domain expertise to verify intermediate results and reduce errors. MetaGPT utilizes an assembly line paradigm to assign diverse roles to various agents, efficiently breaking down complex tasks into subtasks involving many agents working together. On collaborative software engineering benchmarks, MetaGPT generates more coherent solutions than previous chat-based multi-agent systems. Our project can be found at https://github.com/geekan/MetaGPT}
+      \field{eprintclass}{cs}
+      \field{eprinttype}{arxiv}
+      \field{month}{11}
+      \field{number}{arXiv:2308.00352}
+      \field{shorttitle}{{{MetaGPT}}}
+      \field{title}{{{MetaGPT}}: {{Meta Programming}} for {{A Multi-Agent Collaborative Framework}}}
+      \field{urlday}{21}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{year}{2023}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2308.00352
+      \endverb
+      \verb{eprint}
+      \verb 2308.00352
+      \endverb
+      \verb{file}
+      \verb C\:\\Users\\oskar\\Zotero\\storage\\8QSJWCNV\\Hong et al. - 2023 - MetaGPT Meta Programming for A Multi-Agent Collab.pdf;C\:\\Users\\oskar\\Zotero\\storage\\UWREAZPZ\\2308.html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2308.00352
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2308.00352
+      \endverb
+      \keyw{Computer Science - Artificial Intelligence,Computer Science - Multiagent Systems}
+    \endentry
+    \entry{langchainaiLangchainaiLangchain2022}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=c8dff8ec7e44a9bf1acdeb832669487e}{%
+           family={{LangChain AI}},
+           familyi={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{c8dff8ec7e44a9bf1acdeb832669487e}
+      \strng{fullhash}{c8dff8ec7e44a9bf1acdeb832669487e}
+      \strng{bibnamehash}{c8dff8ec7e44a9bf1acdeb832669487e}
+      \strng{authorbibnamehash}{c8dff8ec7e44a9bf1acdeb832669487e}
+      \strng{authornamehash}{c8dff8ec7e44a9bf1acdeb832669487e}
+      \strng{authorfullhash}{c8dff8ec7e44a9bf1acdeb832669487e}
+      \field{extraname}{1}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{⚡ Building applications with LLMs through composability ⚡}
+      \field{howpublished}{LangChain AI}
+      \field{month}{10}
+      \field{title}{Langchain-Ai/Langchain}
+      \field{urlday}{5}
+      \field{urlmonth}{10}
+      \field{urlyear}{2023}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/langchain-ai/langchain
+      \endverb
+      \verb{url}
+      \verb https://github.com/langchain-ai/langchain
+      \endverb
+    \endentry
+    \entry{langchainaiLangchainaiLanggraph2024}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=c8dff8ec7e44a9bf1acdeb832669487e}{%
+           family={{LangChain AI}},
+           familyi={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{c8dff8ec7e44a9bf1acdeb832669487e}
+      \strng{fullhash}{c8dff8ec7e44a9bf1acdeb832669487e}
+      \strng{bibnamehash}{c8dff8ec7e44a9bf1acdeb832669487e}
+      \strng{authorbibnamehash}{c8dff8ec7e44a9bf1acdeb832669487e}
+      \strng{authornamehash}{c8dff8ec7e44a9bf1acdeb832669487e}
+      \strng{authorfullhash}{c8dff8ec7e44a9bf1acdeb832669487e}
+      \field{extraname}{2}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{LangChain AI}
+      \field{month}{3}
+      \field{title}{Langchain-Ai/Langgraph}
+      \field{urlday}{21}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/langchain-ai/langgraph
+      \endverb
+      \verb{url}
+      \verb https://github.com/langchain-ai/langgraph
       \endverb
     \endentry
     \entry{openaiIntroducingChatGPT2022}{misc}{}

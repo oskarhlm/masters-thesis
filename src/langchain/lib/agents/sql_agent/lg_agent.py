@@ -58,6 +58,7 @@ SQL_CHECKLIST = """Checklist when generating SQL code for GIS-tasks:
 
 
 def create_sql_lg_agent_runnable() -> AgentState:
+    import geoalchemy2  # To enable reflection of Geometry columns
     db = SQLDatabase.from_uri(
         database_uri=os.getenv('POSTGRES_CONN'),
         sample_rows_in_table_info=1,

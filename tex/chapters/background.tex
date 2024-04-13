@@ -196,7 +196,7 @@ As can be seen in the example, elements in a table can sometimes benefit from be
 \textit{Donec non turpis nec neque egestas faucibus nec id neque. Etiam consectetur, odio vitae gravida tempus, diam velit sagittis turpis, a molestie ligula tellus at nunc. Proin dolor neque, dapibus a pellentesque a, commodo a nibh.}
 \end{comment}
 
-\Autochapterref{cha:background-theory} will lay a theoretical basis for the work done in this master thesis, providing the user with the required understanding in order to understand the contributions of the work. \Autosectionref{sec:generative-llms} will explain the theoretical basis of the component which most modern \glspl{acr:llm} are based upon --- namely the Transformer --- and the attention mechanism within it. The section will also touch upon a new architecture aimed at text generation called \textit{state-space}\todo{check this}, which has yielded very promising results for small \glspl{acr:llm}.
+\Autochapterref{cha:background-theory} will lay a theoretical basis for the work done in this master thesis, providing the user with the required understanding in order to understand the contributions of the work. \Autosectionref{sec:language-modelling} will explain the theoretical basis of the component which most modern \glspl{acr:llm} are based upon --- namely the Transformer --- and the attention mechanism within it. The section will also touch upon a new approach to language modelling called \textit{selective state space modelling}, which has yielded very promising results for small \glspl{acr:llm}.
 
 \vspace{12pt}
 
@@ -210,10 +210,19 @@ As can be seen in the example, elements in a table can sometimes benefit from be
 \end{itshape}
 
 
-\section[The Theory Behind Generative Large Language Models]{The Theory Behind Generative \acrlongpl{acr:llm}}
-\label{sec:generative-llms}
+\section{Approaches to Language Modelling}
+\label{sec:language-modelling}
 
-\Autosubsectionref{subsec:attention-and-the-transformer-architecture} will explain the theoretical basis behind most modern \glspl{acr:llm}, which are based upon the attention mechanism built into the Transformer architecture. \Autosubsectionref{subsec:state-space} will explain the new state-space architecture.
+\Autosubsectionref{subsec:attention-and-the-transformer-architecture} will explain the theoretical basis behind most modern \glspl{acr:llm}, which are based upon the attention mechanism built into the Transformer architecture. \Autosubsectionref{subsec:state-space-models} will explain modern state space-modelling approaches and why they may have a potential greater than Transformer-based models. First, however, \autoref{subsec:statistical-models-and-rnns} will delve into earlier attempts at language modelling.
+
+\subsection[Early Attempts: Statistical Models and Recurrent Neural Networks]{Early Attempts: Statistical Models and \acrlongpl{acr:rnn}}
+\label{subsec:statistical-models-and-rnns}
+
+\subsection{Statistical Models}
+
+
+\subsection[Recurrent Neural Networks]{\acrlongpl{acr:rnn}}
+
 
 \subsection{Attention and the Transformer Architecture}
 \label{subsec:attention-and-the-transformer-architecture}
@@ -238,16 +247,8 @@ Attention blocks can be found in three places in the Transformer architecture \c
 
 The Transformer represented a breakthrough in the field of \gls{acr:nlp}, and is the fundamental building block of modern \glspl{acr:llm}, most famous of which are the \acrshort{acr:gpt}'s.
 
-\subsection{State-Space}
-\label{subsec:state-space}
-
-
-\section[Function Calling LLMs]{Function Calling \acrshortpl{acr:llm}}
-
-\textit{Function calling}---first introduced by OpenAI \citep{eletiFunctionCallingOther2023}---allows developers to provide function definitions to an \gls{acr:llm} and have said \gls{acr:llm} output a \acrshort{acr:json} object containing the name of one or more of the functions provided, as well as suitable arguments to these. Made possible through fine-tuning models to detect when functions should be calling, function calling makes it possible to give an \gls{acr:llm} \textit{hooks} into the real world, and provides a more reliable way for developers to integrate \glspl{acr:llm} into applications.
-
-Possible use cases include using functions provide correct and up-to-date information that would otherwise require extensive training and fine-tuning. Having the \gls{acr:llm} use function calling for information retrieval also make them more transparent, making it possible to trace a claim back to its source, something that is normally a difficult feat with \gls{acr:llm}. Another use case might be code execution. One could imagine a rather simple function \texttt{execute\_python\_code(code: string) -> string} that takes Python code as a string and returns the standard output that results from executing that code. This is likely the principle behind products like OpenAI's Data Analysis mode (previously Code Interpreter), in which ChatGPT functions as a code executing agent that can generate, execute, and self-correct its own code. Similar functions could be constructed for \acrshort{acr:sql}, making it possible for \glspl{acr:llm} to work against relational databases. As \cite{eletiFunctionCallingOther2023} describes, function calling can also be used to extract structured data from text.
-
+\subsection{State Space Models}
+\label{subsec:state-space-models}
 
 \section[State-of-the-Art Large Language Models]{State-of-the-Art \acrlongpl{acr:llm}}
 
@@ -261,5 +262,16 @@ Training consists of two stages: unsupervised pre-training and supervised fine-t
 \subsection{The Gemini  Family}
 \subsection{The Claude Family}
 \subsection{Open-Source Alternatives and Honourable Mentions}
+
+
+\section[Function Calling LLMs]{Function Calling \acrshortpl{acr:llm}}
+\label{sec:function-calling}
+
+\textit{Function calling}---first introduced by OpenAI \citep{eletiFunctionCallingOther2023}---allows developers to provide function definitions to an \gls{acr:llm} and have said \gls{acr:llm} output a \acrshort{acr:json} object containing the name of one or more of the functions provided, as well as suitable arguments to these. Made possible through fine-tuning models to detect when functions should be calling, function calling makes it possible to give an \gls{acr:llm} \textit{hooks} into the real world, and provides a more reliable way for developers to integrate \glspl{acr:llm} into applications.
+
+Possible use cases include using functions provide correct and up-to-date information that would otherwise require extensive training and fine-tuning. Having the \gls{acr:llm} use function calling for information retrieval also make them more transparent, making it possible to trace a claim back to its source, something that is normally a difficult feat with \gls{acr:llm}. Another use case might be code execution. One could imagine a rather simple function \texttt{execute\_python\_code(code: string) -> string} that takes Python code as a string and returns the standard output that results from executing that code. This is likely the principle behind products like OpenAI's Data Analysis mode (previously Code Interpreter), in which ChatGPT functions as a code executing agent that can generate, execute, and self-correct its own code. Similar functions could be constructed for \acrshort{acr:sql}, making it possible for \glspl{acr:llm} to work against relational databases. As \cite{eletiFunctionCallingOther2023} describes, function calling can also be used to extract structured data from text.
+
+
+
 
 \glsresetall

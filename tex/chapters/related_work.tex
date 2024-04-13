@@ -38,4 +38,37 @@ Just as described in the Background chapter (Chapter~\ref{cha:background_theory}
 This is allowed, as long as it is clearly stated what you have reused and in what form (e.g., if a section is a straight-forward copy, if it has undergone only editorial changes, if it contains some old material but also some new, etc.).
 \end{comment}
 
+
+\section[LLM-based Systems in Geospatial Technologies]{\acrshort{acr:llm}-based Systems in Geospatial Technologies}
+
+
+\section{Agent Patterns}
+\label{sec:agent-patterns}
+
+\subsection{Multi-Agent Pattern}
+
+The multi-agent pattern that takes inspiration from human collaboration in that it is made up from multiple specialized agents that work together to achieve some objective. There have been several implementations of the pattern, with certain differences. MetaGPT \citep{hongMetaGPTMetaProgramming2023} is a \acrshort{acr:llm}-based multi-agent system consisting of agents with human-level domain expertise. Using an assembly line paradigm, where the overall goal is divided into subtasks, \citeauthor{hongMetaGPTMetaProgramming2023} showed that MetaGPT could generate more coherent solutions compared to the previous state-of-the-art multi-agent systems. At the time of release, MetaGPT set a new state-of-the-art performance on the HumanEval and \acrshort{acr:mbpp} benchmarks \citep[7]{hongMetaGPTMetaProgramming2023}, demonstrating the potential of the multi-agent pattern.
+
+
+
+\section{Frameworks}
+
+\subsection{LangChain}
+
+LangChain \citep{langchainaiLangchainaiLangchain2022} is an open-source project that provides tooling which simplifies the way developers interface with \glspl{acr:llm}. This tooling includes composable tools and integrations that can be used to build prompts for \acrshortpl{acr:llm}, as well as off-the-shelf chains that perform higher level tasks. Chains are \glspl{acr:dag} --- or sequences of runnables --- that take an input and produces and output. A runnable can be a prompt template with template literals that are substituted with values that are passed into the runnable. The output is the template with the template literals filled in. This output can then be chained into an \acrshort{acr:llm} runnable calls a language model using the prompt template. The output from the \acrshort{acr:llm} runnable could then be passed into an output parser, e.g. a \acrshort{acr:json} parser, that ensures that the chain outputs a \acrshort{acr:json} object. Such chains are the buildings blocks that make up LangChain.
+
+Common use cases for LangChain are:
+
+\begin{itemize}
+    \item Building chatbots for question answering that use semantic retrieval from document store
+    \item Creating agents with access to external tools be leveraging function calling (see \autoref{sec:function-calling})
+    \item Creating code executing agents for Python, \acrshort{acr:sql}, or other programming languages
+\end{itemize}
+
+In January 2024, LangChain AI rolled out a new framework called LangGraph which builds on top of the LangChain ecosystem. While the chains commonly found in LangChain are good for \gls{acr:dag} workflow, they are not suited to creating cyclic graphs. LangGraph can be used to add cycles to \acrshort{acr:llm} applications, which are important for agent-like behaviours \citep{langchainaiLangchainaiLanggraph2024}. A graph in LangGraph is a set of nodes that pass some state around, state that can be modified by each node. The nodes are connected together by edges that define what node can succeed another node. These edges can also be conditional, which routes execution to a given node based on the output from a function giving the current state. This allows for complex logic and simplifies implementation of advanced agent patterns, some of which are discussed in \autoref{sec:agent-patterns}.
+
+
+
+
+
 \glsresetall

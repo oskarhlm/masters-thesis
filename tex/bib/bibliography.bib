@@ -1,12 +1,37 @@
-@misc{chaseLangChain2022,
-  title = {{{LangChain}}},
-  author = {Chase, Harrison},
-  year = {2022},
-  month = oct,
-  url = {https://github.com/langchain-ai/langchain},
-  urldate = {2023-10-05},
-  abstract = {⚡ Building applications with LLMs through composability ⚡},
-  copyright = {MIT}
+@misc{bahdanauNeuralMachineTranslation2016,
+  title = {Neural {{Machine Translation}} by {{Jointly Learning}} to {{Align}} and {{Translate}}},
+  author = {Bahdanau, Dzmitry and Cho, Kyunghyun and Bengio, Yoshua},
+  year = {2016},
+  month = may,
+  number = {arXiv:1409.0473},
+  eprint = {1409.0473},
+  primaryclass = {cs, stat},
+  publisher = {arXiv},
+  url = {http://arxiv.org/abs/1409.0473},
+  urldate = {2024-03-21},
+  abstract = {Neural machine translation is a recently proposed approach to machine translation. Unlike the traditional statistical machine translation, the neural machine translation aims at building a single neural network that can be jointly tuned to maximize the translation performance. The models proposed recently for neural machine translation often belong to a family of encoder-decoders and consists of an encoder that encodes a source sentence into a fixed-length vector from which a decoder generates a translation. In this paper, we conjecture that the use of a fixed-length vector is a bottleneck in improving the performance of this basic encoder-decoder architecture, and propose to extend this by allowing a model to automatically (soft-)search for parts of a source sentence that are relevant to predicting a target word, without having to form these parts as a hard segment explicitly. With this new approach, we achieve a translation performance comparable to the existing state-of-the-art phrase-based system on the task of English-to-French translation. Furthermore, qualitative analysis reveals that the (soft-)alignments found by the model agree well with our intuition.},
+  archiveprefix = {arxiv},
+  keywords = {Computer Science - Computation and Language,Computer Science - Machine Learning,Computer Science - Neural and Evolutionary Computing,Statistics - Machine Learning},
+  file = {C\:\\Users\\oskar\\Zotero\\storage\\DLCZU3RT\\Bahdanau et al. - 2016 - Neural Machine Translation by Jointly Learning to .pdf;C\:\\Users\\oskar\\Zotero\\storage\\H729V98D\\1409.html}
+}
+
+@misc{chanChatEvalBetterLLMbased2023,
+  title = {{{ChatEval}}: {{Towards Better LLM-based Evaluators}} through {{Multi-Agent Debate}}},
+  shorttitle = {{{ChatEval}}},
+  author = {Chan, Chi-Min and Chen, Weize and Su, Yusheng and Yu, Jianxuan and Xue, Wei and Zhang, Shanghang and Fu, Jie and Liu, Zhiyuan},
+  year = {2023},
+  month = aug,
+  number = {arXiv:2308.07201},
+  eprint = {2308.07201},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2308.07201},
+  url = {http://arxiv.org/abs/2308.07201},
+  urldate = {2024-03-21},
+  abstract = {Text evaluation has historically posed significant challenges, often demanding substantial labor and time cost. With the emergence of large language models (LLMs), researchers have explored LLMs' potential as alternatives for human evaluation. While these single-agent-based approaches show promise, experimental results suggest that further advancements are needed to bridge the gap between their current effectiveness and human-level evaluation quality. Recognizing that best practices of human evaluation processes often involve multiple human annotators collaborating in the evaluation, we resort to a multi-agent debate framework, moving beyond single-agent prompting strategies. The multi-agent-based approach enables a group of LLMs to synergize with an array of intelligent counterparts, harnessing their distinct capabilities and expertise to enhance efficiency and effectiveness in handling intricate tasks. In this paper, we construct a multi-agent referee team called ChatEval to autonomously discuss and evaluate the quality of generated responses from different models on open-ended questions and traditional natural language generation (NLG) tasks. Our analysis shows that ChatEval transcends mere textual scoring, offering a human-mimicking evaluation process for reliable assessments. Our code is available at https://github.com/chanchimin/ChatEval.},
+  archiveprefix = {arxiv},
+  keywords = {Computer Science - Computation and Language},
+  file = {C\:\\Users\\oskar\\Zotero\\storage\\X7UJH4ZY\\Chan et al. - 2023 - ChatEval Towards Better LLM-based Evaluators thro.pdf;C\:\\Users\\oskar\\Zotero\\storage\\6I5RF2TI\\2308.html}
 }
 
 @misc{eletiFunctionCallingOther2023,
@@ -50,6 +75,48 @@
   abstract = {The emergence of powerful LLMs with remarkable reasoning and coding capabilities - like GPT-4, the latest additions to the GPT series - enables automation of a wide range of tasks. ChatGPT's Code Interpreter is able to generate, execute, and review its own code, making development of autonomous AI agents far easier than before. This specialization project report explores the feasibility of LLM-based GIS agents, investigating how ChatGPT is currently being used in the field of GIS, how such LLMs could be used if applied in larger systems, and how such systems can be implemented. This report seeks to highlight the strengths of current LLM-based technologies, but also their weaknesses, and suggest areas of improvements and possible solutions to overcome current limitations. These goals are achieved through a literature study and three experiments that aim to support the findings of the literature study. The literature study presents the body of work that has already been done in regard to the position of LLMs in the field of GIS, as well as planning strategies applied in LLM-based agents, and retrieval-augmented generation - that is, giving the LLM hooks into the real world. The three experiments focus on ChatGPT's ability to handle geospatial data in various formats and through different access channels. The overall goal of this specialisation project is to lay the groundwork for development of LLM-based GIS agents.},
   langid = {english},
   school = {NTNU}
+}
+
+@misc{hongMetaGPTMetaProgramming2023,
+  title = {{{MetaGPT}}: {{Meta Programming}} for {{A Multi-Agent Collaborative Framework}}},
+  shorttitle = {{{MetaGPT}}},
+  author = {Hong, Sirui and Zhuge, Mingchen and Chen, Jonathan and Zheng, Xiawu and Cheng, Yuheng and Zhang, Ceyao and Wang, Jinlin and Wang, Zili and Yau, Steven Ka Shing and Lin, Zijuan and Zhou, Liyang and Ran, Chenyu and Xiao, Lingfeng and Wu, Chenglin and Schmidhuber, J{\"u}rgen},
+  year = {2023},
+  month = nov,
+  number = {arXiv:2308.00352},
+  eprint = {2308.00352},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2308.00352},
+  url = {http://arxiv.org/abs/2308.00352},
+  urldate = {2024-03-21},
+  abstract = {Remarkable progress has been made on automated problem solving through societies of agents based on large language models (LLMs). Existing LLM-based multi-agent systems can already solve simple dialogue tasks. Solutions to more complex tasks, however, are complicated through logic inconsistencies due to cascading hallucinations caused by naively chaining LLMs. Here we introduce MetaGPT, an innovative meta-programming framework incorporating efficient human workflows into LLM-based multi-agent collaborations. MetaGPT encodes Standardized Operating Procedures (SOPs) into prompt sequences for more streamlined workflows, thus allowing agents with human-like domain expertise to verify intermediate results and reduce errors. MetaGPT utilizes an assembly line paradigm to assign diverse roles to various agents, efficiently breaking down complex tasks into subtasks involving many agents working together. On collaborative software engineering benchmarks, MetaGPT generates more coherent solutions than previous chat-based multi-agent systems. Our project can be found at https://github.com/geekan/MetaGPT},
+  archiveprefix = {arxiv},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Multiagent Systems},
+  file = {C\:\\Users\\oskar\\Zotero\\storage\\8QSJWCNV\\Hong et al. - 2023 - MetaGPT Meta Programming for A Multi-Agent Collab.pdf;C\:\\Users\\oskar\\Zotero\\storage\\UWREAZPZ\\2308.html}
+}
+
+@misc{langchainaiLangchainaiLangchain2022,
+  title = {Langchain-Ai/Langchain},
+  author = {{LangChain AI}},
+  year = {2022},
+  month = oct,
+  url = {https://github.com/langchain-ai/langchain},
+  urldate = {2023-10-05},
+  abstract = {⚡ Building applications with LLMs through composability ⚡},
+  copyright = {MIT},
+  howpublished = {LangChain AI}
+}
+
+@misc{langchainaiLangchainaiLanggraph2024,
+  title = {Langchain-Ai/Langgraph},
+  author = {{LangChain AI}},
+  year = {2024},
+  month = mar,
+  url = {https://github.com/langchain-ai/langgraph},
+  urldate = {2024-03-21},
+  copyright = {MIT},
+  howpublished = {LangChain AI}
 }
 
 @misc{longLargeLanguageModel2023,
@@ -145,6 +212,24 @@
   file = {C\:\\Users\\oskar\\Zotero\\storage\\E9NBMPWI\\Rajkumar et al. - 2022 - Evaluating the Text-to-SQL Capabilities of Large L.pdf;C\:\\Users\\oskar\\Zotero\\storage\\HWQVPKL2\\2204.html}
 }
 
+@misc{salehinejadRecentAdvancesRecurrent2018,
+  title = {Recent {{Advances}} in {{Recurrent Neural Networks}}},
+  author = {Salehinejad, Hojjat and Sankar, Sharan and Barfett, Joseph and Colak, Errol and Valaee, Shahrokh},
+  year = {2018},
+  month = feb,
+  number = {arXiv:1801.01078},
+  eprint = {1801.01078},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.1801.01078},
+  url = {http://arxiv.org/abs/1801.01078},
+  urldate = {2024-03-21},
+  abstract = {Recurrent neural networks (RNNs) are capable of learning features and long term dependencies from sequential and time-series data. The RNNs have a stack of non-linear units where at least one connection between units forms a directed cycle. A well-trained RNN can model any dynamical system; however, training RNNs is mostly plagued by issues in learning long-term dependencies. In this paper, we present a survey on RNNs and several new advances for newcomers and professionals in the field. The fundamentals and recent advances are explained and the research challenges are introduced.},
+  archiveprefix = {arxiv},
+  keywords = {Computer Science - Neural and Evolutionary Computing},
+  file = {C\:\\Users\\oskar\\Zotero\\storage\\X82WQCGT\\Salehinejad et al. - 2018 - Recent Advances in Recurrent Neural Networks.pdf;C\:\\Users\\oskar\\Zotero\\storage\\JRLED8RL\\1801.html}
+}
+
 @misc{vaswaniAttentionAllYou2017,
   title = {Attention {{Is All You Need}}},
   author = {Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N. and Kaiser, Lukasz and Polosukhin, Illia},
@@ -156,4 +241,23 @@
   abstract = {The dominant sequence transduction models are based on complex recurrent or convolutional neural networks in an encoder-decoder configuration. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train. Our model achieves 28.4 BLEU on the WMT 2014 English-to-German translation task, improving over the existing best results, including ensembles by over 2 BLEU. On the WMT 2014 English-to-French translation task, our model establishes a new single-model state-of-the-art BLEU score of 41.8 after training for 3.5 days on eight GPUs, a small fraction of the training costs of the best models from the literature. We show that the Transformer generalizes well to other tasks by applying it successfully to English constituency parsing both with large and limited training data.},
   langid = {english},
   file = {C:\Users\oskar\Zotero\storage\KG8K58TW\Vaswani et al. - 2017 - Attention Is All You Need.pdf}
+}
+
+@misc{wuAutoGenEnablingNextGen2023a,
+  title = {{{AutoGen}}: {{Enabling Next-Gen LLM Applications}} via {{Multi-Agent Conversation}}},
+  shorttitle = {{{AutoGen}}},
+  author = {Wu, Qingyun and Bansal, Gagan and Zhang, Jieyu and Wu, Yiran and Li, Beibin and Zhu, Erkang and Jiang, Li and Zhang, Xiaoyun and Zhang, Shaokun and Liu, Jiale and Awadallah, Ahmed Hassan and White, Ryen W. and Burger, Doug and Wang, Chi},
+  year = {2023},
+  month = oct,
+  number = {arXiv:2308.08155},
+  eprint = {2308.08155},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2308.08155},
+  url = {http://arxiv.org/abs/2308.08155},
+  urldate = {2024-03-21},
+  abstract = {AutoGen is an open-source framework that allows developers to build LLM applications via multiple agents that can converse with each other to accomplish tasks. AutoGen agents are customizable, conversable, and can operate in various modes that employ combinations of LLMs, human inputs, and tools. Using AutoGen, developers can also flexibly define agent interaction behaviors. Both natural language and computer code can be used to program flexible conversation patterns for different applications. AutoGen serves as a generic infrastructure to build diverse applications of various complexities and LLM capacities. Empirical studies demonstrate the effectiveness of the framework in many example applications, with domains ranging from mathematics, coding, question answering, operations research, online decision-making, entertainment, etc.},
+  archiveprefix = {arxiv},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Computation and Language},
+  file = {C\:\\Users\\oskar\\Zotero\\storage\\IDKBMDML\\Wu et al. - 2023 - AutoGen Enabling Next-Gen LLM Applications via Mu.pdf;C\:\\Users\\oskar\\Zotero\\storage\\K6DAI6WM\\2308.html}
 }
