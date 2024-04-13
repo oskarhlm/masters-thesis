@@ -37,9 +37,9 @@ that we wish to draw your attention to. The italics themselves are not an indica
 
 \end{comment}
 
-The release of OpenAI's ChatGPT in November, 2023\todo{ref} generated a hype within the general population and chat-based systems are flourishing. Such \glspl{acr:llm} provide a natural interface between human and machine, one in which technical know-how is not necessarily required in order to perform technical tasks, as modern \glspl{acr:llm} are often able to interpret the user's intent regardless of the preciseness of their prompt.
+The release of OpenAI's ChatGPT in November, 2023\todo{ref} generated a hype within the general population and chat-based systems are flourishing. ChatGPT --- or rather the underlying \acrshort{acr:gpt}-3 and \acrshort{acr:gpt}-4 models --- is an example of how modern \glspl{acr:llm} can provide a natural language interface between human and machine. Furthermore, significant advancements have been made within code generation, which essentially allows the \gls{acr:llm} to execute computational tasks that can be defined within a snippet of code. Paired with the \gls{acr:llm}'s ability to often correctly interpret the user's intent regardless of the preciseness of their problem formulation, even individuals with no prior programming experience can carry out computational tasks that require the execution of code.
 
-\acrshort{acr:gis} analysis has traditionally been reserved for \acrshort{acr:gis} \textit{experts}.
+\acrshort{acr:gis} analysis has traditionally been reserved for \acrshort{acr:gis} \textit{experts}. \acrshort{acr:gis} professional are commonly required to know their way around one or more \acrlongpl{acr:gis}, in addition to being proficient in programming languages suitable to data science task, such as Python or R. Extensive domain knowledge is often also necessary when tackling \acrshort{acr:gis} tasks, like knowing which data to use for a particular tasks and where to get them. All of these points --- and more --- are barriers to entry for people that wish to make use of powerful \acrshort{acr:gis} tools for their particular purposes, but lack the technical know-how required to use them correctly. This challenge serves as the overall motivation behind this master's thesis, which will mitigate these issues by utilizing the vast background knowledge and code generation abilities of modern \glspl{acr:llm}.
 
 \section{Goals and Research Questions}
 \label{sec:goals-and-research-questions}
@@ -86,12 +86,14 @@ Of course the Specialisation Project can also introduce novel work, but there is
 since the core of the project really is to figure out what is ``old'' before you can introduce something which is new.
 \end{comment}
 
+Deriving from the motivation described in the section above, the overarching goal of this master's thesis becomes to investigate the possibilities of utilizing \glspl{acr:llm} to have a natural language interface with a system that is capable of solving \acrshort{acr:gis}-related tasks. The hypothesis is that modern \glspl{acr:llm} are embedded with an understanding of common \acrshort{acr:gis} workflows, and that their code generation abilities are of such a level that they can accomplish tasks in an autonomous manner.
 
+Based on this overarching goal, three research questions have been constructed and are listed below:
 
 \begin{enumerate}
-    \item Can an \gls{acr:llm}-based system answer advanced \acrshort{acr:gis} problems? \label{rq:gis-question-answering}
+    \item Can an \gls{acr:llm}-based system perform common \acrshort{acr:gis} tasks? \label{rq:gis-question-answering}
+    \item What are core challenges when developing larger systems that rely on \acrlongpl{acr:llm} to control its logic flow? \label{rq:development-challenges}
     \item What are state-of-the-art methods of creating autonomous \acrshort{acr:llm}-based agents? \label{rq:llm-agents-sota}
-    \item What are core challenges in developing such systems? \label{rq:development-challenges}
 \end{enumerate}
 
 \section{Research Method}
@@ -103,7 +105,9 @@ This section will describe the research methodology applied and the reason for t
 You should return to the actual choices made in the work and the alternatives in the Discussion chapter.
 \end{comment}
 
-The specialization project which this thesis is based upon \citep{holmLLMsDeathGIS2023} was of a theoretical character, though it was supplemented by some simple experiments based around direct prompting with ChatGPT. This master thesis will, however, be more practical. As explained in \autoref{sec:goals-and-research-questions}, the overarching goal is to create a \enquote{proof of concept}. The resulting prototype will then be used to answer the research questions.
+Prior to this master's thesis, a specialization project on the same topic was conducted. The specialization project --- as detailed in \citep{holmLLMsDeathGIS2023} --- was of a theoretical character predominantly served as a literature study leading up to the master's thesis. The research questions listed in the above section, however, call for a different and more practical approach. Specifically, \rqref{rq:gis-question-answering} and \rqref{rq:development-challenges} can only be addressed by drawing on insights gained from the attempt to develop such an \acrshort{acr:llm}-based \acrshort{acr:gis} system. Therefore, this master's thesis will revolve around a \enquote{proof of concept} and evaluating the usefulness of the system, as well as lessons learned from the development process.
+
+\rqref{rq:llm-agents-sota}, on the other hand, will be a continuation of the theoretical work done in the specialization process, and will serve as a foundation for the \enquote{proof of concept} development process.
 
 
 
