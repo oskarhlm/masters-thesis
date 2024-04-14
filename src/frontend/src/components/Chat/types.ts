@@ -2,7 +2,7 @@ import { JSX } from 'solid-js/jsx-runtime';
 
 export type MessageSource = 'bot' | 'human';
 
-export const agentTypesArray = ['sql', 'oaf', 'lg-agent-supervisor'] as const;
+export const agentTypesArray = ['python', 'sql', 'oaf', 'lg-agent-supervisor'] as const;
 
 export type AgentType = (typeof agentTypesArray)[number];
 

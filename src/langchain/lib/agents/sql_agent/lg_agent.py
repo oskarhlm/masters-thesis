@@ -33,7 +33,8 @@ def prelude(state: AgentState) -> AgentState:
     if not written_files:
         current_files_msg = "There are currently no files written to the working directory."
     else:
-        formatted_files = "\n".join([f" - {f}" for f in written_files])
+        formatted_files = "\n".join(
+            [f" - {f.name.split('/')[-1]}" for f in written_files])
         current_files_msg = f"Below are files that are written to the working directory:\n{formatted_files}\n\nYou can use Python to perform analyses on these files, if they are sufficient for the problem at hand."
 
     return {

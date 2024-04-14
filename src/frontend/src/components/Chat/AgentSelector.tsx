@@ -12,6 +12,8 @@ export const [selectedAgentType, setSelectedAgentType] =
 const AgentSelector: Component = () => {
   function agentTypeToHumanReadable(agentType: AgentType) {
     switch (agentType) {
+      case 'python':
+        return 'Python Agent';
       case 'sql':
         return 'SQL Agent';
       case 'oaf':

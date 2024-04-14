@@ -1,6 +1,6 @@
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Union
+from typing import Union, Optional
 import os
 import shutil
 import json
@@ -36,23 +36,42 @@ class WorkDirManager:
         return target_path
 
     @classmethod
-    def load_file(cls, filename: Union[str, Path], return_path=False):
-        filename = Path(filename).name
+    def load_file(cls, filename: Union[str, Path], return_path=False) -> Optional[Union[str, Path]]:
         if isinstance(filename, str):
             filename = Path(filename)
-        file_path = cls._working_directory / filename
+
+        file_path = cls._working_directory / filename.name
         if not file_path.exists():
             return None
 
         if return_path:
             return file_path
 
-        with open(file_path, 'r') as file:
-            return file.read()
+        try:
+            with open(file_path, 'r') as file:
+                return file.read()
+        except IOError as e:
+            print(f"Error opening file: {e}")
+            return None
+
+    @staticmethod
+    def _filter_file_names(file_names: list[Path], exclude_extensions):
+        filtered_file_names = []
+        for file_name in file_names:
+            if file_name.name == 'README':
+                continue
+            if file_name.suffix not in exclude_extensions:
+                filtered_file_names.append(file_name)
+        return filtered_file_names
 
     @classmethod
-    def list_files(cls):
-        return [f for f in cls._working_directory.iterdir() if f.is_file()]
+    def list_files(cls, exclude_extensions=['.shx', '.cpg', '.dbf', '.prj']):
+        file_names = [f for f in cls._working_directory.iterdir()]
+        print(len(file_names))
+        filtered_files = cls._filter_file_names(
+            file_names, exclude_extensions)
+        print(len(filtered_files))
+        return filtered_files
 
     @classmethod
     def delete_file(cls, filename):
@@ -81,5 +100,12 @@ class WorkDirManager:
         if not files:
             return None
 
-        latest_file = max(files, key=lambda f: f.stat().st_mtime)
-        return datetime.fromtimestamp(latest_file.stat().st_mtime)
+        # Debugging: Verify each symlink before proceeding
+        for file in files:
+            if not file.resolve().exists():
+                print(f"Broken link or missing file: {file}")
+                continue
+
+        latest_file = max(files, key=lambda f: f.stat(
+            follow_symlinks=True).st_mtime)
+        return datetime.fromtimestamp(latest_file.stat(follow_symlinks=True).st_mtime)

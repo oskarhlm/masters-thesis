@@ -21,8 +21,8 @@ from lib.agents.tool_agent import create_tool_agent_executor
 # from lib.agents.sql_agent.agent import create_sql_agent_executor, CustomQuerySQLDataBaseTool
 from lib.agents.sql_agent.lg_agent import create_sql_lg_agent_runnable
 from lib.agents.oaf_agent.lg_agent import create_oaf_lg_agent_runnable
+from lib.agents.lg_python_agent.agent import create_python_lg_agent_runnable
 from lib.tools.map_interaction.publish_geojson import PublishGeoJSONTool
-from lib.agents.oaf_agent.agent import create_oaf_agent_executor
 from lib.tools.oaf_tools.query_collection import QueryOGCAPIFeaturesCollectionTool
 from lib.utils.ai_suffix_selection import select_ai_suffix_message
 from lib.utils.tool_calls_handler import ToolCallsHandler
@@ -106,12 +106,19 @@ def create_session(body: SessionCreationRequest):
     agent_type = body.agent_type
 
     match body.agent_type:
+        case 'python':
+            source_directory = '/home/dev/master-thesis/data/osm'
+            target_directory = WorkDirManager.get_abs_path()
+            for filename in os.listdir(source_directory):
+                source_file_path = os.path.join(source_directory, filename)
+                target_file_path = os.path.join(target_directory, filename)
+                os.symlink(source_file_path, target_file_path)
+
+            session_id_lok, executor = create_python_lg_agent_runnable()
         case 'sql':
             session_id_lok, executor = create_sql_lg_agent_runnable()
         case 'oaf':
             session_id_lok, executor = create_oaf_lg_agent_runnable()
-        case 'tool':
-            session_id_lok, executor = create_tool_agent_executor()
         case 'lg-agent-supervisor':
             session_id_lok, executor = create_oaf_multi_agent_runnable()
         case _:
