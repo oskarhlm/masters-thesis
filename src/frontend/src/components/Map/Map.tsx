@@ -2,13 +2,14 @@ import './styles.css';
 import maplibregl from 'maplibre-gl';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { createSignal, onMount } from 'solid-js';
+import { createSignal, onMount, Show } from 'solid-js';
 import bbox from '@turf/bbox';
 import { updateMapState } from '../../api/mapState';
+import LayerList from './LayerList';
 
 export const [map, setMap] = createSignal<maplibregl.Map>();
 
-export const addedLayers: string[] = [];
+export const [addedLayers, setAddedLayers] = createSignal<string[]>([]);
 
 export function addGeoJSONToMap(
   geojson: GeoJSON.FeatureCollection | GeoJSON.Feature,
@@ -114,14 +115,14 @@ export function addGeoJSONToMap(
       console.error(`Geometry ${geometryType} is not yet supported.`);
   }
 
-  addedLayers.push(layerId);
+  setAddedLayers([...addedLayers(), layerId]);
 
   const bounds = bbox(geojson);
   map()!.fitBounds(bounds as any, { padding: 20 });
   console.log(
     map()!
       .getStyle()
-      .layers.filter((l) => addedLayers.includes(l.id))
+      .layers.filter((l) => addedLayers().includes(l.id))
   );
 }
 
@@ -144,5 +145,12 @@ export default function Map() {
     setMap(map);
   });
 
-  return <div id="map" ref={mapRef} />;
+  return (
+    <div id="map-container">
+      <div id="map" ref={mapRef} />
+      <Show when={addedLayers().length}>
+        <LayerList />
+      </Show>
+    </div>
+  );
 }

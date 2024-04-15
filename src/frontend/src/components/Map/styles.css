@@ -1,5 +1,37 @@
+#map-container {
+  flex: 1;
+  position: relative;
+}
+
 #map {
   background-color: var(--cg-secondary);
   flex: 1;
   height: 100%;
+}
+
+#layer-list-container {
+  height: min-content;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: var(--cg-white);
+  color: var(--cg-black);
+}
+
+ul {
+  margin-right: 15px;
+  padding-left: 15px;
+  list-style: none;
+  margin-left: 0;
+}
+
+li {
+  padding: 5px 20px;
+  background-color: var(--cg-white);
+  cursor: pointer;
+  user-select: none;
+}
+
+.selected {
+  background-color: var(--cg-secondary);
 }

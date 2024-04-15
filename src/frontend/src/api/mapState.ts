@@ -12,6 +12,6 @@ export async function updateMapState() {
     },
     layers: map()!
       .getStyle()
-      .layers.filter((l) => addedLayers.includes(l.id)),
+      .layers.filter((l) => addedLayers().includes(l.id)),
   });
 }

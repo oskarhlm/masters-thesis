@@ -1,30 +1,46 @@
 {
     "center": {
-        "lng": 10.396915150732866,
-        "lat": 63.426946241445506
+        "lng": 10.397222046102456,
+        "lat": 63.43040160697123
     },
     "bounds": {
         "_sw": {
-            "lng": 10.395587457269016,
-            "lat": 63.426076333076225
+            "lng": 10.37652363173575,
+            "lat": 63.4200900425713
         },
         "_ne": {
-            "lng": 10.398242844193419,
-            "lat": 63.42781612341079
+            "lng": 10.417920460471379,
+            "lat": 63.440709461882506
         }
     },
     "zoom": {
-        "current": 17,
+        "current": 13.03163287029808,
         "max": 17,
         "min": -2
     },
     "layers": [
         {
-            "id": "nidarosdomen",
+            "id": "trondheim_landuse",
             "type": "fill",
-            "source": "nidarosdomen",
+            "source": "trondheim_landuse",
             "paint": {
-                "fill-color": "#5e42bd"
+                "fill-color": "#17a40b"
+            }
+        },
+        {
+            "id": "nidarosdomen_polygon",
+            "type": "fill",
+            "source": "nidarosdomen_polygon",
+            "paint": {
+                "fill-color": "#050ca7"
+            }
+        },
+        {
+            "id": "trondheim_places_of_worship",
+            "type": "fill",
+            "source": "trondheim_places_of_worship",
+            "paint": {
+                "fill-color": "#1cddb2"
             }
         }
     ]

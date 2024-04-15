@@ -40,8 +40,6 @@ def create_tool_calling_executor(
 
     def should_continue(state: input_schema):
         last_message = state['agent_outcome']
-        print(last_message)
-        print(last_message.additional_kwargs)
         return 'tool_calls' in last_message.additional_kwargs
 
     def call_model(state: input_schema):
