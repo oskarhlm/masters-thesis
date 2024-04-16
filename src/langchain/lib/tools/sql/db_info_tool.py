@@ -94,7 +94,7 @@ class CustomInfoSQLDatabaseTool(BaseSQLDatabaseTool, BaseTool):
             distributions[column_name] = [
                 {'value': value, 'percent': round(percent, 1)} for value, percent in results]
 
-            return distributions
+        return distributions
 
     def _create_distribution_string(self, distributions):
         output_string = ''
@@ -102,4 +102,5 @@ class CustomInfoSQLDatabaseTool(BaseSQLDatabaseTool, BaseTool):
             output_string += f"Column: {column_name}\n"
             for data in distribution_data:
                 output_string += f"    {data['value']}: {data['percent']}\n"
+            output_string += '\n'
         return output_string

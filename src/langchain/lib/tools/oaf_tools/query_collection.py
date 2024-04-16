@@ -85,7 +85,7 @@ class QueryOGCAPIFeaturesCollectionTool(BaseTool):
 
         if 'cql_filter' in kwargs and kwargs['cql_filter'] is not None:
             cql_filter = kwargs['cql_filter']
-            llm = ChatOpenAI(model=os.getenv('GPT3_MODEL_NAME'))
+            llm = ChatOpenAI(model=os.getenv('GPT4_MODEL_NAME'))
             prompt = ChatPromptTemplate.from_template(QUERY_CHECKER_PROMPT)
             chain = prompt | llm | StrOutputParser()
             corrected_cql_filter = chain.invoke({'query': cql_filter})

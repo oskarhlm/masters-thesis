@@ -16,6 +16,7 @@ from ..agent_executor import create_tool_calling_executor
 from ...utils.workdir_manager import WorkDirManager
 from ...tools.oaf_tools.toolkit import OAFToolkit
 from ...tools.map_interaction.publish_geojson import PublishGeoJSONTool
+from ...prompts.python import PYTHON_CHECKLIST
 
 
 class AgentState(TypedDict):
@@ -48,12 +49,6 @@ def prelude(state: AgentState) -> AgentState:
 
 def postlude(state: AgentState) -> AgentState:
     return state
-
-
-PYTHON_CHECKLIST = """Checklist when generating Python code for GIS-tasks: 
-    - All input data uses lat/lon. Keep this in mind when working with metric units (common in buffering tasks, etc.)
-    - ALWAYS save results as GeoJSON in EPSG:4326 (WGS84) 
-"""
 
 
 def create_oaf_lg_agent_runnable() -> AgentState:

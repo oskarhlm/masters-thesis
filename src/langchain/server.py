@@ -257,6 +257,8 @@ async def update_map_state(state_data: Request):
 @app.get('/geojson')
 def get_geojson(geojson_path: str = "output.geojson"):
     geojson_data = WorkDirManager.load_file(geojson_path)
+    if not geojson_data:
+        raise HTTPException(status_code=404, detail="GeoJSON file not found")
     return json.loads(geojson_data)
 
 

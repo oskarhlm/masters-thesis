@@ -1,46 +1,11 @@
 {
-    "center": {
-        "lng": 10.397222046102456,
-        "lat": 63.43040160697123
-    },
-    "bounds": {
-        "_sw": {
-            "lng": 10.37652363173575,
-            "lat": 63.4200900425713
-        },
-        "_ne": {
-            "lng": 10.417920460471379,
-            "lat": 63.440709461882506
-        }
-    },
-    "zoom": {
-        "current": 13.03163287029808,
-        "max": 17,
-        "min": -2
-    },
     "layers": [
         {
-            "id": "trondheim_landuse",
+            "id": "vestfold_boundary_corrected",
             "type": "fill",
-            "source": "trondheim_landuse",
+            "source": "vestfold_boundary_corrected",
             "paint": {
-                "fill-color": "#17a40b"
-            }
-        },
-        {
-            "id": "nidarosdomen_polygon",
-            "type": "fill",
-            "source": "nidarosdomen_polygon",
-            "paint": {
-                "fill-color": "#050ca7"
-            }
-        },
-        {
-            "id": "trondheim_places_of_worship",
-            "type": "fill",
-            "source": "trondheim_places_of_worship",
-            "paint": {
-                "fill-color": "#1cddb2"
+                "fill-color": "#a4205a"
             }
         }
     ]

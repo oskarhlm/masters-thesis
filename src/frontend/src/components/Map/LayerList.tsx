@@ -3,6 +3,19 @@ import { addedLayers, map, setAddedLayers } from './Map';
 
 type Direction = 'up' | 'down';
 
+export function updateLayerOrder() {
+  const layers = addedLayers();
+  for (let i = layers.length - 1; i >= 0; i--) {
+    const layer = layers[i];
+    map()!.moveLayer(layer);
+
+    const border = `${layer}-border`;
+    if (map()!.getLayer(border)) {
+      map()!.moveLayer(border);
+    }
+  }
+}
+
 export default function LayerList() {
   const [focusedIndex, setFocusedIndex] = createSignal<number | null>(null);
 
@@ -28,17 +41,6 @@ export default function LayerList() {
       setAddedLayers([...currentLayers]);
       setFocusedIndex(index + (direction === 'up' ? -1 : 1));
       updateLayerOrder();
-    }
-
-    console.log(focusedIndex());
-    console.log(map()!.getLayersOrder());
-    console.log(addedLayers());
-  }
-
-  function updateLayerOrder() {
-    const layers = addedLayers();
-    for (let i = layers.length - 1; i >= 0; i--) {
-      map()!.moveLayer(layers[i]); // This moves the layer to the top
     }
   }
 

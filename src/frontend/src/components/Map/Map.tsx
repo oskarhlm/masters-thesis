@@ -5,7 +5,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import { createSignal, onMount, Show } from 'solid-js';
 import bbox from '@turf/bbox';
 import { updateMapState } from '../../api/mapState';
-import LayerList from './LayerList';
+import LayerList, { updateLayerOrder } from './LayerList';
 
 export const [map, setMap] = createSignal<maplibregl.Map>();
 
@@ -20,6 +20,9 @@ export function addGeoJSONToMap(
 
   const randomHexColor = () =>
     '#' + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0');
+
+  // const colors = ["#fbe7c6", "#b4f8c8", "#a0e7e5", "#ffaeac", "#c8a2c8"];
+  // const getColor = () => colors[addedLayers().length - 1 % addedLayers().length]
 
   function adjustColor(color: string, amount: number) {
     color = color.replace(/^#/, '');
@@ -63,59 +66,69 @@ export function addGeoJSONToMap(
   switch (geometryType) {
     case 'MultiLineString':
     case 'LineString':
-      map()!.addLayer({
-        id: layerId,
-        type: 'line',
-        source: sourceId,
-        paint: {
-          'line-color': randomHexColor(),
-          'line-width': 3,
+      map()!.addLayer(
+        {
+          id: layerId,
+          type: 'line',
+          source: sourceId,
+          paint: {
+            'line-color': randomHexColor(),
+            'line-width': 3,
+          },
         },
-      });
+        addedLayers()[0]
+      );
       break;
 
     case 'Polygon':
     case 'MultiPolygon':
       const hex = randomHexColor();
-      map()!.addLayer({
-        id: layerId,
-        type: 'fill',
-        source: sourceId,
-        paint: {
-          'fill-color': randomHexColor(),
+      map()!.addLayer(
+        {
+          id: layerId,
+          type: 'fill',
+          source: sourceId,
+          paint: {
+            'fill-color': hex,
+          },
         },
-      });
+        addedLayers()[0]
+      );
 
-      const borderColor = adjustColor(hex, -40);
+      const borderColor = adjustColor(hex, -30);
       map()!.addLayer({
         id: layerId + '-border',
         type: 'line',
         source: sourceId,
         paint: {
           'line-color': borderColor,
-          'line-width': 2,
+          'line-width': 1,
         },
       });
       break;
 
     case 'Point':
     case 'MultiPoint':
-      map()!.addLayer({
-        id: layerId,
-        type: 'circle',
-        source: sourceId,
-        paint: {
-          'circle-radius': 5,
-          'circle-color': randomHexColor(),
+      map()!.addLayer(
+        {
+          id: layerId,
+          type: 'circle',
+          source: sourceId,
+          paint: {
+            'circle-radius': 5,
+            'circle-color': randomHexColor(),
+          },
         },
-      });
+        addedLayers()[0]
+      );
       break;
 
     default:
       console.error(`Geometry ${geometryType} is not yet supported.`);
   }
 
-  setAddedLayers([...addedLayers(), layerId]);
+  setAddedLayers([layerId, ...addedLayers()]);
+  updateLayerOrder();
 
   const bounds = bbox(geojson);
   map()!.fitBounds(bounds as any, { padding: 20 });

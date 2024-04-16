@@ -1,6 +1,7 @@
 import './styles.css';
 import { LLM, isStreaming, sessionId } from '../../api/llm';
 import { addChatMessage, addStreamingChatMessage } from './chatStore';
+import { langchain_api_key } from './env';
 import {
   Component,
   For,
@@ -8,13 +9,20 @@ import {
   Show,
   createEffect,
   createSignal,
+  onMount,
 } from 'solid-js';
 import { removeIndex } from '../../utils/listUtils';
+import { Client } from 'langsmith';
 
 type Props = {
   chatBottomRef: HTMLDivElement;
 };
 
+function isUUID(str: string): boolean {
+  const uuidRegex =
+    /^\s*[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\s*$/i;
+  return uuidRegex.test(str);
+}
 const Input: Component<Props> = (props) => {
   let submitBtnRef: HTMLInputElement;
   let textareaRef: HTMLTextAreaElement;
@@ -41,6 +49,16 @@ const Input: Component<Props> = (props) => {
 
     if (textareaRef.value.length === 0) return;
     const humanMessage = textareaRef.value;
+
+    if (isUUID(humanMessage)) {
+      const client = new Client({
+        apiKey: langchain_api_key,
+      });
+      const runUrl = await client.getRunUrl({ runId: humanMessage.trim() });
+      window.open(runUrl, '_blank');
+      textareaRef.value = '';
+      return;
+    }
 
     addChatMessage(humanMessage, 'human');
     props.chatBottomRef?.scrollIntoView({
