@@ -64,8 +64,8 @@ async def get_collection_info(base_url: str, collection_name: str) -> str:
             data = res.json()
             del data['links']
 
-            # return json.dumps(data, indent=4) + f'\n\n{await get_properties_distribution(url)}'
-            return await get_properties_distribution(url)
+            return json.dumps(data, indent=4) + f'\n\n{await get_properties_distribution(url)}'
+            # return await get_properties_distribution(url)
 
     except httpx.HTTPStatusError as e:
         return f"Error response {e.response.status_code}. "

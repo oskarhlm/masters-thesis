@@ -53,7 +53,7 @@ def get_shapefile_info(shapefile_name: str) -> str:
     exclude_columns = ['id', 'code', 'osm_id',
                        'name', 'ref', 'layer', 'population', 'geometry']
     for column_name in [c for c in df.columns if c not in exclude_columns]:
-        output += f'\n{get_properties_distribution(df, column_name)}'
+        output += f'\n\n{get_properties_distribution(df, column_name)}'
 
     return output
 

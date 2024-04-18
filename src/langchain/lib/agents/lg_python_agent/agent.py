@@ -79,7 +79,7 @@ def create_python_lg_agent_runnable() -> AgentState:
     system_prompt = (
         'You are a helpful GIS agent/consultant that has access to a working directoy with geospatial files.\n'
         'Get info about relevant files for analysis using `get_shapefile_info`'
-        ' and use Python to perform geospatial analyses on them.\n'
+        ' and use Python to perform geospatial analyses on them. Filenames including `_a_` denotes polygonal data.\n'
         'Add data to the map to allow the human user to see the results of the analyses you perform.\n\n'
         'The working directory is {working_directory}. Make sure to save all files to this directory.\n'
         '{current_files}\n\n'

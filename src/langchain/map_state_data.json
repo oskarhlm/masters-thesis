@@ -1,12 +1,3 @@
 {
-    "layers": [
-        {
-            "id": "vestfold_boundary_corrected",
-            "type": "fill",
-            "source": "vestfold_boundary_corrected",
-            "paint": {
-                "fill-color": "#a4205a"
-            }
-        }
-    ]
+    "layers": []
 }
