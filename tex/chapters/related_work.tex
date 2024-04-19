@@ -51,9 +51,7 @@ The multi-agent pattern that takes inspiration from human collaboration in that 
 
 
 
-\section{Frameworks}
-
-\subsection{LangChain}
+\section{LangChain}
 
 LangChain \citep{langchainaiLangchainaiLangchain2022} is an open-source project that provides tooling which simplifies the way developers interface with \glspl{acr:llm}. This tooling includes composable tools and integrations that can be used to build prompts for \acrshortpl{acr:llm}, as well as off-the-shelf chains that perform higher level tasks. Chains are \glspl{acr:dag} --- or sequences of runnables --- that take an input and produces and output. A runnable can be a prompt template with template literals that are substituted with values that are passed into the runnable. The output is the template with the template literals filled in. This output can then be chained into an \acrshort{acr:llm} runnable calls a language model using the prompt template. The output from the \acrshort{acr:llm} runnable could then be passed into an output parser, e.g. a \acrshort{acr:json} parser, that ensures that the chain outputs a \acrshort{acr:json} object. Such chains are the buildings blocks that make up LangChain.
 
@@ -66,7 +64,6 @@ Common use cases for LangChain are:
 \end{itemize}
 
 In January 2024, LangChain AI rolled out a new framework called LangGraph which builds on top of the LangChain ecosystem. While the chains commonly found in LangChain are good for \gls{acr:dag} workflow, they are not suited to creating cyclic graphs. LangGraph can be used to add cycles to \acrshort{acr:llm} applications, which are important for agent-like behaviours \citep{langchainaiLangchainaiLanggraph2024}. A graph in LangGraph is a set of nodes that pass some state around, state that can be modified by each node. The nodes are connected together by edges that define what node can succeed another node. These edges can also be conditional, which routes execution to a given node based on the output from a function giving the current state. This allows for complex logic and simplifies implementation of advanced agent patterns, some of which are discussed in \autoref{sec:agent-patterns}.
-
 
 
 

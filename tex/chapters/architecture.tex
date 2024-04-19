@@ -36,7 +36,7 @@ Those choices should then also be discussed and elaborated on in the Discussion 
 
 \section{High-Level Application Architecture}
 
-A microservice architecture was employed in order to simplify development and separate concerns between the different microservices. The services are deployed as Docker Containers, and they are orchestrated using Docker Compose. \autoref{fig:architecture-overview} shows how the application is divided into five distinct services, and the direction of information flow between these.
+A microservice architecture was employed in order to simplify development and separate concerns between the different microservices. The services are deployed as Docker Containers, and they are orchestrated using Docker Compose. \todo{quickly explain docker and why it is useful here} \autoref{fig:architecture-overview} shows how the application is divided into five distinct services, and the direction of information flow between these.
 
 \begin{figure}[h]
     \centering
@@ -49,7 +49,7 @@ A microservice architecture was employed in order to simplify development and se
 
 \section{LangChain Server}\label{sec:langchain}
 
-The \texttt{LangChain Server} service is the heart of the application, and is where the \gls{acr:llm}-related logic is situated. It is responsible for taking requests from the \texttt{Web \acrshort{acr:ui}} and returning suitable responses in what becomes a client-server architecture between the two services. \autoref{tbl:server-endpoints} show the endpoints exposed by the server and how they can be used by a client.
+The \textit{LangChain Server} service is the heart of the application, and is where the \gls{acr:llm}-related logic is situated. It is responsible for taking requests from the \textit{Web \acrshort{acr:ui}} and returning suitable responses in what becomes a client-server architecture between the two services. \autoref{tbl:server-endpoints} show the endpoints exposed by the server and how they can be used by a client.
 
 \begin{table}[h]
     \centering
@@ -70,15 +70,27 @@ The \texttt{LangChain Server} service is the heart of the application, and is wh
     \end{tabular}
 \end{table}
 
+\subsection{Agents}
+
+All three agents use \texttt{GPT-4}.
 
 
 \section{Redis for Conversations}
+
+Redis \citep{sanfilippoRedisRealtimeData2009} is a fast in-memory database that is often applied as a caching database that sits on top of some persistent database. It can also be used for vector-based storage and as a simple NoSQL database. The latter option is the way it is used in GeoGPT's architecture, and its only purpose is to store conversations. Whenever a user starts a conversation with GeoGPT an object with a unique session ID is stored to the Redis database. This object holds an array that represents the conversation. This array is written to every time either the human or GeoGPT produces a message.
+
+Storing messages --- either in memory as a simple array or in a database like Redis --- is crucial to enable multi-message conversations. In order for a \gls{acr:llm} to act as a conversational agent, some sort of chat history needs to be prepended to the prompt. In the case of GeoGPT the entire chat history is prepended. This has the advantage of providing the \gls{acr:llm} with the complete context of the chat history, but the disadvantage of potentially bloating the context window from which it is supposed to generate tokens. Therefore, as the chat becomes longer each new token will be both more expensive and take more time to get generated. A long chat history could also make the resulting prompt exceed the token limit of the \gls{acr:llm}, or it could confuse model by providing it with messages no longer relevant to the conversation. These issue was not considered in great detail for this project, and are left for future work.
 
 
 
 
 \section{PostGres + PostGIS}
+
+
 \section[OGC API Features]{\acrshort{acr:ogc} \acrshort{acr:api} Features}
+
+On top of the PostGIS database  containing \gls{acr:osm} data is a RESTful geospatial feature server called \textit{pg\_featureserv} \citep{crunchydataCrunchyDataPg_featureserv2024}.
+
 
 \section[Web UI]{Web \acrshort{acr:ui}}
 
@@ -86,7 +98,7 @@ The user interface is made with SolidJS. By design, it is very minimal. One of t
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{web_ui_overview.png}
+    \includegraphics[width=\textwidth]{num_trees_along_munkegata_python_with_buffer.png}
     \caption{Web \acrshort{acr:ui}}
     \label{fig:web-ui}
 \end{figure}

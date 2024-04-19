@@ -83,32 +83,29 @@ A total of eight datasets were used in the experiments. All datasets were downlo
 
 \end{comment}
 
-A total of eight datasets were used in the experiments. All datasets were downloaded through Geonorge\footnote{\url{https://geonorge.no}}, a webpage administered by The Norwegian Mapping Authority that serves as a portal to a large catalogue of Norwegian geographical data. The datasets were selected to provide a diverse pool of geographical data to perform analysis upon. \autoref{tbl:datasets} shows the datasets used along with a description.
-
+A total of eighteen datasets were used in the experiments. The data was downloaded from Geofabrik's website\footnote{\url{https://download.geofabrik.de/europe/norway.html}}. Geofabrik --- German for \enquote{geo factory} --- is a company that \enquote{extract, select, and process free geodata}. They have gathered data from OpenStreetMap and published them as a collection of shapefiles, dividing them into categories such as \enquote{places of worship}, \enquote{points of interest}, and \enquote{traffic}. Data can be downloaded for different regions of the world, and for experiments conducted in this thesis, data for Norway was used. \autoref{tbl:datasets} lists all datasets used, along with a short description of their contents.
 
 \begin{table}[htbp]
     \centering
     \caption{Datasets used in experiments}
     \label{tbl:datasets}
-    \begin{tabularx}{\textwidth}{p{3cm}|X}
+    \begin{tabularx}{\textwidth}{p{3cm}|p{3cm}|X}
         \toprule
-        \textbf{Dataset}                          & \textbf{Description}                                                                                                                                                                                                                                                                              \\
+        \textbf{Dataset}  & \textbf{Data Type} & \textbf{Description}                                                                                                                                                                                          \\
         \midrule
-        AR50 - Land Use Map                       & A nationwide dataset that displays main types of land use adapted for use in scales from 1:20,000 to 1:100,000.                                                                                                                                                                                   \\
+        Buildings         & Polygon            & Dataset containing building polygons. Its \emph{type} attribute can have values like \emph{house}, \emph{university}, and \emph{restaurant}.                                                                  \\
         \midrule
-        Strategic Noise Mapping from Road Traffic & The strategic noise mapping shows the noise situation from road traffic at the turn of the year 2016/2017 for the largest urban areas in the country and in addition along national and county roads where more than 8,200 vehicles pass per day.                                                 \\
+        Land Use          & Polygon            & Representing areas designated to different purposes and activities. Its \emph{fclass} attribute that can have values like \emph{forest}, \emph{farmland}, and \emph{residential}.                             \\
         \midrule
-        Elveg 2.0 - Road Network                  & A road network dataset that includes all drivable roads that are longer than 50 meters, or part of a network, as well as pedestrian and bicycle paths and bicycle paths represented as road link geometry.                                                                                        \\
+        Natural           & Point              & Dataset containing polygons representing areas designated to different purposes and activities. Its \emph{fclass} attribute that can have values like \emph{forest}, \emph{farmland}, and \emph{residential}. \\
         \midrule
-        Cadastrial Register - Building Points     & The Matrikkelen-Building point dataset contains a small excerpt of the building information registered in the Matrikkelen, Norway's official register of real property, including buildings. The dataset contains representation points, building type, building number, current building status. \\
+        Natural           & Polygon            &                                                                                                                                                                                                               \\
         \midrule
-        Outdoor Recreation Areas                  & The purpose of the dataset is to provide an overview of areas that are important for the public's outdoor life, and it should be easy to account for which assessments and criteria have been the basis for the work and the final product.                                                       \\
+        Places of Worship & Point              &                                                                                                                                                                                                               \\
         \midrule
-        Cultural Monuments - Protected Buildings  & Buildings and churches that are automatically, decision, regulation, or temporarily protected under law and churches that have the status as listed.                                                                                                                                              \\
+        Places of Worship & Polygon            &                                                                                                                                                                                                               \\
         \midrule
-        Flood Zones                               & Flood zones show areas that are flooded by different flood sizes (recurrence interval). Flood zones are prepared for 20-, 200-, and 1000-year floods.                                                                                                                                             \\
-        \midrule
-        Quick Clay Zones                          & Provides an overview of zones with potential danger (precautionary areas) for major quick clay landslides.                                                                                                                                                                                        \\
+        Places            & Point              &                                                                                                                                                                                                               \\
         \bottomrule
     \end{tabularx}
 \end{table}

@@ -105,14 +105,16 @@ class CustomQuerySQLDataBaseTool(BaseSQLDatabaseTool, BaseTool):
 
             feature_subset = feature_collection['features'][:3]
             for f in feature_subset:
-                coords = f['geometry']['coordinates']
-                if len(str(coords)) < 1000:
-                    continue
+                print(f)
+                if 'coordinates' in f['geometry']:
+                    coords = f['geometry']['coordinates']
+                    if len(str(coords)) < 1000:
+                        continue
 
-                f['geometry']['coordinates'] = {
-                    'shape': np.array(coords).shape,
-                    'preview': f'{str(coords)[:200]}...'
-                }
+                    f['geometry']['coordinates'] = {
+                        'shape': np.array(coords).shape,
+                        'preview': f'{str(coords)[:200]}...'
+                    }
 
             feature_pluralized = f"feature{'s' if num_features > 1 else ''}"
             output = f"Query returned {num_features} GeoJSON {feature_pluralized}."

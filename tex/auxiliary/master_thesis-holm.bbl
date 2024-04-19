@@ -19,6 +19,41 @@
 
 \refsection{0}
   \datalist[entry]{apa/global//global/global}
+    \entry{crunchydataCrunchyDataPg_featureserv2024}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=f8658542125af3374fa5a3e013634fb9}{%
+           family={{CrunchyData}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{f8658542125af3374fa5a3e013634fb9}
+      \strng{fullhash}{f8658542125af3374fa5a3e013634fb9}
+      \strng{bibnamehash}{f8658542125af3374fa5a3e013634fb9}
+      \strng{authorbibnamehash}{f8658542125af3374fa5a3e013634fb9}
+      \strng{authornamehash}{f8658542125af3374fa5a3e013634fb9}
+      \strng{authorfullhash}{f8658542125af3374fa5a3e013634fb9}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Lightweight RESTful Geospatial Feature Server for PostGIS in Go}
+      \field{howpublished}{Crunchy Data}
+      \field{month}{4}
+      \field{title}{{{CrunchyData}}/Pg\_featureserv}
+      \field{urlday}{19}
+      \field{urlmonth}{4}
+      \field{urlyear}{2024}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/CrunchyData/pg_featureserv
+      \endverb
+      \verb{url}
+      \verb https://github.com/CrunchyData/pg_featureserv
+      \endverb
+    \endentry
     \entry{eletiFunctionCallingOther2023}{misc}{}
       \name{author}{3}{}{%
         {{un=0,uniquepart=base,hash=03285595b2a21f9031cc188e80917e56}{%
@@ -403,6 +438,47 @@
       \endverb
       \verb{url}
       \verb https://www.semanticscholar.org/paper/Improving-Language-Understanding-by-Generative-Radford-Narasimhan/cd18800a0fe0b668a1cc19f2ec95b5003d0a5035
+      \endverb
+    \endentry
+    \entry{sanfilippoRedisRealtimeData2009}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=3214e06899fd8581482a995ced0d1908}{%
+           family={Sanfilippo},
+           familyi={S\bibinitperiod},
+           given={Salvatore},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{3214e06899fd8581482a995ced0d1908}
+      \strng{fullhash}{3214e06899fd8581482a995ced0d1908}
+      \strng{bibnamehash}{3214e06899fd8581482a995ced0d1908}
+      \strng{authorbibnamehash}{3214e06899fd8581482a995ced0d1908}
+      \strng{authornamehash}{3214e06899fd8581482a995ced0d1908}
+      \strng{authorfullhash}{3214e06899fd8581482a995ced0d1908}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Developers love Redis. Unlock the full potential of the Redis database with Redis Enterprise and start building blazing fast apps.}
+      \field{journaltitle}{Redis}
+      \field{langid}{english}
+      \field{title}{Redis - {{The Real-time Data Platform}}}
+      \field{urlday}{19}
+      \field{urlmonth}{4}
+      \field{urlyear}{2024}
+      \field{year}{2009}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb C:\Users\oskar\Zotero\storage\ZJXVH295\redis.io.html
+      \endverb
+      \verb{urlraw}
+      \verb https://redis.io/
+      \endverb
+      \verb{url}
+      \verb https://redis.io/
       \endverb
     \endentry
     \entry{vaswaniAttentionAllYou2017}{misc}{}

@@ -71,6 +71,7 @@ def create_sql_lg_agent_runnable() -> AgentState:
     system_prompt = (
         'You are a helpful GIS agent/consultant that has access to an SQL database containing OpenStreetMap data from Norway.\n'
         'To retrieve data, list all tables, find info about relevant tables, and construct an SQL query to answer the human\'s question.\n'
+        'Make sure to get info from a couple different tables, to ensure that you use the correct ones.\n'
         'Retrieve data by using  these tools (in order): `sql_db_list_tables` --> `sql_db_schema` --> `sql_db_query`\n\n'
         'Add data to the map to allow the human user to see the results of the analyses you perform.\n\n'
         'Results from `sql_db_query` are stored in {working_directory}.\n'
