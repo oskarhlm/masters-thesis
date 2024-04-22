@@ -45,10 +45,15 @@ This is allowed, as long as it is clearly stated what you have reused and in wha
 \section{Agent Patterns}
 \label{sec:agent-patterns}
 
-\subsection{Multi-Agent Pattern}
+\acrshort{acr:llm}-based agents can be implemented in many ways, and researchers have developed a plethora of \textit{agent patterns} that seek to improve upon areas where \acrshortpl{acr:llm} tend to be less effective. This includes patterns for retrieval of external data, as well as multi-agent patterns. Such patterns can improve the performance of \acrshort{acr:llm}-based agents within any domain, and should also be considered when developing one for geospatial purposes. The following sections will shortly explain some of the patterns that were considered in the development of GeoGPT.
+
+\subsection{The Multi-Agent Pattern}
 
 The multi-agent pattern that takes inspiration from human collaboration in that it is made up from multiple specialized agents that work together to achieve some objective. There have been several implementations of the pattern, with certain differences. MetaGPT \citep{hongMetaGPTMetaProgramming2023} is a \acrshort{acr:llm}-based multi-agent system consisting of agents with human-level domain expertise. Using an assembly line paradigm, where the overall goal is divided into subtasks, \citeauthor{hongMetaGPTMetaProgramming2023} showed that MetaGPT could generate more coherent solutions compared to the previous state-of-the-art multi-agent systems. At the time of release, MetaGPT set a new state-of-the-art performance on the HumanEval and \acrshort{acr:mbpp} benchmarks \citep[7]{hongMetaGPTMetaProgramming2023}, demonstrating the potential of the multi-agent pattern.
 
+\subsection[Patterns for Retrieval-Augmented Generation]{Patterns for \acrlong{acr:rag}}
+
+\subsection{Patterns for Self-Reflection}
 
 
 \section{LangChain}
@@ -64,6 +69,9 @@ Common use cases for LangChain are:
 \end{itemize}
 
 In January 2024, LangChain AI rolled out a new framework called LangGraph which builds on top of the LangChain ecosystem. While the chains commonly found in LangChain are good for \gls{acr:dag} workflow, they are not suited to creating cyclic graphs. LangGraph can be used to add cycles to \acrshort{acr:llm} applications, which are important for agent-like behaviours \citep{langchainaiLangchainaiLanggraph2024}. A graph in LangGraph is a set of nodes that pass some state around, state that can be modified by each node. The nodes are connected together by edges that define what node can succeed another node. These edges can also be conditional, which routes execution to a given node based on the output from a function giving the current state. This allows for complex logic and simplifies implementation of advanced agent patterns, some of which are discussed in \autoref{sec:agent-patterns}.
+
+
+\section{Geospatial Databases and Data Catalogues}
 
 
 

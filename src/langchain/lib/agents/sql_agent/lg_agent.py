@@ -35,7 +35,7 @@ def prelude(state: AgentState) -> AgentState:
     else:
         formatted_files = "\n".join(
             [f" - {f.name.split('/')[-1]}" for f in written_files])
-        current_files_msg = f"Below are files that are written to the working directory:\n{formatted_files}\n\nYou can use Python to perform analyses on these files, if they are sufficient for the problem at hand."
+        current_files_msg = f"Below are files that are written to the working directory:\n{formatted_files}"
 
     return {
         **state,

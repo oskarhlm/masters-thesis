@@ -1,1 +1,2 @@
 {"rule":"NUMEROUS_DIFFERENT","sentence":"^\\QAs it is unlikely that the training data is evenly distributed among many different topics, making the\\E$"}
+{"rule":"EN_COMPOUNDS","sentence":"^\\QThis includes patterns for retrieval of external data, multi-agent patterns,\\E$"}
