@@ -32,7 +32,7 @@ The third and final approach will focus on the consistency of the system, its ab
 \section{Experimental Results}
 \label{sec:experimental-results}
 
-It is worth noting that two slightly different models were used during testing. The explanation of this is the release of the \texttt{gpt-4-turbo-2024-04-09} in mid-April. According to OpenAI, \enquote{this new model is better at math, logical reasoning, and coding} compared to \texttt{gpt-4-0125-preview}\footnote{OpenAI has a Github repository containing the code they use to evaluate their \glspl{acr:llm} and benchmark results for OpenAI models and reference models from other companies: \url{https://github.com/openai/simple-evals}.}, which is the model that was used at the start of the experimentation phase of the master's thesis. At the new model's release, a decision was made to use this for the remaining experiments. The experiments that had already been conducted were not re-run due to time constraints and a belief that these slight model upgrades would not significantly change the outcome of the experiments.
+It is worth noting that two slightly different models were used during testing. The explanation of this is the release of the \texttt{gpt-4-turbo-2024-04-09} in mid-April. According to OpenAI, \enquote{this new model is better at math, logical reasoning, and coding} compared to \texttt{gpt-4-0125-preview}\footnote{OpenAI has a GitHub repository containing the code they use to evaluate their \glspl{acr:llm} and benchmark results for OpenAI models and reference models from other companies: \url{https://github.com/openai/simple-evals}.}, which is the model that was used at the start of the experimentation phase of the master's thesis. At the new model's release, a decision was made to use this for the remaining experiments. The experiments that had already been conducted were not re-run due to time constraints and a belief that these slight model upgrades would not significantly change the outcome of the experiments.
 
 \begin{comment}
 Results should be clearly displayed and should provide a suitable representation of your results for the points you wish to make.
@@ -54,15 +54,28 @@ Point out specifics here but save the overall/general discussion to the Discussi
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{cost_box_plot.png}
-    \caption{Cost per Agent Type}
-    \label{fig:cost_box_plot}
+    \includegraphics[width=0.6\textwidth]{duration_box_plot.png}
+    \caption{Duration per Agent Type}
+    \label{fig:duration_box_plot}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{duration_box_plot.png}
-    \caption{Duration per Agent Type}
-    \label{fig:duration_box_plot}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{cost_box_plot.png}
+        \caption{Average cost per call for each agent type}
+        \label{fig:cost-box-plot}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{tokens_box_plot.png}
+        \caption{Average token usage per agent type}
+        \label{fig:tokens-box-plot}
+    \end{subfigure}
+    \caption{Cost and token usage}
+    \label{fig:cost-and-tokens}
 \end{figure}
+
 

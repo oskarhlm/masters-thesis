@@ -33,6 +33,6 @@ class ListOGCAPIFeaturesCollectionsTool(BaseTool):
 
             data = res.json()
             return '\n'.join(
-                [f"`{collection['title']}` -- {collection['description']}"
+                [f"`{collection['title']}`"  # -- {collection['description']}"
                  for collection in data['collections']]
             )
