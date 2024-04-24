@@ -250,6 +250,14 @@ The Transformer represented a breakthrough in the field of \gls{acr:nlp}, and is
 \subsection{State Space Models}
 \label{subsec:state-space-models}
 
+
+\section[Function Calling LLMs]{Function Calling \acrshortpl{acr:llm}}
+\label{sec:function-calling}
+
+\textit{Function calling}---first introduced by OpenAI \citep{eletiFunctionCallingOther2023}---allows developers to provide function definitions to an \gls{acr:llm} and have said \gls{acr:llm} output a \acrshort{acr:json} object containing the name of one or more of the functions provided, as well as suitable arguments to these. Made possible through fine-tuning models to detect when functions should be calling, function calling makes it possible to give an \gls{acr:llm} \textit{hooks} into the real world, and provides a more reliable way for developers to integrate \glspl{acr:llm} into applications.
+
+Possible use cases include using functions provide correct and up-to-date information that would otherwise require extensive training and fine-tuning. Having the \gls{acr:llm} use function calling for information retrieval also make them more transparent, making it possible to trace a claim back to its source, something that is normally a difficult feat with \gls{acr:llm}. Another use case might be code execution. One could imagine a rather simple function \texttt{execute\_python\_code(code: string) -> string} that takes Python code as a string and returns the standard output that results from executing that code. This is likely the principle behind products like OpenAI's Data Analysis mode (previously Code Interpreter), in which ChatGPT functions as a code executing agent that can generate, execute, and self-correct its own code. Similar functions could be constructed for \acrshort{acr:sql}, making it possible for \glspl{acr:llm} to work against relational databases. As \cite{eletiFunctionCallingOther2023} describes, function calling can also be used to extract structured data from text.
+
 \section[State-of-the-Art Large Language Models]{State-of-the-Art \acrlongpl{acr:llm}}
 
 \subsection{The GPT Family}
@@ -261,15 +269,11 @@ Training consists of two stages: unsupervised pre-training and supervised fine-t
 
 \subsection{The Gemini  Family}
 \subsection{The Claude Family}
-\subsection{Open-Source Alternatives and Honourable Mentions}
+\subsection{Open-Source Alternatives}
 
 
-\section[Function Calling LLMs]{Function Calling \acrshortpl{acr:llm}}
-\label{sec:function-calling}
 
-\textit{Function calling}---first introduced by OpenAI \citep{eletiFunctionCallingOther2023}---allows developers to provide function definitions to an \gls{acr:llm} and have said \gls{acr:llm} output a \acrshort{acr:json} object containing the name of one or more of the functions provided, as well as suitable arguments to these. Made possible through fine-tuning models to detect when functions should be calling, function calling makes it possible to give an \gls{acr:llm} \textit{hooks} into the real world, and provides a more reliable way for developers to integrate \glspl{acr:llm} into applications.
 
-Possible use cases include using functions provide correct and up-to-date information that would otherwise require extensive training and fine-tuning. Having the \gls{acr:llm} use function calling for information retrieval also make them more transparent, making it possible to trace a claim back to its source, something that is normally a difficult feat with \gls{acr:llm}. Another use case might be code execution. One could imagine a rather simple function \texttt{execute\_python\_code(code: string) -> string} that takes Python code as a string and returns the standard output that results from executing that code. This is likely the principle behind products like OpenAI's Data Analysis mode (previously Code Interpreter), in which ChatGPT functions as a code executing agent that can generate, execute, and self-correct its own code. Similar functions could be constructed for \acrshort{acr:sql}, making it possible for \glspl{acr:llm} to work against relational databases. As \cite{eletiFunctionCallingOther2023} describes, function calling can also be used to extract structured data from text.
 
 
 

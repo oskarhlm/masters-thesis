@@ -19,15 +19,45 @@ The experiments conducted to evaluate the performance of GeoGPT on geospatial ta
 
 \subsection{Quantitative Approach: Benchmarking}
 
-The first approach seeks to evaluate its ability to successfully answer questions that have a concrete answer. To do this, a Q\&A dataset was constructed. This dataset consists of geospatial questions with corresponding correct answers. For each sample of the dataset, a description of how a human would find it natural to approach the problem. This description is provided  as step-by-step path towards the solution, and is only included to guide any reader of this thesis as to how the system would be expected to solve the system. Only the questions and their answers are used in the actual evaluation. The full Q\&A dataset can be found in \autoref{app:qa-for-benchmark}. This set of experiments will allow for quantitative assessment of GeoGPT's GIS-abilities, and is a feasible way of benchmarking the system.
+The first approach seeks to evaluate its ability to successfully answer questions that have a concrete answer. To do this, a Q\&A dataset was constructed. This dataset consists of set of 12 GIS-related questions with corresponding correct answers. For each record in the dataset, a description of how a human would find it natural to approach the problem. This description is provided as a step-by-step path towards the solution, and is only included to guide any reader as to how the system would be expected to solve the system. The full Q\&A dataset can be found in \autoref{app:qa-for-benchmark}. This set of experiments will allow for quantitative assessment of GeoGPT's GIS-abilities, and is a feasible way of benchmarking the system.
 
-\subsection{Qualitative Approach: Case Studies}
+Another aspect that the benchmarking approach will try to evaluate is the consistency of the system, its ability to repeatedly provide an acceptable answer to the same user question. Each of the 12 questions are therefore asked three times per agent type. With the implementation of three different agent types, the total number of test runs becomes the following: $$12 \text{ questions} \cdot 3 \text{ agent types} \cdot 3 \text{ repetitions} = 108 \text{ tests}$$
 
-The second set of experiments are constructed to evaluate GeoGPT's ability to answer analytical questions that may have different answers. For these experiments the main focus was to see how it reasons about the task, and how it makes use of the available data to provide the user with useful insights that can be drawn from the data. Unlike the above-mentioned benchmarking approach, this set of experiments will consist of a few case studies that are evaluated qualitatively through discussion.
+Each test run's answer will be manually evaluated, and the outcome will be annotated as one of \textit{success}, \textit{partial success}, and \textit{failure}. \autoref{tbl:test-outcome-enum} shows the guidelines used when assigning test results.
 
-\subsection{Consistency Analysis: Investigating Repeatability}
+\begin{table}[htbp]
+    \centering
+    \caption{Description of Success}
+    \label{tbl:test-outcome-enum}
+    \begin{tabularx}{0.8\textwidth}{p{3cm}X}
+        \toprule
+        \textbf{Outcome}         & \textbf{Guideline}                                                                                                                                                                                  \\
+        \midrule
+        \textit{success}         & The question was answered correctly and little to no follow-up from the user was required to produce the desired outcome. No false assumptions were made by the system when answering the question. \\
+        \midrule
+        \textit{partial success} & Portions of the question were answered correctly or semi-correctly, and/or some follow-up from the user was required to guide the system toward the solution.                                       \\
+        \midrule
+        \textit{failure}         & The question was answered incorrectly answered and/or false assumptions were made by the system while attempting to answer the question.                                                            \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
 
-The third and final approach will focus on the consistency of the system, its ability to repeatedly provide an acceptable answer to the same user question. Additionally, this set of experiments will investigate to what extent the experience of the prompter --- the human user --- affects GeoGPT's ability to provide consistent results.
+
+The application is hooked up to LangChain AI's tracing system, \textit{LangSmith}. Apart from being a useful tool for debugging purposes, it provides a simple way of obtaining detailed data for token and time usage for a particular run. These are metrics that will be recorded and used in the evaluation of GeoGPT. To summarize, the following metrics are recorded for a given test run:
+
+\begin{itemize}
+    \item The outcome of the test (\textit{success}, \textit{partial success}, or \textit{failure})
+    \item The total duration in seconds
+    \item The total number of tokens used
+    \item The total cost for the run in American dollar
+\end{itemize}
+
+\Autosubsectionref{subsec:quantitative-results} will present the results of the benchmarking tests.
+
+\subsection{Evaluating Importance of Initial Prompt}
+
+The second set of experiments are constructed to evaluate the importance of the initial question/prompt from the human user. As stated in \nameref{sec:background-and-motivation}, part of the motivation for developing an \acrshort{acr:llm}-driven \acrshort{acr:gis} like GeoGPT is to make \acrshort{acr:gis} more accessible to non-experts. At the same time, it is interesting to evaluate to what extent a carefully constructed prompt written by a \acrshort{acr:gis} expert can improve the result produced by the system.
+
 
 \section{Experimental Results}
 \label{sec:experimental-results}
@@ -44,19 +74,13 @@ Point out specifics here but save the overall/general discussion to the Discussi
 \end{comment}
 
 \subsection{Quantitative Results}
+\label{subsec:quantitative-results}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{outcome_distribution_bar_chart.png}
     \caption{Outcome Distribution}
-    \label{fig:outcome_distribution}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.6\textwidth]{duration_box_plot.png}
-    \caption{Duration per Agent Type}
-    \label{fig:duration_box_plot}
+    \label{fig:outcome-distribution}
 \end{figure}
 
 \begin{figure}[htbp]
@@ -78,4 +102,9 @@ Point out specifics here but save the overall/general discussion to the Discussi
     \label{fig:cost-and-tokens}
 \end{figure}
 
-
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{duration_box_plot.png}
+    \caption{Duration per Agent Type}
+    \label{fig:duration-box-plot}
+\end{figure}
