@@ -119,4 +119,5 @@ class QueryOGCAPIFeaturesCollectionTool(BaseTool):
             return (
                 f"Error response {e.response.status_code}. "
                 f'Make sure that there is no issue with the CQL included in the URL: {e.request.url}.'
+                f'\n\n{e.response.content}'
             )

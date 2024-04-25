@@ -1,3 +1,13 @@
 {
-    "layers": []
+    "layers": [
+        {
+            "id": "high_speed_roads_oslo",
+            "type": "line",
+            "source": "high_speed_roads_oslo",
+            "paint": {
+                "line-color": "#e822b5",
+                "line-width": 3
+            }
+        }
+    ]
 }

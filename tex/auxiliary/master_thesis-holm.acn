@@ -1,3 +1,4 @@
+\glossaryentry{UI?\glossentry{acr:ui}|setentrycounter[]{page}"\glsnumberformat}{ii}
 \glossaryentry{AI?\glossentry{acr:ai}|setentrycounter[]{page}"\glsnumberformat}{iii}
 \glossaryentry{LLM?\glossentry{acr:llm}|setentrycounter[]{page}"\glsnumberformat}{iii}
 \glossaryentry{NLP?\glossentry{acr:nlp}|setentrycounter[]{page}"\glsnumberformat}{iii}
@@ -133,7 +134,7 @@
 \glossaryentry{OGC?\glossentry{acr:ogc}|setentrycounter[]{page}"\glsnumberformat}{11}
 \glossaryentry{API?\glossentry{acr:api}|setentrycounter[]{page}"\glsnumberformat}{11}
 \glossaryentry{LLM?\glossentry{acr:llm}|setentrycounter[]{page}"\glsnumberformat}{12}
-\glossaryentry{UI?\glossentry{acr:ui}|setentrycounter[]{page}"\glsnumberformat}{12}
+\glossaryentry{UI?\glossentry{acr:ui}|setentrycounter[]{page}"\glsnumberformat}{13}
 \glossaryentry{LLM?\glossentry{acr:llm}|setentrycounter[]{page}"\glsnumberformat}{13}
 \glossaryentry{LLM?\glossentry{acr:llm}|setentrycounter[]{page}"\glsnumberformat}{13}
 \glossaryentry{LLM?\glossentry{acr:llm}|setentrycounter[]{page}"\glsnumberformat}{13}
@@ -146,7 +147,6 @@
 \glossaryentry{LLM?\glossentry{acr:llm}|setentrycounter[]{page}"\glsnumberformat}{14}
 \glossaryentry{UI?\glossentry{acr:ui}|setentrycounter[]{page}"\glsnumberformat}{15}
 \glossaryentry{LLM?\glossentry{acr:llm}|setentrycounter[]{page}"\glsnumberformat}{17}
-\glossaryentry{GIS?\glossentry{acr:gis}|setentrycounter[]{page}"\glsnumberformat}{17}
 \glossaryentry{GIS?\glossentry{acr:gis}|setentrycounter[]{page}"\glsnumberformat}{17}
 \glossaryentry{GIS?\glossentry{acr:gis}|setentrycounter[]{page}"\glsnumberformat}{17}
 \glossaryentry{LLM?\glossentry{acr:llm}|setentrycounter[]{page}"\glsnumberformat}{17}

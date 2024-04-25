@@ -71,18 +71,20 @@ class PublishGeoJSONTool(BaseTool):
                 available_files = ', '.join(
                     [str(f.name) for f in WorkDirManager.list_files()])
                 return f'Could not find GeoJSON file `{geojson_path}`.\nAvailable files are: {available_files}'
-        elif geojson_data:
-            try:
-                geojson_data: GeoJSON = geojson.loads(geojson_data)
-            except JSONDecodeError as e:
-                return f'Error: {e}'
+        # elif geojson_data:
+        #     try:
+        #         geojson_data: GeoJSON = geojson.loads(geojson_data)
+        #     except JSONDecodeError as e:
+        #         return f'Error: {e}'
 
-            geojson_path = str(
-                WorkDirManager.add_file(
-                    f'{layer_name}.geojson', geojson_data, save_as_json=True)
-            )
+        #     geojson_path = str(
+        #         WorkDirManager.add_file(
+        #             f'{layer_name}.geojson', geojson_data, save_as_json=True)
+        #     )
+        # else:
+        #     return 'Error: Specify either `geojson_path` or `geojson_data`'
         else:
-            return 'Error: Specify either `geojson_path` or `geojson_data`'
+            return f'Could not load `{geojson_path}`'
 
         if not geojson_data.is_valid:
             return f'Errors found in geojson file:\n{geojson_data.errors()}'
