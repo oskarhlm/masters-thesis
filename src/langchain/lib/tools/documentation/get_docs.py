@@ -24,7 +24,7 @@ def find_files(root_folder, extensions):
 
 
 def get_docs_paths():
-    root_folder = '/home/dev/master-thesis/data'
+    root_folder = '/home/dev/masters-thesis/data'
     docs_extensions = ['xsd', 'pdf']
     files = find_files(root_folder, docs_extensions)
     formatted_list = "\n".join([f"- {file}" for file in files])

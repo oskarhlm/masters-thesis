@@ -2,7 +2,7 @@ import json
 
 
 class ToolCallsHandler:
-    file_path = '/home/dev/master-thesis/src/langchain/tool_calls.json'
+    file_path = '/home/dev/masters-thesis/src/langchain/tool_calls.json'
 
     @staticmethod
     def tool_calls():

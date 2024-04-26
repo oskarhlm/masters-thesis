@@ -13,7 +13,7 @@ def find_files(root_folder, extensions):
 
 
 def get_docs_paths():
-    root_folder = '/home/dev/master-thesis/data'
+    root_folder = '/home/dev/masters-thesis/data'
     docs_extensions = ['xsd', 'pdf']
     files = find_files(root_folder, docs_extensions)
     formatted_list = "\n".join([f"- {file}" for file in files])
@@ -44,7 +44,7 @@ def clean_xml_docs(path: str) -> str:
                 parent_element.insert(0, new_documentation)
             parent_element.remove(annotation)
 
-    path = '/home/dev/master-thesis/data/bygning/bygningspunkt_docs.xsd'
+    path = '/home/dev/masters-thesis/data/bygning/bygningspunkt_docs.xsd'
 
     with open(path, 'r', encoding='utf-8') as f:
         doc = le.parse(f)

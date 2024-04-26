@@ -107,7 +107,7 @@ def create_session(body: SessionCreationRequest):
 
     match body.agent_type:
         case 'python':
-            source_directory = '/home/dev/master-thesis/data/osm'
+            source_directory = '/home/dev/masters-thesis/data/osm'
             target_directory = WorkDirManager.get_abs_path()
             for filename in os.listdir(source_directory):
                 source_file_path = os.path.join(source_directory, filename)
@@ -165,7 +165,7 @@ async def stream_response(message: str):
                 try:
                     data = json.loads(value.content)
                     yield create_data_event({
-                        'geojson_path': f'/home/dev/master-thesis/src/langchain/output_data/{data["layer_name"]}.geojson',
+                        'geojson_path': f'/home/dev/masters-thesis/src/langchain/output_data/{data["layer_name"]}.geojson',
                         'layer_name': data['layer_name']
                     })
                 except:

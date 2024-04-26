@@ -2,7 +2,7 @@ import json
 import os
 from datetime import datetime
 
-map_state_path = '/home/dev/master-thesis/src/langchain/map_state_data.json'
+map_state_path = '/home/dev/masters-thesis/src/langchain/map_state_data.json'
 
 
 def load_map_state():
