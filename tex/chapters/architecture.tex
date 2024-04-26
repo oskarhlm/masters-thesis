@@ -114,13 +114,47 @@ Three different agent were implemented for GeoGPT.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth]{agent_graph.png}
-    \caption{Generic Tool Agent Graph}
+    \caption{Generic tool agent graph}
     \label{fig:tool-agent-graph}
 \end{figure}
+
+\subsection{Tools}
+\label{subsec:tools}
+
+\begin{table}
+    \centering
+    \caption{Overview of each agent's tools}
+    \label{tbl:agent-tool-overview}
+    \begin{tabularx}{0.7\textwidth}{XX}
+        \toprule
+        \textbf{Agent Type} & \textbf{Tools}                  \\
+        \midrule
+        OGC API Features    & \texttt{get\_collections\_info} \\
+                            & \texttt{list\_collections}      \\
+                            & \texttt{query\_collection}      \\
+                            & \texttt{python\_repl\_ast}      \\
+                            & \texttt{add\_geojson\_to\_map}  \\
+        \midrule
+        Python              & \texttt{python\_repl\_ast}      \\
+                            & \texttt{add\_geojson\_to\_map}  \\
+        \midrule
+        SQL                 & \texttt{sql\_db\_query}         \\
+                            & \texttt{sql\_db\_list\_tables}  \\
+                            & \texttt{sql\_db\_schema}        \\
+                            & \texttt{add\_geojson\_to\_map}  \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{chat_diagram.png}
+    \caption{Example of a chat trace}
+    \label{fig:chat-trace-example}
+\end{figure}
+
 
 \subsection{Prompt Templating}
 \label{subsec:prompt-templating}
 
-\subsection{Tools}
-\label{subsec:tools}
 

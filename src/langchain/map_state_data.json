@@ -1,12 +1,3 @@
 {
-    "layers": [
-        {
-            "id": "nidarosdomen",
-            "type": "fill",
-            "source": "nidarosdomen",
-            "paint": {
-                "fill-color": "#30a315"
-            }
-        }
-    ]
+    "layers": []
 }
