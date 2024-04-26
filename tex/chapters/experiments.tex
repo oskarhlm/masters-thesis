@@ -31,13 +31,13 @@ Each test run's answer will be manually evaluated, and the outcome will be annot
     \label{tbl:test-outcome-enum}
     \begin{tabularx}{0.8\textwidth}{p{3cm}X}
         \toprule
-        \textbf{Outcome}         & \textbf{Guideline}                                                                                                                                                                                  \\
+        \textbf{Outcome} & \textbf{Guideline}                                                                                                                                                                                  \\
         \midrule
-        \textit{success}         & The question was answered correctly and little to no follow-up from the user was required to produce the desired outcome. No false assumptions were made by the system when answering the question. \\
+        Success          & The question was answered correctly and little to no follow-up from the user was required to produce the desired outcome. No false assumptions were made by the system when answering the question. \\
         \midrule
-        \textit{partial success} & Portions of the question were answered correctly or semi-correctly, and/or some follow-up from the user was required to guide the system toward the solution.                                       \\
+        Partial Success  & Portions of the question were answered correctly or semi-correctly, and/or some follow-up from the user was required to guide the system toward the solution.                                       \\
         \midrule
-        \textit{failure}         & The question was answered incorrectly answered and/or false assumptions were made by the system while attempting to answer the question.                                                            \\
+        Failure          & The question was answered incorrectly answered and/or false assumptions were made by the system while attempting to answer the question.                                                            \\
         \bottomrule
     \end{tabularx}
 \end{table}
@@ -115,3 +115,36 @@ Point out specifics here but save the overall/general discussion to the Discussi
     \caption{Duration per Agent Type}
     \label{fig:correlation-matrix}
 \end{figure}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Encoding for Test Outcome}
+    \label{tbl:outcome-encoding}
+    \begin{tabularx}{0.5\textwidth}{XX}
+        \toprule
+        Outcome         & Encoded Value \\
+        \midrule
+        Success         & 2             \\
+        Partial Success & 1             \\
+        Failure         & 0             \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Standard Deviation by Agent Type}
+    \label{tbl:stddev-by-agent-type}
+    \begin{tabularx}{0.7\textwidth}{XX}
+        \toprule
+        Agent Type       & Outcome Std. Deviation \\
+        \midrule
+        OGC API Features & 0.552                  \\
+        Python           & 0.337                  \\
+        SQL              & 0.337                  \\
+        \midrule
+        \textbf{Mean}    & 0.408                  \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
