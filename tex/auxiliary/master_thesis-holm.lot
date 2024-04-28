@@ -6,14 +6,16 @@
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {4.1}{\ignorespaces Datasets used in experiments\relax }}{9}{table.4.1}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Summary of Server Endpoints\relax }}{13}{table.caption.9}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces Overview of each agent's tools\relax }}{15}{table.caption.12}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Summary of Server Endpoints\relax }}{14}{table.caption.9}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Overview of each agent's tools\relax }}{18}{table.caption.12}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {6.1}{\ignorespaces Description of Success\relax }}{19}{table.caption.14}%
-\contentsline {table}{\numberline {6.2}{\ignorespaces Encoding for Test Outcome\relax }}{20}{table.caption.19}%
-\contentsline {table}{\numberline {6.3}{\ignorespaces Standard Deviation by Agent Type\relax }}{22}{table.caption.20}%
+\contentsline {table}{\numberline {6.1}{\ignorespaces Description of Success\relax }}{21}{table.caption.14}%
+\contentsline {table}{\numberline {6.2}{\ignorespaces Encoding for Test Outcome\relax }}{22}{table.caption.19}%
+\contentsline {table}{\numberline {6.3}{\ignorespaces Standard Deviation by Agent Type\relax }}{24}{table.caption.20}%
+\contentsline {table}{\numberline {6.4}{\ignorespaces Questions for quantitative tests\relax }}{25}{table.6.4}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {table}{\numberline {B.1}{\ignorespaces Test results for quantitative tests\relax }}{33}{table.B.1}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

@@ -1,0 +1,30 @@
+\begin{longtable}{p{4cm}p{4cm}p{4cm}}
+\caption{Questions for quantitative tests} \label{tbl:questions-quantitative} \\
+\toprule
+\textbf{Query} \textbf{ID} & \textbf{Query} & \textbf{Correct} \textbf{Response} \\
+\midrule
+\endfirsthead
+\caption[]{Questions for quantitative tests} \\
+\toprule
+\textbf{Query} \textbf{ID} & \textbf{Query} & \textbf{Correct} \textbf{Response} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{Continued on next page} \\
+\midrule
+\endfoot
+\bottomrule
+\endlastfoot
+aker\_brygge\_national & Which is the closest railway station to Aker brygge? & Nationalteateret \\
+cliff\_clusters & Locate clusters of cliffs, each containing more than 10 cliffs, with cliffs within each cluster no more than 0.1 degrees apart. & Should be about 8-9 clusters.  \\
+county\_names & What are the names of the counties in found in the data? & Nordland, Telemark, Troms, Rogaland, Vestland, Trøndelag, Vestfold, Buskerud, Akershus, Østfold, Innlandet, Møre og Romsdal, Agder Finnmark \\
+glomma\_counties & How many counties does Glomma run through? & 4. Trøndelag, Innlandet, Akershus, and Østfold.  \\
+largest\_county  & Which is the largest county by size? & Nordland \\
+nidarosdomen\_polygon & Retrieve a polygon of Nidarosdomen.  & Adding a polygon of Nidarosdomen to the map. \\
+num\_trees\_munkegata & How many trees are there along Munkegata in Trondheim? & Giving the correct number of trees (about 70-80). \\
+oslo\_bergen\_geodesic & Create a geodesic curve between the airports of Oslo and Bergen.  & A geodesic, slightly curved line between Gardermoen and Flesland. \\
+oslo\_residental\_diff & Provide an outline of Oslo but exclude residential areas by computing their difference. & The polygonal outline of Oslo with cutouts where there area areas classified as residental.  \\
+oslo\_roads\_gte\_70\_kmh & Retrieve roads in Oslo that have speed limit higher than or equal to 70 km/h.  & Adding corresponding line segments to the map. \\
+vestfold\_bbox & Find the coordinates that define a the extent of a rectangular bounding box that encompasses the county of Vestfold. & (9.7553357, 58.720455, 10.6750198, 59.674011) \\
+viken\_dissolve & Combine the countries that correspond to the historical country of Viken into a single feature.  & Display the outline of Viken, based on the outlines of Buskerud, Aksershus, and Østfold, that are found in the data. Should be dissolved, i.e., no borders.  \\
+\end{longtable}
