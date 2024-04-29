@@ -1,0 +1,81 @@
+\babel@toc {british}{}\relax 
+\babel@toc {british}{}\relax 
+\contentsline {chapter}{Abstract}{iv}{section*.1}%
+\babel@toc {norsk}{}\relax 
+\babel@toc {british}{}\relax 
+\contentsline {chapter}{Sammendrag}{v}{section*.2}%
+\contentsline {chapter}{Preface}{vi}{section*.3}%
+\contentsline {chapter}{Acronyms}{x}{section*.6}%
+\contentsline {chapter}{List of Figures}{xiii}{chapter*.8}%
+\contentsline {chapter}{List of Tables}{xiv}{chapter*.9}%
+\contentsline {chapter}{List of Code Snippets}{xv}{chapter*.10}%
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Background and Motivation}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Goals and Research Questions}{1}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Research Method}{2}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Contributions}{2}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Thesis Structure}{2}{section.1.5}%
+\contentsline {chapter}{\numberline {2}Background Theory}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Approaches to Language Modelling}{3}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Early Attempts: Statistical Models and Recurrent Neural Networks}{3}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Statistical Models}{3}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Recurrent Neural Networks}{3}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}Attention and the Transformer Architecture}{3}{subsection.2.1.4}%
+\contentsline {subsection}{\numberline {2.1.5}State Space Models}{4}{subsection.2.1.5}%
+\contentsline {section}{\numberline {2.2}Function Calling LLMs}{4}{section.2.2}%
+\contentsline {section}{\numberline {2.3}State-of-the-Art Large Language Models}{5}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}The GPT Family}{5}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}The Gemini Family}{6}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}The Claude Family}{6}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Open-Source Alternatives}{6}{subsection.2.3.4}%
+\contentsline {chapter}{\numberline {3}Related Work}{7}{chapter.3}%
+\contentsline {section}{\numberline {3.1}LLM-based Systems in Geospatial Technologies}{7}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Agent Patterns}{7}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}The Multi-Agent Pattern}{7}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Patterns for Retrieval-Augmented Generation}{7}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Patterns for Self-Reflection}{7}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}LangChain}{7}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Geospatial Databases and Data Catalogues}{8}{section.3.4}%
+\contentsline {chapter}{\numberline {4}Datasets}{9}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Data Sources}{9}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Data Access}{11}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Files}{11}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}SQL Database}{11}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}OGC API Features}{12}{subsection.4.2.3}%
+\contentsline {chapter}{\numberline {5}Architecture}{13}{chapter.5}%
+\contentsline {section}{\numberline {5.1}High-Level Application Architecture}{13}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}LangChain Server}{13}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Redis for Conversations}{14}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}PostGres + PostGIS}{15}{subsection.5.1.3}%
+\contentsline {subsection}{\numberline {5.1.4}OGC API Features}{15}{subsection.5.1.4}%
+\contentsline {subsection}{\numberline {5.1.5}Web UI}{15}{subsection.5.1.5}%
+\contentsline {section}{\numberline {5.2}Agent Architecture}{15}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}LangGraph Agent Implementation}{15}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Tools}{15}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Prompt Templating}{15}{subsection.5.2.3}%
+\contentsline {chapter}{\numberline {6}Experiments and Results}{20}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Experimental Setup}{20}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Quantitative Approach: Benchmarking}{20}{subsection.6.1.1}%
+\contentsline {subsubsection}{\nonumberline Outcome Evaluation}{20}{subsubsection*.22}%
+\contentsline {subsubsection}{\nonumberline Other Metrics}{22}{subsubsection*.26}%
+\contentsline {subsection}{\numberline {6.1.2}Evaluating Importance of Prompt Quality}{23}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}Configuration and Hardware}{24}{subsection.6.1.3}%
+\contentsline {section}{\numberline {6.2}Experimental Results}{24}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Quantitative Results}{24}{subsection.6.2.1}%
+\contentsline {subsubsection}{\nonumberline Test Outcomes}{24}{subsubsection*.28}%
+\contentsline {subsubsection}{\nonumberline Other Metrics}{24}{subsubsection*.32}%
+\contentsline {subsubsection}{\nonumberline Repeatability}{28}{subsubsection*.37}%
+\contentsline {subsection}{\numberline {6.2.2}Prompt Quality Test Results}{28}{subsection.6.2.2}%
+\contentsline {chapter}{\numberline {7}Evaluation and Discussion}{33}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Evaluation}{33}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Discussion}{33}{section.7.2}%
+\contentsline {chapter}{\numberline {8}Conclusion and Future Work}{34}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Contributions}{34}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Future Work}{34}{section.8.2}%
+\contentsline {subsection}{\numberline {8.2.1}Automated Data Access}{34}{subsection.8.2.1}%
+\contentsline {chapter}{Bibliography}{35}{section*.42}%
+\contentsline {chapter}{Appendices}{36}{chapter*.44}%
+\contentsline {chapter}{\numberline {A}Test Results}{37}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Code}{43}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Python Example}{43}{section.B.1}%
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

@@ -2708,4 +2708,171 @@
     <bcf:constraints>
       <bcf:entrytype>patent</bcf:entrytype>
       <bcf:constraint type="mandatory">
-        <bcf:field>author</bcf:f
+        <bcf:field>author</bcf:field>
+        <bcf:field>title</bcf:field>
+        <bcf:field>number</bcf:field>
+      </bcf:constraint>
+    </bcf:constraints>
+    <bcf:constraints>
+      <bcf:entrytype>periodical</bcf:entrytype>
+      <bcf:constraint type="mandatory">
+        <bcf:field>editor</bcf:field>
+        <bcf:field>title</bcf:field>
+      </bcf:constraint>
+    </bcf:constraints>
+    <bcf:constraints>
+      <bcf:entrytype>proceedings</bcf:entrytype>
+      <bcf:entrytype>mvproceedings</bcf:entrytype>
+      <bcf:constraint type="mandatory">
+        <bcf:field>title</bcf:field>
+      </bcf:constraint>
+    </bcf:constraints>
+    <bcf:constraints>
+      <bcf:entrytype>inproceedings</bcf:entrytype>
+      <bcf:constraint type="mandatory">
+        <bcf:field>author</bcf:field>
+        <bcf:field>title</bcf:field>
+        <bcf:field>booktitle</bcf:field>
+      </bcf:constraint>
+    </bcf:constraints>
+    <bcf:constraints>
+      <bcf:entrytype>report</bcf:entrytype>
+      <bcf:constraint type="mandatory">
+        <bcf:field>author</bcf:field>
+        <bcf:field>title</bcf:field>
+        <bcf:field>type</bcf:field>
+        <bcf:field>institution</bcf:field>
+      </bcf:constraint>
+    </bcf:constraints>
+    <bcf:constraints>
+      <bcf:entrytype>thesis</bcf:entrytype>
+      <bcf:constraint type="mandatory">
+        <bcf:field>author</bcf:field>
+        <bcf:field>title</bcf:field>
+        <bcf:field>type</bcf:field>
+        <bcf:field>institution</bcf:field>
+      </bcf:constraint>
+    </bcf:constraints>
+    <bcf:constraints>
+      <bcf:entrytype>unpublished</bcf:entrytype>
+      <bcf:constraint type="mandatory">
+        <bcf:field>author</bcf:field>
+        <bcf:field>title</bcf:field>
+      </bcf:constraint>
+    </bcf:constraints>
+    <bcf:constraints>
+      <bcf:constraint type="data" datatype="isbn">
+        <bcf:field>isbn</bcf:field>
+      </bcf:constraint>
+      <bcf:constraint type="data" datatype="issn">
+        <bcf:field>issn</bcf:field>
+      </bcf:constraint>
+      <bcf:constraint type="data" datatype="ismn">
+        <bcf:field>ismn</bcf:field>
+      </bcf:constraint>
+      <bcf:constraint type="data" datatype="pattern" pattern="(?:sf|sm|sn|pf|pm|pn|pp)">
+        <bcf:field>gender</bcf:field>
+      </bcf:constraint>
+    </bcf:constraints>
+    <bcf:constraints>
+      <bcf:entrytype>book</bcf:entrytype>
+      <bcf:entrytype>inbook</bcf:entrytype>
+      <bcf:entrytype>article</bcf:entrytype>
+      <bcf:entrytype>report</bcf:entrytype>
+      <bcf:constraint type="mandatory">
+        <bcf:field>author</bcf:field>
+        <bcf:field>title</bcf:field>
+      </bcf:constraint>
+    </bcf:constraints>
+  </bcf:datamodel>
+  <!-- CITATION DATA -->
+  <!-- SECTION 0 -->
+  <bcf:bibdata section="0">
+    <bcf:datasource type="file" datatype="bibtex" glob="false">bib/bibliography.bib</bcf:datasource>
+  </bcf:bibdata>
+  <bcf:section number="0">
+    <bcf:citekey order="1">holmLLMsDeathGIS2023</bcf:citekey>
+    <bcf:citekey order="2">holmLLMsDeathGIS2023</bcf:citekey>
+    <bcf:citekey order="3">vaswaniAttentionAllYou2017</bcf:citekey>
+    <bcf:citekey order="4">vaswaniAttentionAllYou2017</bcf:citekey>
+    <bcf:citekey order="5">vaswaniAttentionAllYou2017</bcf:citekey>
+    <bcf:citekey order="6">vaswaniAttentionAllYou2017</bcf:citekey>
+    <bcf:citekey order="7">vaswaniAttentionAllYou2017</bcf:citekey>
+    <bcf:citekey order="8">vaswaniAttentionAllYou2017</bcf:citekey>
+    <bcf:citekey order="9">vaswaniAttentionAllYou2017</bcf:citekey>
+    <bcf:citekey order="10">eletiFunctionCallingOther2023</bcf:citekey>
+    <bcf:citekey order="11">eletiFunctionCallingOther2023</bcf:citekey>
+    <bcf:citekey order="12">radfordImprovingLanguageUnderstanding2018</bcf:citekey>
+    <bcf:citekey order="13">vaswaniAttentionAllYou2017</bcf:citekey>
+    <bcf:citekey order="14">radfordImprovingLanguageUnderstanding2018</bcf:citekey>
+    <bcf:citekey order="15">openaiIntroducingChatGPT2022</bcf:citekey>
+    <bcf:citekey order="16">openaiIntroducingChatGPT2022</bcf:citekey>
+    <bcf:citekey order="17">hongMetaGPTMetaProgramming2023</bcf:citekey>
+    <bcf:citekey order="18">hongMetaGPTMetaProgramming2023</bcf:citekey>
+    <bcf:citekey order="19">hongMetaGPTMetaProgramming2023</bcf:citekey>
+    <bcf:citekey order="20">langchainaiLangchainaiLangchain2022</bcf:citekey>
+    <bcf:citekey order="21">langchainaiLangchainaiLanggraph2024</bcf:citekey>
+    <bcf:citekey order="22">sanfilippoRedisRealtimeData2009</bcf:citekey>
+    <bcf:citekey order="23">crunchydataCrunchyDataPg_featureserv2024</bcf:citekey>
+    <bcf:citekey order="24">holmLLMsDeathGIS2023</bcf:citekey>
+    <bcf:citekey order="25">vaswaniAttentionAllYou2017</bcf:citekey>
+    <bcf:citekey order="26">eletiFunctionCallingOther2023</bcf:citekey>
+    <bcf:citekey order="27">radfordImprovingLanguageUnderstanding2018</bcf:citekey>
+    <bcf:citekey order="28">openaiIntroducingChatGPT2022</bcf:citekey>
+    <bcf:citekey order="29">hongMetaGPTMetaProgramming2023</bcf:citekey>
+    <bcf:citekey order="30">langchainaiLangchainaiLangchain2022</bcf:citekey>
+    <bcf:citekey order="31">langchainaiLangchainaiLanggraph2024</bcf:citekey>
+    <bcf:citekey order="32">sanfilippoRedisRealtimeData2009</bcf:citekey>
+    <bcf:citekey order="33">crunchydataCrunchyDataPg_featureserv2024</bcf:citekey>
+  </bcf:section>
+  <!-- SORTING TEMPLATES -->
+  <bcf:sortingtemplate name="apa">
+    <bcf:sort order="1">
+      <bcf:sortitem order="1">presort</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="2" final="1">
+      <bcf:sortitem order="1">sortkey</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="3">
+      <bcf:sortitem order="1">sortname</bcf:sortitem>
+      <bcf:sortitem order="2">author</bcf:sortitem>
+      <bcf:sortitem order="3">editor</bcf:sortitem>
+      <bcf:sortitem order="4">sorttitle</bcf:sortitem>
+      <bcf:sortitem order="5">title</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="4">
+      <bcf:sortitem order="1">pubstate</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="5">
+      <bcf:sortitem order="1">sortyear</bcf:sortitem>
+      <bcf:sortitem order="2">year</bcf:sortitem>
+      <bcf:sortitem literal="1" order="3">-2000000000</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="6">
+      <bcf:sortitem order="1">month</bcf:sortitem>
+      <bcf:sortitem literal="1" order="2">-2000000000</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="7">
+      <bcf:sortitem order="1">day</bcf:sortitem>
+      <bcf:sortitem literal="1" order="2">-2000000000</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="8">
+      <bcf:sortitem order="1">sorttitle</bcf:sortitem>
+      <bcf:sortitem order="2">title</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="9">
+      <bcf:sortitem order="1">volume</bcf:sortitem>
+      <bcf:sortitem literal="1" order="2">0</bcf:sortitem>
+    </bcf:sort>
+  </bcf:sortingtemplate>
+  <!-- DATALISTS -->
+  <bcf:datalist section="0"
+                name="apa/global//global/global"
+                type="entry"
+                sortingtemplatename="apa"
+                sortingnamekeytemplatename="global"
+                labelprefix=""
+                uniquenametemplatename="global"
+                labelalphanametemplatename="global">
+  </bcf:datalist>
+</bcf:controlfile>

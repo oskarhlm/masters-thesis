@@ -112,6 +112,8 @@ Point out specifics here but save the overall/general discussion to the Discussi
 \subsection{Quantitative Results}
 \label{subsec:quantitative-results}
 
+Graphs created for this chapter are created using Matplotlib\footnote{\url{https://matplotlib.org/}}, a Python library suitable for creating visualizations like bar charts, box plots, etc.
+
 \subsubsection{Test Outcomes}
 
 As described in \autoref{subsec:benchmarking-setup}, a total 108 tests were run using the 12 available Q\&A samples, with the same question being repeated three times for each of the three agent types \todo{ref some table with agent types}, resulting in 36 test runs per agent. \autoref{fig:outcome-distribution} displays a bar chart for the outcome distribution per agent.
@@ -127,6 +129,50 @@ As described in \autoref{subsec:benchmarking-setup}, a total 108 tests were run 
 From \autoref{fig:outcome-distribution}, we can read that the \acrshort{acr:ogc} \acrshort{acr:api} Features and Python agent have comparable results, and that the \acrshort{acr:sql}-based agent performs significantly better compared to the other two in terms of producing the desired outcome.
 
 \subsubsection{Other Metrics}
+
+This section features three different box plots: \autoref{fig:duration-box-plot}, \autoref{fig:cost-box-plot}, and \autoref{fig:tokens-box-plot}. The Matplotlib implementation of the box plot follows the description found on Wikipedia\footnote{\url{https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.boxplot.html}}\footnote{\url{https://en.wikipedia.org/wiki/Box_plot}}. Box plots allow us to easily visualize where the 0th ($Q_0$), 25th ($Q_1$), 50th ($Q_2$), 75th ($Q_3$), and 100th ($Q_4$) percentiles of the datasets lie, as well as the dataset's outliers. Outliers are those data points fall outside 1.5 times interquartile range, that is, the distance between $Q_3$ and $Q_1$ in each direction.
+
+\autoref{fig:duration-box-plot} displays a box plot with a logarithmic y-axis showing the relative durations for task completion across the different agent types. Here we can see that the \acrshort{acr:sql} agent spends the least amount of time per task, and that the \acrshort{acr:ogc} \acrshort{acr:api} Features agent has a slightly higher median but with a few time-consuming outliers. The Python agent is the odd one out with a median of $\sim 82$ seconds, a $Q3 \sim 293$ seconds, and a $Q4 \sim 984$. The large gap to the other two agents it largely due to the Python agent's tendency to load large datasets into memory without filtering the data on load using a bounding box. For instance, when attempting the task of calculating the difference between the polygon outlining Oslo and water polygons, the Python agent used nearly 40 minutes on the entire task. $94\%$ of the time was spent executing the code presented in \autoref{code:python-oslo-water-diff}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{duration_box_plot.png}
+    \caption{Duration per Agent Type}
+    \label{fig:duration-box-plot}
+\end{figure}
+
+\begin{lstlisting}[
+    language=Python,
+    caption=Python code aimed at computing the difference between the Oslo outline and water features within it,
+    label=code:python-oslo-water-diff
+]
+    import geopandas as gpd
+
+    # Paths to the shapefiles
+    landuse_path = '/tmp/tmpsutdy6it/osm_landuse_polygons.shp'
+    places_path = '/tmp/tmpsutdy6it/osm_places_polygons.shp'
+    
+    # Load the data from shapefiles
+    landuse_gdf = gpd.read_file(landuse_path)
+    places_gdf = gpd.read_file(places_path)
+    
+    # Filter out 'residential' areas from the landuse data
+    residential_gdf = landuse_gdf[landuse_gdf['fclass'] == 'residential']
+     
+    # Compute the spatial difference to exclude residential areas from the places data
+    oslo_outline = gpd.overlay(places_gdf, residential_gdf, how='difference')
+    
+    # Path for the output GeoJSON file
+    output_path = '/tmp/tmpsutdy6it/oslo_outline_no_residential.geojson'
+    
+    # Save the resulting GeoDataFrame to a GeoJSON file
+    oslo_outline.to_file(output_path, driver='GeoJSON')
+    
+    # Output the path to the saved file
+    print(output_path)    
+\end{lstlisting}
+
+\autoref{fig:cost-and-tokens} shows box plots for the amount of tokens used per run and the total cost of these. Naturally, these figures appear very similar, as OpenAI sets fixed prices for the input tokens and generated output tokens for their \acrshort{acr:gpt} models. According to their websites\footnote{\url{https://openai.com/pricing}}, they charge $\$10$ per million input tokens and $\$30$ per million output tokens for their \acrshort{acr:gpt}-4 Turbo models. From the results of the experiments, a ratio of approximately $10.7$ per million tokens --- either input \textit{or} output --- was calculated, which is very close to the input token price. This aligns with the observation that the number of input/prompt tokens is significantly greater than the number of output/generated tokens for the experiments conducted. The correlation matrix in \autoref{fig:correlation-matrix} confirms that this ratio is consistent.
 
 \begin{figure}[htbp]
     \centering
@@ -147,12 +193,9 @@ From \autoref{fig:outcome-distribution}, we can read that the \acrshort{acr:ogc}
     \label{fig:cost-and-tokens}
 \end{figure}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.6\textwidth]{duration_box_plot.png}
-    \caption{Duration per Agent Type}
-    \label{fig:duration-box-plot}
-\end{figure}
+Another observation that can be made from \autoref{fig:correlation-matrix} is that there is only a \textit{slight} positive correlation between duration and token/usage. This supports the observation that code execution time is likely the most significant factor in determining the duration required to complete a task for the datasets and tasks used in this thesis' experiments.
+
+A third observation that can be made from the \autoref{fig:correlation-matrix} is the negative correlation between the encoded outcome and token usage, duration, and total cost. This suggests that A task that takes longer to complete --- and thus is likely to be more expensive in terms of token usage --- is more likely to produce an undesirable outcome. Possible reasons as to why this is the case will be explored in the \nameref{cha:discussion}.
 
 \begin{figure}[htbp]
     \centering
@@ -209,20 +252,20 @@ From \autoref{fig:outcome-distribution}, we can read that the \acrshort{acr:ogc}
         7. Present the findings with a map highlighting the roads and the trees.}
 \end{quote}
 
-Using novice-level prompt GeoGPT was unable to produce the correct outcome, and confidently answered that there are \enquote{approximately 6,915 trees on Munkegata street in Trondheim.}, which is far from being true. When solving the task, GeoGPT made a series of oversights that lead to this result. First, GeoGPT failed to take into account that there may be more than one street in the dataset with the name \enquote{Munkegata}, \enquote{forgetting} to use a bounding box when retrieving the road data from the \acrshort{acr:api}. The same mistake was made when retrieving the tree data. Due to the upper limit of 10,000 features per query in the \acrshort{acr:api}, it's crucial to narrow down the query to ensure retrieval of all relevant features rather than just a subset. GeoGPT's query for tree data lacked a bounding box, resulting in a randomly distributed subset scattered across Norway. A third mistake occurred when GeoGPT calculated a bounding box around the retrieved road data instead of creating a buffer. The latter method would have produced a more accurate result. The bounding box that was created spanned from Trondheim to Oslo, thus including far more trees than was intended.
+Using novice-level prompt GeoGPT was unable to produce the correct outcome, and confidently answered that there are \enquote{approximately 6,915 trees on Munkegata street in Trondheim.} (see \autoref{fig:novice-level-prompting-munkegata-trees}), which is far from being true. When solving the task, GeoGPT made a series of oversights that lead to this result. First, GeoGPT failed to take into account that there may be more than one street in the dataset with the name \enquote{Munkegata}, \enquote{forgetting} to use a bounding box when retrieving the road data from the \acrshort{acr:api}. The same mistake was made when retrieving the tree data. Due to the upper limit of 10,000 features per query in the \acrshort{acr:api}, it's crucial to narrow down the query to ensure retrieval of all relevant features rather than just a subset. GeoGPT's query for tree data lacked a bounding box, resulting in a randomly distributed subset scattered across Norway. A third mistake occurred when GeoGPT calculated a bounding box around the retrieved road data instead of creating a buffer. The latter method would have produced a more accurate result. The bounding box that was created spanned from Trondheim to Oslo, thus including far more trees than was intended.
 
-
+On the other hand, the expert-level prompt provided the necessary guidance for GeoGPT for this specific task, steering it clear of the issues it encountered with the novice-level prompt. As stated by OpenAI themselves\footnote{\url{https://platform.openai.com/docs/guides/prompt-engineering/strategy-write-clear-instructions}}, \enquote{some tasks are best specified as a sequence of steps}. Furthermore, they say that writing explicit steps required to solve a tasks \enquote{makes it easier for the model to follow them}.\todo{move to discussion?}
 
 \begin{figure}[htbp]
     \centering
-    \begin{subfigure}[b]{0.48\textwidth}
+    \begin{subfigure}[b]{0.7\textwidth}
         \centering
         \includegraphics[width=\textwidth]{munkegata_trees_oaf_novice.png}
         \caption{Novice-level prompting}
         \label{fig:novice-level-prompting-munkegata-trees}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.48\textwidth}
+    \begin{subfigure}[b]{0.7\textwidth}
         \centering
         \includegraphics[width=\textwidth]{munkegata_trees_oaf_expert_sbs_2.png}
         \caption{Expert-level prompting}

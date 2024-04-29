@@ -1,15 +1,15 @@
 [0] Config.pm:307> INFO - This is Biber 2.17
-[0] Config.pm:310> INFO - Logfile is 'auxiliary/master_thesis-holm.blg'
-[155] biber:340> INFO - === Mon Apr 29, 2024, 10:16:26
-[195] Biber.pm:418> INFO - Reading 'auxiliary/master_thesis-holm.bcf'
-[331] Biber.pm:972> INFO - Found 10 citekeys in bib section 0
-[351] Biber.pm:4383> INFO - Processing section 0
-[366] Biber.pm:4574> INFO - Looking for bibtex file 'bib/bibliography.bib' for section 0
-[373] bibtex.pm:1713> INFO - LaTeX decoding ...
-[442] bibtex.pm:1518> INFO - Found BibTeX data source 'bib/bibliography.bib'
-[631] UCollate.pm:68> INFO - Overriding locale 'en-GB' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[631] UCollate.pm:68> INFO - Overriding locale 'en-GB' defaults 'variable = shifted' with 'variable = non-ignorable'
-[631] Biber.pm:4203> INFO - Sorting list 'apa/global//global/global' of type 'entry' with template 'apa' and locale 'en-GB'
-[631] Biber.pm:4209> INFO - No sort tailoring available for locale 'en-GB'
-[654] bbl.pm:654> INFO - Writing 'auxiliary/master_thesis-holm.bbl' with encoding 'UTF-8'
-[674] bbl.pm:757> INFO - Output to auxiliary/master_thesis-holm.bbl
+[1] Config.pm:310> INFO - Logfile is 'auxiliary/master_thesis-holm.blg'
+[199] biber:340> INFO - === Mon Apr 29, 2024, 12:49:05
+[249] Biber.pm:418> INFO - Reading 'auxiliary/master_thesis-holm.bcf'
+[429] Biber.pm:972> INFO - Found 10 citekeys in bib section 0
+[460] Biber.pm:4383> INFO - Processing section 0
+[493] Biber.pm:4574> INFO - Looking for bibtex file 'bib/bibliography.bib' for section 0
+[502] bibtex.pm:1713> INFO - LaTeX decoding ...
+[597] bibtex.pm:1518> INFO - Found BibTeX data source 'bib/bibliography.bib'
+[913] UCollate.pm:68> INFO - Overriding locale 'en-GB' defaults 'variable = shifted' with 'variable = non-ignorable'
+[913] UCollate.pm:68> INFO - Overriding locale 'en-GB' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[913] Biber.pm:4203> INFO - Sorting list 'apa/global//global/global' of type 'entry' with template 'apa' and locale 'en-GB'
+[913] Biber.pm:4209> INFO - No sort tailoring available for locale 'en-GB'
+[941] bbl.pm:654> INFO - Writing 'auxiliary/master_thesis-holm.bbl' with encoding 'UTF-8'
+[961] bbl.pm:757> INFO - Output to auxiliary/master_thesis-holm.bbl

@@ -80,7 +80,7 @@
     basicstyle=\ttfamily\footnotesize,
     breakatwhitespace=false,
     breaklines=true,
-    captionpos={t, b}, 
+    captionpos={b}, 
     extendedchars=true,
     keepspaces=true,
     numbers=left,
@@ -109,7 +109,10 @@
     framextopmargin=5pt,
     showstringspaces=false,
     upquote=true,
-    style=mystyle
+    style=mystyle,
+    aboveskip=20pt,
+    belowskip=20pt,
+    abovecaptionskip=10pt
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -339,6 +342,7 @@
 % \null\newpage
 
 \lstlistoflistings
+\addcontentsline{toc}{chapter}{List of Code Snippets}
 % \listofcodes
 \clearpage
 
