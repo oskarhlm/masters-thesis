@@ -132,7 +132,7 @@ From \autoref{fig:outcome-distribution}, we can read that the \acrshort{acr:ogc}
 
 This section features three different box plots: \autoref{fig:duration-box-plot}, \autoref{fig:cost-box-plot}, and \autoref{fig:tokens-box-plot}. The Matplotlib implementation of the box plot follows the description found on Wikipedia\footnote{\url{https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.boxplot.html}}\footnote{\url{https://en.wikipedia.org/wiki/Box_plot}}. Box plots allow us to easily visualize where the 0th ($Q_0$), 25th ($Q_1$), 50th ($Q_2$), 75th ($Q_3$), and 100th ($Q_4$) percentiles of the datasets lie, as well as the dataset's outliers. Outliers are those data points fall outside 1.5 times interquartile range, that is, the distance between $Q_3$ and $Q_1$ in each direction.
 
-\autoref{fig:duration-box-plot} displays a box plot with a logarithmic y-axis showing the relative durations for task completion across the different agent types. Here we can see that the \acrshort{acr:sql} agent spends the least amount of time per task, and that the \acrshort{acr:ogc} \acrshort{acr:api} Features agent has a slightly higher median but with a few time-consuming outliers. The Python agent is the odd one out with a median of $\sim 82$ seconds, a $Q3 \sim 293$ seconds, and a $Q4 \sim 984$. The large gap to the other two agents it largely due to the Python agent's tendency to load large datasets into memory without filtering the data on load using a bounding box. For instance, when attempting the task of calculating the difference between the polygon outlining Oslo and water polygons, the Python agent used nearly 40 minutes on the entire task. $94\%$ of the time was spent executing the code presented in \autoref{code:python-oslo-water-diff}.
+\autoref{fig:duration-box-plot} displays a box plot with a logarithmic y-axis showing the relative durations for task completion across the different agent types. Here we can see that the \acrshort{acr:sql} agent spends the least amount of time per task, and that the \acrshort{acr:ogc} \acrshort{acr:api} Features agent has a slightly higher median but with a few time-consuming outliers. The Python agent is the odd one out with a median of $\sim 82$ seconds, a $Q3 \sim 293$ seconds, and a $Q4 \sim 984$. The large gap to the other two agents it largely due to the Python agent's tendency to load large datasets into memory without filtering the data on load using a bounding box. For instance, when attempting the task of calculating the difference between the polygon outlining Oslo and water polygons, the Python agent used nearly 40 minutes on the entire task. $94\%$ of the time was spent executing the code presented in \autoref{code:python-oslo-water-diff}. The main reason for the long execution time is line 8, where the whole \texttt{osm\_landuse\_polygons.shp} dataset is loaded into memory. This dataset has a size of 1,383 MB, and loading such amounts of data in this way is very time-consuming. The Python agent was the only agent with such issues because the \acrshort{acr:ogc} \acrshort{acr:api} Features agent is limited to 10,000 features per dataset and the \acrshort{acr:sql} agent does not load the data into memory like the other agents do.
 
 \begin{figure}[htbp]
     \centering
@@ -144,7 +144,8 @@ This section features three different box plots: \autoref{fig:duration-box-plot}
 \begin{lstlisting}[
     language=Python,
     caption=Python code aimed at computing the difference between the Oslo outline and water features within it,
-    label=code:python-oslo-water-diff
+    label=code:python-oslo-water-diff,
+    float, floatplacement=H
 ]
     import geopandas as gpd
 
@@ -206,7 +207,7 @@ A third observation that can be made from the \autoref{fig:correlation-matrix} i
 
 \subsubsection{Repeatability}
 
-\autoref{tbl:stddev-by-agent-type} shows the average standard deviation for each agent type, as well as the mean of these three standard deviations. The latter serves as an overall measure of GeoGPT's ability to repeatedly produce the desired outcome from a given query. Standard deviations were calculated for each triplet of identical test samples, in which both the question and the agent type remained the same. To produce a numerical value for the standard deviations, the encoded outcomes (see \autoref{tbl:outcome-encoding}) were used. Taking the average of the standard deviations for all 12 triplets for each agent type produced the numbers found in \autoref{tbl:stddev-by-agent-type}.
+\autoref{tbl:stddev-by-agent-type} shows the average standard deviation for each agent type, as well as the mean of these three standard deviations. The latter serves as an overall measure of GeoGPT's ability to repeatedly produce the desired outcome from a given query. Standard deviations were calculated for each triplet of identical test samples, in which both the question and the agent type remained the same. To produce a numerical value for the standard deviations, the encoded outcomes (see \autoref{tbl:outcome-encoding}) were used. Taking the average of the standard deviations for all 12 triplets for each agent type produced the numbers found in \autoref{tbl:stddev-by-agent-type}.These numbers indicate that there is a notable amount of inconsistency in GeoGPT's ability to produce correct answers, on an average deviating with almost \enquote{half an outcome category} (0.408 for the encoded values) for the same task and agent type.
 
 \begin{table}[htbp]
     \centering

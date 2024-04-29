@@ -38,8 +38,23 @@ Just as described in the Background chapter (Chapter~\ref{cha:background_theory}
 This is allowed, as long as it is clearly stated what you have reused and in what form (e.g., if a section is a straight-forward copy, if it has undergone only editorial changes, if it contains some old material but also some new, etc.).
 \end{comment}
 
+\begin{itshape}
+    NB! Parts of the \nameref{cha:related_work} chapter is reused material from the specialization project \citep{holmLLMsDeathGIS2023} preceding this master thesis. Below are the sections in question, together with a description of the extent to which, and how, the material is reused:
 
-\section[LLM-based Systems in Geospatial Technologies]{\acrshort{acr:llm}-based Systems in Geospatial Technologies}
+    \begin{itemize}
+        \item \Autosubsectionref{sec:llm-gis}: Reused without modification.
+    \end{itemize}
+\end{itshape}
+
+
+\section[Using LLMs for Geospatial Purposes]{Using \acrshortpl{acr:llm} for Geospatial Purposes}
+\label{sec:llm-gis}
+
+\cite{robertsGPT4GEOHowLanguage2023} investigated the extent of GPT-4's geospatial awareness through a set of case studies with increasing difficulty, starting with general factual tasks and finishing with complex questions such as generating country outlines and travel networks. The authors found that \acrshort{acr:gpt}-4 is \enquote{skillful at solving a variety of application-centric tasks}, almost having the ability to \enquote{see}, despite being a language model and therefore only able to interface with the world through sequenced, textual input. Examples include its ability to serve as a travel assistant in providing itinerary suggestions for a trip when provided with requirements, and its ability to provide generally correct start and end locations of bird migration paths. While it quickly became obvious that a lot of geospatial context have been embedded within the model during the vast pre-training, the question of whether this is memorization or reasoning is a central one. The authors suggest that the variability of tasks in their experiments deems it unlikely that it is all memorization, but they say that some things appear to be memorized.
+
+\cite{liAutonomousGISNextgeneration2023} state that \enquote{autonomous \acrshort{acr:gis} will need to achieve five autonomous goals: self-generating, self-organizing, self-verifying, self-executing, and self-growing.}. They provide a \enquote{divide-and-conquer}-based method to address some of these goals. Furthermore, they propose a simple trial-and-error approach to address the self-verifying goal. They also highlight the need for a memory system in a mature \acrshort{acr:llm}-based \acrshort{acr:gis} system, referring to the use of vector databases in autonomous agents made with AutoGPT \citep{richardAutoGPTHeartOpensource2023}. Even with its shortages, the solution that \cite{liAutonomousGISNextgeneration2023} provide---called \acrshort{acr:llm}-Geo---is able to produce good solutions in various case studies by providing executable assemblies in a Python environment when provided with URLs to relevant data sets, along with a user-specified query.
+
+\cite{zhangGeoGPTUnderstandingProcessing2023} use the LangChain framework in order to combine different GIS tools in a sequence to solve various sub-goals, focusing on using the semantic understanding and reasoning abilities of \acrshortpl{acr:llm} to call externally defined tools, employing the \acrshort{acr:llm} as an agent or controller. The authors take great inspiration from the AutoGPT framework \citep{richardAutoGPTHeartOpensource2023}. The externally defined tools are described (manually) by their names and descriptions. These descriptions contain information about the input parameters and output types of the tools/functions. Tools are defined for geospatial data collection, data processing and analysis, and data visualization. The effectiveness of the system is showcased in four case studies.
 
 
 \section{Agent Patterns}
@@ -56,22 +71,7 @@ The multi-agent pattern that takes inspiration from human collaboration in that 
 \subsection{Patterns for Self-Reflection}
 
 
-\section{LangChain}
 
-LangChain \citep{langchainaiLangchainaiLangchain2022} is an open-source project that provides tooling which simplifies the way developers interface with \glspl{acr:llm}. This tooling includes composable tools and integrations that can be used to build prompts for \acrshortpl{acr:llm}, as well as off-the-shelf chains that perform higher level tasks. Chains are \glspl{acr:dag} --- or sequences of runnables --- that take an input and produces and output. A runnable can be a prompt template with template literals that are substituted with values that are passed into the runnable. The output is the template with the template literals filled in. This output can then be chained into an \acrshort{acr:llm} runnable calls a language model using the prompt template. The output from the \acrshort{acr:llm} runnable could then be passed into an output parser, e.g. a \acrshort{acr:json} parser, that ensures that the chain outputs a \acrshort{acr:json} object. Such chains are the buildings blocks that make up LangChain.
-
-Common use cases for LangChain are:
-
-\begin{itemize}
-    \item Building chatbots for question answering that use semantic retrieval from document store
-    \item Creating agents with access to external tools be leveraging function calling (see \autoref{sec:function-calling})
-    \item Creating code executing agents for Python, \acrshort{acr:sql}, or other programming languages
-\end{itemize}
-
-In January 2024, LangChain AI rolled out a new framework called LangGraph which builds on top of the LangChain ecosystem. While the chains commonly found in LangChain are good for \gls{acr:dag} workflow, they are not suited to creating cyclic graphs. LangGraph can be used to add cycles to \acrshort{acr:llm} applications, which are important for agent-like behaviours \citep{langchainaiLangchainaiLanggraph2024}. A graph in LangGraph is a set of nodes that pass some state around, state that can be modified by each node. The nodes are connected together by edges that define what node can succeed another node. These edges can also be conditional, which routes execution to a given node based on the output from a function giving the current state. This allows for complex logic and simplifies implementation of advanced agent patterns, some of which are discussed in \autoref{sec:agent-patterns}.
-
-
-\section{Geospatial Databases and Data Catalogues}
 
 
 

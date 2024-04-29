@@ -1,3 +1,20 @@
 {
-    "layers": []
+    "layers": [
+        {
+            "id": "jonsvatnet_buffer",
+            "type": "fill",
+            "source": "jonsvatnet_buffer",
+            "paint": {
+                "fill-color": "#b1cc4e"
+            }
+        },
+        {
+            "id": "jonsvatnet_polygon",
+            "type": "fill",
+            "source": "jonsvatnet_polygon",
+            "paint": {
+                "fill-color": "#011557"
+            }
+        }
+    ]
 }

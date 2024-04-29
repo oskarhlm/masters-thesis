@@ -142,10 +142,10 @@
       \field{type}{Specialization Project}
       \field{year}{2023}
       \verb{urlraw}
-      \verb https://github.com/oskarhlm/prosjektoppgave/blob/main/tex/auxiliary/main.pdf
+      \verb https://kartai.no/wp-content/uploads/2024/01/Holm-2023-LLMs-The-Death-of-GIS-Analysis.pdf
       \endverb
       \verb{url}
-      \verb https://github.com/oskarhlm/prosjektoppgave/blob/main/tex/auxiliary/main.pdf
+      \verb https://kartai.no/wp-content/uploads/2024/01/Holm-2023-LLMs-The-Death-of-GIS-Analysis.pdf
       \endverb
     \endentry
     \entry{hongMetaGPTMetaProgramming2023}{misc}{}
@@ -357,6 +357,102 @@
       \verb https://github.com/langchain-ai/langgraph
       \endverb
     \endentry
+    \entry{liAutonomousGISNextgeneration2023}{misc}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=42a0df1a3b77d8838b5444c135bdab4c}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Zhenlong},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7228c6369bcf7adf5f0ee63a9a1a0fd0}{%
+           family={Ning},
+           familyi={N\bibinitperiod},
+           given={Huan},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{06342eaa41b53564b9a7c4f2bc473d1b}
+      \strng{fullhash}{06342eaa41b53564b9a7c4f2bc473d1b}
+      \strng{bibnamehash}{06342eaa41b53564b9a7c4f2bc473d1b}
+      \strng{authorbibnamehash}{06342eaa41b53564b9a7c4f2bc473d1b}
+      \strng{authornamehash}{06342eaa41b53564b9a7c4f2bc473d1b}
+      \strng{authorfullhash}{06342eaa41b53564b9a7c4f2bc473d1b}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Large Language Models (LLMs), such as ChatGPT, demonstrate a strong understanding of human natural language and have been explored and applied in various fields, including reasoning, creative writing, code generation, translation, and information retrieval. By adopting LLM as the reasoning core, we introduce Autonomous GIS as an AI-powered geographic information system (GIS) that leverages the LLM's general abilities in natural language understanding, reasoning, and coding for addressing spatial problems with automatic spatial data collection, analysis, and visualization. We envision that autonomous GIS will need to achieve five autonomous goals: self-generating, self-organizing, self-verifying, self-executing, and self-growing. We developed a prototype system called LLM-Geo using the GPT-4 API in a Python environment, demonstrating what an autonomous GIS looks like and how it delivers expected results without human intervention using three case studies. For all case studies, LLM-Geo was able to return accurate results, including aggregated numbers, graphs, and maps, significantly reducing manual operation time. Although still in its infancy and lacking several important modules such as logging and code testing, LLM-Geo demonstrates a potential path toward the next-generation AI-powered GIS. We advocate for the GIScience community to dedicate more effort to the research and development of autonomous GIS, making spatial analysis easier, faster, and more accessible to a broader audience.}
+      \field{eprintclass}{cs}
+      \field{eprinttype}{arxiv}
+      \field{month}{5}
+      \field{number}{arXiv:2305.06453}
+      \field{shorttitle}{Autonomous {{GIS}}}
+      \field{title}{Autonomous {{GIS}}: The next-Generation {{AI-powered GIS}}}
+      \field{urlday}{4}
+      \field{urlmonth}{10}
+      \field{urlyear}{2023}
+      \field{year}{2023}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2305.06453
+      \endverb
+      \verb{eprint}
+      \verb 2305.06453
+      \endverb
+      \verb{file}
+      \verb C\:\\Users\\oskar\\Zotero\\storage\\F2SMY58Q\\Li and Ning - 2023 - Autonomous GIS the next-generation AI-powered GIS.pdf;C\:\\Users\\oskar\\Zotero\\storage\\JRUTEB6E\\2305.html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2305.06453
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2305.06453
+      \endverb
+      \keyw{Computer Science - Artificial Intelligence,Computer Science - Human-Computer Interaction}
+    \endentry
+    \entry{opengeospatialconsortiumOGCAPIFeatures2022}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=0d6591561c9a387f01e4b0d59426abc6}{%
+           family={{Open Geospatial Consortium}},
+           familyi={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{0d6591561c9a387f01e4b0d59426abc6}
+      \strng{fullhash}{0d6591561c9a387f01e4b0d59426abc6}
+      \strng{bibnamehash}{0d6591561c9a387f01e4b0d59426abc6}
+      \strng{authorbibnamehash}{0d6591561c9a387f01e4b0d59426abc6}
+      \strng{authornamehash}{0d6591561c9a387f01e4b0d59426abc6}
+      \strng{authorfullhash}{0d6591561c9a387f01e4b0d59426abc6}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{5}
+      \field{title}{{{OGC API}} - {{Features}} - {{Part}} 1: {{Core}} Corrigendum}
+      \field{urlday}{29}
+      \field{urlmonth}{4}
+      \field{urlyear}{2024}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb C:\Users\oskar\Zotero\storage\YUAYD5FC\17-069r4.html
+      \endverb
+      \verb{urlraw}
+      \verb https://docs.ogc.org/is/17-069r4/17-069r4.html
+      \endverb
+      \verb{url}
+      \verb https://docs.ogc.org/is/17-069r4/17-069r4.html
+      \endverb
+    \endentry
     \entry{openaiIntroducingChatGPT2022}{misc}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=0523b13262b12c215d8009938f5c14f1}{%
@@ -393,6 +489,31 @@
       \endverb
       \verb{url}
       \verb https://openai.com/blog/chatgpt
+      \endverb
+    \endentry
+    \entry{PostGIS2001}{misc}{}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{PostGIS}
+      \field{langid}{english}
+      \field{month}{4}
+      \field{title}{{{PostGIS}}}
+      \field{urlday}{29}
+      \field{urlmonth}{4}
+      \field{urlyear}{2024}
+      \field{year}{2001}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb C:\Users\oskar\Zotero\storage\NU6HH24B\postgis.net.html
+      \endverb
+      \verb{urlraw}
+      \verb https://postgis.net/
+      \endverb
+      \verb{url}
+      \verb https://postgis.net/
       \endverb
     \endentry
     \entry{radfordImprovingLanguageUnderstanding2018}{article}{}
@@ -439,6 +560,124 @@
       \verb{url}
       \verb https://www.semanticscholar.org/paper/Improving-Language-Understanding-by-Generative-Radford-Narasimhan/cd18800a0fe0b668a1cc19f2ec95b5003d0a5035
       \endverb
+    \endentry
+    \entry{richardAutoGPTHeartOpensource2023}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=2a32215fed0bf14e97fe8b3a8fd29a13}{%
+           family={Richard},
+           familyi={R\bibinitperiod},
+           given={Toran\bibnamedelima Bruce},
+           giveni={T\bibinitperiod\bibinitdelim B\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{2a32215fed0bf14e97fe8b3a8fd29a13}
+      \strng{fullhash}{2a32215fed0bf14e97fe8b3a8fd29a13}
+      \strng{bibnamehash}{2a32215fed0bf14e97fe8b3a8fd29a13}
+      \strng{authorbibnamehash}{2a32215fed0bf14e97fe8b3a8fd29a13}
+      \strng{authornamehash}{2a32215fed0bf14e97fe8b3a8fd29a13}
+      \strng{authorfullhash}{2a32215fed0bf14e97fe8b3a8fd29a13}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{An experimental open-source attempt to make GPT-4 fully autonomous.}
+      \field{howpublished}{AutoGPT}
+      \field{month}{10}
+      \field{shorttitle}{{{AutoGPT}}}
+      \field{title}{{{AutoGPT}}: The Heart of the Open-Source Agent Ecosystem}
+      \field{urlday}{5}
+      \field{urlmonth}{10}
+      \field{urlyear}{2023}
+      \field{year}{2023}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/Significant-Gravitas/AutoGPT
+      \endverb
+      \verb{url}
+      \verb https://github.com/Significant-Gravitas/AutoGPT
+      \endverb
+      \keyw{ai,artificial-intelligence,autonomous-agents,gpt-4,openai,python}
+    \endentry
+    \entry{robertsGPT4GEOHowLanguage2023}{misc}{}
+      \name{author}{5}{}{%
+        {{un=0,uniquepart=base,hash=65b931b85958ad179656a050cf28cf72}{%
+           family={Roberts},
+           familyi={R\bibinitperiod},
+           given={Jonathan},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d2151d735dd59d4623eb15a59bb49cd2}{%
+           family={Lüddecke},
+           familyi={L\bibinitperiod},
+           given={Timo},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=0e7812df1b1d4d75b6a3620ace5a8511}{%
+           family={Das},
+           familyi={D\bibinitperiod},
+           given={Sowmen},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=735173e7254986d180bcb08fbac4266c}{%
+           family={Han},
+           familyi={H\bibinitperiod},
+           given={Kai},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=16b5c328bb82309153fe2dcf34adf4f0}{%
+           family={Albanie},
+           familyi={A\bibinitperiod},
+           given={Samuel},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{2dd2a97673eef748af93ff359ad08b6c}
+      \strng{fullhash}{0383cc78399fac912eccca995e006335}
+      \strng{bibnamehash}{0383cc78399fac912eccca995e006335}
+      \strng{authorbibnamehash}{0383cc78399fac912eccca995e006335}
+      \strng{authornamehash}{2dd2a97673eef748af93ff359ad08b6c}
+      \strng{authorfullhash}{0383cc78399fac912eccca995e006335}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Large language models (LLMs) have shown remarkable capabilities across a broad range of tasks involving question answering and the generation of coherent text and code. Comprehensively understanding the strengths and weaknesses of LLMs is beneficial for safety, downstream applications and improving performance. In this work, we investigate the degree to which GPT-4 has acquired factual geographic knowledge and is capable of using this knowledge for interpretative reasoning, which is especially important for applications that involve geographic data, such as geospatial analysis, supply chain management, and disaster response. To this end, we design and conduct a series of diverse experiments, starting from factual tasks such as location, distance and elevation estimation to more complex questions such as generating country outlines and travel networks, route finding under constraints and supply chain analysis. We provide a broad characterisation of what GPT-4 (without plugins or Internet access) knows about the world, highlighting both potentially surprising capabilities but also limitations.}
+      \field{eprintclass}{cs}
+      \field{eprinttype}{arxiv}
+      \field{month}{5}
+      \field{number}{arXiv:2306.00020}
+      \field{shorttitle}{{{GPT4GEO}}}
+      \field{title}{{{GPT4GEO}}: {{How}} a {{Language Model Sees}} the {{World}}'s {{Geography}}}
+      \field{urlday}{5}
+      \field{urlmonth}{10}
+      \field{urlyear}{2023}
+      \field{year}{2023}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2306.00020
+      \endverb
+      \verb{eprint}
+      \verb 2306.00020
+      \endverb
+      \verb{file}
+      \verb C\:\\Users\\oskar\\Zotero\\storage\\7DRKDHXI\\Roberts et al. - 2023 - GPT4GEO How a Language Model Sees the World's Geo.pdf;C\:\\Users\\oskar\\Zotero\\storage\\BHCR5VUS\\2306.html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2306.00020
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2306.00020
+      \endverb
+      \keyw{Computer Science - Artificial Intelligence,Computer Science - Computation and Language,Computer Science - Machine Learning}
     \endentry
     \entry{sanfilippoRedisRealtimeData2009}{misc}{}
       \name{author}{1}{}{%
@@ -564,6 +803,84 @@
       \verb{url}
       \verb https://arxiv.org/abs/1706.03762v7
       \endverb
+    \endentry
+    \entry{zhangGeoGPTUnderstandingProcessing2023}{misc}{}
+      \name{author}{5}{}{%
+        {{un=0,uniquepart=base,hash=614fdf51ce9628d993d9e0dc779c15a2}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Yifan},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=850f68e5f7ccf438179b3191c2249b1a}{%
+           family={Wei},
+           familyi={W\bibinitperiod},
+           given={Cheng},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4054ebcc5b4d6a04dff097093876e9ef}{%
+           family={Wu},
+           familyi={W\bibinitperiod},
+           given={Shangyou},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=e5187efaa04f4ecdd7f84f0cad92621d}{%
+           family={He},
+           familyi={H\bibinitperiod},
+           given={Zhengting},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4106141d002345c5f77e0e562f203b64}{%
+           family={Yu},
+           familyi={Y\bibinitperiod},
+           given={Wenhao},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{fa65d318c268d108da8573873dc9b440}
+      \strng{fullhash}{9e80b5ea76a37da9004d7cb5992a46db}
+      \strng{bibnamehash}{9e80b5ea76a37da9004d7cb5992a46db}
+      \strng{authorbibnamehash}{9e80b5ea76a37da9004d7cb5992a46db}
+      \strng{authornamehash}{fa65d318c268d108da8573873dc9b440}
+      \strng{authorfullhash}{9e80b5ea76a37da9004d7cb5992a46db}
+      \field{sortinit}{Z}
+      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Decision-makers in GIS need to combine a series of spatial algorithms and operations to solve geospatial tasks. For example, in the task of facility siting, the Buffer tool is usually first used to locate areas close or away from some specific entities; then, the Intersect or Erase tool is used to select candidate areas satisfied multiple requirements. Though professionals can easily understand and solve these geospatial tasks by sequentially utilizing relevant tools, it is difficult for non-professionals to handle these problems. Recently, Generative Pre-trained Transformer (e.g., ChatGPT) presents strong performance in semantic understanding and reasoning. Especially, AutoGPT can further extend the capabilities of large language models (LLMs) by automatically reasoning and calling externally defined tools. Inspired by these studies, we attempt to lower the threshold of non-professional users to solve geospatial tasks by integrating the semantic understanding ability inherent in LLMs with mature tools within the GIS community. Specifically, we develop a new framework called GeoGPT that can conduct geospatial data collection, processing, and analysis in an autonomous manner with the instruction of only natural language. In other words, GeoGPT is used to understand the demands of non-professional users merely based on input natural language descriptions, and then think, plan, and execute defined GIS tools to output final effective results. Several cases including geospatial data crawling, spatial query, facility siting, and mapping validate the effectiveness of our framework. Though limited cases are presented in this paper, GeoGPT can be further extended to various tasks by equipping with more GIS tools, and we think the paradigm of "foundational plus professional" implied in GeoGPT provides an effective way to develop next-generation GIS in this era of large foundation models.}
+      \field{eprintclass}{cs}
+      \field{eprinttype}{arxiv}
+      \field{month}{7}
+      \field{number}{arXiv:2307.07930}
+      \field{shorttitle}{{{GeoGPT}}}
+      \field{title}{{{GeoGPT}}: {{Understanding}} and {{Processing Geospatial Tasks}} through {{An Autonomous GPT}}}
+      \field{urlday}{4}
+      \field{urlmonth}{10}
+      \field{urlyear}{2023}
+      \field{year}{2023}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2307.07930
+      \endverb
+      \verb{eprint}
+      \verb 2307.07930
+      \endverb
+      \verb{file}
+      \verb C\:\\Users\\oskar\\Zotero\\storage\\F6ZE4DD9\\Zhang et al. - 2023 - GeoGPT Understanding and Processing Geospatial Ta.pdf;C\:\\Users\\oskar\\Zotero\\storage\\GYMENGQZ\\2307.html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2307.07930
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2307.07930
+      \endverb
+      \keyw{Computer Science - Artificial Intelligence,Computer Science - Computation and Language}
     \endentry
   \enddatalist
 \endrefsection
