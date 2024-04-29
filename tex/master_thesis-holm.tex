@@ -64,30 +64,35 @@
 \usepackage{listings}
 \usepackage{xcolor}
 
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\renewcommand{\lstlistingname}{Code} % adjusts Listings caption and reference lst
+\renewcommand{\lstlistlistingname}{List of Code Snippets}
 
-\DeclareCaptionType{code}[Code][List of Code] 
+\definecolor{darkred}{rgb}{0.6,0.0,0.0}
+\definecolor{darkgreen}{rgb}{0,0.50,0}
+\definecolor{lightblue}{rgb}{0.0,0.42,0.91}
+\definecolor{orange}{rgb}{0.99,0.48,0.13}
+\definecolor{grass}{rgb}{0.18,0.80,0.18}
+\definecolor{pink}{rgb}{0.97,0.15,0.45}
+\definecolor{gray}{rgb}{0.5, 0.5, 0.5}
 
 \lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},   
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
+    backgroundcolor=\color{backcolour},
     basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos={t, b}, 
+    extendedchars=true,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
     showstringspaces=false,
-    showtabs=false,                  
-    tabsize=2
+    showtabs=false,
+    tabsize=2,
+    backgroundcolor=\color{white},
+    commentstyle=\color{gray}\itshape,
+    keywordstyle=\color{blue}\bfseries\itshape,
+    stringstyle=\color{red},
 }
 
 \lstset{
@@ -95,11 +100,7 @@
     stepnumber=1,
     numbersep=10pt,
     tabsize=4,
-    extendedchars=true,
-    breaklines=true,
-    captionpos=t,
     mathescape=true,
-    showspaces=false,
     showtabs=false,
     xleftmargin=17pt,
     framexleftmargin=17pt,
@@ -242,7 +243,7 @@
 \newcommand{\thesisSubtitle}{An Investigation into Using Large Language Models for GIS Data Analysis}
 \newcommand{\thesisType}{Master Thesis in Computer Science and Geomatics}
 \newcommand{\supervisor}{Supervisor at NTNU: Hongchao Fan}
-\newcommand{\externalSupervisors}{External supervisors from Norkart: Alexander Salveson Nossum, Arild Nomeland, and Rune Aasgaard}
+\newcommand{\externalSupervisors}{External supervisors from Norkart: Alexander Salveson Nossum and Arild Nomeland}
 \newcommand{\thesisDate}{June 2024}
 
 \renewcommand{\arraystretch}{1.5}
@@ -269,7 +270,12 @@
     \noindent {\Huge \thesisTitle}
     \vspace{5mm}
 
-    \noindent {\huge \thesisSubtitle}
+    \noindent {
+        \huge
+        \begin{spacing}{1.1}
+            \noindent\thesisSubtitle
+        \end{spacing}
+    }
     \vspace{2cm}
 
     \noindent \thesisType, \thesisDate \newline
@@ -277,14 +283,15 @@
     \noindent \externalSupervisors
     \vspace{2cm}
 
-    % \noindent Data and Artificial Intelligence Group\\
     \noindent Department of Geomatics\\
     Faculty of Engineering\\
     Norwegian University of Science and Technology\\
 
     \vfill
     \begin{center}
-        \includegraphics[width=3cm]{NTNUlogo.pdf}
+        \raisebox{-0.5\height}{\includegraphics[width=3cm]{NTNUlogo.pdf}}
+        \hspace{1cm} % Adjust space as needed
+        \raisebox{-0.5\height}{\includegraphics[width=3cm]{Kartai-logo_white.png}}
     \end{center}
     \thispagestyle{empty}
 \end{titlepage}
@@ -295,42 +302,44 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frontmatter
 
-\null\newpage
+% \null\newpage
+\todo{fix double page thing if necessary}
 
 \includepdf[pages=1-, scale=1]{appendices/project_description.pdf}
 
 \addcontentsline{toc}{chapter}{Abstract}    % can be left out
 \include{frontmatter/abstract}
-\null\newpage
+% \null\newpage
 
 \addcontentsline{toc}{chapter}{Sammendrag}  % can be left out
 \include{frontmatter/sammendrag}
-\null\newpage
+% \null\newpage
 
 \addcontentsline{toc}{chapter}{Preface}     % can be left out
 \include{frontmatter/preface}
-\null\newpage
+% \null\newpage
 
 \tableofcontents
 \clearpage
-\null\newpage
+% \null\newpage
 
 \printglossary[type=\acronymtype]
 % \printglossary
 \clearpage
-\null\newpage
+% \null\newpage
 
 \listoffigures
 \addcontentsline{toc}{chapter}{List of Figures}
 \clearpage
-\null\newpage
+% \null\newpage
 
 \listoftables
 \addcontentsline{toc}{chapter}{List of Tables}
 \clearpage
-\null\newpage
+% \null\newpage
 
-\listofcodes
+\lstlistoflistings
+% \listofcodes
 \clearpage
 
 \glsaddall
