@@ -41,7 +41,7 @@
   >
 ]>
 <requests version="1.0">
-  <internal package="biblatex" priority="9" active="0">
+  <internal package="biblatex" priority="9" active="1">
     <generic>latex</generic>
     <provides type="dynamic">
       <file>master_thesis-holm.bcf</file>
@@ -65,6 +65,8 @@
       <file>american-apa.lbx</file>
       <file>english-apa.lbx</file>
       <file>british-apa.lbx</file>
+      <file>norsk.lbx</file>
+      <file>norsk-apa.lbx</file>
     </requires>
   </internal>
   <external package="biblatex" priority="5" active="0">

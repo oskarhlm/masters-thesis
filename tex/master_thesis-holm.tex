@@ -41,6 +41,7 @@
 \usepackage[shortlabels]{enumitem}
 \usepackage{datatool}
 \usepackage{amsmath}
+
 \DeclareMathOperator*{\argmax}{argmax} % thin space, limits underneath in displays
 
 % pdf stuff
@@ -59,14 +60,65 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.16}
 
+% Code stuff
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\DeclareCaptionType{code}[Code][List of Code] 
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{
+    frame=top,
+    stepnumber=1,
+    numbersep=10pt,
+    tabsize=4,
+    extendedchars=true,
+    breaklines=true,
+    captionpos=t,
+    mathescape=true,
+    showspaces=false,
+    showtabs=false,
+    xleftmargin=17pt,
+    framexleftmargin=17pt,
+    framexrightmargin=0pt,
+    framexbottommargin=5pt,
+    framextopmargin=5pt,
+    showstringspaces=false,
+    upquote=true,
+    style=mystyle
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % URLs and hyperlinks
 \usepackage[hyphens]{url}
 \usepackage{doi}
-\usepackage{hyperref}
 \definecolor{darkblue}{rgb}{0, 0, 0.5}
 \hypersetup{colorlinks=true,citecolor=black, linkcolor=black, urlcolor=darkblue}
 \usepackage[nameinlink]{cleveref}
+\usepackage{hyperref}
 
 \let\oldFootnote\footnote
 \newcommand\nextToken\relax
@@ -77,28 +129,6 @@
 \newcommand\isFootnote{%
     \ifx\footnote\nextToken\textsuperscript{,}\fi}
 
-% Code stuff
-\usepackage{listings}
-
-\definecolor{dkgreen}{rgb}{0,0.6,0}
-\definecolor{gray}{rgb}{0.5,0.5,0.5}
-\definecolor{mauve}{rgb}{0.58,0,0.82}
-
-\lstdefinestyle{yaml}{
-    frame=tb,
-    basicstyle=\color{darkblue}\footnotesize,
-    rulecolor=\color{black},
-    string=[s]{'}{'},
-    stringstyle=\color{darkblue},
-    comment=[l]{:},
-    commentstyle=\color{black},
-    morecomment=[l]{-},
-    columns=flexible
-}
-
-\lstdefinestyle{python}{
-    language=Python, breaklines=True, 
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % comments and notes, useful while working on a draft - change the option 'draft' to 'disable' in the final version
@@ -139,6 +169,7 @@
 \patchcmd{\bibsetup}{\interlinepenalty=5000}{\interlinepenalty=10000}{}{}
 \let\citep\parencite
 \let\cite\textcite
+
 % Make the whole cite a hyperref
 \DeclareCiteCommand{\textcite}
 {\boolfalse{cbx:parens}}
@@ -194,14 +225,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Acronym stuff
 \usepackage[
-nonumberlist, 			% if you don't want to show pagenumbers 
-toc, 					% entry in the table of contents; can be left out
-acronym] 				% create a list of abbreviations
+    nonumberlist, 			% if you don't want to show pagenumbers 
+    toc, 					% entry in the table of contents; can be left out
+    acronym
+] 				% create a list of abbreviations
 {glossaries}
 \usepackage[acronym]{glossaries}
 \makeglossaries
 \loadglsentries[main]{frontmatter/glossary.tex}
-
+ 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Author
 % Fill in here, and use these commands in the text.
@@ -263,26 +295,45 @@ acronym] 				% create a list of abbreviations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frontmatter
 
+\null\newpage
+
+\includepdf[pages=1-, scale=1]{appendices/project_description.pdf}
+
 \addcontentsline{toc}{chapter}{Abstract}    % can be left out
 \include{frontmatter/abstract}
+\null\newpage
 
-% \addcontentsline{toc}{chapter}{Sammendrag}  % can be left out
-% \include{frontmatter/sammendrag}
+\addcontentsline{toc}{chapter}{Sammendrag}  % can be left out
+\include{frontmatter/sammendrag}
+\null\newpage
 
-% \addcontentsline{toc}{chapter}{Preface}     % can be left out
-% \include{frontmatter/preface}
+\addcontentsline{toc}{chapter}{Preface}     % can be left out
+\include{frontmatter/preface}
+\null\newpage
 
+\tableofcontents
 \clearpage
+\null\newpage
 
-% \tableofcontents
+\printglossary[type=\acronymtype]
+% \printglossary
+\clearpage
+\null\newpage
 
 \listoffigures
-\addcontentsline{toc}{chapter}{List of Figures} % can be left out
+\addcontentsline{toc}{chapter}{List of Figures}
+\clearpage
+\null\newpage
 
 \listoftables
-\addcontentsline{toc}{chapter}{List of Tables} % can be left out
+\addcontentsline{toc}{chapter}{List of Tables}
+\clearpage
+\null\newpage
 
-\glsaddall              % to include all glossary entries
+\listofcodes
+\clearpage
+
+\glsaddall
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \mainmatter
@@ -305,7 +356,6 @@ acronym] 				% create a list of abbreviations
 
 \include{appendices/appendices}
 
-\clearpage
-\printglossary[type=\acronymtype]
+
 
 \end{document}
