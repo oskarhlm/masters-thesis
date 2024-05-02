@@ -148,6 +148,48 @@
       \verb https://kartai.no/wp-content/uploads/2024/01/Holm-2023-LLMs-The-Death-of-GIS-Analysis.pdf
       \endverb
     \endentry
+    \entry{holmesSpatioTemporalAssetCatalogs2021a}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=6fa02041fbcd9115cc22a1d8b35a35cb}{%
+           family={Holmes},
+           familyi={H\bibinitperiod},
+           given={Chris},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{6fa02041fbcd9115cc22a1d8b35a35cb}
+      \strng{fullhash}{6fa02041fbcd9115cc22a1d8b35a35cb}
+      \strng{bibnamehash}{6fa02041fbcd9115cc22a1d8b35a35cb}
+      \strng{authorbibnamehash}{6fa02041fbcd9115cc22a1d8b35a35cb}
+      \strng{authornamehash}{6fa02041fbcd9115cc22a1d8b35a35cb}
+      \strng{authorfullhash}{6fa02041fbcd9115cc22a1d8b35a35cb}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{As SpatioTemporal Asset Catalog (STAC) specification matures one of the more frequent questions we get asked is the relationship between{\dots}}
+      \field{journaltitle}{Radiant Earth Insights}
+      \field{langid}{english}
+      \field{month}{1}
+      \field{title}{{{SpatioTemporal Asset Catalogs}} and the {{Open Geospatial Consortium}}}
+      \field{urlday}{2}
+      \field{urlmonth}{5}
+      \field{urlyear}{2024}
+      \field{year}{2021}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb C:\Users\oskar\Zotero\storage\G3LTD4LK\spatiotemporal-asset-catalogs-and-the-open-geospatial-consortium-659538dce5c7.html
+      \endverb
+      \verb{urlraw}
+      \verb https://medium.com/radiant-earth-insights/spatiotemporal-asset-catalogs-and-the-open-geospatial-consortium-659538dce5c7
+      \endverb
+      \verb{url}
+      \verb https://medium.com/radiant-earth-insights/spatiotemporal-asset-catalogs-and-the-open-geospatial-consortium-659538dce5c7
+      \endverb
+    \endentry
     \entry{hongMetaGPTMetaProgramming2023}{misc}{}
       \name{author}{15}{}{%
         {{un=0,uniquepart=base,hash=58cefe84ca110e5bd39615f1625f9b33}{%

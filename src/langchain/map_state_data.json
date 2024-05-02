@@ -1,19 +1,11 @@
 {
     "layers": [
         {
-            "id": "jonsvatnet_buffer",
+            "id": "drammen_houses",
             "type": "fill",
-            "source": "jonsvatnet_buffer",
+            "source": "drammen_houses",
             "paint": {
-                "fill-color": "#b1cc4e"
-            }
-        },
-        {
-            "id": "jonsvatnet_polygon",
-            "type": "fill",
-            "source": "jonsvatnet_polygon",
-            "paint": {
-                "fill-color": "#011557"
+                "fill-color": "#7c4c1c"
             }
         }
     ]

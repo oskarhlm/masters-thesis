@@ -302,24 +302,57 @@ In January 2024, LangChain AI rolled out a new framework called LangGraph which 
 This section will discuss the geospatial technologies that were used or considered for use in this master's thesis.
 
 \subsection{PostGIS}
+\label{subsec:postgis}
 
-PostGIS \citep{PostGIS2001} is an open-source extension for the PostgreSQL \acrshort{acr:dbms}.
+PostGIS \citep{PostGIS2001} is an open-source extension for the PostgreSQL \acrshort{acr:dbms}. By adding the PostGIS extension one adds support for storing, indexing, and querying geospatial data. Data can be stored in both two and three dimensions, and they can have types like points, lines, polygons. These types can be stored along with a spatial index which can significantly reduce search time for these geometries. GiST (Generalized Search Tree)\footnote{\url{https://en.wikipedia.org/wiki/GiST}} is commonly used in PostgreSQL/PostGIS to take advantage of various tree-based search algorithms that are developed to retrieve spatial features quickly.
+
+PostGIS also comes with a plethora of spatial database functions that to analyse and process geospatial data. These are prefixed with \texttt{ST\_}, and some examples are \texttt{ST\_DWITHIN}, \texttt{ST\_BUFFER}, and \texttt{ST\_TRANSFORM}. \autoref{code:postgis-example} displays a typical query for retrieving building outlines within a bounding box specified in WGS 84 latitudes and longitudes.
+
+\begin{lstlisting}[
+    language=SQL,
+    caption=PostGIS example code for retrieving building outlines within a specified bounding box,
+    label=code:postgis-example
+]
+SELECT * 
+FROM osm_buildings_polygons 
+WHERE type = 'house' 
+  AND ST_Intersects(geom, ST_MakeEnvelope(min_lon, min_lat, max_lon, max_lat, 4326));
+\end{lstlisting}
 
 \subsection[OGC API Features]{\acrshort{acr:ogc} \acrshort{acr:api} Features}
+\label{subsec:ogc-api-features}
 
-\acrshort{acr:ogc} \acrshort{acr:api} Features \citep{opengeospatialconsortiumOGCAPIFeatures2022} is an \acrshort{acr:api} specification that defines modular \acrshort{acr:api} building blocks for interacting with features, real-world objects. These building blocks include blocks for creating, modifying, and querying features on the Web. A typical implementation of \acrshort{acr:ogc} \acrshort{acr:api} Features implements these building blocks for \acrshort{acr:html}, GeoJSON, and \acrshort{acr:gml}. These are called \textit{requirement classes}, though none of them are strictly required. The \acrshort{acr:html} requirement class gives the user of the \acrshort{acr:api} a visualization of the features, whereas the GeoJSON and \acrshort{acr:gml} requirements classes are typically meant for use in other applications.
+\acrshort{acr:ogc} \acrshort{acr:api} Features is an \acrshort{acr:api} specification that defines modular \acrshort{acr:api} building blocks for interacting with features, real-world objects \citep{opengeospatialconsortiumOGCAPIFeatures2022}. These building blocks include blocks for creating, modifying, and querying features on the Web. A typical implementation of \acrshort{acr:ogc} \acrshort{acr:api} Features implements these building blocks for \acrshort{acr:html}, GeoJSON, and \acrshort{acr:gml}. These are called \textit{requirement classes}, though none of them are strictly required. The \acrshort{acr:html} requirement class gives the user of the \acrshort{acr:api} a visualization of the features, whereas the GeoJSON and \acrshort{acr:gml} requirements classes are typically meant for use in other applications.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{ogc_api_features.png}
-    \caption{Collections, items, and features in \acrshort{acr:ogc} \acrshort{acr:api} Features specification. Retrieved from \url{https://features.developer.ogc.org/} April 29th 2024.}
+    \caption{Collections, items, and features in \acrshort{acr:ogc} \acrshort{acr:api} Features specification. Retrieved from \url{https://features.developer.ogc.org/} on April 29, 2024.}
     \label{fig:oaf-collections-items-features}
 \end{figure}
 
+The development of the Features standard is divided into several parts that are meant to build on top of one another. Here are the four parts that are listed on \acrshort{acr:ogc}'s site about the standard \footnote{\url{https://ogcapi.ogc.org/features/}}:
+
+\begin{itemize}
+    \item Features - Part 1: Core\footnote{\url{https://docs.opengeospatial.org/is/17-069r4/17-069r4.html}}
+    \item Features - Part 2: Coordinate Reference Systems by Reference \footnote{\url{https://docs.ogc.org/is/18-058r1/18-058r1.html}}
+    \item Features - Part 3: Filtering\footnote{\url{https://docs.ogc.org/DRAFTS/19-079r1.html}}
+    \item Features - Part 4: Create, Replace, Update and Delete\footnote{\url{https://docs.ogc.org/DRAFTS/20-002.html}}
+    \item Features - Part 5: Schemas\footnote{\url{https://docs.ogc.org/DRAFTS/23-058r1.html}}
+\end{itemize}
+
+Part 1 specifies core capabilities that are described in the first paragraph of this section, while parts 2-4 spcify additional capabilities. Part 2 allows retrieval of features in \glspl{acr:crs} different to the default WGS 84 reference system. Part 3 enables filtering of features using \gls{acr:cql}. \gls{acr:cql} is a language similar to \acrshort{acr:sql}. This allows for filtering of collections, so that users of the \acrshort{acr:api} can retrieve only a subset of a given collection. Below are two examples of \gls{acr:cql} queries:
+
+$$\text{county in ('Akershus', 'Buskerud', 'Østfold')}$$
+$$DWITHIN(\text{the\_geom}, \text{Point}(63.4265, 10.3960), 1, \text{kilometers})$$
+
+Part 4 defines how an \acrshort{acr:api} following the specification handle addition,  replacement, modification, and/or removal for a collection. Part 5 describes how features can be described by a logical schema and how these are published. Furthermore, several proposed extensions, such as the Search extension which could allow for multi-collection queries, or the Geometry Simplification extension which proposes the use of simplification algorithms for retrieving simplified versions of a collection, have been created.\footnote{\url{https://github.com/opengeospatial/ogcapi-features/tree/master/proposals}}
+
+
 \subsection[SpatioTemporal Asset Catalogs]{\acrlong{acr:stac}}
+\label{subsec:stac}
 
-
-
+The \gls{acr:stac} specification\footnote{\url{https://stacspec.org/en}} is closely related to \acrshort{acr:ogc} \acrshort{acr:api} Features, and as \citeauthor{holmesSpatioTemporalAssetCatalogs2021a} --- former board member  of \acrlong{acr:ogc} --- stated in a blog post that \enquote{\acrshort{acr:stac} \acrshort{acr:api} implements and extends the \acrshort{acr:ogc} \acrshort{acr:api} — Features standard, and our shared goal is for \acrshort{acr:stac} \acrshort{acr:api} to become a full \acrshort{acr:ogc} standard} \citep{holmesSpatioTemporalAssetCatalogs2021a}. The main difference to the \acrshort{acr:ogc} \acrshort{acr:api} Features specification is its requirement that all items/features should have a temporal component, thus making it \textit{spatiotemporal}. The vision for the \acrshort{acr:stac} specification is to minimize the need for developing new code with the release of each new dataset or \acrshort{acr:api}, by using a standard that does not change.
 
 
 
