@@ -200,7 +200,7 @@ As can be seen in the example, elements in a table can sometimes benefit from be
     NB! Parts of the \nameref{cha:background-theory} chapter is reused material from the specialization project \citep{holmLLMsDeathGIS2023} preceding this master thesis. Below are the sections in question, together with a description of the extent to which, and how, the material is reused:
 
     \begin{itemize}
-        \item \Autosubsectionref{subsec:attention-and-the-transformer-architecture}: Reused without modification.
+        \item \Autosubsectionref{subsec:attention-and-the-transformer-architecture}: Reused with minor adjustments.
         \item \Autosubsectionref{subsec:sota-llms}: \acrshort{acr:gpt} part reused without modification.
     \end{itemize}
 \end{itshape}
@@ -210,27 +210,64 @@ As can be seen in the example, elements in a table can sometimes benefit from be
 \noindent \Autochapterref{cha:background-theory} will lay a theoretical basis for the work done in this master thesis, providing the user with the required understanding in order to understand the contributions of the work. \Autosectionref{sec:language-modelling} will explain the theoretical basis of the component which most modern \glspl{acr:llm} are based upon --- namely the Transformer --- and the attention mechanism within it. The section will also touch upon a new approach to language modelling called \textit{selective state space modelling}, which has yielded very promising results for small \glspl{acr:llm}.
 
 
-\section{Approaches to Language Modelling}
-\label{sec:language-modelling}
+% \section{Approaches to Language Modelling}
+% \label{sec:language-modelling}
 
-\Autosubsectionref{subsec:attention-and-the-transformer-architecture} will explain the theoretical basis behind most modern \glspl{acr:llm}, which are based upon the attention mechanism built into the Transformer architecture. \Autosubsectionref{subsec:state-space-models} will explain modern state space-modelling approaches and why they may have a potential greater than Transformer-based models. First, however, \autoref{subsec:statistical-models-and-rnns} will delve into earlier attempts at language modelling.
+% \Autosubsectionref{subsec:attention-and-the-transformer-architecture} will explain the theoretical basis behind most modern \glspl{acr:llm}, which are based upon the attention mechanism built into the Transformer architecture. \Autosubsectionref{subsec:state-space-models} will explain modern state space-modelling approaches and why they may have a potential greater than Transformer-based models. First, however, \autoref{subsec:statistical-models-and-rnns} will delve into earlier attempts at language modelling.
 
-\subsection[Early Attempts: Statistical Models and Recurrent Neural Networks]{Early Attempts: Statistical Models and \acrlongpl{acr:rnn}}
-\label{subsec:statistical-models-and-rnns}
+% \subsection[Early Attempts: Statistical Models and Recurrent Neural Networks]{Early Attempts: Statistical Models and \acrlongpl{acr:rnn}}
+% \label{subsec:statistical-models-and-rnns}
 
-\subsection{Statistical Models}
+% \subsection{Statistical Models}
 
 
-\subsection[Recurrent Neural Networks]{\acrlongpl{acr:rnn}}
+% \subsection[Recurrent Neural Networks]{\acrlongpl{acr:rnn}}
 
+
+% \subsection{State Space Models}
+% \label{subsec:state-space-models}
+
+
+\section[Large Language Models]{\acrlongpl{acr:llm}}
+
+\glspl{acr:llm} are a type of neural networks that excel at processing language. They can be developed for different \gls{acr:nlp} tasks, such a text classification, masked language modelling, and text generation. While they all have their use cases, only text generation will be relevant for this thesis.
+
+Generative \glspl{acr:llm} are designed to take some input sequence and generate some output sequence.
+
+This section will lay the theoretical groundwork required to gain an overview of the inner workings of \glspl{acr:llm}. \autoref{subsec:core-concepts} will inform the reader on core concepts and terminology that will be used extensively throughout this thesis when discussing \acrshortpl{acr:llm}. \autoref{subsec:attention-and-the-transformer-architecture} will explain the attention mechanism and the related Transformer architecture, the latter of which serves as the core building block in most modern \acrshortpl{acr:llm}.
+
+% Most modern \glspl{acr:llm} use the Transformer architecture \citep{vaswaniAttentionAllYou2017} which is described in \autoref{subsec:attention-and-the-transformer-architecture}. 
+
+\subsection{Core Concepts}
+\label{subsec:core-concepts}
+
+The \textbf{context window} of an \acrshort{acr:llm} is the range of tokens that an \acrshort{acr:llm} is able to process.
+
+While humans understand sentences as sequences of words, \acrshortpl{acr:llm} perceive them as sequences of \textbf{tokens}. An \acrshort{acr:llm} possesses a fixed set of unique tokens in its vocabulary, from which it constructs words and sentences. Tokens can be entire words, short character sequences, or single characters. \autoref{fig:tokenization-example-sentence} illustrates how the latest \acrshort{acr:gpt} models \textit{tokenize} an English sentence. Notice how some words are deconstructed into more than one token. For example, the word \enquote{revolutionizing} is split into its root (\enquote{revolution}) and its suffix (\enquote{izing}). \autoref{fig:tokenization-revolution} shows how this process applies to other suffixes as well. Likely, the model has learned the meaning of \enquote{revolution} and elects to use different suffixes to modify its function within a sentence, as opposed to having an entirely new token for each version of the word.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=\textwidth]{tokens_illustration.png}
+    \caption{Tokenization example for a sentence}
+    \label{fig:tokenization-example-sentence}
+\end{figure}
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.25\textwidth]{revolution_tokens.png}
+    \caption{Tokenization of \enquote{revolution} with different suffixes}
+    \label{fig:tokenization-revolution}
+\end{figure}
+
+When an \acrshort{acr:llm} generates text, it does so by generating a new token based on what
 
 \subsection{Attention and the Transformer Architecture}
 \label{subsec:attention-and-the-transformer-architecture}
 
-
 \cite{vaswaniAttentionAllYou2017} managed to achieve new state-of-the-art results for machine translation tasks with their introduction of the Transformer architecture. The Transformer has later been proved effective for numerous downstream tasks, and for a variety of modalities. Titling their paper \citetitle{vaswaniAttentionAllYou2017}, \citeauthor{vaswaniAttentionAllYou2017} suggest that their attention-based architecture renders network architectures like \glspl{acr:rnn} redundant, due to its superior parallelization abilities and the shorter path between combinations of position input and output sequences, making it easier to learn long-range dependencies \citep[6]{vaswaniAttentionAllYou2017}.
 
 The Transformer employs self-attention, which enables the model to draw connections between arbitrary parts of a given sequence, bypassing the long-range dependency issue commonly found with \glspl{acr:rnn}. An attention function maps a query and a set of key-value pairs to an output, calculating the compatibility between a query and a corresponding key \citep[3]{vaswaniAttentionAllYou2017}. Looking at \citeauthor{vaswaniAttentionAllYou2017}'s proposed attention function \eqref{eq:attention}, we observe that it takes the dot product between the query $Q$ and the keys $K$, where $Q$ is the token that we want to compare all the keys to. Keys similar to $Q$ will get a higher score, i.e., be \textit{more attended to}. These differences in attention are further emphasized by applying the softmax function. The final matrix multiplication with the values $V$ (the initial embeddings of the input tokens) will yield a new embedding in which all individual tokens have some context from all other tokens. We improve the attention mechanism by multiplying queries, keys, and values with weight matrices that are learned through backpropagation. Self-attention is a special kind of attention in which queries, keys, and values are all the same sequence.
+
 
 \begin{equation}
     \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
@@ -247,11 +284,32 @@ Attention blocks can be found in three places in the Transformer architecture \c
 
 The Transformer represented a breakthrough in the field of \gls{acr:nlp}, and is the fundamental building block of modern \glspl{acr:llm}, most famous of which are the \acrshort{acr:gpt}'s.
 
-\subsection{State Space Models}
-\label{subsec:state-space-models}
+\subsection[State-of-the-Art Decoder-Only Models]{State-of-the-Art Decoder-Only \acrlongpl{acr:llm}}
+\label{subsec:sota-decoder-only-llms}
 
+While the work of \citeauthor{vaswaniAttentionAllYou2017} is still considered perhaps the greatest breakthrough in \gls{acr:nlp}, most moderns \acrshort{acr:llm} do not apply this encoder-decoder architecture. The subsequent evolution of \acrshortpl{acr:llm} has favoured generative decoder-only models, focusing entirely on the generative component of the Transformer, hoping to create models that can produce coherent and context-aware text. The first decoder-only model was OpenAI's \acrshort{acr:gpt}-1.
 
-\section[Large Language Models]{\acrlongpl{acr:llm}}
+\subsubsection{The GPT Family}
+\label{subusubsec:gpt}
+
+\gls{acr:gpt} is a type of \gls{acr:llm} that was introduced by OpenAI in 2018 \citep{radfordImprovingLanguageUnderstanding2018}. Specifically designed for text generation, a \acrshort{acr:gpt} is essentially a stack of Transformer \textit{decoders}. It demonstrates through its vast pre-training on unlabelled data that such unsupervised training can help a language model learn good representations, providing a significant performance boost while alleviating the dependence on supervised learning. While the original Transformer architecture as described by \cite{vaswaniAttentionAllYou2017} was intended for machine translation --- thus having encoders to learn the representation of the origin language representation of a given input sequence and decoders to learn the representation in the target language and perform cross-attention between the two --- the \acrshort{acr:gpt} is designed only to \textit{imitate} language. This is why there are no encoders to be found in the \acrshort{acr:gpt} architecture, only decoders. The model employs masked multi-head attention (running the input sequence through multiple attention heads in parallel), and is restricted to only see the last $k$ tokens --- with $k$ being the size of the context window --- and tasked to predict the next one.
+
+Training consists of two stages: unsupervised pre-training and supervised fine-tuning. The former is used to find a good initialization point, essentially teaching the model to imitate the corpora upon which it is trained. This results in a model that will ramble on uncontrollably, just trying to elaborate upon the input sequence it's given to the best of its knowledge. This will naturally produce undefined behaviour, and it is therefore necessary to fine-tune the model on target tasks in a supervised manner. \cite[4]{radfordImprovingLanguageUnderstanding2018} explain how the model can be fine-tuned directly on tasks like text classification, but how one for other tasks needs to convert structured inputs into ordered sequences because the pre-trained model was trained on contiguous sequences of text. In the case of ChatGPT, \citeauthor{openaiIntroducingChatGPT2022} used \gls{acr:rlhf} by employing a three-step strategy: first training using a supervised policy, then using trained reward models to rank alternative completions produced by ChatGPT models, before fine-tuning the model using \gls{acr:ppo}, which is a way of training \acrshort{acr:ai} policies. This pipeline is then performed for several iterations until the model produces the desired behaviour \citep{openaiIntroducingChatGPT2022}.
+
+\subsubsection{The Gemini Family}
+\label{subsubsec:gemini}
+
+The suite of models known as Gemini is Google's latest response OpenAI's \acrshort{acr:gpt} models.
+
+\subsubsection{The Claude Family}
+\label{subsubsec:claude}
+
+Developed at Anthropic, Claude is the third major, commercial \acrshort{acr:llm}. Latest in line is Claude 3, a family of \acrshortpl{acr:llm} of different sizes, largest of which is the Opus model which outperforms \acrshort{acr:gpt}-4 and Gemini 1.0 Ultra on most benchmarks \citep[6]{anthropicClaudeModelFamily2024}.
+
+\subsubsection{Open-Source Alternatives}
+\label{subsubsec:open-source-llms}
+
+\subsection{Fine-Tuning and Prompt Engineering}
 
 \subsection[Function Calling LLMs]{Function Calling \acrshortpl{acr:llm}}
 \label{subsec:function-calling}
@@ -260,24 +318,6 @@ The Transformer represented a breakthrough in the field of \gls{acr:nlp}, and is
 
 Possible use cases include using functions provide correct and up-to-date information that would otherwise require extensive training and fine-tuning. Having the \gls{acr:llm} use function calling for information retrieval also make them more transparent, making it possible to trace a claim back to its source, something that is normally a difficult feat with \gls{acr:llm}. Another use case might be code execution. One could imagine a rather simple function \texttt{execute\_python\_code(code: string) -> string} that takes Python code as a string and returns the standard output that results from executing that code. This is likely the principle behind products like OpenAI's Data Analysis mode (previously Code Interpreter), in which ChatGPT functions as a code executing agent that can generate, execute, and self-correct its own code. Similar functions could be constructed for \acrshort{acr:sql}, making it possible for \glspl{acr:llm} to work against relational databases. As \cite{eletiFunctionCallingOther2023} describes, function calling can also be used to extract structured data from text.
 
-\subsection[State-of-the-Art Models]{State-of-the-Art \acrlongpl{acr:llm}}
-\label{subsec:sota-llms}
-
-\subsubsection{The GPT Family}
-\label{subusubsec:gpt}
-
-\gls{acr:gpt} is a type of \gls{acr:llm} that was introduced by OpenAI in 2018 \citep{radfordImprovingLanguageUnderstanding2018}. Specifically designed for text generation, a \acrshort{acr:gpt} is essentially a stack of Transformer \textit{decoders}. It demonstrates through its vast pre-training on unlabelled data that such unsupervised training can help a language model learn good representations, providing a significant performance boost while alleviating the dependence on supervised learning. While the original Transformer architecture as described by \cite{vaswaniAttentionAllYou2017} was intended for machine translation---thus having encoders to learn the representation of the origin language representation of a given input sequence and decoders to learn the representation in the target language and perform cross-attention between the two---the \acrshort{acr:gpt} is designed only to \textit{imitate} language. This is why there are no encoders to be found in the \acrshort{acr:gpt} architecture, only decoders. The model employs masked multi-head attention (running the input sequence through multiple attention heads in parallel), and is restricted to only see the last $k$ tokens---with $k$ being the size of the context window---and tasked to predict the next one.
-
-Training consists of two stages: unsupervised pre-training and supervised fine-tuning. The former is used to find a good initialization point, essentially teaching the model to imitate the corpora upon which it is trained. This results in a model that will ramble on uncontrollably, just trying to elaborate upon the input sequence it's given to the best of its knowledge. This will naturally produce undefined behaviour, and it is therefore necessary to fine-tune the model on target tasks in a supervised manner. \cite[4]{radfordImprovingLanguageUnderstanding2018} explain how the model can be fine-tuned directly on tasks like text classification, but how one for other tasks needs to convert structured inputs into ordered sequences because the pre-trained model was trained on contiguous sequences of text. In the case of ChatGPT, \citeauthor{openaiIntroducingChatGPT2022} used \gls{acr:rlhf} by employing a three-step strategy: first training using a supervised policy, then using trained reward models to rank alternative completions produced by ChatGPT models, before fine-tuning the model using \gls{acr:ppo}, which is a way of training \acrshort{acr:ai} policies. This pipeline is then performed for several iterations until the model produces the desired behaviour \citep{openaiIntroducingChatGPT2022}.
-
-\subsubsection{The Gemini Family}
-\label{subsubsec:gemini}
-
-\subsubsection{The Claude Family}
-\label{subsubsec:claude}
-
-\subsubsection{Open-Source Alternatives}
-\label{subsubsec:open-source-llms}
 
 
 \section{LangChain}
@@ -343,8 +383,17 @@ The development of the Features standard is divided into several parts that are 
 
 Part 1 specifies core capabilities that are described in the first paragraph of this section, while parts 2-4 spcify additional capabilities. Part 2 allows retrieval of features in \glspl{acr:crs} different to the default WGS 84 reference system. Part 3 enables filtering of features using \gls{acr:cql}. \gls{acr:cql} is a language similar to \acrshort{acr:sql}. This allows for filtering of collections, so that users of the \acrshort{acr:api} can retrieve only a subset of a given collection. Below are two examples of \gls{acr:cql} queries:
 
-$$\text{county in ('Akershus', 'Buskerud', 'Østfold')}$$
-$$DWITHIN(\text{the\_geom}, \text{Point}(63.4265, 10.3960), 1, \text{kilometers})$$
+\begin{lstlisting}[
+    language=SQL,
+    caption=\acrshort{acr:cql} examples,
+    label=cql-examples
+]
+\\ Example 1
+county in ('Akershus', 'Buskerud', 'Ostfold')
+
+\\ Example 2
+DWITHIN(the\_geom, Point(63.4265, 10.3960), 1, kilometers)
+\end{lstlisting}
 
 Part 4 defines how an \acrshort{acr:api} following the specification handle addition,  replacement, modification, and/or removal for a collection. Part 5 describes how features can be described by a logical schema and how these are published. Furthermore, several proposed extensions, such as the Search extension which could allow for multi-collection queries, or the Geometry Simplification extension which proposes the use of simplification algorithms for retrieving simplified versions of a collection, have been created.\footnote{\url{https://github.com/opengeospatial/ogcapi-features/tree/master/proposals}}
 

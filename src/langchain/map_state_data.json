@@ -1,12 +1,3 @@
 {
-    "layers": [
-        {
-            "id": "drammen_houses",
-            "type": "fill",
-            "source": "drammen_houses",
-            "paint": {
-                "fill-color": "#7c4c1c"
-            }
-        }
-    ]
+    "layers": []
 }
