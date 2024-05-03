@@ -299,17 +299,26 @@ Training consists of two stages: unsupervised pre-training and supervised fine-t
 \subsubsection{The Gemini Family}
 \label{subsubsec:gemini}
 
-The suite of models known as Gemini is Google's latest response OpenAI's \acrshort{acr:gpt} models.
+The suite of models known as Gemini is Google's latest response OpenAI's \acrshort{acr:gpt} models. The Gemini 1.0 suite \citep{geminiteamGeminiFamilyHighly2024}, which is the first suite of Gemini models, includes three different models: Ultra, Pro, and Nano. These are listed in descending order in terms of size (number of parameters). Like most other commercial \acrshortpl{acr:llm} the models of the Gemini 1.0 suite are multimodal, supporting text, image, audio, and video. Gemini 1.0 displayed new state-of-the-art performance on most major benchmarks, but performed significantly worse on the HellaSwag benchmark (which measures a model's common-sense understanding) compared to the newest \acrshort{acr:gpt}-4 model at the time. The models scored 87.8\% and 95.3\%, respectively. Supporting a context length up to 1M tokens, Gemini 1.0 Ultra surpassed the Claude 2.1's context window of 200k with a wide margin, and with the release of Gemini 1.5 Pro came also the possibility of utilizing a context window of up to 10M tokens, though in production this number is currently 1M \citep{geminiteamGeminiUnlockingMultimodal2024, pichaiOurNextgenerationModel2024}. Furthermore, Gemini 1.5 Pro outperforms Gemini 1.0 Ultra in some capabilities despite using significantly less training compute \citep[31]{geminiteamGeminiUnlockingMultimodal2024}.
 
 \subsubsection{The Claude Family}
 \label{subsubsec:claude}
 
-Developed at Anthropic, Claude is the third major, commercial \acrshort{acr:llm}. Latest in line is Claude 3, a family of \acrshortpl{acr:llm} of different sizes, largest of which is the Opus model which outperforms \acrshort{acr:gpt}-4 and Gemini 1.0 Ultra on most benchmarks \citep[6]{anthropicClaudeModelFamily2024}.
+Developed at Anthropic, Claude is the third major, commercial \acrshort{acr:llm}. Anthropic is one of the actors in the \acrshort{acr:llm} market that has helped push in the direction of long-context \acrshortpl{acr:llm}, which their Claude 2 model being able to support up to 200k tokens \citep[9]{anthropicModelCardEvaluations2023}, being the best at the time of its release in November 2023. Latest in line is Claude 3, a family of \acrshortpl{acr:llm} of different sizes, largest of which is the Opus model which outperforms \acrshort{acr:gpt}-4 and Gemini 1.0 Ultra on most benchmarks \citep[6]{anthropicClaudeModelFamily2024}. Claude 3 is a family of language models, much like the Gemini family, featuring three main models: Opus, Sonnet, and Haiku. Again, these are listed in descending order in terms of number of parameters. Users can choose between Opus for the most advanced capabilities, Haiku for a fast and economical option, or Sonnet for a balance of both.
 
 \subsubsection{Open-Source Alternatives}
 \label{subsubsec:open-source-llms}
 
+OpenAI's \acrshort{acr:gpt} models, Google's Gemini models, and Anthropic's Claude models are all commercial and closed-source. This prevents developers from downloading these models and making custom improvements to them through fine-tuning (see \autoref{subsec:fine-tuning-prompt-engineering}). For these reasons, a number of open-source \acrshortpl{acr:llm} have joined the scene.
+
+The \textbf{Llama} family of \acrshortpl{acr:llm} from Meta AI is perhaps the most famous open-source option to the commercial, closed-source \acrshortpl{acr:llm}. At the time of writing, the last in line is the Meta Llama 3 model \citep{metaaiIntroducingMetaLlama2024} which comes in two size: 8B and 70B parameters. Both models display state-of-the-art performance on most major benchmarks compared to comparable open-source alternatives, and 70B model even surpasses closed-source models like Gemini 1.5 Pro and Claude 3 Sonnet on certain benchmarks.
+
+\textbf{Mistral AI} is one of the most prominent actors in the world of open-source \acrshortpl{acr:llm}. Their debut model, Mistral 7B, outperformed Llama 13B (which was the best open-source \acrshort{acr:llm} at the time) across all the benchmarks they evaluated \citep{jiangMistral7B2023}. Mistral AI has also gained fame for their \gls{acr:smoe} architecture, which was introduced with the Mixtral 8x7B model \citep{jiangMixtralExperts2024}. It shares architecture with Mistral 7B, but is each layer of the model is composed of 8 feed-forward blocks. Using a router at each layer, it is able to use only 13B out of a total of 47B parameters during inference, keeping cost and latency low.
+
+Along with their Gemini models, Google released a family of open-source models called \textbf{Gemma}, which are based on the same research conducted for their Gemini models \citep{gemmateamGemmaOpenModels2024}. Gemma comes in two sizes: 2B and 7B parameters. At its release, the Gemma 7B it surpassed Llama 2 13B and Mistral 7B \acrshortpl{acr:llm} in 11 out of 18 benchmarks. Note, however, that Llama 3 8B has improved upon its predecessor and now performs better than Gemma 7B overall.
+
 \subsection{Fine-Tuning and Prompt Engineering}
+\label{subsec:fine-tuning-prompt-engineering}
 
 \subsection[Function Calling LLMs]{Function Calling \acrshortpl{acr:llm}}
 \label{subsec:function-calling}
