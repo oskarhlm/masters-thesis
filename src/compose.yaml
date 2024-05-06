@@ -46,11 +46,10 @@ services:
     ports:
       - 9001:9000
     environment:
-      # - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgis-db/geogpt_db
       - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgis-db-osm/geogpt_db
       - DEBUG=true
       - DEVEL=true
-      - PGFS_PAGING_LIMITMAX=30000
+      - PGFS_PAGING_LIMITMAX=10000
     depends_on:
       - postgis-db-osm
 

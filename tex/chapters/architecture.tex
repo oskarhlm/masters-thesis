@@ -77,18 +77,25 @@ Redis \citep{sanfilippoRedisRealtimeData2009} is a fast in-memory database that 
 
 Storing messages --- either in memory as a simple array or in a database like Redis --- is crucial to enable multi-message conversations. In order for a \gls{acr:llm} to act as a conversational agent, some sort of chat history needs to be prepended to the prompt. In the case of GeoGPT the entire chat history is prepended. This has the advantage of providing the \gls{acr:llm} with the complete context of the chat history, but the disadvantage of potentially bloating the context window from which it is supposed to generate tokens. Therefore, as the chat becomes longer each new token will be both more expensive and take more time to get generated. A long chat history could also make the resulting prompt exceed the token limit of the \gls{acr:llm}, or it could confuse model by providing it with messages no longer relevant to the conversation. These issue was not considered in great detail for this project, and are left for future work.
 
-\subsection{PostGres + PostGIS}
+\subsection[PostGIS and OGC API Features]{PostGIS \acrshort{acr:ogc} \acrshort{acr:api} Features}
 
+A PostgreSQL database with the PostGIS extension containing \gls{acr:osm} data was deployed using Docker. On top of this database is a RESTful geospatial feature server called \textit{pg\_featureserv} \citep{crunchydataCrunchyDataPg_featureserv2024}. The web server is realized through the \texttt{pramsey/pg\_featureserv} Docker image\footnote{\url{https://hub.docker.com/r/pramsey/pg_featureserv}}, which is simply passed a database connection string to the database one wishes to expose on the \acrshort{acr:api}. Any tables in that database which have a geometry column and a specified \gls{acr:crs} will be exposed through the web server. pg\_featuresserv allows for features like bounding box filtering, feature limiting, and \acrshort{acr:cql} filtering. These are added as query parameters to the URL of the collection items (for instance: \texttt{.../collections/\{collection\_id\}/items.json?limit=1000\&filter=name IS NOT NULL}). In the internals of pg\_featuresserv, this URL will be converted to an \acrshort{acr:sql} query that will be run against the database. Results of the query will be returned as GeoJSON. \autoref{code:cql-to-sql} shows an example of how \acrshort{acr:cql} code is converted into \acrshort{acr:sql} code:
 
+\begin{lstlisting}[
+    language=SQL,
+    label=code:cql-to-sql,
+    caption=Conversion from \acrshort{acr:cql} to \acrshort{acr:sql}
+]
+\\ CQL code passed through the `filter` query parameter
+within(geom, POINT(0 0))
 
-\subsection[OGC API Features]{\acrshort{acr:ogc} \acrshort{acr:api} Features}
-
-On top of the PostGIS database  containing \gls{acr:osm} data is a RESTful geospatial feature server called \textit{pg\_featureserv} \citep{crunchydataCrunchyDataPg_featureserv2024}.
-
+\\ SQL code that will be run agains the database
+ST_Within("geom",'SRID=4326;POINT(0 0)'::geometry)
+\end{lstlisting}
 
 \subsection[Web UI]{Web \acrshort{acr:ui}}
 
-The user interface is made with SolidJS. By design, it is very minimal. One of the goals of the project is to simplify the way we do \acrshort{acr:gis} analysis. One of the key design goals was therefore to make the interface as familiar to the user as possible and lowering the chance of the user doing something wrong. The chat interface was designed to imitate the interface of OpenAI's
+The user interface is made with SolidJS. By design, it is very minimal. One of the goals of the project is to simplify the way we do \acrshort{acr:gis} analysis. One of the key design goals was therefore to make the interface as familiar to the user as possible and lowering the chance of the user doing something wrong.
 
 \begin{figure}[h]
     \centering
@@ -97,19 +104,24 @@ The user interface is made with SolidJS. By design, it is very minimal. One of t
     \label{fig:web-ui}
 \end{figure}
 
+The chat interface was designed to imitate the interface of OpenAI's ChatGPT. Tokens and tool messages are streamed from the LangChain server, which helps the user follow the process that GeoGPT goes through when solving a problem. During this process it is possible for the user to cancel token generation if he/she sees that the system is heading off in the wrong direction. The text that is generated and streamed to the client is in Markdown format. A library called \textit{showdown}\footnote{\url{https://github.com/showdownjs/showdown}} is used to convert Markdown into \acrshort{acr:html}, ensuring that tables, code blocks, lists, and other elements are properly rendered. Next to the input field on the bottom of the chat is a file upload button. Files that are uploaded here will be added to the working directory on the LangChain server, allowing GeoGPT to perform analyses on them and optionally adding them to the map.
 
-\glsresetall
+The map is created using MapLibre\footnote{\url{https://github.com/maplibre/maplibre-gl-js}}, an open-source fork of Mapbox which in December 2020 changed to a non-open-source software licence. A base map from \gls{acr:osm} is used, fetched through a website called MapTiler. GeoJSON files of any kind that are fetched from the server will be added to the map automatically with a random color. On the top-right of the map is an overlay listing all layers that are currently present in the map. Using the arrow keys on this list will change the z-index in the map of the selected layer.
 
 
 
 \section{Agent Architecture}
 
-Three different agent were implemented for GeoGPT.
-
-\Autosubsectionref{subsec:lg-agent-implementation} will explain how the base agent was implemented using LangGraph, while \autoref{subsec:prompt-templating} will present a detailed description of how GeoGPT builds suitable prompts that provide the \acrshort{acr:llm} with the context required to solve the problem. Finally, \autoref{subsec:tools} will present the different tools that were used for the different agents.
+Three different agent were implemented for GeoGPT: one agent utilizing \acrshort{acr:ogc} \acrshort{acr:api} Features, one agent which can access shapefiles using Python code, and one agent that can interact with data in an \acrshort{acr:sql} database. Common to these agents is their agentic architecture, which is described in \autoref{subsec:lg-agent-implementation}. They way that they differ is through their assigned \textit{tools}. These differences will be made apparent in \autoref{fig:tool-agent-graph}. Other slight differences are seen in the way that they are prompted. The prompting strategy used in GeoGPT and these minor differences will be discussed in \autoref{subsec:prompt-templating}.
 
 \subsection{LangGraph Agent Implementation}
 \label{subsec:lg-agent-implementation}
+
+The agentic behaviour of GeoGPT is implemented using LangGraph, an extension to LangChain intended to make implementation of cyclic behaviour easier. \autoref{fig:tool-agent-graph} illustrates the flow between the various nodes that make up the agent. A state dictionary is passed between and updated by these nodes. Included in this state is the chat history (previous messages), the path to GeoGPT's working directory, a list of the current files in this directory, and other, less important state. The implementation is based upon a prebuilt implementation from LangGraph.\footnote{\url{https://github.com/langchain-ai/langgraph/blob/main/langgraph/prebuilt/chat_agent_executor.py}}
+
+The \textit{\_\_start\_\_} node serves as the entry point of the agent. At this point, only one message is present in the state, namely the initial message from the user. The \textit{\_\_start\_\_} node points to the \textit{agent} node, where a response to the user is generated by an \acrshort{acr:llm}. This response could contain a textual response, or it could contain instructions to execute some tool. For this reason, the current state containing both the user message and the \acrshort{acr:ai} message, is sent to the \textit{conditional} node called \textit{agent\_should\_continue}. This node simply checks if the agent outcome (the last \acrshort{acr:ai} message) includes the \enquote{tool\_calls} keyword argument. If this is the case then some tool should be executed, and we should \enquote{continue}. If not, the agent has generated a final textual response to the user.
+
+In the \textit{action} node the values inside the \enquote{tool\_calls} object are converted into \texttt{ToolInvocation} objects that are used to invoke predefined tools. \enquote{tool\_calls} is a list of \enquote{tool\_call} objects, each of which has attributes called \textit{name} (the name of the tool) and \textit{arguments} (arguments that should be passed to the tool). These tools are then executed, possibly having side effects on the server, and the resulting output of the tools are appended as messages to the chat history. \autoref{fig:chat-trace-example} illustrates this behavour. This way the agent can inspect the results of the code it is \enquote{executing}, as well as being notified about possible errors in the input parameters it provided. Through the cyclic behaviour of the agent graph the agent can repeatedly call tools to try and answer the request from the user. When the agent finds to reason to call any more tools it generates a textual response, making \textit{agent\_should\_continue} return \texttt{False} so that the termination node (\textit{\_\_end\_\_}) is reached.
 
 \begin{figure}[h]
     \centering
@@ -118,42 +130,113 @@ Three different agent were implemented for GeoGPT.
     \label{fig:tool-agent-graph}
 \end{figure}
 
-\subsection{Tools}
-\label{subsec:tools}
-
-\begin{table}
-    \centering
-    \caption{Overview of each agent's tools}
-    \label{tbl:agent-tool-overview}
-    \begin{tabularx}{0.7\textwidth}{XX}
-        \toprule
-        \textbf{Agent Type} & \textbf{Tools}                  \\
-        \midrule
-        OGC API Features    & \texttt{get\_collections\_info} \\
-                            & \texttt{list\_collections}      \\
-                            & \texttt{query\_collection}      \\
-                            & \texttt{python\_repl\_ast}      \\
-                            & \texttt{add\_geojson\_to\_map}  \\
-        \midrule
-        Python              & \texttt{python\_repl\_ast}      \\
-                            & \texttt{add\_geojson\_to\_map}  \\
-        \midrule
-        SQL                 & \texttt{sql\_db\_query}         \\
-                            & \texttt{sql\_db\_list\_tables}  \\
-                            & \texttt{sql\_db\_schema}        \\
-                            & \texttt{add\_geojson\_to\_map}  \\
-        \bottomrule
-    \end{tabularx}
-\end{table}
-
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.9\textwidth]{chat_diagram.png}
     \caption{Example of a chat trace}
     \label{fig:chat-trace-example}
 \end{figure}
 
+\subsection{Tools}
+\label{subsec:tools}
+
+\autoref{tbl:agent-tool-overview} shows an overview of the tools that are available to each of the agents. As described in \autoref{subsec:function-calling}, these are defined by a name, an overall description of the tool's functionality, and a description of the parameters the tool expects.
+
+The \acrshort{acr:ogc} \acrshort{acr:api} Features agent has access to a total of five tools. \textbf{\texttt{list\_collections}}, which takes no parameters, sends a \texttt{GET} request to the \texttt{/collections} endpoint and uses the response to construct a string listing the names of available collections along with their descriptions. The tool is designed to give the agent an overview of what kinds of data are available. Using the response from \texttt{list\_collections} the agent can now invoke the \textbf{\texttt{get\_collections\_info}}. This tool takes a list of collection names and returns relevant information for each of these collections. This includes the \acrshort{acr:json} response from the \enquote{landing page} of the collection, presenting details such as the collection description, spatial extent, and available attributes. In addition to this information, there is a list of common values for certain high-cardinality attributes, along with the prevalence of each value in percentages. \autoref{code:attribute-prevalences} shows an example of this. This is achieved by querying a large number of features from \texttt{/collections/\{collection\_id\}} and calculating the prevalences between them.
+
+\begin{lstlisting}[
+    caption=Prevalences of common values for the \textit{fclass} attribute in the \textit{osm\_natural\_points} collection,
+    label=code:attribute-prevalences
+]
+Property: fclass
+    tree: 71.1%
+    peak: 27.2%
+    beach: 0.9%
+    cave_entrance: 0.5%
+    spring: 0.2%
+    cliff: 0.1%
+    volcano: 0.0%
+\end{lstlisting}
+
+The \textbf{\texttt{query\_collection}} tool is used to retrieve features from a collection. It takes a collection name, a \acrshort{acr:cql} filter, a bounding box, and a layer name. The \acrshort{acr:cql} filter and bounding box allow for retrieval of a subset of the features of the collection being queried. Based on the parameters an URL like this is constructed:
+
+\begin{quote}
+    https://localhost:9001/collections/\{collection\_id\}/items.json?limit=10000\&filter=\{cql\_filter\}\&\{bbox\}
+\end{quote}
+
+The features retrieved from this query is saved on the working directory on the LangChain server as \enquote{\{layer\_name\}.geojson}, as a side effect of the tool. The message returned from the tool reads something like this: \enquote{Query returned 5627 features.} If the GeoJSON itself were returned as a tool message, this would quickly bloat the context window of the \acrshort{acr:llm}, and therefore it is avoided.
+
+\begin{table}[h]
+    \centering
+    \caption{Overview of each agent's tools}
+    \label{tbl:agent-tool-overview}
+    \begin{tabularx}{0.7\textwidth}{XX}
+        \toprule
+        \textbf{Agent Type}                            & \textbf{Tools}                  \\
+        \midrule
+        \acrshort{acr:ogc} \acrshort{acr:api} Features & \texttt{list\_collections}      \\
+                                                       & \texttt{get\_collections\_info} \\
+                                                       & \texttt{query\_collection}      \\
+                                                       & \texttt{python\_repl\_ast}      \\
+                                                       & \texttt{add\_geojson\_to\_map}  \\
+        \midrule
+        Python                                         & \texttt{python\_repl\_ast}      \\
+                                                       & \texttt{add\_geojson\_to\_map}  \\
+        \midrule
+        \acrshort{acr:sql}                             & \texttt{sql\_db\_list\_tables}  \\
+                                                       & \texttt{sql\_db\_schema}        \\
+                                                       & \texttt{sql\_db\_query}         \\
+                                                       & \texttt{add\_geojson\_to\_map}  \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+Common for both the \acrshort{acr:ogc} \acrshort{acr:api} Features agent and the Python agent is the \textbf{\texttt{python\_repl\_ast}} tool. This tool accepts a string of Python code, executes said Python code, and returns whatever the code prints to the standard output in a so-called \acrfull{acr:repl}. In case the code errors, the error message is returned instead. This Python tool is the main way for these two agents perform geospatial analyses. An advantage of using \acrshortpl{acr:repl} is that the code can be executed in blocks, with variables from one block being shared with other blocks. This means that the first block may load large files into memory --- an often time-consuming operation --- while subsequent blocks can reuse this in-memory variable, even if that block should error. This allows the \acrshort{acr:llm} to quickly retry whenever the code errors or if the outcome of the initial code wasn't as expected. The \acrshort{acr:ogc} \acrshort{acr:api} Features agent will have available the files it downloaded using the \texttt{query\_collection} tool for analysis using Python, whereas the Python agent will have files corresponding to all collections available for analysis. These files are stored locally on the machine and they are added to the agent's working directory at system launch using symbolic links\footnote{\url{https://en.wikipedia.org/wiki/Symbolic_link}}. This is because a new working directory is created every time a new agent is created in order to give each agent a \enquote{clean canvas} to work from.
+
+\textbf{\texttt{add\_geojson\_to\_map}} is the only tool that is common for all three agent types. The tool's job is to add layers to the map on the client. It takes two parameters: the name/path of a GeoJSON file stored on the LangChain server's working directory and a layer name. Invoking the tool will send a message to the client including the full path to the file on the server. The client will then make a \texttt{GET} request to the server on the \texttt{/geojson} endpoint, asking for the contents of this file to be returned so that it can be added to the map.
+
+The \acrshort{acr:sql} agent has tools very similar to the \acrshort{acr:ogc} \acrshort{acr:api} Features agent. The \acrshort{acr:sql} agent is connected directly to the same database that the Features \acrshort{acr:api} is served on top of. \textbf{\texttt{sql\_db\_list\_tables}} is a tool that will list all database tables along with their description. \textbf{\texttt{sql\_db\_schema}} takes a list of table names and will return information about attributes, prevalence of different values in high-cardinality columns, etc., about these tables, much like \texttt{get\_collections\_info}. \textbf{\texttt{sql\_db\_query}} takes as parameter arbitrary \acrshort{acr:sql} code executes this code against the database. The tool will make sure that any query result that has a geospatial component will be stored as GeoJSON on the server. This is required to make it possible to add the geometries to the client map.
+
+\begin{lstlisting}[
+    language=json,
+    caption=Example of a tool definition,
+    label=code:tool-definition-example
+]
+{
+  "type": "function",
+  "function": {
+    "name": "get_collections_info",
+    "description": "Get the schema and sample rows for the specified collections.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "collection_names": {
+          "description": "A list of the collection_names names for which to return the schema.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "collection_names"
+      ]
+    }
+  }
+}
+\end{lstlisting}
+
+
+
 
 \subsection{Prompt Templating}
 \label{subsec:prompt-templating}
+
+
+
+
+
+
+\glsresetall
+
 

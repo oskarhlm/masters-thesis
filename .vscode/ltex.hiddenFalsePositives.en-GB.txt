@@ -1,2 +1,7 @@
 {"rule":"NUMEROUS_DIFFERENT","sentence":"^\\QAs it is unlikely that the training data is evenly distributed among many different topics, making the\\E$"}
 {"rule":"EN_COMPOUNDS","sentence":"^\\QThis includes patterns for retrieval of external data, multi-agent patterns,\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_GB","sentence":"^\\QGeoJSON files of any kind that are fetched from the server will be added to the map automatically with a random color.\\E$"}
+{"rule":"MD_BASEFORM","sentence":"^\\QA proposal to such features have been created, but it is unclear whether this will accepted into the specification.\\E$"}
+{"rule":"POSSESSIVE_APOSTROPHE","sentence":"^\\QBeing able to construct such acr:cql queries would offload this work to the Features server\\E$"}
+{"rule":"LARGE_NUMBER_OF","sentence":"^\\QThis is achieved by querying a large number of features from /collections/collection_id and calculating the prevalences between them.\\E$"}
+{"rule":"EN_A_VS_AN","sentence":"^\\QBased on the parameters an URL\\E$"}
