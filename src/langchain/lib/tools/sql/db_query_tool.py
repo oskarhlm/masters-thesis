@@ -45,7 +45,7 @@ class CustomQuerySQLDataBaseTool(BaseSQLDatabaseTool, BaseTool):
             if 'geom' not in df:
                 if 'geojson' in df:
                     return '\nDO NOT perform conversion to GeoJSON, just include the `geom` column in the SELECT. Try again.'
-                return f'{df}\n\nThe `geom` column is require to create a layer that can be added to the map.'
+                return f'{df[:50]}\n\nThe `geom` column is required to create a layer that can be added to the map.'
 
             df['geom'] = df['geom'].apply(lambda x: wkb.loads(x, hex=True))
             gdf = gpd.GeoDataFrame(df, geometry='geom')
@@ -57,7 +57,7 @@ class CustomQuerySQLDataBaseTool(BaseSQLDatabaseTool, BaseTool):
             WorkDirManager.add_file(
                 filename, gdf, save_as_json=True)
 
-            gdf_head = gdf.head()
+            gdf_head = gdf[:50]
             feature_pluralized = f"feature{'s' if len(gdf) > 1 else ''}"
             output = f"Query returned {len(gdf)} {feature_pluralized}."
             output += f'Below are the first {len(gdf_head)} {feature_pluralized}:\n\n{gdf_head}'
