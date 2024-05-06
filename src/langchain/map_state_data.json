@@ -1,3 +1,12 @@
 {
-    "layers": []
+    "layers": [
+        {
+            "id": "nidarosdomen_polygon",
+            "type": "fill",
+            "source": "nidarosdomen_polygon",
+            "paint": {
+                "fill-color": "#86c06d"
+            }
+        }
+    ]
 }

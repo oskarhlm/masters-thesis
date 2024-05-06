@@ -5,6 +5,7 @@ import os
 import shutil
 import json
 from datetime import datetime
+from geopandas import GeoDataFrame
 
 
 class WorkDirManager:
@@ -20,12 +21,16 @@ class WorkDirManager:
         return cls._instance
 
     @classmethod
-    def add_file(cls, filename, content_or_path: Union[str, bytes, Path], save_as_json=False) -> Path:
+    def add_file(cls, filename, content_or_path: Union[GeoDataFrame, str, bytes, Path], save_as_json=False) -> Path:
         filename = Path(filename).name
         target_path: Path = cls._working_directory / filename
         if save_as_json:
-            with open(target_path, 'w') as file:
-                json.dump(content_or_path, file)
+            if isinstance(content_or_path, GeoDataFrame):
+                with open(target_path, 'w') as file:
+                    file.write(content_or_path.to_json())
+            else:
+                with open(target_path, 'w') as file:
+                    json.dump(content_or_path, file)
         elif isinstance(content_or_path, Path) or os.path.isfile(content_or_path):
             shutil.copy(content_or_path, target_path)
         else:
