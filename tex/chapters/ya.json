@@ -1,0 +1,21 @@
+{
+  "type": "function",
+  "function": {
+    "name": "add_geojson_to_map",
+    "description": "Use this to add arbitrary geojson data to a client-side map visible to the user.\n",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "geojson_path": {
+          "description": "Path to the .geojson file that will be added to the map",
+          "type": "string"
+        },
+        "layer_name": {
+          "description": "Name of the layer (should be snake_case)",
+          "type": "string"
+        }
+      },
+      "required": ["layer_name"]
+    }
+  }
+}

@@ -1,8 +1,8 @@
-\chapter{Evaluation and Discussion}
+\chapter{Discussion}
 \label{cha:discussion}
 
-\section{Evaluation}
-\label{sec:evaluation}
+% \section{Evaluation}
+% \label{sec:evaluation}
 \begin{comment}
 
 When evaluating your results, avoid drawing grand conclusions, beyond those that your results can in fact support.
@@ -103,8 +103,8 @@ as can be seen from the warm colours in the positive (\Smiley) and negative (\Sa
 \end{figure}
 
 \end{comment}
-\section{Discussion}
-\label{sec:discussion}
+% \section{Discussion}
+% \label{sec:discussion}
 \begin{comment}
 
 In this section it is important to include a discussion of not just the merits of the work conducted, but also the limitations.
@@ -122,9 +122,27 @@ Discussion and evaluation can either be two different chapters, a joint chapter 
 As for most parts of the thesis, it is possible to select various outlines and setups for the discussion; the important thing is that all the relevant parts appear \textit{somewhere\/} in the text.
 \end{comment}
 
-\subsection[Difficulties with OGC API Features]{Difficulties with \acrshort{acr:ogc} \acrshort{acr:api} Features}
+\section[GeoGPT's Place in the Field of GIS]{GeoGPT's Place in the Field of \acrshort{acr:gis}}
 
-A common source of error with several of the tests conducted with the \acrshort{acr:ogc} \acrshort{acr:api} Features agent in was its inability to fetch more than 10,000 features from the server. The limit of 10,000 features is specified in the Features standard \citep{opengeospatialconsortiumOGCAPIFeatures2022}, meaning that no more than 10,000 features should be returned in a single response. Accompanied by such a large response, however, should be a \texttt{next} link than should point to the next set of 10,000 features. This way, the server could return more than 10,000 features. Unfortunately, as of \today, the current version of \textit{pg\_featuresserv} does not support this features\footnote{\url{https://github.com/CrunchyData/pg_featureserv/blob/master/FEATURES.md}}, which is a significant limitation to the current \acrshort{acr:ogc} \acrshort{acr:api} Features implementation for GeoGPT.
+As stated in the \nameref{sec:goals-and-research-questions} section, one of the goals of this thesis was to see if \acrshort{acr:llm}-based systems can replace \acrshort{acr:gis} professionals. From the results of the experiments conducted it seems that this is not the case --- as of yet. Results from experiments comparing prompts designed to emulate expert and novice users, as detailed in \autoref{subsec:prompt-quality-test-results}, indicate that the role of \acrshort{acr:gis} professionals is not immediately threatened. As \autoref{fig:novice-vs-expert-munkegata-trees} shows, expert-level prompting is highly necessary to make GeoGPT produce the desired outcome for more complex tasks.
+
+It is, however, clear that \acrshort{acr:llm} technologies have significant potential to automate tasks that \acrshort{acr:gis} professionals are commonly faced with. GeoGPT can therefore serve as a helpful companion --- much like GitHub Copilot\footnote{\url{https://github.com/features/copilot}} for software developers --- that can quickly solve a simple, repetitive tasks, alleviating the workload on the \acrshort{acr:gis} professional. The benchmarking results (see \autoref{tbl:test-results-quantitative}) show that a system like GeoGPT is able to successfully solve a wide range of geospatial task. Note also that many of the questions in the benchmarking dataset are not very technically phrased, showing that expert-level prompting is not necessary for simpler tasks.
+
+At the same time, the results show that the indeterminate nature of \acrshortpl{acr:llm} gives reason to doubt the answers that GeoGPT produces. \autoref{tbl:stddev-by-agent-type} shows GeoGPT's answers are not always consistent. A common problem with many \acrshortpl{acr:llm} is that they will often deliver overly answers in response to questions they do not know the answer to, and these numbers show that GeoGPT suffers from the same issues. This leads to issues, as a user with limited \acrshort{acr:gis} experience will generally not be capable of detecting when GeoGPT generates a believable but completely false answer. An example of this was seen in the benchmarking tests (see \autoref{tbl:test-results-quantitative}) when asking which (Norwegian) county is the largest by size. This question was asked a total of nine times across different agents and was answered incorrectly four times (see \autoref{app:test-results}). These incorrect answers typically stated the following:
+
+\begin{quote}
+    The largest county by size is **Finnmark**, with an area of approximately **646,150 square kilometers**.
+\end{quote}
+
+The correct answer to the question --- based on the data available to GeoGPT --- is \enquote{Innlandet}, which area is calculated to about 80,5 thousand square kilometres. To the inexperienced user there is no way of knowing whether this answer can be trusted. An experienced user could, however, inspect the code produced by GeoGPT to see if it makes sense. A \acrshort{acr:gis} professional should also be able to recognise that 646,150 square kilometres is far greater than the actual size of Finnmark.
+
+
+\citep[1-2]{linGeneratingConfidenceUncertainty2023} write that the issue with uncertainty in \acrshortpl{acr:llm} is a challenge that \enquote{has attracted limited attention until recently}, highlighting the \enquote{forbiddingly high} dimensionality of the output space as one of the key hindrances to a reliable way of measuring confidence. They also mention the fact that many \acrshortpl{acr:llm} are closed-source (like OpenAI's \acrshort{acr:gpt} models and Anthropic's Claude models) and served via \acrshortpl{acr:api} as black-boxes.
+
+\section[Difficulties with OGC API Features]{Difficulties with \acrshort{acr:ogc} \acrshort{acr:api} Features}
+\label{sec:difficulties-with-oaf}
+
+A common source of error with several of the tests conducted with the \acrshort{acr:ogc} \acrshort{acr:api} Features agent in was its inability to fetch more than 10,000 features from the server. The limit of 10,000 features is specified in the Features standard \citep{opengeospatialconsortiumOGCAPIFeatures2022}, meaning that no more than 10,000 features should be returned in a single response. Accompanied by such a large response, however, should be a \texttt{next} link than should point to the next set of 10,000 features. This way, the server could return more than 10,000 features. Unfortunately, as of \today, the current version of \textit{pg\_featuresserv} does not support this feature\footnote{\url{https://github.com/CrunchyData/pg_featureserv/blob/master/FEATURES.md}}, which is a significant limitation to the current \acrshort{acr:ogc} \acrshort{acr:api} Features implementation for GeoGPT.
 
 Furthermore, the lack of multi-collection queries is in the author's opinion a big limitation to the current Features specification. A proposal draft\footnote{\url{https://github.com/opengeospatial/ogcapi-features/tree/master/proposals/search}} to such features have been created, but it is unclear whether this will accepted into the specification. This extension, called \textit{Search}, would allow for more complex \acrshort{acr:cql} queries than are not easily specified using query parameters. \autoref{code:multi-collection-cql} shows one of the multi-collection query examples included in the proposal draft. Being able to construct such queries could make retrieval of features much more efficient, possibly making the Python tool in the current GeoGPT implementation redundant. This query would not be possible using the current implementation, and one would have to download the two collections, load them into memory using Python, and perform the \texttt{contains} operation there. Being able to construct such \acrshort{acr:cql} queries would offload this work to the Features server which (if the data source is a PostGIS database) would run very efficient \acrshort{acr:sql} code instead of the less than optimal Python code that would otherwise be necessary.
 
@@ -159,4 +177,5 @@ Content-Type: application/ogcqry+json
 \end{lstlisting}
 
 
-\subsection{Multi-Agent Architectures}
+\section{Multi-Agent Architectures}
+\label{sec:multi-agent-architectures}
