@@ -1,0 +1,36 @@
+\begin{longtable}{lp{1.8cm}p{1.8cm}p{1.8cm}p{2.5cm}}
+\caption{Test results for experience level tests} \label{tbl:test-results-prompt-levels} \\
+\toprule
+\textbf{Query} \textbf{ID} & \textbf{Agent} \textbf{Type} & \textbf{Level} & \textbf{Outcome} \\
+\midrule
+\endfirsthead
+\caption[]{Test results for experience level tests} \\
+\toprule
+\textbf{Query} \textbf{ID} & \textbf{Agent} \textbf{Type} & \textbf{Level} & \textbf{Outcome} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{Continued on next page} \\
+\midrule
+\endfoot
+\bottomrule
+\endlastfoot
+oslo\_bergen\_geodesic & sql  & novice & failure \\
+oslo\_bergen\_geodesic & oaf & novice & failure \\
+oslo\_bergen\_geodesic & python & novice & failure \\
+oslo\_bergen\_geodesic & sql  & expert & failure \\
+oslo\_bergen\_geodesic & oaf & expert & failure \\
+oslo\_bergen\_geodesic & python & expert & partial success \\
+oslo\_roads\_gte\_70\_kmh & sql  & novice & partial success \\
+oslo\_roads\_gte\_70\_kmh & oaf & novice & partial success \\
+oslo\_roads\_gte\_70\_kmh & python & novice & failure \\
+oslo\_roads\_gte\_70\_kmh & sql  & expert & success \\
+oslo\_roads\_gte\_70\_kmh & oaf & expert & partial success \\
+oslo\_roads\_gte\_70\_kmh & python & expert & success \\
+num\_trees\_munkegata & sql  & novice & failure \\
+num\_trees\_munkegata & oaf & novice & failure \\
+num\_trees\_munkegata & python & novice & failure \\
+num\_trees\_munkegata & sql  & expert & partial success \\
+num\_trees\_munkegata & oaf & expert & success \\
+num\_trees\_munkegata & python & expert & partial success \\
+\end{longtable}

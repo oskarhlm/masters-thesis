@@ -1,0 +1,42 @@
+\begin{longtable}{p{3cm}p{2.3cm}p{8cm}}
+    \caption{Datasets used in experiments}                                                                                                                                                                                        \\
+    \label{tbl:datasets}                                                                                                                                                                                                          \\
+    \toprule
+    \textbf{Dataset}   & \textbf{Data Type} & \textbf{Description}                                                                                                                                                                \\
+    \midrule
+    \endfirsthead
+
+    \multicolumn{3}{c}%
+    {{\bfseries Table \thetable\ continued from previous page}}                                                                                                                                                                   \\
+    \toprule
+    \textbf{Dataset}   & \textbf{Data Type} & \textbf{Description}                                                                                                                                                                \\
+    \midrule
+    \endhead
+
+    \midrule
+    \multicolumn{3}{r}{Continued on next page}                                                                                                                                                                                    \\
+    \midrule
+    \endfoot
+
+    \bottomrule
+    \endlastfoot
+
+    Buildings          & Polygon            & Contains building outlines. Its \emph{type} attribute can have values like \emph{house}, \emph{university}, and \emph{restaurant}.                                                  \\
+    Land Use           & Polygon            & Represents areas designated to different purposes and activities. Its \emph{fclass} attribute can have values like \emph{forest}, \emph{farmland}, and \emph{residential}.          \\
+    Natural            & Point              & Contains outlines of various objects found in nature. Its \emph{fclass} attribute can have values like \emph{beach}, \emph{glacier}, and \emph{cave\_entrance}.                     \\
+    Natural            & Polygon            & Similar to the point data equivalent.                                                                                                                                               \\
+    Places of Worship  & Point              & Common values for \emph{fclass} attribute: \emph{christian}, \emph{buddhist}, and \emph{muslim}.                                                                                    \\
+    Places of Worship  & Polygon            & Similar to the point data equivalent.                                                                                                                                               \\
+    Places             & Point              & Common values for \emph{fclass} attribute: \emph{farm}, \emph{village}, and \emph{island}. Repeated entries trimmed for brevity.                                                    \\
+    Places             & Polygon            & Similar to the point data equivalent.                                                                                                                                               \\
+    Points of Interest & Point              & Common values for \emph{fclass} attribute: \emph{tourist\_info}, \emph{bench}, and \emph{kindergarten}.                                                                             \\                                                                                                                                        \\
+    Points of Interest & Polygon            & Similar to the point data equivalent.                                                                                                                                               \\
+    Railways           & Lines              & Common values for \emph{fclass} attribute: \emph{rail}, \emph{subway}, and \emph{tram}. Also has True/False attributes saying if a given line segment is a bridge or a tunnel.      \\
+    Roads              & Lines              & Common values for \emph{fclass} attribute: \emph{rail}, \emph{subway}, and \emph{tram}. Has additional attributes \emph{oneway}, \emph{maxspeed}, \emph{bridge}, and \emph{tunnel}. \\
+    Traffic            & Point              & Common values for \emph{fclass} attribute: \emph{crossing}, \emph{street\_lamp}, and \emph{parking}.                                                                                \\
+    Traffic            & Polygon            & Common values for \emph{fclass} attribute: \emph{parking}, \emph{pier}, and \emph{dam}.                                                                                             \\
+    Transport          & Point              & Common values for \emph{fclass} attribute: \emph{bus\_stop}, \emph{ferry\_terminal}, and \emph{railway\_station}.                                                                   \\
+    Transport          & Polygon            & Similar to the point data equivalent.                                                                                                                                               \\
+    Water              & Polygon            & Common values for \emph{fclass} attribute: \emph{water}, \emph{wetland}, and \emph{river\_bank}.                                                                                    \\
+    Waterways          & Lines              & Common values for \emph{fclass} attribute: \emph{stream}, \emph{river}, and \emph{canal}.                                                                                           \\
+\end{longtable}

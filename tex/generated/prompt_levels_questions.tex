@@ -1,0 +1,37 @@
+\begin{longtable}{lp{1.8cm}p{7cm}}
+\caption{Questions for experience level tests} \label{tbl:questions-prompt-levels} \\
+\toprule
+\textbf{Query} \textbf{ID} & \textbf{Level} & \textbf{Formulation} \\
+\midrule
+\endfirsthead
+\caption[]{Questions for experience level tests} \\
+\toprule
+\textbf{Query} \textbf{ID} & \textbf{Level} & \textbf{Formulation} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{Continued on next page} \\
+\midrule
+\endfoot
+\bottomrule
+\endlastfoot
+oslo\_bergen\_geodesic & novice & Please plot the shortest flight path on a map between Oslo and Bergen's airports. \\
+oslo\_bergen\_geodesic & expert & 1. Get info on all potentially relevant datasets. The airports are possibly stored as polygons in the available data. 
+2. Filter those datasets for airports and list the names of the airports. 
+3. Retrieve the geographic coordinates for Oslo Gardermoen Airport (OSL) and Bergen Flesland Airport (BGO) by filtering on the names you found. 
+4. If no name was found, try a different dataset and go back to step 2. 
+5. Utilize available tools to draw a geodesic curve that represents the shortest path on the earth's surface between these two points.
+6. Present the findings with a map highlighting the largest county. \\
+oslo\_roads\_gte\_70\_kmh & novice & Draw roads in Oslo where you can drive at least 70.  \\
+oslo\_roads\_gte\_70\_kmh & expert & 1. Retrieve an outline of Oslo. 
+2. Calculate max/min lat/lon values for this bounding box, and use it to retrieve a subset of the road data. 
+3. Select road segments within the outline from step 1 that have a max speed >= 70.  
+4. Present the findings with a map highlighting the selected roads. \\
+num\_trees\_munkegata & novice & Could you count how many trees there are on Munkegata street in Trondheim? \\
+num\_trees\_munkegata & expert & 1. List all datasets that could possibly include trees. 
+2. Find the correct feature class and filter the relevant dataset to access tree data for Trondheim. Use a bounding box to reduce the number of trees to analyse. 
+4. Fetch road data for Munkegata. Use a bounding box for Trondheim in case there are streets elsewhere named Munkegata. 
+5. Convert both datasets to a suitable metric CRS and add a 20-meter buffer around the road data. 
+6. Find all trees that lie within this buffer and count them. 
+7. Present the findings with a map highlighting the roads and the trees.  \\
+\end{longtable}

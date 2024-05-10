@@ -14099,6 +14099,58 @@
       \verb https://ai.meta.com/blog/meta-llama-3/
       \endverb
     \endentry
+    \entry{mooneyUnderstandingGeospatialSkills2023}{book}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=118ce8006d9537341b85fd1eb39fd928}{%
+           family={Mooney},
+           familyi={M\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=37b315a09bfda680fc6b0cfe4ef89f2c}{%
+           family={Cui},
+           familyi={C\bibinitperiod},
+           given={Wencong},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1ba12769186e5ee7f0873ea9645ad2ad}{%
+           family={Guan},
+           familyi={G\bibinitperiod},
+           given={Boyuan},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a1e62ffa1108bc8d57463814ceaf04f4}{%
+           family={Juhász},
+           familyi={J\bibinitperiod},
+           given={Levente},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{5925eb7130a619565fb079d2649f827f}
+      \strng{fullhash}{edc0181abb57054c5314c35a9ceeba9d}
+      \strng{bibnamehash}{edc0181abb57054c5314c35a9ceeba9d}
+      \strng{authorbibnamehash}{edc0181abb57054c5314c35a9ceeba9d}
+      \strng{authornamehash}{5925eb7130a619565fb079d2649f827f}
+      \strng{authorfullhash}{edc0181abb57054c5314c35a9ceeba9d}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{This paper examines the performance of ChatGPT, a large language model (LLM), in a geographic information systems (GIS) exam. As LLMs like ChatGPT become increasingly prevalent in various domains, including education, it is important to understand their capabilities and limitations in specialized subject areas such as GIS. Human learning of spatial concepts significantly differs from LLM training methodologies. Therefore, this study aims to assess ChatGPT's performance and ability to grasp geospatial concepts by challenging it with a real GIS exam. By analyzing ChatGPT's responses and evaluating its understanding of GIS principles, we gain insights into the potential applications and challenges of LLMs in spatially-oriented fields. We conduct our evaluation with two models, GPT-3.5 and GPT-4, to understand whether general improvements of an LLM translate to improvements in answering questions related to the spatial domain. We find that both GPT variants can pass a balanced, introductory GIS exam, scoring 63.3\% (GPT-3.5) and 88.3\% (GPT-4), which correspond to grades D and B+ respectively in standard US letter grading scale. In addition, we also identify specific questions and topics where the LLMs struggle to grasp spatial concepts, highlighting the challenges in teaching such topics to these models. Finally, we assess ChatGPT's performance in specific aspects of GIS, including spatial analysis, basic concepts of mapping, and data management. This granular analysis provides further insights into the strengths and weaknesses of ChatGPT's GIS literacy. This research contributes to the ongoing dialogue on the integration of AI models in education and can provide guidance for educators, researchers, and practitioners seeking to leverage LLMs in GIS. By focusing on specific questions or concepts that pose difficulties for the LLM, this study addresses the nuances of teaching spatial concepts to AI models and offers potential avenues for improvement in spatial literacy within future iterations of LLMs.}
+      \field{month}{11}
+      \field{shorttitle}{Towards {{Understanding}} the {{Geospatial Skills}} of {{ChatGPT}}}
+      \field{title}{Towards {{Understanding}} the {{Geospatial Skills}} of {{ChatGPT}}: {{Taking}} a {{Geographic Information Systems}} ({{GIS}}) {{Exam}}}
+      \field{year}{2023}
+      \verb{doi}
+      \verb 10.1145/3615886.3627745
+      \endverb
+      \verb{file}
+      \verb C:\Users\oskar\Zotero\storage\2N5LZDKP\Mooney et al. - 2023 - Towards Understanding the Geospatial Skills of Cha.pdf
+      \endverb
+    \endentry
     \entry{opengeospatialconsortiumOGCAPIFeatures2022}{misc}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=0d6591561c9a387f01e4b0d59426abc6}{%
@@ -14455,6 +14507,86 @@
       \verb https://redis.io/
       \endverb
     \endentry
+    \entry{suRoFormerEnhancedTransformer2024}{article}{}
+      \name{author}{6}{}{%
+        {{un=0,uniquepart=base,hash=35a1322f255378805b1ccafcdc79bc6e}{%
+           family={Su},
+           familyi={S\bibinitperiod},
+           given={Jianlin},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f02cb320c43e2d46f55d4a6bfeb9cc5f}{%
+           family={Ahmed},
+           familyi={A\bibinitperiod},
+           given={Murtadha},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=618dfc15ed46244945f322553c021677}{%
+           family={Lu},
+           familyi={L\bibinitperiod},
+           given={Yu},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=e483cce740186c8704eb222d91db2824}{%
+           family={Pan},
+           familyi={P\bibinitperiod},
+           given={Shengfeng},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=de8ebdd94cf15e692de585f290ccf2de}{%
+           family={Bo},
+           familyi={B\bibinitperiod},
+           given={Wen},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c6e1eef0beb8ae296648beba22c6d56f}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Yunfeng},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{614a8a3ef11d5db640d9715c31aa0cbc}
+      \strng{fullhash}{33df24bd76abaa4bfc8b2f44b7a73688}
+      \strng{bibnamehash}{33df24bd76abaa4bfc8b2f44b7a73688}
+      \strng{authorbibnamehash}{33df24bd76abaa4bfc8b2f44b7a73688}
+      \strng{authornamehash}{614a8a3ef11d5db640d9715c31aa0cbc}
+      \strng{authorfullhash}{33df24bd76abaa4bfc8b2f44b7a73688}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Position encoding has recently been shown to be effective in transformer architecture. It enables valuable supervision for dependency modeling between elements at different positions of the sequence. In this paper, we first investigate various methods to integrate positional information into the learning process of transformer-based language models. Then, we propose a novel method named Rotary Position Embedding (RoPE) to effectively leverage the positional information. Specifically, the proposed RoPE encodes the absolute position with a rotation matrix and meanwhile incorporates the explicit relative position dependency in the self-attention formulation. Notably, RoPE enables valuable properties, including the flexibility of sequence length, decaying inter-token dependency with increasing relative distances, and the capability of equipping linear self-attention with relative position encoding. Finally, we evaluate the enhanced transformer with rotary position embedding, also called RoFormer, on various long text classification benchmark datasets. Our experiments show that it consistently overcomes its alternatives. Furthermore, we provide a theoretical analysis to explain some experimental results. RoFormer is already integrated into Huggingface: https://huggingface.co/docs/transformers/model\_doc/roformer.}
+      \field{issn}{0925-2312}
+      \field{journaltitle}{Neurocomputing}
+      \field{month}{2}
+      \field{shorttitle}{{{RoFormer}}}
+      \field{title}{{{RoFormer}}: {{Enhanced}} Transformer with {{Rotary Position Embedding}}}
+      \field{urlday}{10}
+      \field{urlmonth}{5}
+      \field{urlyear}{2024}
+      \field{volume}{568}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \field{pages}{127063}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.neucom.2023.127063
+      \endverb
+      \verb{file}
+      \verb C\:\\Users\\oskar\\Zotero\\storage\\UJUKE56K\\Su et al. - 2024 - RoFormer Enhanced transformer with Rotary Positio.pdf;C\:\\Users\\oskar\\Zotero\\storage\\7U6EHJUL\\S0925231223011864.html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S0925231223011864
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S0925231223011864
+      \endverb
+      \keyw{Natural language processing,Position information encoding,Pre-trained language models,Pre-training}
+    \endentry
     \entry{vaswaniAttentionAllYou2017}{misc}{}
       \name{author}{8}{}{%
         {{un=0,uniquepart=base,hash=7f28e84700536646dd6620a0db07ad09}{%
@@ -14537,6 +14669,48 @@
       \endverb
       \verb{url}
       \verb https://arxiv.org/abs/1706.03762v7
+      \endverb
+    \endentry
+    \entry{wangsarah16ChangesWay2024}{misc}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=8575b6815679eec35355ba09d64aa073}{%
+           family={{Wang, Sarah}},
+           familyi={W\bibinitperiod}}}%
+        {{un=0,uniquepart=base,hash=8a361ceda3c642e159ee7755b9d349ea}{%
+           family={{Xu, Shangda}},
+           familyi={X\bibinitperiod}}}%
+      }
+      \strng{namehash}{0cd5873ca36ee17fb1110a0c609decfd}
+      \strng{fullhash}{0cd5873ca36ee17fb1110a0c609decfd}
+      \strng{bibnamehash}{0cd5873ca36ee17fb1110a0c609decfd}
+      \strng{authorbibnamehash}{0cd5873ca36ee17fb1110a0c609decfd}
+      \strng{authornamehash}{0cd5873ca36ee17fb1110a0c609decfd}
+      \strng{authorfullhash}{0cd5873ca36ee17fb1110a0c609decfd}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In 2024, enterprise leaders are doubling down on their genAI investments. 16 developments for founders to keep in mind to capture this new opportunity.}
+      \field{journaltitle}{Andreessen Horowitz}
+      \field{langid}{english}
+      \field{month}{3}
+      \field{title}{16 {{Changes}} to the {{Way Enterprises Are Building}} and {{Buying Generative AI}}}
+      \field{urlday}{9}
+      \field{urlmonth}{5}
+      \field{urlyear}{2024}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb C:\Users\oskar\Zotero\storage\NYXKFGIE\generative-ai-enterprise-2024.html
+      \endverb
+      \verb{urlraw}
+      \verb https://a16z.com/generative-ai-enterprise-2024/
+      \endverb
+      \verb{url}
+      \verb https://a16z.com/generative-ai-enterprise-2024/
       \endverb
     \endentry
     \entry{whitePromptPatternCatalog2023a}{misc}{}
@@ -14638,6 +14812,57 @@
       \endverb
       \keyw{Computer Science - Artificial Intelligence,Computer Science - Software Engineering}
     \endentry
+    \entry{yanfanjiaBerkeleyFunctionCalling}{misc}{}
+      \name{author}{7}{}{%
+        {{un=0,uniquepart=base,hash=c77eebdb12417301e62b8c08fdcde6ca}{%
+           family={{Yan, Fanjia}},
+           familyi={Y\bibinitperiod}}}%
+        {{un=0,uniquepart=base,hash=54e722c35286fc9b208467b1558bffdc}{%
+           family={{Mao, Huanzhi}},
+           familyi={M\bibinitperiod}}}%
+        {{un=0,uniquepart=base,hash=59fb29ff233fa4a3910233630111ee45}{%
+           family={{Ji, Charlie Cheng-Jie}},
+           familyi={J\bibinitperiod}}}%
+        {{un=0,uniquepart=base,hash=a5297133b13a5e3a2fe9eb886f83f70c}{%
+           family={{Stoica, Ion}},
+           familyi={S\bibinitperiod}}}%
+        {{un=0,uniquepart=base,hash=ba677c22bd7d4ab91b6c88e569ce5674}{%
+           family={{Gonzalez, Joseph E.}},
+           familyi={G\bibinitperiod}}}%
+        {{un=0,uniquepart=base,hash=c9ff4e935e8f6a0b6924a95b5ef2470a}{%
+           family={{Zhang, Tianjun}},
+           familyi={Z\bibinitperiod}}}%
+        {{un=0,uniquepart=base,hash=ad6fa73e8e5a958ae6c7dc70c9a9eb4b}{%
+           family={{Patil, Shishir G.}},
+           familyi={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{15a1efc2b6ab85012430fea8845443c4}
+      \strng{fullhash}{d1fc4cb7ae1a2e9649932ded9d041594}
+      \strng{bibnamehash}{d1fc4cb7ae1a2e9649932ded9d041594}
+      \strng{authorbibnamehash}{d1fc4cb7ae1a2e9649932ded9d041594}
+      \strng{authornamehash}{15a1efc2b6ab85012430fea8845443c4}
+      \strng{authorfullhash}{d1fc4cb7ae1a2e9649932ded9d041594}
+      \field{sortinit}{Y}
+      \field{sortinithash}{fd67ad5a9ef0f7456bdd9aab10fe1495}
+      \field{labeldatesource}{nodate}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Berkeley {{Function Calling Leaderboard}}}
+      \field{urlday}{9}
+      \field{urlmonth}{5}
+      \field{urlyear}{2024}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb C:\Users\oskar\Zotero\storage\8NBAJEGS\8_berkeley_function_calling_leaderboard.html
+      \endverb
+      \verb{urlraw}
+      \verb https://gorilla.cs.berkeley.edu/blogs/8_berkeley_function_calling_leaderboard.html#metrics
+      \endverb
+      \verb{url}
+      \verb https://gorilla.cs.berkeley.edu/blogs/8_berkeley_function_calling_leaderboard.html#metrics
+      \endverb
+    \endentry
     \entry{zhangGeoGPTUnderstandingProcessing2023}{misc}{}
       \name{author}{5}{}{%
         {{un=0,uniquepart=base,hash=614fdf51ce9628d993d9e0dc779c15a2}{%
@@ -14715,6 +14940,96 @@
       \verb http://arxiv.org/abs/2307.07930
       \endverb
       \keyw{Computer Science - Artificial Intelligence,Computer Science - Computation and Language}
+    \endentry
+    \entry{zhuPoSEEfficientContext2024}{misc}{}
+      \name{author}{7}{}{%
+        {{un=0,uniquepart=base,hash=e5661c9555f1f8667d1d03ab0c37ef0a}{%
+           family={Zhu},
+           familyi={Z\bibinitperiod},
+           given={Dawei},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a44174a97a52d8b64289ef831cb1ac37}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Nan},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=cce05cab2c437e9c128f853684ee3137}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Liang},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d68fd1271e0d323e67e41f024ee405d9}{%
+           family={Song},
+           familyi={S\bibinitperiod},
+           given={Yifan},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7fdd066f4b31702d1a4f29a6982632d0}{%
+           family={Wu},
+           familyi={W\bibinitperiod},
+           given={Wenhao},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=e5bfd490d91c5d1b935092ce3132a083}{%
+           family={Wei},
+           familyi={W\bibinitperiod},
+           given={Furu},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a283876860b2d61e3800367b94805eae}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Sujian},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{1ca6cfc920adb3ec9c80c65fc76d6d28}
+      \strng{fullhash}{4ab48cdbc1b84bba9bc8357752663a61}
+      \strng{bibnamehash}{4ab48cdbc1b84bba9bc8357752663a61}
+      \strng{authorbibnamehash}{4ab48cdbc1b84bba9bc8357752663a61}
+      \strng{authornamehash}{1ca6cfc920adb3ec9c80c65fc76d6d28}
+      \strng{authorfullhash}{4ab48cdbc1b84bba9bc8357752663a61}
+      \field{sortinit}{Z}
+      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Large Language Models (LLMs) are trained with a pre-defined context length, restricting their use in scenarios requiring long inputs. Previous efforts for adapting LLMs to a longer length usually requires fine-tuning with this target length (Full-length fine-tuning), suffering intensive training cost. To decouple train length from target length for efficient context window extension, we propose Positional Skip-wisE (PoSE) training that smartly simulates long inputs using a fixed context window. This is achieved by first dividing the original context window into several chunks, then designing distinct skipping bias terms to manipulate the position indices of each chunk. These bias terms and the lengths of each chunk are altered for every training example, allowing the model to adapt to all positions within target length. Experimental results show that PoSE greatly reduces memory and time overhead compared with Full-length fine-tuning, with minimal impact on performance. Leveraging this advantage, we have successfully extended the LLaMA model to 128k tokens using a 2k training context window. Furthermore, we empirically confirm that PoSE is compatible with all RoPE-based LLMs and position interpolation strategies. Notably, our method can potentially support infinite length, limited only by memory usage in inference. With ongoing progress for efficient inference, we believe PoSE can further scale the context window beyond 128k.}
+      \field{eprintclass}{cs}
+      \field{eprinttype}{arxiv}
+      \field{month}{2}
+      \field{number}{arXiv:2309.10400}
+      \field{shorttitle}{{{PoSE}}}
+      \field{title}{{{PoSE}}: {{Efficient Context Window Extension}} of {{LLMs}} via {{Positional Skip-wise Training}}}
+      \field{urlday}{10}
+      \field{urlmonth}{5}
+      \field{urlyear}{2024}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2309.10400
+      \endverb
+      \verb{eprint}
+      \verb 2309.10400
+      \endverb
+      \verb{file}
+      \verb C\:\\Users\\oskar\\Zotero\\storage\\6EVTS7PV\\Zhu et al. - 2024 - PoSE Efficient Context Window Extension of LLMs v.pdf;C\:\\Users\\oskar\\Zotero\\storage\\D54S2VW8\\2309.html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2309.10400
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2309.10400
+      \endverb
+      \keyw{Computer Science - Computation and Language,Computer Science - Machine Learning}
     \endentry
   \enddatalist
 \endrefsection

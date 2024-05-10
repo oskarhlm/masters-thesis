@@ -15,8 +15,7 @@ The experimental setup should include all data --- parameters, etc. --- that wou
 This will thus be the actual instantiation for each experiment of the general architecture described in Chapter~\ref{cha:architecture}.
 \end{comment}
 
-The experiments conducted to evaluate the performance of GeoGPT on geospatial tasks are divided into two approaches. These are presented in \autoref{subsec:benchmarking-setup} and \autoref{subsec:prompt-quality-test-setup}.
-
+The experiments conducted to evaluate the performance of GeoGPT on geospatial tasks are divided into two approaches. The first approach, elaborated upon in \autoref{subsec:benchmarking-setup}, is intended to evaluate GeoGPT's ability to solve a variety of geospatial tasks. The second approach, presented in \autoref{subsec:prompt-quality-test-setup}, aims to uncover the importance of the initial user prompt in guiding GeoGPT to solve the task. \Autosubsectionref{subsec:configuration-and-hardware} describes the hardware on which the experiments were executed, and the specific models that were used.
 
 \subsection{Quantitative Approach: Benchmarking}
 \label{subsec:benchmarking-setup}
@@ -65,7 +64,7 @@ The annotated outcomes are then encoded using the ordinal encoding presented \au
 \end{table}
 
 
-\subsubsection{Other Metrics}
+\subsubsection{Cost and Duration}
 
 The application is hooked up to LangChain AI's tracing system, \textit{LangSmith}. Apart from being a useful tool for debugging purposes, it provides a simple way of obtaining detailed data for token and time usage for a particular run, as well as the total cost of the run. These are metrics that will be recorded and used in the evaluation of GeoGPT.
 
@@ -79,9 +78,6 @@ To summarize, the following metrics are recorded for a given test run:
 \end{itemize}
 
 
-\input{generated/questions}
-\todo{Is this table OK here, or should it be moved to the appendix?}
-
 \subsection{Evaluating Importance of Prompt Quality}
 \label{subsec:prompt-quality-test-setup}
 
@@ -89,6 +85,7 @@ The second set of experiments are constructed to evaluate the importance of the 
 
 
 \subsection{Configuration and Hardware}
+\label{subsec:configuration-and-hardware}
 
 All experiments were executed locally on a Lenovo ThinkPad E490, which has an Intel{\textregistered} Core\texttrademark{} i7-8565U CPU @ 1.80GHz processor, 15.8 GB usable \acrshort{acr:ram}, and 256 GB \acrshort{acr:ssd} storage. Everything but the \acrshort{acr:llm} inference was executed locally. Text generation was done using OpenAI's \acrshort{acr:api}.
 

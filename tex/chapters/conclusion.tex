@@ -1,6 +1,8 @@
 \chapter{Conclusion and Future Work}
 \label{cha:conclusion}
 
+\Autosectionref{sec:contributions} will summarize the contributions of this thesis and the significance of these, and discuss the contributions in terms of the goals and research questions formulated in the \nameref{cha:introduction}. \Autosectionref{sec:future-work} will highlight potential areas for future work that were not investigated in this thesis but are considered crucial for optimizing the performance of \acrshort{acr:llm}-based \acrshort{acr:gis} agents.
+
 \section{Contributions}
 \label{sec:contributions}
 
@@ -17,7 +19,7 @@ However, basically the same items should appear in both sections.
 \end{comment}
 
 \section{Future Work}
-\label{sec:futureWork}
+\label{sec:future-work}
 
 \begin{comment}
 Consider where you would like to extend or improve this work, or how somebody else could continue it.
@@ -33,6 +35,12 @@ This can include options and alternatives that you did not try out yourself, or 
 
 The experiments conducted for GeoGPT in this thesis focused on the technical \acrshort{acr:gis} ablities of the system. The questions that were asked have corresponding \textit{correct} answers. Something that was not tested is GeoGPT's ability to answer questions of subjective character, questions that have no \textit{one} correct answer. For instance: what would happen if we asked GeoGPT to find a suitable route from A to B that is as \textit{safe} as possible? How would it interpret such a request? Would it only take into account the speed limit and road type? Would it be able to assess socio-economic aspects between different areas, avoiding \enquote{bad neighbourhoods} at nighttime? Would it be able to incorporate weather forecasts into the analysis? Future research should find methods of measuring the ability of \acrshort{acr:llm}-based \acrshort{acr:gis} agents to provide suitable answers to such questions.
 
+\subsection{Comparing Different Models}
+
+GeoGPT is based around \acrshort{acr:gpt}-4 but, as \autoref{subsec:sota-decoder-only-llms} showed, there are numerous competitors. Future research should look into the possibilities of swapping out \acrshort{acr:gpt}-4 with other models, first and foremost those with good function calling abilities, as this is absolutely necessary in order for GeoGPT to work as intended. A benchmark comparing results for different models would a natural way of building upon the results of this thesis.
+
+Future research should especially look into the viability of using open-source models. In a report interviewing 500 companies on their \acrshort{acr:llm} adoption, 46 percent stated their preference on open-source models going into 2024 \citep{wangsarah16ChangesWay2024}. \textit{Control} and \textit{customizability} were turns out to be the two most important factors into enterprise's open-source appeal, allowing for increased control over proprietary data and ability to effectively fine-tune models, respectively.
+
 \subsection{Automated Data Access}
 
-The experiments in \autoref{cha:experiments} were based upon a pre-existing database. A fully autonomous \acrshort{acr:gis} agent should, however, be able to search the web for suitable datasets, based on the user's query. In a Norwegian context, one could imagine asking for a noise analysis for a particular building. The agent would then search Geonorge for datasets related to noise (firing ranges, roads, etc.), downloading these, and then performing analysis. Simple experiments were conducted in this thesis to see if this was possible, but results were somewhat poor. Methods like semantic search based upon the documentations of datasets should be explored in future research.
+The experiments in \autoref{cha:experiments} were based upon a pre-existing collection of geospatial datasets that were made available to GeoGPT through different channels (see \autoref{sec:data-access}). A fully autonomous \acrshort{acr:gis} agent should, however, be able to search the web for suitable datasets, based on the user's query. In a Norwegian context, one could imagine asking for a noise analysis for a particular building. The agent should then be able to search a website like Geonorge for datasets related to noise (firing ranges, roads, etc.), downloading these, and then performing analysis. Simple experiments were conducted towards Geonorge in this thesis to see if this was possible. Though occasionally able to download the correct datasets, the method used gave quite inconsistent results.  This was largely due to the way Geonorge's \acrshort{acr:api} is set up, and a transition to something like \acrshort{acr:ogc} \acrshort{acr:api} Features type \acrshortpl{acr:api} would significantly simplify implementation. Furthermore, methods like semantic search based upon the documentations of datasets should be explored in future research.
