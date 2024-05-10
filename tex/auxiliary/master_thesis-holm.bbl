@@ -86,6 +86,119 @@
       \verb https://www-cdn.anthropic.com/de8ba9b01c9ab7cbabf5c33b80b7bbc618857627/Model_Card_Claude_3.pdf
       \endverb
     \endentry
+    \entry{austinProgramSynthesisLarge2021}{misc}{}
+      \name{author}{11}{}{%
+        {{un=0,uniquepart=base,hash=9b0426325e91e9da0e91dbf27a7379f6}{%
+           family={Austin},
+           familyi={A\bibinitperiod},
+           given={Jacob},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a04932af4057bbbbad95d73521f2d22b}{%
+           family={Odena},
+           familyi={O\bibinitperiod},
+           given={Augustus},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=49d657a6cda3ddc6f434500001ea6d42}{%
+           family={Nye},
+           familyi={N\bibinitperiod},
+           given={Maxwell},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3fd5b56bfa48546f2caae7b4aa56a29f}{%
+           family={Bosma},
+           familyi={B\bibinitperiod},
+           given={Maarten},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=88b44aba31eead485bb3a63154798388}{%
+           family={Michalewski},
+           familyi={M\bibinitperiod},
+           given={Henryk},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7369065ea0b748a65621d6b6197996ac}{%
+           family={Dohan},
+           familyi={D\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d398b87d586d7e622ad7d56fa3422012}{%
+           family={Jiang},
+           familyi={J\bibinitperiod},
+           given={Ellen},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=0e749d32457b8d376e8afca27707fc7a}{%
+           family={Cai},
+           familyi={C\bibinitperiod},
+           given={Carrie},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c7db3b79609dfb1a47686403cc89d16c}{%
+           family={Terry},
+           familyi={T\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=841a83a4bb5e622d6e1bde4818879016}{%
+           family={Le},
+           familyi={L\bibinitperiod},
+           given={Quoc},
+           giveni={Q\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fd59f6a0549332a54ac82d8840ea6ff1}{%
+           family={Sutton},
+           familyi={S\bibinitperiod},
+           given={Charles},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{dff77349ec9691661e8152730c5183c2}
+      \strng{fullhash}{0f9097a38fa6aa501774915d381fafe9}
+      \strng{bibnamehash}{0f9097a38fa6aa501774915d381fafe9}
+      \strng{authorbibnamehash}{0f9097a38fa6aa501774915d381fafe9}
+      \strng{authornamehash}{dff77349ec9691661e8152730c5183c2}
+      \strng{authorfullhash}{0f9097a38fa6aa501774915d381fafe9}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This paper explores the limits of the current generation of large language models for program synthesis in general purpose programming languages. We evaluate a collection of such models (with between 244M and 137B parameters) on two new benchmarks, MBPP and MathQA-Python, in both the few-shot and fine-tuning regimes. Our benchmarks are designed to measure the ability of these models to synthesize short Python programs from natural language descriptions. The Mostly Basic Programming Problems (MBPP) dataset contains 974 programming tasks, designed to be solvable by entry-level programmers. The MathQA-Python dataset, a Python version of the MathQA benchmark, contains 23914 problems that evaluate the ability of the models to synthesize code from more complex text. On both datasets, we find that synthesis performance scales log-linearly with model size. Our largest models, even without finetuning on a code dataset, can synthesize solutions to 59.6 percent of the problems from MBPP using few-shot learning with a well-designed prompt. Fine-tuning on a held-out portion of the dataset improves performance by about 10 percentage points across most model sizes. On the MathQA-Python dataset, the largest fine-tuned model achieves 83.8 percent accuracy. Going further, we study the model's ability to engage in dialog about code, incorporating human feedback to improve its solutions. We find that natural language feedback from a human halves the error rate compared to the model's initial prediction. Additionally, we conduct an error analysis to shed light on where these models fall short and what types of programs are most difficult to generate. Finally, we explore the semantic grounding of these models by fine-tuning them to predict the results of program execution. We find that even our best models are generally unable to predict the output of a program given a specific input.}
+      \field{eprintclass}{cs}
+      \field{eprinttype}{arxiv}
+      \field{month}{8}
+      \field{number}{arXiv:2108.07732}
+      \field{title}{Program {{Synthesis}} with {{Large Language Models}}}
+      \field{urlday}{10}
+      \field{urlmonth}{5}
+      \field{urlyear}{2024}
+      \field{year}{2021}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2108.07732
+      \endverb
+      \verb{eprint}
+      \verb 2108.07732
+      \endverb
+      \verb{file}
+      \verb C\:\\Users\\oskar\\Zotero\\storage\\2ZB85ZJB\\Austin et al. - 2021 - Program Synthesis with Large Language Models.pdf;C\:\\Users\\oskar\\Zotero\\storage\\8LQLYM8D\\2108.html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2108.07732
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2108.07732
+      \endverb
+      \keyw{Computer Science - Machine Learning,Computer Science - Programming Languages}
+    \endentry
     \entry{crunchydataCrunchyDataPg_featureserv2024}{misc}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=f8658542125af3374fa5a3e013634fb9}{%

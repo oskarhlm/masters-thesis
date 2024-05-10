@@ -1,4 +1,4 @@
-\chapter{Experiments and Results}
+\chapter{Experiments}
 \label{cha:experiments}
 
 \section{Experimental Setup}
@@ -17,7 +17,7 @@ This will thus be the actual instantiation for each experiment of the general ar
 
 The experiments conducted to evaluate the performance of GeoGPT on geospatial tasks are divided into two approaches. The first approach, elaborated upon in \autoref{subsec:benchmarking-setup}, is intended to evaluate GeoGPT's ability to solve a variety of geospatial tasks. The second approach, presented in \autoref{subsec:prompt-quality-test-setup}, aims to uncover the importance of the initial user prompt in guiding GeoGPT to solve the task. \Autosubsectionref{subsec:configuration-and-hardware} describes the hardware on which the experiments were executed, and the specific models that were used.
 
-\subsection{Quantitative Approach: Benchmarking}
+\subsection[GIS Q\&A Experiment]{\acrshort{acr:gis} Q\&A Experiment}
 \label{subsec:benchmarking-setup}
 
 The first approach seeks to evaluate its ability to successfully answer questions that have a concrete answer. To do this, a Q\&A dataset was constructed. This dataset consists of set of 12 GIS-related questions with corresponding correct answers. For each record in the dataset, a description of how a human would find it natural to approach the problem. This description is provided as a step-by-step path towards the solution, and is only included to guide any reader as to how the system would be expected to solve the system. The full Q\&A dataset can be found in \autoref{tbl:questions-quantitative}. This set of experiments will allow for quantitative assessment of GeoGPT's GIS-abilities, and is a feasible way of benchmarking the system.
@@ -78,7 +78,7 @@ To summarize, the following metrics are recorded for a given test run:
 \end{itemize}
 
 
-\subsection{Evaluating Importance of Prompt Quality}
+\subsection{Prompt Quality Experiment}
 \label{subsec:prompt-quality-test-setup}
 
 The second set of experiments are constructed to evaluate the importance of the initial question/prompt from the human user. As stated in \nameref{sec:background-and-motivation}, part of the motivation for developing an \acrshort{acr:llm}-driven \acrshort{acr:gis} like GeoGPT is to make \acrshort{acr:gis} more accessible to non-experts. At the same time, it may be valuable to assess the extent to which a carefully constructed prompt by a GIS expert can enhance the system's output.
@@ -107,12 +107,12 @@ Point out specifics here but save the overall/general discussion to the Discussi
 \Autosubsectionref{subsec:quantitative-results} and \autoref{subsec:prompt-quality-test-results} will present the outcome of the experiments presented in \autoref{subsec:prompt-quality-test-setup} and \autoref{subsec:prompt-quality-test-setup}, respectively.
 
 
-\subsection{Quantitative Results}
+\subsection[GIS Q\&A Experiment --- Results]{\acrshort{acr:gis} Q\&A Experiment --- Results}
 \label{subsec:quantitative-results}
 
 Graphs created for this chapter are created using Matplotlib\footnote{\url{https://matplotlib.org/}}, a Python library suitable for creating visualizations like bar charts, box plots, etc.
 
-\subsubsection{Test Outcomes}
+\subsubsection{Outcomes}
 
 As described in \autoref{subsec:benchmarking-setup}, a total 108 tests were run using the 12 available Q\&A samples, with the same question being repeated three times for each of the three agent types \todo{ref some table with agent types}, resulting in 36 test runs per agent. \autoref{fig:outcome-distribution} displays a bar chart for the outcome distribution per agent.
 
@@ -126,7 +126,7 @@ As described in \autoref{subsec:benchmarking-setup}, a total 108 tests were run 
 
 From \autoref{fig:outcome-distribution}, we can read that the \acrshort{acr:ogc} \acrshort{acr:api} Features and Python agent have comparable results, and that the \acrshort{acr:sql}-based agent performs significantly better compared to the other two in terms of producing the desired outcome.
 
-\subsubsection{Other Metrics}
+\subsubsection{Cost and Duration}
 
 This section features three different box plots: \autoref{fig:duration-box-plot}, \autoref{fig:cost-box-plot}, and \autoref{fig:tokens-box-plot}. The Matplotlib implementation of the box plot follows the description found on Wikipedia\footnote{\url{https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.boxplot.html}}\footnote{\url{https://en.wikipedia.org/wiki/Box_plot}}. Box plots allow us to easily visualize where the 0th ($Q_0$), 25th ($Q_1$), 50th ($Q_2$), 75th ($Q_3$), and 100th ($Q_4$) percentiles of the datasets lie, as well as the dataset's outliers. Outliers are those data points fall outside 1.5 times interquartile range, that is, the distance between $Q_3$ and $Q_1$ in each direction.
 
@@ -224,7 +224,111 @@ A third observation that can be made from the \autoref{fig:correlation-matrix} i
     \end{tabularx}
 \end{table}
 
-\subsection{Prompt Quality Test Results}
+\subsubsection{Successful Responses}
+
+% 6df94421-6c7c-470a-af8e-7013f3bc547f
+\autoref{fig:glomma-counties-sql-successful} shows a successful response from GeoGPT's \acrshort{acr:sql} agent when asked how many counties the Glomma river runs through.\footnote{This run was not part of the results used for evaluation due to a bug in the \acrshort{acr:sql} agent that caused the \texttt{sql\_db\_query} to unnecessarily execute many queries twice. GeoGPT's response would not be different had the bug not been present for the run, but it would have taken a bit longer to complete.} As a final answer to the initial prompt it lists all four correct counties in a numbered list. \autoref{code:glomma-counties-sql} shows the code generated by GeoGPT for the second invocation of \texttt{sql\_db\_query}. The second invocation is nearly identical to the first one, but in the first invocation the geometry column --- named \enquote{geom} --- was not included in the response, something the tool informs GeoGPT of in its tool message. GeoGPT therefore decided to run the query again, now making sure to include the geometry column in the query result, before adding the result to the map using \texttt{add\_geojson\_to\_map}. A follow-up message instructed GeoGPT to \enquote{Add Glomma to the map}, allowing for visual verification that the results were correct.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{glomma_counties_sql_22.png}
+    \caption{Successful response from GeoGPT's \acrshort{acr:sql} agent when asked how many counties the Glomma river runs through}
+    \label{fig:glomma-counties-sql-successful}
+\end{figure}
+
+\begin{lstlisting}[
+    language=sql,
+    caption=SQL code generated by GeoGPT to retrieve polygons of the counties that the Glomma river runs through,
+    label=code:glomma-counties-sql
+]
+WITH river AS (
+    SELECT geom 
+    FROM osm_waterways_lines 
+    WHERE fclass = 'river' AND name ILIKE 'Glomma'
+),
+
+places AS (
+    SELECT geom, name 
+    FROM osm_places_polygons 
+    WHERE fclass = 'county'
+)
+
+SELECT DISTINCT places.name AS county_name, places.geom AS geom
+FROM river, places
+WHERE ST_Intersects(river.geom, places.geom);    
+\end{lstlisting}
+
+\autoref{fig:trees-along-munkegata-python-partial-success} shows a partially successful attempt from GeoGPT's Python agent to calculate the number of trees along Munkegata in Trondheim. While setting a definitive answer is difficult, the correct answer was set to about 100 trees when using a buffer of 20 meters around the line segments that make up the road.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{num_trees_along_munkegata_python_with_buffer.png}
+    \caption{Partially successful response from GeoGPT's Python agent when asked how many trees there are along Munkegata in Trondheim}
+    \label{fig:trees-along-munkegata-python-partial-success}
+\end{figure}
+
+\begin{lstlisting}[
+    language=python,
+    caption=Python code to exclude roads named Munkegata \textit{outside} of Trondheim,
+    label=code:python-munkegata-bbox
+]
+import geopandas as gpd
+
+# Load roads data with a focus on Munkegata
+roads_path = '/tmp/tmpl8zsdj6m/osm_roads_lines.shp'
+munkegata_bbox = (10.3910, 63.4270, 10.4030, 63.4330) # Approximate bounding box around Munkegata
+munkegata_roads = gpd.read_file(roads_path, bbox=munkegata_bbox)
+
+# Filter for Munkegata
+munkegata = munkegata_roads[munkegata_roads['name'] == 'Munkegata']
+
+# Save filtered Munkegata road to GeoJSON
+munkegata_path = '/tmp/tmpl8zsdj6m/munkegata.geojson'
+munkegata.to_file(munkegata_path, driver='GeoJSON')
+
+print(munkegata_path)
+\end{lstlisting}
+
+\begin{lstlisting}[
+    language=python,
+    caption=Python code to calculate the number of trees along Munkegata in Trondheim,
+    label=code:python-trees-count-munkegata
+]
+from shapely.geometry import box
+import geopandas as gpd
+
+# Load the trees points
+natural_points_path = '/tmp/tmpl8zsdj6m/osm_natural_points.shp'
+trees = gpd.read_file(natural_points_path)
+
+# Filter for trees
+trees = trees[trees['fclass'] == 'tree']
+
+# Load Munkegata road
+munkegata_path = '/tmp/tmpl8zsdj6m/munkegata.geojson'
+munkegata_road = gpd.read_file(munkegata_path)
+
+# Project to UTM for accurate distance measurement
+munkegata_utm = munkegata_road.to_crs(epsg=32633)
+trees_utm = trees.to_crs(epsg=32633)
+
+# Buffer Munkegata by 10 meters to include nearby trees
+tree_buffer = munkegata_utm.buffer(10)
+
+# Spatial join trees within buffered Munkegata
+trees_near_munkegata = gpd.sjoin(trees_utm, gpd.GeoDataFrame(geometry=tree_buffer), how='inner', op='intersects')
+
+# Count the number of trees
+tree_count = trees_near_munkegata.shape[0]
+print(tree_count)
+
+\end{lstlisting}
+
+\subsubsection{Unsuccessful Responses}
+
+
+
+\subsection{Prompt Quality Experiment --- Results}
 \label{subsec:prompt-quality-test-results}
 
 \begin{figure}[htbp]
@@ -274,4 +378,10 @@ On the other hand, the expert-level prompt provided the necessary guidance for G
     \label{fig:novice-vs-expert-munkegata-trees}
 \end{figure}
 
+
+
+
+
+
+\glsresetall
 

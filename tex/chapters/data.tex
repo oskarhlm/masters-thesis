@@ -83,32 +83,24 @@ A total of eight datasets were used in the experiments. All datasets were downlo
 
 \end{comment}
 
-A total of eighteen datasets were used in the experiments. The data was downloaded from Geofabrik's website\footnote{\url{https://download.geofabrik.de/europe/norway.html}}. Geofabrik --- German for \enquote{geo factory} --- is a company that \enquote{extract, select, and process free geodata}. They have gathered data from OpenStreetMap and published them as a collection of shapefiles, dividing them into categories such as \enquote{places of worship}, \enquote{points of interest}, and \enquote{traffic}. Data can be downloaded for different regions of the world, and for experiments conducted in this thesis, data for Norway was used. \autoref{tbl:datasets} lists all datasets used, along with a short description of their contents. Common for all datasets are their \emph{fclass} attribute, which is short for \emph{feature class}. Some datasets have additional attributes, such as the \emph{maxspeed} attribute in the road data and the \emph{type} attribute in the building data.
+A total of eighteen datasets were used in the experiments. The data was downloaded from Geofabrik's website\footnote{\url{https://download.geofabrik.de/europe/norway.html}}. Geofabrik --- German for \enquote{geo factory} --- is a company that \enquote{extract, select, and process free geodata}. They have gathered data from OpenStreetMap and published them as a collection of shapefiles, dividing them into categories such as \enquote{places of worship}, \enquote{points of interest}, and \enquote{traffic}. Data can be downloaded for different regions of the world, and for experiments conducted in this thesis, data for Norway was used. \autoref{tbl:datasets} in \autoref{app:datasets} lists all datasets used, along with a short description of their contents. Common for all datasets are their \emph{fclass} attribute, which is short for \emph{feature class}. Some datasets have additional attributes, such as the \emph{maxspeed} attribute in the road data and the \emph{type} attribute in the building data. \autoref{fig:datasets-trondheim} shows a plot containing four selected datasets, constrained to a bounding box of Trondheim. The plot was created by GeoGPT.
 
-
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{trondheim_datasets.png}
+    \label{fig:datasets-trondheim}
+    \caption{A plot of four selected datasets constrained to a polygon of Trondheim}
+\end{figure}
 
 \section{Data Access}
 \label{sec:data-access}
 
-While leading \glspl{acr:llm} are trained on increasingly large corpora, they are still only as familiar with a topic as the extent to which the training data exposes it to said topic. For instance, many \glspl{acr:llm} are trained specifically to generate Python code, and are therefore fed with a vast number of Python code examples during training in the hopes of improving its performance on benchmarks like \todo{Insert Python benchmark examples here}. As it is unlikely that the training data is evenly distributed among many different topics, it is useful to get familiarized with a model's capabilities in the areas of interest for a particular use case. In the case of an \acrshort{acr:llm}-powered \acrshort{acr:gis} agent that should be capable of performing geospatial analyses, it is useful to know what data formats such an agent is most comfortable to understand and work with.
+While leading \glspl{acr:llm} are trained on increasingly large corpora, they are still only as familiar with a topic as the extent to which the training data exposes it to said topic. For instance, many \glspl{acr:llm} are trained specifically to generate Python code, and are therefore fed with a vast number of Python code examples during training in the hopes of improving its performance on benchmarks like the \gls{acr:mbpp} benchmark \citep{austinProgramSynthesisLarge2021}. As it is unlikely that the training data is evenly distributed among many different topics, it is useful to get familiarized with a model's capabilities in the areas of interest for a particular use case. In the case of an \acrshort{acr:llm}-powered \acrshort{acr:gis} agent that should be capable of performing geospatial analyses, it is useful to know what data formats such an agent is most comfortable to understand and work with. The upcoming experiments therefore seek to benchmark model performance on three different data access methods.
 
-The upcoming experiments therefore seek to benchmark model performance on three different data access methods. The datasets from \autoref{sec:data-sources} are presented to the model in three different ways, as \autoref{subsec:files} through \autoref{subsec:sql-db} elaborate upon.
+The first method of presentation is to have the files from \autoref{sec:data-sources} remain untouched. The files are stored locally on the computer on which the experiments are conducted and GeoGPT, which runs on the same computer, is able to interact with the data through the code that it generates. These files are stored on a location unknown to GeoGPT but are made available through a working directory --- which location \textit{is} known to GeoGPT --- through symbolic links to the unknown location of the actual files. \autoref{code:python-munkegata-bbox} in the \autoref{cha:experiments} shows how GeoGPT is able to use Python code it has generated to load road data, perform intersection with a bounding box, and writing the result to a new file in the working directory.
 
-\subsection{Files}
-\label{subsec:files}
+The second method used is to load the data into a spatial \acrshort{acr:sql} database and provide the model with database schemas that can be used to generate queries. The datasets were uploaded to a Dockerized PostGIS database using QGIS's DB Manager plugin.
 
-The first method of presentation is to have the files from \autoref{sec:data-sources} remain untouched. The datasets were stored such that each dataset has its own folder. This is because some of the file types used require multiple files in order to correctly store the data—--for instance, the shapefile format, which has three mandatory files: .shp, which contains the actual feature geometry; .shx, which provides a positional index of the feature geometry; and .dbf, which holds attributes for each shape.\todo{reference}
-
-\subsection[SQL Database]{\acrshort{acr:sql} Database}
-\label{subsec:sql-db}
-
-The second method used is to load the data into a spatial \acrshort{acr:sql} database and provide the model with database schemas that can be used to generate queries. The datasets were uploaded to a dockerized PostGIS database using QGIS's DB Manager plugin.
-
-Some of the datasets come in the \acrshort{acr:gml} data format, which can include multiple layers with potentially different geometries. For this reason, they cannot be loaded directly into a PostGIS database such that they are stored in the same database table. Furthermore, several of the layers in the multi-layer \acrshort{acr:gml} files are irrelevant for most analysis situations. For instance, the flood zone data were downloaded as a multi-layer \acrshort{acr:gml} file and includes a total of eight layers: polygon and multi-line border for the analysis area, polygon layers for rivers, ocean surfaces, and lakes, polygon and multi-line border for the flood zones, and a layer containing cross-sectional profile lines for the rivers. The quick clay dataset was similar. For brevity, a decision was made not to load all these layers into the PostGIS database. Only the polygon for the flood zones and two polygon layers from the quick clay dataset were loaded into the database.
-
-\subsection[OGC API Features]{\acrshort{acr:ogc} \acrshort{acr:api} Features}
-\label{subsec:ogc-api-features-data}
-
-The third method for data access is to use the \acrshort{acr:ogc} \acrshort{acr:api} Features standard.
+The third method for data access is to use the \acrshort{acr:ogc} \acrshort{acr:api} Features standard. In essense, this methods serves the data stored in the PostGIS database as a web server that allows consumers of the \acrshort{acr:api} to download the data over \acrshort{acr:http} as GeoJSON.
 
 \glsresetall
