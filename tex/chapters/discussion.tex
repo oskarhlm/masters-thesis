@@ -176,5 +176,19 @@ Content-Type: application/ogcqry+json
 \end{lstlisting}
 
 
+\section{Self-Verification}
+
+GeoGPT is already doing self-verfication through the system messages that verify that a file has been saved to the working directory and that a layer has been added to the map on the client. This does not, however, fix the issue where GeoGPT works with different data to what it believes it to be. An example of this edge case was presented in the section on unsuccessful test runs in \autoref{subsec:quantitative-results} where GeoGPT believed it was working with data only for Oslo, when in reality the data was for the whole of Norway.
+
+A possible way of doing self-verification that mitigates these kinds of issues is to utilize multi-modal \acrshortpl{acr:llm}. \autoref{fig:chatgpt-visual-self-verfication} shows how using a multi-modal \acrshort{acr:gpt}-4 model can correctly identify that the resulting layer from the above-mentioned unsuccessful analysis is incorrect, based only on a screenshot of the map.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{oslo_roads_maxspeed_hte_70_kmh_python_clipped_chat_response.png}
+    \caption{ChatGPT multi-modal \acrshort{acr:gpt}-4 correctly identifying that the map layer supposed to show high-speed roads in Oslo in fact \enquote{extends far beyond Oslo}}
+    \label{fig:chatgpt-visual-self-verfication}
+\end{figure}
+
+
 \section{Multi-Agent Architectures}
 \label{sec:multi-agent-architectures}

@@ -326,7 +326,45 @@ print(tree_count)
 
 \subsubsection{Unsuccessful Responses}
 
+While GeoGPT was able to get a lot of questions correct, it provided more or less unsuccessful answers at least once for all questions but one.
 
+\autoref{fig:python-high-speed-roads-unsuccessful} exemplifies a common mistake with GeoGPT's agents which is a central topic in the \nameref{cha:discussion}. Here, the Python agent has failed to recognise that the road datasets it has available is in fact for the whole of Norway. As \autoref{code:python-high-speed-unsuccessful} shows, the agent performs the correct analysis based on the assumptions it has already made, but the answer is far from what the user enquired.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{oslo_roads_maxspeed_hte_70_kmh_python.png}
+    \caption{Unsuccessful attempt by GeoGPT's Python agent to retrieve high-speed roads in Oslo}
+    \label{fig:python-high-speed-roads-unsuccessful}
+\end{figure}
+
+\begin{lstlisting}[
+    language=python,
+    caption=Python code that saves high-speed roads with a misleading filename,
+    label=code:python-high-speed-unsuccessful
+]
+import geopandas as gpd
+
+# Define the file path for the roads shapefile
+shapefile_path = '/tmp/tmpr1hvr_c5/osm_roads_lines.shp'
+
+# Read the shapefile with a condition on maxspeed being >= 70
+roads_gdf = gpd.read_file(shapefile_path)
+roads_high_speed_gdf = roads_gdf[roads_gdf['maxspeed'].astype(float) >= 70]
+
+# Save the filtered GeoDataFrame as GeoJSON
+output_geojson_path = '/tmp/tmpr1hvr_c5/oslo_high_speed_roads.geojson'
+roads_high_speed_gdf.to_file(output_geojson_path, driver='GeoJSON')
+
+print(output_geojson_path)
+   
+\end{lstlisting}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{oslo_bergen_geodesic_oaf2.png}
+    \caption{Unsuccessful attempt by GeoGPT's \acrshort{acr:ogc} \acrshort{acr:api} Features agent to create a geodesic line between Oslo Airport Gardermoen and Bergen Airport Flesland}
+    \label{fig:oaf-geodesic-unsuccessful}
+\end{figure}
 
 \subsection{Prompt Quality Experiment --- Results}
 \label{subsec:prompt-quality-test-results}
@@ -357,7 +395,7 @@ print(tree_count)
 
 Using novice-level prompt GeoGPT was unable to produce the correct outcome, and confidently answered that there are \enquote{approximately 6,915 trees on Munkegata street in Trondheim.} (see \autoref{fig:novice-level-prompting-munkegata-trees}), which is far from being true. When solving the task, GeoGPT made a series of oversights that lead to this result. First, GeoGPT failed to take into account that there may be more than one street in the dataset with the name \enquote{Munkegata}, \enquote{forgetting} to use a bounding box when retrieving the road data from the \acrshort{acr:api}. The same mistake was made when retrieving the tree data. Due to the upper limit of 10,000 features per query in the \acrshort{acr:api}, it's crucial to narrow down the query to ensure retrieval of all relevant features rather than just a subset. GeoGPT's query for tree data lacked a bounding box, resulting in a randomly distributed subset scattered across Norway. A third mistake occurred when GeoGPT calculated a bounding box around the retrieved road data instead of creating a buffer. The latter method would have produced a more accurate result. The bounding box that was created spanned from Trondheim to Oslo, thus including far more trees than was intended.
 
-On the other hand, the expert-level prompt provided the necessary guidance for GeoGPT for this specific task, steering it clear of the issues it encountered with the novice-level prompt. As stated by OpenAI themselves, \enquote{some tasks are best specified as a sequence of steps}.\footnote{\url{https://platform.openai.com/docs/guides/prompt-engineering/strategy-write-clear-instructions}} Furthermore, they say that writing explicit steps required to solve a tasks \enquote{makes it easier for the model to follow them}.\todo{move to discussion?}
+On the other hand, the expert-level prompt provided the necessary guidance for GeoGPT for this specific task, steering it clear of the issues it encountered with the novice-level prompt. As stated by OpenAI themselves, \enquote{some tasks are best specified as a sequence of steps}.\footnote{\url{https://platform.openai.com/docs/guides/prompt-engineering/strategy-write-clear-instructions}} Furthermore, they say that writing explicit steps required to solve a tasks \enquote{makes it easier for the model to follow them}.
 
 \begin{figure}[htbp]
     \centering
@@ -374,10 +412,29 @@ On the other hand, the expert-level prompt provided the necessary guidance for G
         \caption{Expert-level prompting}
         \label{fig:expert-level-prompting-munkegata-trees}
     \end{subfigure}
-    \caption{Comparison between novice and expert level prompting for making GeoGPT's \acrshort{acr:ogc} \acrshort{acr:api} Features agent calculate the number of trees along Munkegata in Trondheim}
+    \caption{Comparison between novice- and expert-level prompting of GeoGPT's \acrshort{acr:ogc} \acrshort{acr:api} Features agent for calculation of the number of trees along Munkegata in Trondheim}
     \label{fig:novice-vs-expert-munkegata-trees}
 \end{figure}
 
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{oslo_70kmh_oaf_novice.png}
+        \caption{Novice-level prompting}
+        \label{fig:novice-level-prompting-oslo-70kmh}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{oslo_70kmh_sql_expert_sbs_2.png}
+        \caption{Expert-level prompting}
+        \label{fig:expert-level-prompting-oslo-70kmh}
+    \end{subfigure}
+    \caption{Comparison between novice- and expert-level prompting of \acrshort{acr:ogc} \acrshort{acr:api} Features agent for retrieval of high-speed roads in Oslo}
+    \label{fig:novice-vs-expert-oslo-70kmh}
+\end{figure}
 
 
 
