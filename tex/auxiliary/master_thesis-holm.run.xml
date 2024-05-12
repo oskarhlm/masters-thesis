@@ -65,9 +65,11 @@
       <file>american-apa.lbx</file>
       <file>english-apa.lbx</file>
       <file>british-apa.lbx</file>
+      <file>norsk.lbx</file>
+      <file>norsk-apa.lbx</file>
     </requires>
   </internal>
-  <external package="biblatex" priority="5" active="1">
+  <external package="biblatex" priority="5" active="0">
     <generic>biber</generic>
     <cmdline>
       <binary>biber</binary>
