@@ -1,0 +1,37 @@
+\babel@toc {british}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {norsk}{}\relax 
+\babel@toc {british}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Tokenization example for a sentence\relax }}{4}{figure.caption.9}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Tokenization of \enquote {revolution} with different suffixes\relax }}{4}{figure.caption.10}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Collections, items, and features in \acrshort {acr:ogc} \acrshort {acr:api} Features specification. Retrieved from \url {https://features.developer.ogc.org/} on April 29, 2024.\relax }}{12}{figure.caption.19}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces A plot of four selected datasets constrained to a polygon of Trondheim\relax }}{17}{figure.caption.20}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Architecture overview\relax }}{19}{figure.caption.22}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Web \acrshort {acr:ui}\relax }}{22}{figure.caption.24}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Generic tool agent graph\relax }}{28}{figure.caption.25}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Example of a chat trace\relax }}{29}{figure.caption.26}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Chat template\relax }}{30}{figure.caption.28}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Conversation showcasing the effect of giving an \acrshort {acr:llm} a persona through the system message\relax }}{31}{figure.caption.29}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Outcome distribution between different agent types\relax }}{35}{figure.caption.39}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Duration per Agent Type\relax }}{36}{figure.caption.42}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Cost and token usage\relax }}{38}{figure.caption.44}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Correlation matrix for test result metrics\relax }}{39}{figure.caption.45}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Successful response from GeoGPT's \acrshort {acr:sql} agent when asked how many counties the Glomma river runs through\relax }}{40}{figure.caption.51}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Partially successful response from GeoGPT's Python agent when asked how many trees there are along Munkegata in Trondheim\relax }}{42}{figure.caption.52}%
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Unsuccessful attempt by GeoGPT's Python agent to retrieve high-speed roads in Oslo\relax }}{44}{figure.caption.55}%
+\contentsline {figure}{\numberline {6.8}{\ignorespaces Unsuccessful attempt by GeoGPT's \acrshort {acr:ogc} \acrshort {acr:api} Features agent to create a geodesic line between Oslo Airport Gardermoen and Bergen Airport Flesland\relax }}{45}{figure.caption.57}%
+\contentsline {figure}{\numberline {6.9}{\ignorespaces Outcome distribution for different levels of GIS experience\relax }}{47}{figure.caption.59}%
+\contentsline {figure}{\numberline {6.10}{\ignorespaces Comparison between novice- and expert-level prompting of GeoGPT's \acrshort {acr:ogc} \acrshort {acr:api} Features agent for calculation of the number of trees along Munkegata in Trondheim\relax }}{49}{figure.caption.60}%
+\contentsline {figure}{\numberline {6.11}{\ignorespaces Comparison between novice- and expert-level prompting of \acrshort {acr:ogc} \acrshort {acr:api} Features agent for retrieval of high-speed roads in Oslo\relax }}{50}{figure.caption.61}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {7.1}{\ignorespaces ChatGPT multi-modal \acrshort {acr:gpt}-4 correctly identifying that the map layer supposed to show high-speed roads in Oslo in fact \enquote {extends far beyond Oslo}\relax }}{54}{figure.caption.62}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
