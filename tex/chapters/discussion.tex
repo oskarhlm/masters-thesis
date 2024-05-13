@@ -192,3 +192,14 @@ A possible way of doing self-verification that mitigates these kinds of issues i
 
 \section{Multi-Agent Architectures}
 \label{sec:multi-agent-architectures}
+
+An attempt was made to create a multi-agent version of GeoGPT that employs three different sub-agents: one for data retrieval, one for analysis, and for map interaction. These agents are orchestrated by a \textit{Supervisor} agent, which takes input from the user and assigns tasks to the appropriate sub-agents. \autoref{fig:agent-supervisor} shows how a supervisor node takes a user message (or the chat history up to that point) and selects which sub-agent is to solve the next sub-task. Each agent fill have their own set of tools, that is, functions/tools that they have available at their disposal through \textit{function calling} (see \autoref{subsec:function-calling}). Inspired by Microsoft's \textit{AutoGen} framework\footnote{\url{https://microsoft.github.io/autogen/}} --- which provides a high-level abstraction for developing multi-agent conversations --- and MetaGPT (further discussed in \autoref{sec:agent-patterns}).
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{agent_supervisor.png}
+    \caption{Illustration of how an agent supervisor takes in a user message and selects which sub-agent is to solve the next sub-task}
+    \label{fig:agent-supervisor}
+\end{figure}
+
+Initial tests on a multi-agent version of the \acrshort{acr:ogc} \acrshort{acr:api} Features agent were conducted, but it turned out to both increase the latency of the system and be a source of confusion for the \acrshort{acr:llm}. It is possible that such an architecture could be useful as the number of functions/tools available to the agnet grows --- seeing as a large number of functions tend to start confusing the \acrshort{acr:llm} --- but for the current version of GeoGPT the multi-agent pattern seemed to only get in the way.

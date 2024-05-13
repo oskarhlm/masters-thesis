@@ -594,6 +594,25 @@
   file = {C:\Users\oskar\Zotero\storage\ZJXVH295\redis.io.html}
 }
 
+@misc{shinnReflexionLanguageAgents2023,
+  title = {Reflexion: {{Language Agents}} with {{Verbal Reinforcement Learning}}},
+  shorttitle = {Reflexion},
+  author = {Shinn, Noah and Cassano, Federico and Berman, Edward and Gopinath, Ashwin and Narasimhan, Karthik and Yao, Shunyu},
+  year = {2023},
+  month = oct,
+  number = {arXiv:2303.11366},
+  eprint = {2303.11366},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  url = {http://arxiv.org/abs/2303.11366},
+  urldate = {2024-05-13},
+  abstract = {Large language models (LLMs) have been increasingly used to interact with external environments (e.g., games, compilers, APIs) as goal-driven agents. However, it remains challenging for these language agents to quickly and efficiently learn from trial-and-error as traditional reinforcement learning methods require extensive training samples and expensive model fine-tuning. We propose Reflexion, a novel framework to reinforce language agents not by updating weights, but instead through linguistic feedback. Concretely, Reflexion agents verbally reflect on task feedback signals, then maintain their own reflective text in an episodic memory buffer to induce better decision-making in subsequent trials. Reflexion is flexible enough to incorporate various types (scalar values or free-form language) and sources (external or internally simulated) of feedback signals, and obtains significant improvements over a baseline agent across diverse tasks (sequential decision-making, coding, language reasoning). For example, Reflexion achieves a 91\% pass@1 accuracy on the HumanEval coding benchmark, surpassing the previous state-of-the-art GPT-4 that achieves 80\%. We also conduct ablation and analysis studies using different feedback signals, feedback incorporation methods, and agent types, and provide insights into how they affect performance. We release all code, demos, and datasets at https://github.com/noahshinn024/reflexion.},
+  archiveprefix = {arxiv},
+  langid = {english},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Computation and Language,Computer Science - Machine Learning},
+  file = {C:\Users\oskar\Zotero\storage\T86VTKK2\Shinn et al. - 2023 - Reflexion Language Agents with Verbal Reinforceme.pdf}
+}
+
 @article{suRoFormerEnhancedTransformer2024,
   title = {{{RoFormer}}: {{Enhanced}} Transformer with {{Rotary Position Embedding}}},
   shorttitle = {{{RoFormer}}},
@@ -636,6 +655,16 @@
   abstract = {In 2024, enterprise leaders are doubling down on their genAI investments. 16 developments for founders to keep in mind to capture this new opportunity.},
   langid = {english},
   file = {C:\Users\oskar\Zotero\storage\NYXKFGIE\generative-ai-enterprise-2024.html}
+}
+
+@article{weiChainofThoughtPromptingElicits2023a,
+  title = {Chain-of-{{Thought Prompting Elicits Reasoning}} in {{Large Language Models}}},
+  author = {Wei, Jason and Wang, Xuezhi and Schuurmans, Dale and Bosma, Maarten and Ichter, Brian and Xia, Fei and Chi, Ed H and Le, Quoc V and Zhou, Denny},
+  year = {2023},
+  month = may,
+  abstract = {We explore how generating a chain of thought---a series of intermediate reasoning steps---significantly improves the ability of large language models to perform complex reasoning. In particular, we show how such reasoning abilities emerge naturally in sufficiently large language models via a simple method called chain-ofthought prompting, where a few chain of thought demonstrations are provided as exemplars in prompting. Experiments on three large language models show that chain-of-thought prompting improves performance on a range of arithmetic, commonsense, and symbolic reasoning tasks. The empirical gains can be striking. For instance, prompting a PaLM 540B with just eight chain-of-thought exemplars achieves state-of-the-art accuracy on the GSM8K benchmark of math word problems, surpassing even finetuned GPT-3 with a verifier.},
+  langid = {english},
+  file = {C:\Users\oskar\Zotero\storage\Z9CY4U8V\Wei et al. - Chain-of-Thought Prompting Elicits Reasoning in La.pdf}
 }
 
 @misc{whitePromptPatternCatalog2023a,
@@ -681,6 +710,25 @@
   url = {https://gorilla.cs.berkeley.edu/blogs/8_berkeley_function_calling_leaderboard.html#metrics},
   urldate = {2024-05-09},
   file = {C:\Users\oskar\Zotero\storage\8NBAJEGS\8_berkeley_function_calling_leaderboard.html}
+}
+
+@misc{yaoReActSynergizingReasoning2023a,
+  title = {{{ReAct}}: {{Synergizing Reasoning}} and {{Acting}} in {{Language Models}}},
+  shorttitle = {{{ReAct}}},
+  author = {Yao, Shunyu and Zhao, Jeffrey and Yu, Dian and Du, Nan and Shafran, Izhak and Narasimhan, Karthik and Cao, Yuan},
+  year = {2023},
+  month = mar,
+  number = {arXiv:2210.03629},
+  eprint = {2210.03629},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  url = {http://arxiv.org/abs/2210.03629},
+  urldate = {2024-05-13},
+  abstract = {While large language models (LLMs) have demonstrated impressive performance across tasks in language understanding and interactive decision making, their abilities for reasoning (e.g. chain-of-thought prompting) and acting (e.g. action plan generation) have primarily been studied as separate topics. In this paper, we explore the use of LLMs to generate both reasoning traces and task-specific actions in an interleaved manner, allowing for greater synergy between the two: reasoning traces help the model induce, track, and update action plans as well as handle exceptions, while actions allow it to interface with and gather additional information from external sources such as knowledge bases or environments. We apply our approach, named ReAct, to a diverse set of language and decision making tasks and demonstrate its effectiveness over state-of-the-art baselines in addition to improved human interpretability and trustworthiness. Concretely, on question answering (HotpotQA) and fact verification (Fever), ReAct overcomes prevalent issues of hallucination and error propagation in chain-of-thought reasoning by interacting with a simple Wikipedia API, and generating human-like task-solving trajectories that are more interpretable than baselines without reasoning traces. Furthermore, on two interactive decision making benchmarks (ALFWorld and WebShop), ReAct outperforms imitation and reinforcement learning methods by an absolute success rate of 34\% and 10\% respectively, while being prompted with only one or two in-context examples.},
+  archiveprefix = {arxiv},
+  langid = {english},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Computation and Language,Computer Science - Machine Learning},
+  file = {C:\Users\oskar\Zotero\storage\UA9K5CFX\2210.pdf}
 }
 
 @misc{zhangGeoGPTUnderstandingProcessing2023,
