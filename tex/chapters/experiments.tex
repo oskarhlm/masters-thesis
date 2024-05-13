@@ -200,7 +200,7 @@ A third observation that can be made from the \autoref{fig:correlation-matrix} i
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{correlation_matrix.png}
+    \includegraphics[width=0.8\textwidth]{correlation_matrix.png}
     \caption{Correlation matrix for test result metrics}
     \label{fig:correlation-matrix}
 \end{figure}
@@ -233,7 +233,7 @@ A third observation that can be made from the \autoref{fig:correlation-matrix} i
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{glomma_counties_sql_22.png}
+    \includegraphics[width=\textwidth]{glomma_counties_sql_22.png}
     \caption{Successful response from GeoGPT's \acrshort{acr:sql} agent when asked how many counties the Glomma river runs through}
     \label{fig:glomma-counties-sql-successful}
 \end{figure}
@@ -268,7 +268,7 @@ WHERE ST_Intersects(river.geom, places.geom);
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{num_trees_along_munkegata_python_with_buffer.png}
+    \includegraphics[width=\textwidth]{num_trees_along_munkegata_python_with_buffer.png}
     \caption{Partially successful response from GeoGPT's Python agent when asked how many trees there are along Munkegata in Trondheim}
     \label{fig:trees-along-munkegata-python-partial-success}
 \end{figure}
@@ -342,7 +342,7 @@ While GeoGPT was able to get a lot of questions correct, it provided more or les
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{oslo_roads_maxspeed_hte_70_kmh_python.png}
+    \includegraphics[width=\textwidth]{oslo_roads_maxspeed_hte_70_kmh_python.png}
     \caption{Unsuccessful attempt by GeoGPT's Python agent to retrieve high-speed roads in Oslo}
     \label{fig:python-high-speed-roads-unsuccessful}
 \end{figure}
@@ -375,9 +375,11 @@ print(output_geojson_path)
 
 \autoref{fig:oaf-geodesic-unsuccessful} shows an unsuccessful attempt from GeoGPT's \acrshort{acr:ogc} \acrshort{acr:api} Features agent to create a geodesic line between Oslo Airport Gardermoen and Bergen Airport Flesland. \autoref{code:query-collection-airports-no-results} is GeoGPT's attempt to download a point feature representing \enquote{Oslo Airport}. It turns out that no such point feature exists, and only a polygonal feature in another dataset is available for the airport. The same is the case for Bergen Airport. GeoGPT made couple of attmpts at fetching point data for the airports, but of course none of them  returned any results.
 
+Eventually, GeoGPT downloads a bunch of features from the \texttt{osm\_transport\_points} collection twice, names them \enquote{oslo\_airport.geojson} and \enquote{bergen\_airport.geojson}, and produces the nonsensical code displayed in \autoref{code:python-airports-desperate} where it picks the first point feature in each collection and uses their coordinates as those of Oslo and Bergen. The actual locations that these coordinates correspond to are Rakkestad Airport and a bus stop on a road long Ofotfjorden in Nordland. In addition to this, subsequent attempts at creating a geodesic line between the locations were unsuccessful.
+
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{oslo_bergen_geodesic_oaf2.png}
+    \includegraphics[width=\textwidth]{oslo_bergen_geodesic_oaf2.png}
     \caption{Unsuccessful attempt by GeoGPT's \acrshort{acr:ogc} \acrshort{acr:api} Features agent to create a geodesic line between Oslo Airport Gardermoen and Bergen Airport Flesland}
     \label{fig:oaf-geodesic-unsuccessful}
 \end{figure}
@@ -399,8 +401,6 @@ print(output_geojson_path)
 --> No features were found at http://localhost:9001/collections/public.osm_transport_points/items?limit=10000&filter=fclass='airport' AND name='Oslo Airport'.
 Try to change the parameters, or make them less restrictive.
 \end{lstlisting}
-
-Eventually, GeoGPT downloads a bunch of features from the \texttt{osm\_transport\_points} collection twice, names them \enquote{oslo\_airport.geojson} and \enquote{bergen\_airport.geojson}, and produces the nonsensical code displayed in \autoref{code:python-airports-desperate} where it picks the first point feature in each collection and uses their coordinates as those of Oslo and Bergen. The actual locations that these coordinates correspond to are Rakkestad Airport and a bus stop on a road long Ofotfjorden in Nordland. In addition to this, subsequent attempts at creating a geodesic line between the locations were unsuccessful.
 
 \FloatBarrier
 
