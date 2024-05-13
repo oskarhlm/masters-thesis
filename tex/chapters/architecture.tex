@@ -64,11 +64,18 @@ The \textit{LangChain Server} service is the heart of the application, and is wh
         /streaming-chat   & GET             & Endpoint for chatting the \acrshort{acr:llm}. Takes a \texttt{message} as a query parameter and returns an event stream, allowing for token streaming from server to client. \\
         /update-map-state & POST            & Send the state of the client map to the server. Keeps the server updated on what layers are present in the map, their color, etc.                                            \\
         /geojson          & GET             & Takes a \texttt{geojson\_path} as a query parameter. Allows the client to retrieve a given GeoJSON file that is stored in the working directory on the server.               \\
-        /history          & GET             & Used to retrieve the chat history of the current session.                                                                                                                    \\
+        % /history          & GET             & Used to retrieve the chat history of the current session.                                                                                                                    \\
         /upload           & POST            & Allows the client to upload one or more files to the working directory on the server.                                                                                        \\
         \bottomrule
     \end{tabular}
 \end{table}
+
+\begin{figure}
+    % \centering
+    \makebox[\textwidth][c]{\includegraphics[width=1.2\textwidth]{Sequence diagram.png}}
+    \caption{Sequence diagram showing the information flow as the user loads and sends a message to GeoGPT}
+    \label{fig:sequence-diagram}
+\end{figure}
 
 
 \subsection{Redis for Conversations}
@@ -123,7 +130,7 @@ The \textit{\_\_start\_\_} node serves as the entry point of the agent. At this 
 
 In the \textit{action} node the values inside the \enquote{tool\_calls} object are converted into \texttt{ToolInvocation} objects that are used to invoke predefined tools. \enquote{tool\_calls} is a list of \enquote{tool\_call} objects, each of which has attributes called \textit{name} (the name of the tool) and \textit{arguments} (arguments that should be passed to the tool). These tools are then executed, possibly having side effects on the server, and the resulting output of the tools are appended as messages to the chat history. \autoref{fig:chat-trace-example} illustrates this behaviour. This way the agent can inspect the results of the code it is \enquote{executing}, as well as being notified about possible errors in the input parameters it provided. Through the cyclic behaviour of the agent graph the agent can repeatedly call tools to try and answer the request from the user. When the agent finds to reason to call any more tools it generates a textual response, making \textit{agent\_should\_continue} return \texttt{False} so that the termination node (\textit{\_\_end\_\_}) is reached.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{agent_graph.png}
     \caption{Generic tool agent graph}
@@ -215,7 +222,7 @@ The overall template consists of a collection of tools, a system message, and a 
 
 The system message has a structure on its own. The first half of the system message in \autoref{fig:chat-template} is intended to give the \acrshort{acr:llm} contextual awareness and hinting to how it should work towards solving tasks. We start by telling it that is \enquote{helpful \acrshort{acr:gis} agent/consultant that has access to an \acrshort{acr:sql} database containing \acrlong{acr:osm} data}. This is a common way of giving \acrshortpl{acr:llm} a persona that it can adopt, and results in responses as can be seen in \autoref{fig:effect-of-system-message}.  Continuing, we give it some information of how to string tool calls together to solve a tasks. We tell it to first list available tables, then look up schemas of relevant tables, then using the information gathered to construct an \acrshort{acr:sql} query to answer the user's request. We also remind it that it has to add the result of the analyses to the map itself (using the \texttt{add\_geojson\_to\_map} tool).
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{hi_there.png}
     \caption{Conversation showcasing the effect of giving an \acrshort{acr:llm} a persona through the system message}
