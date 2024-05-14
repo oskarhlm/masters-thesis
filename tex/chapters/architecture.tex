@@ -34,7 +34,10 @@ Those choices should then also be discussed and elaborated on in the Discussion 
 \end{figure}
 \end{comment}
 
+The \nameref{cha:architecture} chapter will give a detailed description of the inner workings of GeoGPT --- the thesis' proposed solution to an \acrshort{acr:llm}-based \acrshort{acr:gis}. \autoref{sec:high-level-application-architecture} will present a high-level overview of the different modules that make up GeoGPT, and the way that they interact with each other. \autoref{sec:agent-architecture} will delve into the architecture of the generic tool agent that is implemented using LangChain and LangGraph (see \autoref{sec:langchain}), as well as the \textit{three} different agent types that are implemented using this generic agent.
+
 \section{High-Level Application Architecture}
+\label{sec:high-level-application-architecture}
 
 A microservice architecture was employed in order to simplify development and separate concerns between the different microservices. The services are deployed as Docker Containers, and they are orchestrated using Docker Compose. \todo{quickly explain docker and why it is useful here} \autoref{fig:architecture-overview} shows how the application is divided into five distinct services, and the direction of information flow between these.
 
@@ -47,7 +50,7 @@ A microservice architecture was employed in order to simplify development and se
 
 
 
-\subsection{LangChain Server}\label{subsec:langchain}
+\subsection{LangChain Server}\label{subsec:langchain-server}
 
 The \textit{LangChain Server} service is the heart of the application, and is where the \gls{acr:llm}-related logic is situated. It is responsible for taking requests from the \textit{Web \acrshort{acr:ui}} and returning suitable responses in what becomes a client-server architecture between the two services. \autoref{tbl:server-endpoints} show the endpoints exposed by the server and how they can be used by a client.
 
@@ -118,6 +121,7 @@ The map is created using MapLibre\footnote{\url{https://github.com/maplibre/mapl
 
 
 \section{Agent Architecture}
+\label{sec:agent-architecture}
 
 Three different agent were implemented for GeoGPT: one agent utilizing \acrshort{acr:ogc} \acrshort{acr:api} Features, one agent which can access shapefiles using Python code, and one agent that can interact with data in an \acrshort{acr:sql} database. Common to these agents is their agentic architecture, which is described in \autoref{subsec:lg-agent-implementation}. They way that they differ is through their assigned \textit{tools}. These differences will be made apparent in \autoref{fig:tool-agent-graph}. Other slight differences are seen in the way that they are prompted. The prompting strategy used in GeoGPT and these minor differences will be discussed in \autoref{subsec:prompt-templating}.
 

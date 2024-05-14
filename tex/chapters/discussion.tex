@@ -122,6 +122,8 @@ Discussion and evaluation can either be two different chapters, a joint chapter 
 As for most parts of the thesis, it is possible to select various outlines and setups for the discussion; the important thing is that all the relevant parts appear \textit{somewhere\/} in the text.
 \end{comment}
 
+The \nameref{cha:discussion} will begin with suggesting a place for an application like GeoGPT in the field of \acrshort{acr:gis}. Is it useful, or does its limitations make it redundant? Thereafter, \autoref{sec:difficulties-with-oaf} will present some difficulties that were encountered with the \acrshort{acr:ogc} \acrshort{acr:api} Features agent, specifically. \autoref{sec:self-verification} will discuss how one of the autonomous goal of \textit{self-verification} --- introduced by \cite{liAutonomousGISNextgeneration2023} --- can be improved, for instance by utilizing the multi-modal abilities of certain state-of-the-art \acrshortpl{acr:llm}. Finally, \autoref{sec:multi-agent-architectures} will discuss a semi-failed attempt at implementing a multi-agent architecture for GeoGPT, and provide suggestions as to why this didn't succeed.
+
 \section[GeoGPT's Place in the Field of GIS]{GeoGPT's Place in the Field of \acrshort{acr:gis}}
 
 As stated in the \nameref{sec:goals-and-research-questions} section, one of the goals of this thesis was to see if \acrshort{acr:llm}-based systems can replace \acrshort{acr:gis} professionals. From the results of the experiments conducted it seems that this is not the case --- as of yet. Results from experiments comparing prompts designed to emulate expert and novice users, as detailed in \autoref{subsec:prompt-quality-test-results}, indicate that the role of \acrshort{acr:gis} professionals is not immediately threatened. As \autoref{fig:novice-vs-expert-munkegata-trees} shows, expert-level prompting is highly necessary to make GeoGPT produce the desired outcome for more complex tasks.
@@ -177,8 +179,9 @@ Content-Type: application/ogcqry+json
 
 
 \section{Self-Verification}
+\label{sec:self-verification}
 
-GeoGPT is already doing self-verfication through the system messages that verify that a file has been saved to the working directory and that a layer has been added to the map on the client. This does not, however, fix the issue where GeoGPT works with different data to what it believes it to be. An example of this edge case was presented in the section on unsuccessful test runs in \autoref{subsec:quantitative-results} where GeoGPT believed it was working with data only for Oslo, when in reality the data was for the whole of Norway.
+\cite{liAutonomousGISNextgeneration2023} introduce five goals for autonomous agents, one of which is \textit{self-verifying}, the system's ability to test and verify whatever it generates. GeoGPT is already doing self-verfication through the system messages that verify that a file has been saved to the working directory and that a layer has been added to the map on the client. This does not, however, fix the issue where GeoGPT works with different data to what it believes it to be. An example of this edge case was presented in the section on unsuccessful test runs in \autoref{subsec:quantitative-results} where GeoGPT believed it was working with data only for Oslo, when in reality the data was for the whole of Norway.
 
 A possible way of doing self-verification that mitigates these kinds of issues is to utilize multi-modal \acrshortpl{acr:llm}. \autoref{fig:chatgpt-visual-self-verfication} shows how using a multi-modal \acrshort{acr:gpt}-4 model can correctly identify that the resulting layer from the above-mentioned unsuccessful analysis is incorrect, based only on a screenshot of the map.
 
