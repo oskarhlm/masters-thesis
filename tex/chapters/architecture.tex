@@ -39,7 +39,7 @@ The \nameref{cha:architecture} chapter will give a detailed description of the i
 \section{High-Level Application Architecture}
 \label{sec:high-level-application-architecture}
 
-A microservice architecture was employed in order to simplify development and separate concerns between the different microservices. The services are deployed as Docker Containers, and they are orchestrated using Docker Compose. \todo{quickly explain docker and why it is useful here} \autoref{fig:architecture-overview} shows how the application is divided into five distinct services, and the general direction of information flow between these. \autoref{fig:sequence-diagram}
+A microservice architecture was employed in order to simplify development and separate concerns between the different microservices. The services are deployed as Docker Containers, and they are orchestrated using Docker Compose. \autoref{fig:architecture-overview} shows how the application is divided into five distinct services, and the general direction of information flow between these. \autoref{fig:sequence-diagram} will go into greater detail, showing show the different services interact with each other when the user first loads GeoGPT and enters a question into the chat.
 
 \begin{figure}[h]
     \centering
@@ -180,7 +180,7 @@ The features retrieved from this query is saved on the working directory on the 
 
 \begin{table}[h]
     \centering
-    \caption{Overview of each agent's tools}
+    \caption{Overview of the agent types and their tools}
     \label{tbl:agent-tool-overview}
     \begin{tabularx}{0.7\textwidth}{XX}
         \toprule
