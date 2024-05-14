@@ -175,7 +175,7 @@ This section features three different box plots: \autoref{fig:duration-box-plot}
     print(output_path)    
 \end{lstlisting}
 
-\autoref{fig:cost-and-tokens} shows box plots for the amount of tokens used per run and the total cost of these. Naturally, these figures appear very similar, as OpenAI sets fixed prices for the input tokens and generated output tokens for their \acrshort{acr:gpt} models. According to their websites\footnote{\url{https://openai.com/pricing}}, they charge $\$10$ per million input tokens and $\$30$ per million output tokens for their \acrshort{acr:gpt}-4 Turbo models. From the results of the experiments, a ratio of approximately $10.7$ per million tokens --- either input \textit{or} output --- was calculated, which is very close to the input token price. This aligns with the observation that the number of input/prompt tokens is significantly greater than the number of output/generated tokens for the experiments conducted. The correlation matrix in \autoref{fig:correlation-matrix} confirms that this ratio is consistent.
+\autoref{fig:cost-and-tokens} shows box plots for the amount of tokens used per run and the total cost of these. Naturally, these figures appear very similar, as OpenAI sets fixed prices for the input tokens and generated output tokens for their \acrshort{acr:gpt} models. According to their websites\footnote{\url{https://openai.com/pricing}}, they charge $\$10$ per million input tokens and $\$30$ per million output tokens for their \acrshort{acr:gpt}-4 Turbo models. From the results of the experiments, a ratio of approximately $10.7$ per million tokens --- either input \textit{or} output --- was calculated, which is very close to the input token price. This aligns with the observation that the number of input/prompt tokens is significantly greater than the number of output/generated tokens for the experiments conducted. The correlation matrices in \autoref{fig:correlation-matrices} confirm that this ratio is consistent.
 
 \begin{figure}[htbp]
     \centering
@@ -196,15 +196,44 @@ This section features three different box plots: \autoref{fig:duration-box-plot}
     \label{fig:cost-and-tokens}
 \end{figure}
 
-Another observation that can be made from \autoref{fig:correlation-matrix} is that there is only a \textit{slight} positive correlation between duration and token/usage. This supports the observation that code execution time is likely the most significant factor in determining the duration required to complete a task for the datasets and tasks used in this thesis' experiments.
+Another observation that can be made from \autoref{fig:correlation-matrices} correlation between duration and token usage is inconsistent across the agent types. The \acrshort{acr:ogc} \acrshort{acr:api} Features agent and \acrshort{acr:sql} agent have strong correlation between these metrics, but the Python agent has next to none. This supports the observation that, for the Python agent, code execution time, particularly the time spent on expensive imports, is likely the most significant factor in determining the time required to complete tasks for the datasets and experiments used in this thesis.
 
-A third observation that can be made from the \autoref{fig:correlation-matrix} is the negative correlation between the encoded outcome and token usage, duration, and total cost. This suggests that A task that takes longer to complete --- and thus is likely to be more expensive in terms of token usage --- is more likely to produce an undesirable outcome. Possible reasons as to why this is the case will be explored in the \nameref{cha:discussion}.\todo{don't forget to explore}
+A third observation that can be made from the \autoref{fig:correlation-matrices} is the slight negative correlation between the encoded outcome and each of the following variables: token usage, duration, and total cost. This suggests that a task that takes longer to complete, and thus is likely to be more expensive in terms of token usage, is more likely to produce an undesirable outcome. Possible reasons as to why this is the case will be explored in \autoref{sec:dead-ends} the \nameref{cha:discussion}.
 
-\begin{figure}[htbp]
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{correlation_matrix.png}
+%     \caption{Correlation matrix for test result metrics}
+%     \label{fig:correlation-matrix}
+% \end{figure}
+
+\begin{figure}[htp]
     \centering
-    \includegraphics[width=0.8\textwidth]{correlation_matrix.png}
-    \caption{Correlation matrix for test result metrics}
-    \label{fig:correlation-matrix}
+
+    \begin{subfigure}[b]{\textwidth}
+        \includegraphics[width=\textwidth]{correlation_matrix_oaf.png}
+        \caption{Correlation matrix for the \acrshort{acr:ogc} \acrshort{acr:api} Features agent}
+        \label{fig:sub1}
+    \end{subfigure}
+
+    \vspace{1cm} % Adds vertical space between the figures
+
+    \begin{subfigure}[b]{\textwidth}
+        \includegraphics[width=\textwidth]{correlation_matrix_python.png}
+        \caption{Correlation matrix for the Python agent}
+        \label{fig:sub2}
+    \end{subfigure}
+
+    \vspace{1cm} % Adds vertical space between the figures
+
+    \begin{subfigure}[b]{\textwidth}
+        \includegraphics[width=\textwidth]{correlation_matrix_sql.png}
+        \caption{Correlation matrix for the \acrshort{acr:sql} agent}
+        \label{fig:sub3}
+    \end{subfigure}
+
+    \caption{Correlation matrices for metrics for the three agent types}
+    \label{fig:correlation-matrices}
 \end{figure}
 
 \subsubsection{Repeatability}

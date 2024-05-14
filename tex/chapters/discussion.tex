@@ -122,7 +122,7 @@ Discussion and evaluation can either be two different chapters, a joint chapter 
 As for most parts of the thesis, it is possible to select various outlines and setups for the discussion; the important thing is that all the relevant parts appear \textit{somewhere\/} in the text.
 \end{comment}
 
-The \nameref{cha:discussion} will begin with suggesting a place for an application like GeoGPT in the field of \acrshort{acr:gis}. Is it useful, or does its limitations make it redundant? Thereafter, \autoref{sec:difficulties-with-oaf} will present some difficulties that were encountered with the \acrshort{acr:ogc} \acrshort{acr:api} Features agent, specifically. \autoref{sec:self-verification} will discuss how one of the autonomous goal of \textit{self-verification} --- introduced by \cite{liAutonomousGISNextgeneration2023} --- can be improved, for instance by utilizing the multi-modal abilities of certain state-of-the-art \acrshortpl{acr:llm}. Finally, \autoref{sec:multi-agent-architectures} will discuss a semi-failed attempt at implementing a multi-agent architecture for GeoGPT, and provide suggestions as to why this didn't succeed.
+The \nameref{cha:discussion} will begin with suggesting a place for an application like GeoGPT in the field of \acrshort{acr:gis}. Is it useful, or does its limitations make it redundant? Thereafter, \autoref{sec:why-sql-better} will present possible reasons that the \acrshort{acr:sql} agent outperforms the two other agent types. \autoref{sec:dead-ends} will explore the scenarios in which GeoGPT repeatedly encounters dead ends, attempting the same unsuccessful actions multiple times. \autoref{sec:self-verification} will discuss how one of the autonomous goal of \textit{self-verification} --- introduced by \cite{liAutonomousGISNextgeneration2023} --- can be improved, for instance by utilizing the multi-modal abilities of certain state-of-the-art \acrshortpl{acr:llm}. Finally, \autoref{sec:multi-agent-architectures} will discuss a semi-failed attempt at implementing a multi-agent architecture for GeoGPT, and provide suggestions as to why this didn't succeed.
 
 \section[GeoGPT's Place in the Field of GIS]{GeoGPT's Place in the Field of \acrshort{acr:gis}}
 
@@ -140,8 +140,18 @@ The correct answer to the question --- based on the data available to GeoGPT ---
 
 \citep[1-2]{linGeneratingConfidenceUncertainty2023} write that the issue with uncertainty in \acrshortpl{acr:llm} is a challenge that \enquote{has attracted limited attention until recently}, highlighting the \enquote{forbiddingly high} dimensionality of the output space as one of the key hindrances to a reliable way of measuring confidence. They also mention the fact that many \acrshortpl{acr:llm} are closed-source (like OpenAI's \acrshort{acr:gpt} models and Anthropic's Claude models) and served via \acrshortpl{acr:api} as black-boxes.
 
-\section[Limitations with OGC API Features]{Limitations with \acrshort{acr:ogc} \acrshort{acr:api} Features}
-\label{sec:difficulties-with-oaf}
+
+\section[Why Does the SQL Agent Outperform the Others?]{Why Does the \acrshort{acr:sql} Agent Outperform the Others?}
+\label{sec:why-sql-better}
+
+This section will possible reasons for the superior performance of the \acrshort{acr:sql} agent of GeoGPT.
+
+\subsection{Likely Higher Prevalence of PostGIS Examples During Pre-Training}
+
+The experimental results presented in \autoref{sec:experimental-results} clearly show that GeoGPT's \acrshort{acr:sql} agent outperform both the \acrshort{acr:ogc} \acrshort{acr:api} Features agent and the Python agent. As \autoref{fig:outcome-distribution} in \autoref{subsec:quantitative-results} shows, the \acrshort{acr:sql} agent has a success rate of 69.4\% compared to the other two, which share a success rate of 38.9\%. A possible reason for this performance gap is the fact that PostGIS is a very established technology, with its first stable release dating back to 2001\footnote{\url{https://en.wikipedia.org/wiki/PostGIS}}. The other agents rely on Python libraries like GeoPandas\footnote{\url{https://geopandas.org/en/stable/}} in place of PostGIS, which a less established technology, making it less likely that \acrshort{acr:llm} is likely to have seen often during pre-training. As of \today, Google Scholar returns $\sim 22.600$ results for \enquote{PostGIS} compared to  $\sim 3.650$ for \enquote{GeoPandas}. This large difference in search results is likely correlated with a difference in prevalence of the two technologies in the data that the \acrshort{acr:gpt} model used in the experiments was trained upon, which is obtained through web scraping\citep[3]{radfordLanguageModelsAre}.
+
+\subsection[Limitations with OGC API Features]{Limitations with \acrshort{acr:ogc} \acrshort{acr:api} Features}
+\label{subsec:difficulties-with-oaf}
 
 A common source of error with several of the tests conducted with the \acrshort{acr:ogc} \acrshort{acr:api} Features agent in was its inability to fetch more than 10,000 features from the server. The limit of 10,000 features is specified in the Features standard \citep{opengeospatialconsortiumOGCAPIFeatures2022}, meaning that no more than 10,000 features should be returned in a single response. Accompanied by such a large response, however, should be a \texttt{next} link than should point to the next set of 10,000 features. This way, the server could return more than 10,000 features. Unfortunately, as of \today, the current version of \textit{pg\_featuresserv} does not support this feature\footnote{\url{https://github.com/CrunchyData/pg_featureserv/blob/master/FEATURES.md}}, which is a significant limitation to the current \acrshort{acr:ogc} \acrshort{acr:api} Features implementation for GeoGPT.
 
@@ -176,6 +186,16 @@ Content-Type: application/ogcqry+json
     }                                                              
 ]
 \end{lstlisting}
+
+
+\section[Walking Into Dead Ends]{Walking Into Dead Ends}
+\label{sec:dead-ends}
+
+% \autoref{fig:duration-box-plot} in \autoref{tbl:test-results-quantitative} clearly shows that the \acrshort{acr:sql} agent has lower latency (time taken to present an answer) compared to the two other agents. Time-expensive Python imports was explained as the main contributor to high latency with the Python agent, and the same issue is likely present with the \acrshort{acr:ogc} \acrshort{acr:api} Features agent, though it is not as severe for the latter. 
+
+As pointed out in \autoref{subsec:quantitative-results}, the correlation matrix in \autoref{fig:correlation-matrices} showed that the encoded outcome has a negative correlation with each of the following variables: token usage, duration, and total cost across all agent types. This suggests that tasks requiring more time to solve are more likely to result in an unsuccessful outcome. The tendency of GeoGPT of becoming stuck on \enquote{dead ends} might be an explanation for this. The example in \autoref{fig:oaf-geodesic-unsuccessful} shows this tendency well: GeoGPT tries to query the same collection many times using more or less the same parameters, without realizing that the collection it is querying might not even contain the data it is looking for. This results in an almost endless loop of unsuccessful tool calls, and consequently, a long duration for an unsuccessful outcome.
+
+\cite{peysakhovichAttentionSortingCombats2023} suggest in regards to current \acrshort{acr:llm}s that \enquote{relevant information located in earlier context is attended to less on average}. This might explain why GeoGPT occasionally gets stuck attempting the same thing over and over, perhaps because it has forgotten that other datasets or attributes are available. These endless attempts clearly increase the duration of the run, and also bloats the context window with tool messages. A bloated context window leads to higher token usage and inference time per call to the \acrshort{acr:llm}, which slows the system down even further.
 
 
 \section{Self-Verification}

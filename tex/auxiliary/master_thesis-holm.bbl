@@ -14338,6 +14338,63 @@
       \verb https://openai.com/blog/chatgpt
       \endverb
     \endentry
+    \entry{peysakhovichAttentionSortingCombats2023}{misc}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=e2a34ee0aca3c2199c2c9262e06263ad}{%
+           family={Peysakhovich},
+           familyi={P\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b5815e1692fa2d0c1f44eecf509bd7c4}{%
+           family={Lerer},
+           familyi={L\bibinitperiod},
+           given={Adam},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{b470318f114df27a9c4be4d57e7ab12d}
+      \strng{fullhash}{b470318f114df27a9c4be4d57e7ab12d}
+      \strng{bibnamehash}{b470318f114df27a9c4be4d57e7ab12d}
+      \strng{authorbibnamehash}{b470318f114df27a9c4be4d57e7ab12d}
+      \strng{authornamehash}{b470318f114df27a9c4be4d57e7ab12d}
+      \strng{authorfullhash}{b470318f114df27a9c4be4d57e7ab12d}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Current language models often fail to incorporate long contexts efficiently during generation. We show that a major contributor to this issue are attention priors that are likely learned during pretraining: relevant information located earlier in context is attended to less on average. Yet even when models fail to use the information from a relevant document in their response, they still pay preferential attention to that document compared to an irrelevant document at the same position. We leverage this fact to introduce ``attention sorting'': perform one step of decoding, sort documents by the attention they receive (highest attention going last), repeat the process, generate the answer with the newly sorted context. We find that attention sorting improves performance of long context models. Our findings highlight some challenges in using off-the-shelf language models for retrieval augmented generation.}
+      \field{eprintclass}{cs}
+      \field{eprinttype}{arxiv}
+      \field{langid}{english}
+      \field{month}{9}
+      \field{number}{arXiv:2310.01427}
+      \field{title}{Attention {{Sorting Combats Recency Bias In Long Context Language Models}}}
+      \field{urlday}{14}
+      \field{urlmonth}{5}
+      \field{urlyear}{2024}
+      \field{year}{2023}
+      \field{urldateera}{ce}
+      \verb{eprint}
+      \verb 2310.01427
+      \endverb
+      \verb{file}
+      \verb C:\Users\oskar\Zotero\storage\FQIJFAW2\Peysakhovich and Lerer - 2023 - Attention Sorting Combats Recency Bias In Long Con.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2310.01427
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2310.01427
+      \endverb
+      \keyw{Computer Science - Artificial Intelligence,Computer Science - Computation and Language}
+    \endentry
     \entry{pichaiOurNextgenerationModel2024}{misc}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=b0361c7c801f2c2503275338dc86d206}{%
@@ -14445,6 +14502,7 @@
       \strng{authorbibnamehash}{fbc85d06f02fc1534a6ba28d0d6e5c89}
       \strng{authornamehash}{ca3baa5a22057195db1c71be39b4c922}
       \strng{authorfullhash}{fbc85d06f02fc1534a6ba28d0d6e5c89}
+      \field{extraname}{1}
       \field{sortinit}{R}
       \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
       \field{extradatescope}{labelyear}
@@ -14459,6 +14517,65 @@
       \field{year}{2018}
       \verb{file}
       \verb C:\Users\oskar\Zotero\storage\9FMV32GE\Radford et al. - Improving Language Understanding by Generative Pre.pdf
+      \endverb
+    \endentry
+    \entry{radfordLanguageModelsAre}{article}{}
+      \name{author}{6}{}{%
+        {{un=0,uniquepart=base,hash=a812c46caad94fc8701be37871f303ba}{%
+           family={Radford},
+           familyi={R\bibinitperiod},
+           given={Alec},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=495187f3a2c93ddb8083bd18a5702527}{%
+           family={Wu},
+           familyi={W\bibinitperiod},
+           given={Jeffrey},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5c2f5c2e6d4a9ec8681377f8a8e5e6af}{%
+           family={Child},
+           familyi={C\bibinitperiod},
+           given={Rewon},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=63b32614460a4ab72dbbbbfe223220ea}{%
+           family={Luan},
+           familyi={L\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1e6adbf36ab730cd5fdadb838b4d2667}{%
+           family={Amodei},
+           familyi={A\bibinitperiod},
+           given={Dario},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8d569d1d5b8b5a7836017a98b430f959}{%
+           family={Sutskever},
+           familyi={S\bibinitperiod},
+           given={Ilya},
+           giveni={I\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{ca3baa5a22057195db1c71be39b4c922}
+      \strng{fullhash}{272bcacf72583dff08d1a2eedd467b89}
+      \strng{bibnamehash}{272bcacf72583dff08d1a2eedd467b89}
+      \strng{authorbibnamehash}{272bcacf72583dff08d1a2eedd467b89}
+      \strng{authornamehash}{ca3baa5a22057195db1c71be39b4c922}
+      \strng{authorfullhash}{272bcacf72583dff08d1a2eedd467b89}
+      \field{extraname}{2}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labeldatesource}{nodate}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Natural language processing tasks, such as question answering, machine translation, reading comprehension, and summarization, are typically approached with supervised learning on taskspecific datasets. We demonstrate that language models begin to learn these tasks without any explicit supervision when trained on a new dataset of millions of webpages called WebText. When conditioned on a document plus questions, the answers generated by the language model reach 55 F1 on the CoQA dataset - matching or exceeding the performance of 3 out of 4 baseline systems without using the 127,000+ training examples. The capacity of the language model is essential to the success of zero-shot task transfer and increasing it improves performance in a log-linear fashion across tasks. Our largest model, GPT-2, is a 1.5B parameter Transformer that achieves state of the art results on 7 out of 8 tested language modeling datasets in a zero-shot setting but still underfits WebText. Samples from the model reflect these improvements and contain coherent paragraphs of text. These findings suggest a promising path towards building language processing systems which learn to perform tasks from their naturally occurring demonstrations.}
+      \field{langid}{english}
+      \field{title}{Language {{Models}} Are {{Unsupervised Multitask Learners}}}
+      \verb{file}
+      \verb C:\Users\oskar\Zotero\storage\SSHHKRBM\Radford et al. - Language Models are Unsupervised Multitask Learner.pdf
       \endverb
     \endentry
     \entry{richardAutoGPTHeartOpensource2023}{misc}{}

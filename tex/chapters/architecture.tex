@@ -39,13 +39,20 @@ The \nameref{cha:architecture} chapter will give a detailed description of the i
 \section{High-Level Application Architecture}
 \label{sec:high-level-application-architecture}
 
-A microservice architecture was employed in order to simplify development and separate concerns between the different microservices. The services are deployed as Docker Containers, and they are orchestrated using Docker Compose. \todo{quickly explain docker and why it is useful here} \autoref{fig:architecture-overview} shows how the application is divided into five distinct services, and the direction of information flow between these.
+A microservice architecture was employed in order to simplify development and separate concerns between the different microservices. The services are deployed as Docker Containers, and they are orchestrated using Docker Compose. \todo{quickly explain docker and why it is useful here} \autoref{fig:architecture-overview} shows how the application is divided into five distinct services, and the general direction of information flow between these. \autoref{fig:sequence-diagram}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{microservices.png}
     \caption{Architecture overview}
     \label{fig:architecture-overview}
+\end{figure}
+
+\begin{figure}
+    % \centering
+    \makebox[\textwidth][c]{\includegraphics[width=1.2\textwidth]{Sequence diagram.png}}
+    \caption{Sequence diagram showing the information flow as the user loads and sends a message to GeoGPT}
+    \label{fig:sequence-diagram}
 \end{figure}
 
 
@@ -72,13 +79,6 @@ The \textit{LangChain Server} service is the heart of the application, and is wh
         \bottomrule
     \end{tabular}
 \end{table}
-
-\begin{figure}
-    % \centering
-    \makebox[\textwidth][c]{\includegraphics[width=1.2\textwidth]{Sequence diagram.png}}
-    \caption{Sequence diagram showing the information flow as the user loads and sends a message to GeoGPT}
-    \label{fig:sequence-diagram}
-\end{figure}
 
 
 \subsection{Redis for Conversations}
