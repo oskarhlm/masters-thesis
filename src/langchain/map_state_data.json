@@ -1,20 +1,3 @@
 {
-    "layers": [
-        {
-            "id": "trondheim_water",
-            "type": "fill",
-            "source": "trondheim_water",
-            "paint": {
-                "fill-color": "#655c9d"
-            }
-        },
-        {
-            "id": "trondheim_buildings",
-            "type": "fill",
-            "source": "trondheim_buildings",
-            "paint": {
-                "fill-color": "#db4847"
-            }
-        }
-    ]
+    "layers": []
 }
