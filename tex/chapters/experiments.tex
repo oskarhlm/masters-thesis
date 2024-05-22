@@ -198,7 +198,7 @@ This section features three different box plots: \autoref{fig:duration-box-plot}
 
 Another observation that can be made from \autoref{fig:correlation-matrices} correlation between duration and token usage is inconsistent across the agent types. The \acrshort{acr:ogc} \acrshort{acr:api} Features agent and \acrshort{acr:sql} agent have strong correlation between these metrics, but the Python agent has next to none. This supports the observation that, for the Python agent, code execution time, particularly the time spent on expensive imports, is likely the most significant factor in determining the time required to complete tasks for the datasets and experiments used in this thesis.
 
-A third observation that can be made from the \autoref{fig:correlation-matrices} is the slight negative correlation between the encoded outcome and each of the following variables: token usage, duration, and total cost. This suggests that a task that takes longer to complete, and thus is likely to be more expensive in terms of token usage, is more likely to produce an undesirable outcome. Possible reasons as to why this is the case will be explored in \autoref{sec:dead-ends} the \nameref{cha:discussion}.
+A third observation that can be made from the \autoref{fig:correlation-matrices} is the slight negative correlation between the encoded outcome and each of the following variables: token usage, duration, and total cost. This suggests that a task that takes longer to complete, and thus is likely to be more expensive in terms of token usage, is more likely to produce an undesirable outcome. Possible reasons as to why this is the case will be explored in \autoref{subsec:dead-ends} the \nameref{cha:discussion}.
 
 % \begin{figure}[htbp]
 %     \centering

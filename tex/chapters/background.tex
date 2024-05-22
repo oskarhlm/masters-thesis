@@ -197,136 +197,122 @@ As can be seen in the example, elements in a table can sometimes benefit from be
 \end{comment}
 
 \begin{itshape}
-    NB! Parts of the \nameref{cha:background-theory} chapter is reused material from the specialization project \citep{holmLLMsDeathGIS2023} preceding this master thesis. Below are the sections in question, together with a description of the extent to which, and how, the material is reused:
+    NB! Parts of the \nameref{cha:background-theory} chapter is reused material from the specialization project \citep{holmLLMsDeathGIS2023} that preceded this master's thesis. Below are the sections in question, accompanied with descriptions of the extent to which, and how, the materials is reused:
 
     \begin{itemize}
-        \item \Autosubsectionref{subsec:attention-and-the-transformer-architecture}: Reused with some adjustments.
-        \item \Autosubsectionref{subsec:sota-decoder-only-llms}: \acrshort{acr:gpt} part reused without modification.
+        \item \Autosubsectionref{subsec:attention-and-the-transformer-architecture}: Reused, with minor adjustments.
+        \item \Autosubsectionref{subsec:sota-decoder-only-llms}: \acrshort{acr:gpt} part reused without modifications.
     \end{itemize}
 \end{itshape}
 
 \vspace{12pt}
 
-\noindent \Autochapterref{cha:background-theory} will lay a theoretical basis for the work done in this master thesis, providing the user with the required understanding in order to understand the contributions of the work. \Autosectionref{sec:llms} will explain the theoretical basis of the component which most modern \glspl{acr:llm} are based upon --- namely the Transformer --- and the attention mechanism within it. Continuing, this section will present some of the leading \acrshortpl{acr:llm} as of \today --- both proprietary and open-source ones. \Autosubsectionref{subsec:prompt-engineering} will present the concept of \textit{prompt engineering} before \autoref{subsec:function-calling} concludes \autoref{sec:llms}. \Autosectionref{sec:langchain} will explain LangChain --- a Python/JavaScript library that is used extensively throughout the code base of GeoGPT. \Autosectionref{sec:geo-dbs-and-data-catalogues} will conclude the \nameref{cha:background-theory} chapter, presenting the geospatial technologies that is used within GeoGPT.
-
-
-% \section{Approaches to Language Modelling}
-% \label{sec:language-modelling}
-
-% \Autosubsectionref{subsec:attention-and-the-transformer-architecture} will explain the theoretical basis behind most modern \glspl{acr:llm}, which are based upon the attention mechanism built into the Transformer architecture. \Autosubsectionref{subsec:state-space-models} will explain modern state space-modelling approaches and why they may have a potential greater than Transformer-based models. First, however, \autoref{subsec:statistical-models-and-rnns} will delve into earlier attempts at language modelling.
-
-% \subsection[Early Attempts: Statistical Models and Recurrent Neural Networks]{Early Attempts: Statistical Models and \acrlongpl{acr:rnn}}
-% \label{subsec:statistical-models-and-rnns}
-
-% \subsection{Statistical Models}
-
-
-% \subsection[Recurrent Neural Networks]{\acrlongpl{acr:rnn}}
-
-
-% \subsection{State Space Models}
-% \label{subsec:state-space-models}
+\noindent \Autochapterref{cha:background-theory} will lay a theoretical basis for the work done in this master thesis, providing the user with the necessary knowledge to understand the contributions of the work. \Autosectionref{sec:llms} will focus on \gls{acr:llm}. First, the section will introduce the terms \enquote{tokens} and \enquote{context window}. Thereafter, \autoref{subsec:attention-and-the-transformer-architecture} will present the component that most modern \glspl{acr:llm} are based upon --- namely the Transformer --- and the attention mechanism that drives it. Continuing, \autoref{subsec:sota-decoder-only-llms} section will present some of the leading \acrshortpl{acr:llm} as of \today, both proprietary and open-source ones. \Autosubsectionref{subsec:prompt-engineering} will present the concept of \textit{prompt engineering} before \autoref{subsec:function-calling} concludes \autoref{sec:llms}. \Autosectionref{sec:langchain} will give a brief intro to LangChain, a Python/JavaScript library that is used extensively throughout the code base of GeoGPT. \Autosectionref{sec:geo-dbs-and-data-catalogues} will conclude the \nameref{cha:background-theory} chapter, presenting the geospatial technologies that is used within GeoGPT.
 
 
 \section[Large Language Models]{\acrlongpl{acr:llm}}
 \label{sec:llms}
 
-\glspl{acr:llm} are a type of neural networks that excel at processing language. They can be developed for different \gls{acr:nlp} tasks, such a text classification, masked language modelling, and text generation. While they all have their use cases, only text generation will be relevant for this thesis. Generative \glspl{acr:llm} are designed to take some input sequence and generate some output sequence, and are the types of models behind technologies like OpenAI's \textit{ChatGPT}\citep{openaiIntroducingChatGPT2022}.
-
-This section will lay the theoretical groundwork required to gain an overview of the inner workings of \glspl{acr:llm}. \autoref{subsec:core-concepts} will inform the reader on core concepts and terminology that will be used extensively throughout this thesis when discussing \acrshortpl{acr:llm}. \autoref{subsec:attention-and-the-transformer-architecture} will explain the attention mechanism and the related Transformer architecture, the latter of which serves as the core building block in most modern \acrshortpl{acr:llm}.
+This section will lay the theoretical groundwork required to gain an overview of the inner workings of \glspl{acr:llm}. \glspl{acr:llm} are a type of neural networks that excel at language processing. They can be developed for different \gls{acr:nlp} tasks, such a text classification, masked language modelling, and text generation. While they all have their use cases, only text generation will be relevant for this thesis. Generative \glspl{acr:llm} are designed to generate some output sequence based upon some input sequence, and are the types of models behind technologies like OpenAI's \textit{ChatGPT} \citep{openaiIntroducingChatGPT2022}. This input sequence is also known as the \enquote{context window}, and all sequences are made up from \enquote{tokens}, as \autoref{subsec:core-concepts} will explain.
 
 
-\subsection{Core Concepts}
+\subsection{Tokens and the Context Window}
 \label{subsec:core-concepts}
 
-While humans understand sentences as sequences of words, \acrshortpl{acr:llm} perceive them as sequences of \textbf{tokens}. An \acrshort{acr:llm} possesses a fixed set of unique tokens in its vocabulary, from which it constructs words and sentences. Tokens can be entire words, short character sequences, or single characters. \autoref{fig:tokenization-example-sentence} illustrates how the latest \acrshort{acr:gpt} models \textit{tokenize} an English sentence. Notice how some words are deconstructed into more than one token. For example, the word \enquote{revolutionizing} is split into its root (\enquote{revolution}) and its suffix (\enquote{izing}). \autoref{fig:tokenization-revolution} shows how this process applies to other suffixes as well. Likely, the model has learned the meaning of \enquote{revolution} and elects to use different suffixes to modify its function within a sentence, as opposed to having an entirely new token for each version of the word.
+While humans understand sentences as sequences of words, \acrshortpl{acr:llm} perceive them as sequences of \textbf{tokens}. An \acrshort{acr:llm} possesses a fixed set of unique tokens in its vocabulary, from which it constructs words and sentences. Tokens can be entire words, short character sequences, or single characters. \autoref{fig:tokenization-example-sentence} illustrates how the OpenAI's \acrshort{acr:gpt}-3.5 and \acrshort{acr:gpt}-4 models \textit{tokenize} an English sentence. Notice how some words are deconstructed into more than one token. For example, the word \enquote{revolutionizing} is split into its root, \enquote{revolution}, and its suffix, \enquote{izing}. \autoref{fig:tokenization-revolution} shows how this process applies to other suffixes as well. This way, the model only has to learn the meaning of \enquote{revolution}, and can append different suffixes to modify its function within a sentence, as opposed to learning an entirely new token for each version of the word.
 
 \begin{figure}[htp]
     \centering
     \includegraphics[width=\textwidth]{tokens_illustration.png}
-    \caption{Tokenization example for a sentence}
+    \caption{Tokenization example for an English sentence}
     \label{fig:tokenization-example-sentence}
 \end{figure}
 
 \begin{figure}[htp]
     \centering
     \includegraphics[width=0.25\textwidth]{revolution_tokens.png}
-    \caption{Tokenization of \enquote{revolution} with different suffixes}
+    \caption{Tokenization of the word \enquote{revolution} with different suffixes}
     \label{fig:tokenization-revolution}
 \end{figure}
 
-The \textbf{context window} of an \acrshort{acr:llm} is the range of tokens that an \acrshort{acr:llm} is able to process. When an \acrshort{acr:llm} generates text, it does so by generating a new token based on what it sees in the span of the context window. A larger context window will allow an \acrshort{acr:llm} to take more and longer documents as context and answer questions generate answers based on these. Leveraging sophisticated techniques like \gls{acr:rope} \citep{suRoFormerEnhancedTransformer2024} and \gls{acr:pose} \citep{zhuPoSEEfficientContext2024}, reserchers have able to efficiently extend the context window of open-source models like \acrshort{acr:llama}.
-
-
+The \textbf{context window} of an \acrshort{acr:llm} is the range of tokens that an \acrshort{acr:llm} is able to process. When an \acrshort{acr:llm} generates text, it does so by generating a new token based on the tokens it sees in the span of the context window. A larger context window will allow an \acrshort{acr:llm} to take more and longer documents as context, and generate answers based on these. Leveraging sophisticated techniques like \gls{acr:rope} \citep{suRoFormerEnhancedTransformer2024} and \gls{acr:pose} \citep{zhuPoSEEfficientContext2024}, reserchers have able to efficiently extend the context window of open-source models like, for instance, Meta AI's \acrshort{acr:llama} models.
 
 
 \subsection{Attention and the Transformer Architecture}
 \label{subsec:attention-and-the-transformer-architecture}
 
-\cite{vaswaniAttentionAllYou2017} managed to achieve new state-of-the-art results for machine translation tasks with their introduction of the Transformer architecture. The Transformer has later been proved effective for numerous downstream tasks, and for a variety of modalities. Titling their paper \citetitle{vaswaniAttentionAllYou2017}, \citeauthor{vaswaniAttentionAllYou2017} suggest that their attention-based architecture renders network architectures like \glspl{acr:rnn} redundant, due to its superior parallelization abilities and the shorter path between combinations of position input and output sequences, making it easier to learn long-range dependencies \citep[6]{vaswaniAttentionAllYou2017}.
+\cite{vaswaniAttentionAllYou2017} managed to achieve new state-of-the-art results for machine translation tasks with their introduction of the Transformer architecture. The Transformer has later been proved effective for numerous downstream tasks, and for a variety of modalities. Titling their paper \citetitle{vaswaniAttentionAllYou2017}, \citeauthor{vaswaniAttentionAllYou2017} suggest that their attention-based Transformer architecture renders network architectures like \glspl{acr:rnn} redundant, due to its superior parallelization abilities and the shorter path between combinations of position input and output sequences, making it easier for the model to learn long-range dependencies \citep[6]{vaswaniAttentionAllYou2017}.
 
-The Transformer employs self-attention, which enables the model to draw connections between arbitrary parts of a given sequence, bypassing the long-range dependency issue commonly found with \glspl{acr:rnn}. An attention function maps a query and a set of key-value pairs to an output, calculating the compatibility between a query and a corresponding key \citep[3]{vaswaniAttentionAllYou2017}. Looking at \citeauthor{vaswaniAttentionAllYou2017}'s proposed attention function \eqref{eq:attention}, we observe that it takes the dot product between the query $Q$ and the keys $K$, where $Q$ is the token that we want to compare all the keys to. Keys similar to $Q$ will get a higher score, i.e., be \textit{more attended to}. These differences in attention are further emphasized by applying the softmax function. The final matrix multiplication with the values $V$ (the initial embeddings of the input tokens) will yield a new embedding in which all individual tokens have some context from all other tokens. We improve the attention mechanism by multiplying queries, keys, and values with weight matrices that are learned through backpropagation. Self-attention is a special kind of attention in which queries, keys, and values are all the same sequence.
-
+The Transformer employs self-attention, which enables the model to draw connections between arbitrary parts of a given sequence, bypassing the long-range dependency issue commonly found with \glspl{acr:rnn}. An attention function maps a query and a set of key-value pairs to an output, calculating the compatibility between a query and a corresponding key \citep[3]{vaswaniAttentionAllYou2017}. Looking at \citeauthor{vaswaniAttentionAllYou2017}'s proposed attention function \eqref{eq:attention}, we observe that it takes the dot product between the query $Q$ and the keys $K$, where $Q$ is the token that we want to compare all the keys to. Keys similar to $Q$ will get a higher score, i.e., be \textit{more attended to}. These differences in attention are further emphasized by applying the softmax function. The final matrix multiplication with the values $V$ (the initial embeddings of the input tokens) will yield a new embedding in which all individual tokens have some context from all other tokens. The attention mechanism is improved by multiplying queries, keys, and values with \textit{learned} weight matrices that are obtained through backpropagation. Self-attention is a special kind of attention in which queries, keys, and values are all the same sequence.
 
 \begin{equation}
     \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
     \label{eq:attention}
 \end{equation}
 
-Attention blocks can be found in three places in the Transformer architecture \citep[5]{vaswaniAttentionAllYou2017} (I will use machine translation from Norwegian to German as an example):
+Attention blocks can be found in three places in the Transformer architecture \citep[5]{vaswaniAttentionAllYou2017}. Below is an example using translation from Norwegian to German, showing how the attention blocks are used:
 
 \begin{enumerate}
-    \item In the encoder block to perform self-attention on the input sequence (which is in Norwegian)
-    \item In the decoder block to perform self-attention on the output sequence (which is in German)
-    \item In the decoder block to perform cross-attention (also known as encoder-decoder attention) where each position in the decoder attends to all positions in the encoder
+    \item In the encoder block, to perform self-attention on the input sequence (which is in Norwegian)
+    \item In the decoder block, to perform self-attention on the output sequence (which is in German)
+    \item In the decoder block, to perform cross-attention (also known as encoder-decoder attention) where each position in the decoder attends to all positions in the encoder
 \end{enumerate}
 
-The Transformer represented a breakthrough in the field of \gls{acr:nlp}, and is the fundamental building block of modern \glspl{acr:llm}, most famous of which are the \acrshort{acr:gpt}'s.
+The Transformer represented a breakthrough in the field of \gls{acr:nlp}, and is the fundamental building block of most modern \glspl{acr:llm}.
 
 
 \subsection[State-of-the-Art Decoder-Only Models]{State-of-the-Art Decoder-Only \acrlongpl{acr:llm}}
 \label{subsec:sota-decoder-only-llms}
 
-While the work of \citeauthor{vaswaniAttentionAllYou2017} is still considered perhaps the greatest breakthrough in \gls{acr:nlp}, most moderns \acrshort{acr:llm} do not apply this encoder-decoder architecture. The subsequent evolution of \acrshortpl{acr:llm} has favoured generative decoder-only models, focusing entirely on the generative component of the Transformer, hoping to create models that can produce coherent and context-aware text. The first decoder-only model was OpenAI's \acrshort{acr:gpt}-1.
+While the work of \citeauthor{vaswaniAttentionAllYou2017} is still considered perhaps the greatest breakthrough in \gls{acr:nlp}, most moderns \acrshort{acr:llm} do not apply this exact encoder-decoder architecture. The evolution following the Transformer has favoured generative decoder-only models, focusing entirely on the generative component of the Transformer. The goal is to create models that can produce coherent and context-aware text.
 
 \subsubsection{The GPT Family}
 \label{subusubsec:gpt}
 
-\gls{acr:gpt} is a type of \gls{acr:llm} that was introduced by OpenAI in 2018 \citep{radfordImprovingLanguageUnderstanding2018}. Specifically designed for text generation, a \acrshort{acr:gpt} is essentially a stack of Transformer \textit{decoders}. It demonstrates through its vast pre-training on unlabelled data that such unsupervised training can help a language model learn good representations, providing a significant performance boost while alleviating the dependence on supervised learning. While the original Transformer architecture as described by \cite{vaswaniAttentionAllYou2017} was intended for machine translation --- thus having encoders to learn the representation of the origin language representation of a given input sequence and decoders to learn the representation in the target language and perform cross-attention between the two --- the \acrshort{acr:gpt} is designed only to \textit{imitate} language. This is why there are no encoders to be found in the \acrshort{acr:gpt} architecture, only decoders. The model employs masked multi-head attention (running the input sequence through multiple attention heads in parallel), and is restricted to only see the last $k$ tokens --- with $k$ being the size of the context window --- and tasked to predict the next one.
+\gls{acr:gpt} is an \acrshort{acr:llm} that was introduced by OpenAI in 2018 \citep{radfordImprovingLanguageUnderstanding2018}. Specifically designed for text generation, a \acrshort{acr:gpt} is essentially a stack of Transformer \textit{decoders}. It demonstrates through its vast pre-training on unlabelled data that such unsupervised training can help a language model learn good representations, providing a significant performance boost while alleviating the dependence on supervised learning. While the original Transformer architecture as described by \cite{vaswaniAttentionAllYou2017} was intended for machine translation --- thus having encoders to learn the representation of the origin language representation of a given input sequence and decoders to learn the representation in the target language and perform cross-attention between the two --- the \acrshort{acr:gpt} is designed only to \textit{imitate} language. This is why there are no encoders to be found in the \acrshort{acr:gpt} architecture, only decoders. The model employs masked multi-head attention (running the input sequence through multiple attention heads in parallel), and is restricted to only see the last $k$ tokens --- with $k$ being the size of the context window --- and tasked to predict the next one.
 
-Training consists of two stages: unsupervised pre-training and supervised fine-tuning. The former is used to find a good initialization point, essentially teaching the model to imitate the corpora upon which it is trained. This results in a model that will ramble on uncontrollably, just trying to elaborate upon the input sequence it's given to the best of its knowledge. This will naturally produce undefined behaviour, and it is therefore necessary to fine-tune the model on target tasks in a supervised manner. \cite[4]{radfordImprovingLanguageUnderstanding2018} explain how the model can be fine-tuned directly on tasks like text classification, but how one for other tasks needs to convert structured inputs into ordered sequences because the pre-trained model was trained on contiguous sequences of text. In the case of ChatGPT, \citeauthor{openaiIntroducingChatGPT2022} used \gls{acr:rlhf} by employing a three-step strategy: first training using a supervised policy, then using trained reward models to rank alternative completions produced by ChatGPT models, before fine-tuning the model using \gls{acr:ppo}, which is a way of training \acrshort{acr:ai} policies. This pipeline is then performed for several iterations until the model produces the desired behaviour \citep{openaiIntroducingChatGPT2022}.
+Training consists of two stages: unsupervised pre-training and supervised fine-tuning. The former is used to find a good initialization point, essentially teaching the model to imitate the corpora upon which it is trained. This results in a model that will ramble on uncontrollably, simply attempting to elaborate upon the input sequence it is given, to the best of its abilities. This will naturally produce undefined behaviour, and it is therefore necessary to fine-tune the model on target tasks in a \textit{supervised} manner. \cite[4]{radfordImprovingLanguageUnderstanding2018} explain how the model can be fine-tuned directly on tasks like text classification, but also how other tasks require the conversion of structured inputs into ordered sequences, as is the case when fine-tuning for tasks like multiple choice (see \autoref{fig:multiple-choice}). This \textit{inlining} is required because the pre-trained model was trained on contiguous sequences of text. In the case of ChatGPT, \citeauthor{openaiIntroducingChatGPT2022} used \gls{acr:rlhf} \citep{christianoDeepReinforcementLearning2023} by employing a three-step strategy: first training using a supervised policy, then using trained reward models to rank alternative completions produced by ChatGPT models, before fine-tuning the model using \gls{acr:ppo} \citep{schulmanProximalPolicyOptimization2017}, which is a way of training \acrshort{acr:ai} policies. This pipeline is then performed for several iterations until the model produces the desired behaviour \citep{openaiIntroducingChatGPT2022}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{multiple-choice.png}
+    \caption{How multiple choice tasks are inlined to work with fine-tuning of \acrshort{acr:gpt} models \citep[4]{radfordImprovingLanguageUnderstanding2018}}
+    \label{fig:multiple-choice}
+\end{figure}
+
+OpenAI's \acrshort{acr:api} currently features three flagship models, which are all proprietary|: the \acrshort{acr:gpt}-3.5 Turbo model, which is fast and inexpensive; the \acrshort{acr:gpt}-4 Turbo model, which as of \today~is described by OpenAI as their \enquote{previous high-intelligence model}; and lastly, \acrshort{acr:gpt}-4o, their \enquote{fastest and most affordable flagship model}.\footnote{\url{https://openai.com/api/}} The latter model has unique multi-modal abilities and can reason across audio, vision, and text in real time, according to OpenAI.\footnote{\url{https://openai.com/index/hello-gpt-4o/}}
 
 \subsubsection{The Gemini Family}
 \label{subsubsec:gemini}
 
-The suite of models known as Gemini is Google's latest response OpenAI's \acrshort{acr:gpt} models. The Gemini 1.0 suite \citep{geminiteamGeminiFamilyHighly2024}, which is the first suite of Gemini models, includes three different models: Ultra, Pro, and Nano. These are listed in descending order in terms of size (number of parameters). Like most other commercial \acrshortpl{acr:llm} the models of the Gemini 1.0 suite are multimodal, supporting text, image, audio, and video. Gemini 1.0 displayed new state-of-the-art performance on most major benchmarks, but performed significantly worse on the HellaSwag benchmark (which measures a model's common-sense understanding) compared to the newest \acrshort{acr:gpt}-4 model at the time. The models scored 87.8\% and 95.3\%, respectively. Supporting a context length up to 1M tokens, Gemini 1.0 Ultra surpassed the Claude 2.1's context window of 200k with a wide margin, and with the release of Gemini 1.5 Pro came also the possibility of utilizing a context window of up to 10M tokens, though in production this number is currently 1M \citep{geminiteamGeminiUnlockingMultimodal2024, pichaiOurNextgenerationModel2024}. Furthermore, Gemini 1.5 Pro outperforms Gemini 1.0 Ultra in some capabilities despite using significantly less training compute \citep[31]{geminiteamGeminiUnlockingMultimodal2024}.
+The suite of models known as Gemini is Google's latest response OpenAI's \acrshort{acr:gpt} models. The Gemini 1.0 suite \citep{geminiteamGeminiFamilyHighly2024}, which is the first suite of Gemini models, includes three different models: Ultra, Pro, and Nano. These are listed in descending order in terms of size (number of model parameters). The models of the Gemini 1.0 suite are multi-modal, supporting text, image, audio, and video. Gemini 1.0 Ultra displayed new state-of-the-art performance on most major benchmarks, but performed significantly worse on the HellaSwag benchmark (which measures a model's common-sense understanding) compared to the latest \acrshort{acr:gpt}-4 model at the time. The models scored 87.8\% and 95.3\%, respectively. Supporting a context length up to 1M tokens, Gemini 1.0 Ultra surpassed Claude 2.1's context window of 200k (see the next paragraph for more on the Claude models) with a wide margin, and with the release of Gemini 1.5 Pro came also the possibility of utilizing a context window of up to 10M tokens, though in production this number is currently limited to 1M \citep{geminiteamGeminiUnlockingMultimodal2024, pichaiOurNextgenerationModel2024}. Furthermore, Gemini 1.5 Pro outperforms Gemini 1.0 Ultra in some capabilities despite using significantly less training compute \citep[31]{geminiteamGeminiUnlockingMultimodal2024}.
 
 \subsubsection{The Claude Family}
 \label{subsubsec:claude}
 
-Developed at Anthropic, Claude is the third major, commercial \acrshort{acr:llm}. Anthropic is one of the actors in the \acrshort{acr:llm} market that has helped push in the direction of long-context \acrshortpl{acr:llm}, which their Claude 2 model being able to support up to 200k tokens \citep[9]{anthropicModelCardEvaluations2023}, being the best at the time of its release in November 2023. Latest in line is Claude 3, a family of \acrshortpl{acr:llm} of different sizes, largest of which is the Opus model which outperforms \acrshort{acr:gpt}-4 and Gemini 1.0 Ultra on most benchmarks \citep[6]{anthropicClaudeModelFamily2024}. Claude 3 is a family of language models, much like the Gemini family, featuring three main models: Opus, Sonnet, and Haiku. Again, these are listed in descending order in terms of number of parameters. Users can choose between Opus for the most advanced capabilities, Haiku for a fast and economical option, or Sonnet for a balance of both.
+Developed at Anthropic, Claude is the third major suite of proprietary \acrshort{acr:llm}. Anthropic is one of the actors in the \acrshort{acr:llm} market that has helped push in the direction of long-context \acrshortpl{acr:llm}, with their Claude 2 model (released in November 2023) being the first to support up to 200k tokens \citep[9]{anthropicModelCardEvaluations2023}. Latest in line is Claude 3, a family of language models that ---- much like the Gemini family --- features three models of different sizes: Opus, Sonnet, and Haiku. Again, these are listed in descending order in terms of number of parameters. Opus offers the most advanced capabilities, and outperforms \acrshort{acr:gpt}-4 and Gemini 1.0 Ultra on most benchmarks \citep[6]{anthropicClaudeModelFamily2024}. Haiku is Anthropic's fast and economical option, while Sonnet serves as a balance between Opus' complexity and Haiku's speed.
 
 \subsubsection{Open-Source Alternatives}
 \label{subsubsec:open-source-llms}
 
-OpenAI's \acrshort{acr:gpt} models, Google's Gemini models, and Anthropic's Claude models are all commercial and closed-source. This prevents developers from downloading these models and making custom improvements to them through fine-tuning (see \autoref{subsec:fine-tuning}). For these reasons, a number of open-source \acrshortpl{acr:llm} have joined the scene.
+As mentioned, OpenAI's \acrshort{acr:gpt} models, Google's Gemini models, and Anthropic's Claude models are all proprietary. This prevents developers from downloading these models and making improvements and customizations to them through fine-tuning. This, and several other reasons, have led to the emergence of a number of \textit{open-source} \acrshortpl{acr:llm}.
 
-The \textbf{Llama} family of \acrshortpl{acr:llm} from Meta AI is perhaps the most famous open-source option to the commercial, closed-source \acrshortpl{acr:llm}. At the time of writing, the last in line is the Meta Llama 3 model \citep{metaaiIntroducingMetaLlama2024} which comes in two size: 8B and 70B parameters. Both models display state-of-the-art performance on most major benchmarks compared to comparable open-source alternatives, and 70B model even surpasses closed-source models like Gemini 1.5 Pro and Claude 3 Sonnet on certain benchmarks.
+The \textbf{Llama} family of \acrshortpl{acr:llm}, developed at Meta AI, is perhaps the most famous open-source option to the proprietary \acrshortpl{acr:llm}. At the time of writing, the last in line is the \acrshort{acr:llama} 3 model \citep{metaaiIntroducingMetaLlama2024}, which comes in two sizes: 8B and 70B parameters. Both models display state-of-the-art performance on most major benchmarks compared to comparable open-source alternatives, and the 70B model even surpasses proprietary models like Gemini 1.5 Pro and Claude 3 Sonnet on certain benchmarks.
 
-\textbf{Mistral AI} is one of the most prominent actors in the world of open-source \acrshortpl{acr:llm}. Their debut model, Mistral 7B, outperformed Llama 13B (which was the best open-source \acrshort{acr:llm} at the time) across all the benchmarks they evaluated \citep{jiangMistral7B2023}. Mistral AI has also gained fame for their \gls{acr:smoe} architecture, which was introduced with the Mixtral 8x7B model \citep{jiangMixtralExperts2024}. It shares architecture with Mistral 7B, but is each layer of the model is composed of 8 feed-forward blocks. Using a router at each layer, it is able to use only 13B out of a total of 47B parameters during inference, keeping cost and latency low.
+\textbf{Mistral AI} is one of the most prominent actors in the world of open-source \acrshortpl{acr:llm}. Their debut model, Mistral 7B, outperformed \acrshort{acr:llama} 2 13B (which was the best open-source \acrshort{acr:llm} at the time) across all the benchmarks they evaluated \citep{jiangMistral7B2023}. Mistral AI has also gained fame for their \gls{acr:smoe} architecture, which was introduced with the Mixtral 8x7B model \citep{jiangMixtralExperts2024}. It shares the same architecture as Mistral 7B, except that each layer of the model is composed of 8 feed-forward blocks. Using a router at each layer, Mixtral 8x7B is able to use only 13B out of a total of 47B parameters during inference, keeping cost and latency low.
 
-Along with their Gemini models, Google released a family of open-source models called \textbf{Gemma}, which are based on the same research conducted for their Gemini models \citep{gemmateamGemmaOpenModels2024}. Gemma comes in two sizes: 2B and 7B parameters. At its release, the Gemma 7B it surpassed Llama 2 13B and Mistral 7B \acrshortpl{acr:llm} in 11 out of 18 benchmarks. Note, however, that Llama 3 8B has improved upon its predecessor and now performs better than Gemma 7B overall.
+Along with their Gemini models, Google released a family of open-source models called \textbf{Gemma}, which are based on the same research conducted for their Gemini models \citep{gemmateamGemmaOpenModels2024}. Gemma comes in two sizes: 2B and 7B parameters. At its release, the Gemma 7B surpassed \acrshort{acr:llama} 2 13B and Mistral 7B \acrshortpl{acr:llm} in 11 out of 18 benchmarks. Note, however, that \acrshort{acr:llama} 3 8B has improved upon its predecessor and now also performs better than Gemma 7B, overall.
 
 
 \subsection{Prompt Engineering}
 \label{subsec:prompt-engineering}
 
-Prompt engineering refers to the process of constructing a query that will be used as input to an \acrshort{acr:llm}. In a chat-based context like that of ChatGPT, the prompt consists of a series of messages that are defined as an array of \acrshort{acr:json} objects. These messages can hold one of three different roles\footnote{\url{https://platform.openai.com/docs/guides/text-generation/chat-completions-api}}, each listed below:
+Prompt engineering refers to the process of constructing a query that will be used as input to an \acrshort{acr:llm}. In a chat-based context like that of ChatGPT, the prompt generally consists of a series of messages. These messages can hold one of three different roles\footnote{\url{https://platform.openai.com/docs/guides/text-generation/chat-completions-api}}, each listed below:
 
 \begin{itemize}
-    \item \textbf{system}: Generally used to set the behaviour of the \acrshort{acr:llm} assistant, giving the assistant a specific personality or information on how to answer the user.
-    \item \textbf{user}: A message from the user for the assistant to respond to.
-    \item \textbf{assistant}: A message from the \acrshort{acr:ai}/\acrshort{acr:llm}.
+    \item \textbf{System}: Generally used to set the behaviour of the \acrshort{acr:llm} assistant, giving the assistant a specific personality or information on how to answer the user.
+    \item \textbf{User}: A message from the human user that the assistant should respond to.
+    \item \textbf{Assistant}: A message generated by the \acrshort{acr:ai}/\acrshort{acr:llm}.
 \end{itemize}
 
 \cite{whitePromptPatternCatalog2023a} stress the importance of prompt engineering to efficiently converse with \glspl{acr:llm}. They provide a catalogue of prompt patterns that aim to help enforce certain qualities of the output generated by the \gls{acr:llm}. These patterns are organized into six distinct categories \citep[4]{whitePromptPatternCatalog2023a}:
@@ -340,13 +326,13 @@ Prompt engineering refers to the process of constructing a query that will be us
     \item \textbf{Context Control}: Controlling the contextual domain within which the \acrshort{acr:llm} operates.
 \end{itemize}
 
-Patterns that turned out useful to GeoGPT include the \textit{Template} pattern (Output Customization), the \textit{Reflection} pattern (Error Identification), and the \textit{Infinite Generation} pattern (Interaction Strategy). The \textit{Template} pattern allows the user or the system to define a template for the \acrshort{acr:llm} to fill out. This is closely related to function calling, which is discussed in \autoref{subsec:function-calling}. Also related to function calling is the \textit{Reflection} pattern, which allows the \acrshort{acr:llm} to inspect its own output in order to identify and correct errors. The \textit{Infinite Generation} pattern lets the \acrshort{acr:llm} generate output indefinitely without requiring the user to re-enter the conversation after each generated message. This pattern is important when developing agentic behaviours in the \acrshort{acr:llm}.
+Patterns that turned out useful to GeoGPT --- the main contribution of this thesis --- include the \textit{Template} pattern (Output Customization), the \textit{Reflection} pattern (Error Identification), and the \textit{Infinite Generation} pattern (Interaction Strategy). The \textit{Template} pattern allows the user or the system to define a template for the \acrshort{acr:llm} to fill out. This is closely related to function calling, which is discussed in \autoref{subsec:function-calling}. Also related to function calling is the \textit{Reflection} pattern, which allows the \acrshort{acr:llm} to inspect its own output in order to identify and correct errors. The \textit{Infinite Generation} pattern lets the \acrshort{acr:llm} generate output indefinitely without requiring the user to re-enter the conversation after each generated message. This pattern is important when developing agentic behaviours for the \acrshort{acr:llm}.
 
 
 \subsection[Function Calling LLMs]{Function Calling \acrshortpl{acr:llm}}
 \label{subsec:function-calling}
 
-\textit{Function calling} --- also known as \textit{tool calling} --- was first introduced by OpenAI \citep{eletiFunctionCallingOther2023} in April 2023. Function calling allows developers to provide function definitions to an \gls{acr:llm} and have said \gls{acr:llm} output a \acrshort{acr:json} object containing the name of one or more of the functions provided, as well as suitable arguments to these. \autoref{code:tool-definition-example} shows a description of a function that takes a path to a GeoJSON file and a layer name and adds the GeoJSON data at that location to some client-side map with the layer name specified. Function calling is possible through \textit{fine-tuning}, and these function calling models are able to detect when a certain function should be called based on the name, description, and parameters specified in such \acrshort{acr:json} objects. Function calling makes it possible to give an \gls{acr:llm} \textit{hooks} into the real world, and provides a more reliable way for developers to integrate \glspl{acr:llm} into applications.
+\textit{Function calling} --- also known as \textit{tool calling} --- was first introduced by OpenAI in April 2023 \citep{eletiFunctionCallingOther2023}. Function calling allows developers to provide function definitions to an \gls{acr:llm} and have the \gls{acr:llm} output a \acrshort{acr:json} object containing the name of one or more of the functions provided, as well as suitable parameters to these functions. \autoref{code:tool-definition-example} shows a description of a function that performs a mathematical division. Function calling \acrshortpl{acr:llm} are able to detect when a certain function should be called based on the name, description, and input parameters specified in such \acrshort{acr:json} objects. Function calling makes it possible to give an \gls{acr:llm} \textit{hooks} into the real world, and provides a more reliable way for developers to integrate \glspl{acr:llm} into applications.
 
 \begin{lstlisting}[
     language=json,
@@ -356,34 +342,40 @@ Patterns that turned out useful to GeoGPT include the \textit{Template} pattern 
 {
   "type": "function",
   "function": {
-    "name": "add_geojson_to_map",
-    "description": "Use this to add arbitrary geojson data to a client-side map visible to the user.\n",
+    "name": "divide",
+    "description": "Performs a mathematical division.",
     "parameters": {
       "type": "object",
       "properties": {
-        "geojson_path": {
-          "description": "Path to the .geojson file that will be added to the map",
-          "type": "string"
+        "dividend": {
+          "description": "The number to be divided (numerator).",
+          "type": "number"
         },
-        "layer_name": {
-          "description": "Name of the layer (should be snake_case)",
-          "type": "string"
+        "divisor": {
+          "description": "The number by which the dividend is divided (denominator).",
+          "type": "number"
         }
       },
-      "required": ["layer_name"]
+      "required": ["dividend", "divisor"]
     }
   }
 }
 \end{lstlisting}
 
-Possible use cases include using functions provide correct and up-to-date information that would otherwise require extensive training and fine-tuning. Having the \gls{acr:llm} use function calling for information retrieval also make them more transparent, making it possible to trace a claim back to its source, something that is normally a difficult feat with \gls{acr:llm}. Another use case is code execution. One could imagine a rather simple function \texttt{execute\_python\_code(code: string) -> string} that takes Python code as a string and returns the standard output that results from executing that code. This is likely the principle behind products like OpenAI's Data Analysis mode (previously Code Interpreter), in which ChatGPT functions as a code executing agent that can generate, execute, and self-correct its own code. Similar functions could be constructed for \acrshort{acr:sql}, making it possible for \glspl{acr:llm} to work against relational databases. As \cite{eletiFunctionCallingOther2023} describes, function calling can also be used to extract structured data from text.
+Function calling can be used to provide correct and up-to-date information that would otherwise require extensive training and fine-tuning. Having the \gls{acr:llm} use function calling for information retrieval also make them more transparent, making it possible to trace a claim back to its source, something that is normally hard to do with \glspl{acr:llm}. Another use case is code execution. Take this rather simple function signature:
 
-An initiative among researchers at Berkeley \citep{yanfanjiaBerkeleyFunctionCalling} lead to the creation of a benchmark that aims to evaluate the \acrshort{acr:llm}'s ability to call functions and tools. The benchmark, named \gls{acr:bfcl}, includes four different test scenarios: \textit{single function accuracy}, where the \acrshort{acr:llm} is provided with a single function definition; \textit{multiple function accuracy}, where 2 to 4 functions are passed and the model must select the appropriate function; \textit{parallel function}, where the model needs to determine how many functions should be called; and \textit{parallel multiple function} a combination of parallel function and multiple function. Some models support different levels of function calling natively while others have to be carefully prompted in to help accommodate function calling abilities. At the time of writing (\today), a prompted version of \acrshort{acr:gpt}-4-0125-Preview tops the leaderboard\footnote{\url{https://gorilla.cs.berkeley.edu/leaderboard.html}}.
+$$
+    \texttt{execute\_python\_code(code: string) -> string}
+$$
+
+Such a function could take some Python code as a string parameter and return the standard output that results from executing that code. This is the principle behind what was previously known as ChatGPT's \enquote{Code Interpreter} mode, where ChatGPT serves as a code executing agent that can generate, execute, and self-correct its own code. Similar functions could be constructed for \acrshort{acr:sql}, making it possible for \glspl{acr:llm} to work against relational databases. Furthermore, as \cite{eletiFunctionCallingOther2023} describes, function calling can also be used to extract structured data from text.
+
+An initiative amongst researchers at Berkeley \citep{yanfanjiaBerkeleyFunctionCalling2024} lead to the creation of a benchmark that aims to evaluate the \acrshort{acr:llm}'s ability to call functions and tools. The benchmark, named \gls{acr:bfcl}, includes four different test scenarios: \textit{single function accuracy}, where the \acrshort{acr:llm} is provided with a single function definition; \textit{multiple function accuracy}, where 2 to 4 functions are passed and the model must select the appropriate function; \textit{parallel function}, where the model needs to determine how many functions should be called; and \textit{parallel multiple function}, a combination of parallel function and multiple function. Some models support different levels of function calling natively, while others have to be carefully prompted to help accommodate function calling abilities. At the time of writing (\today), a prompted version of \acrshort{acr:gpt}-4-0125-Preview tops the leaderboard.\footnote{\url{https://gorilla.cs.berkeley.edu/leaderboard.html}}
 
 \section{LangChain}
 \label{sec:langchain}
 
-LangChain \citep{langchainaiLangchainaiLangchain2022} is an open-source project that provides tooling which simplifies the way developers interface with \glspl{acr:llm}. This tooling includes composable tools and integrations that can be used to build prompts for \acrshortpl{acr:llm}, as well as off-the-shelf chains that perform higher level tasks. Chains are \glspl{acr:dag} --- or sequences of runnables --- that take an input and produces and output. A runnable can be a prompt template with template literals that are substituted with values that are passed into the runnable. The output is the template with the template literals filled in. This output can then be chained into an \acrshort{acr:llm} runnable calls a language model using the prompt template. The output from the \acrshort{acr:llm} runnable could then be passed into an output parser, e.g. a \acrshort{acr:json} parser, that ensures that the chain outputs a \acrshort{acr:json} object. Such chains are the buildings blocks that make up LangChain.
+LangChain \citep{langchainaiLangchainaiLangchain2022} is an open-source project that provides tooling which simplifies the way developers interface with \glspl{acr:llm}. As the name suggests, LangChain revolves around \textit{chains}. Chains are \glspl{acr:dag}, which can be constructed from so-called \textit{runnables}. The \enquote{Runnable} protocol is a standard interface, which makes enforces chains to implement \texttt{stream}, \texttt{invoke}, and \texttt{batch} methods, as well as their asynchronous counterparts. LangChain is supported by a large community of developers, and has components that simplify interaction with \acrshortpl{acr:llm}, like prompt templates, output parsers, toolkits for function calling purposes, and off-the-shelf agents.
 
 Common use cases for LangChain are:
 
@@ -393,7 +385,7 @@ Common use cases for LangChain are:
     \item Creating code executing agents for Python, \acrshort{acr:sql}, or other programming languages
 \end{itemize}
 
-In January 2024, LangChain AI rolled out a new framework called LangGraph which builds on top of the LangChain ecosystem. While the chains commonly found in LangChain are good for \gls{acr:dag} workflow, they are not suited to creating cyclic graphs. LangGraph can be used to add cycles to \acrshort{acr:llm} applications, which are important for agent-like behaviours \citep{langchainaiLangchainaiLanggraph2024}. A graph in LangGraph is a set of nodes that pass some state around, state that can be modified by each node. The nodes are connected together by edges that define what node can succeed another node. These edges can also be conditional, which routes execution to a given node based on the output from a function giving the current state. This allows for complex logic and simplifies implementation of advanced agent patterns, some of which are discussed in \autoref{sec:agent-patterns}.
+In January 2024, LangChain AI rolled out a framework called LangGraph, which is built on top of the LangChain ecosystem. While \textit{chains} are well-suited for \gls{acr:dag} workflows, they are not easily adapted to cyclic graphs. LangGraph, however, is specifically designed to simplify development of cyclic graphs for \acrshort{acr:llm} applications, which are commonly used to create agent-like behaviours \citep{langchainaiLangchainaiLanggraph2024}. A LangGraph \textit{graph} is a set of nodes that pass around and modify a state dictionary. The nodes are connected by edges that define what node can succeed another node. Edges can be conditional, meaning the state produced from one node decides which edge is followed. This allows for complex logic and simplifies implementation of advanced agent patterns, some of which are discussed in \autoref{sec:agent-patterns}.
 
 
 \section{Geospatial Databases and Data Catalogues}
@@ -404,9 +396,9 @@ This section will discuss the geospatial technologies that were used or consider
 \subsection{PostGIS}
 \label{subsec:postgis}
 
-PostGIS \citep{PostGIS2001} is an open-source extension for the PostgreSQL \acrshort{acr:dbms}. By adding the PostGIS extension one adds support for storing, indexing, and querying geospatial data. Data can be stored in both two and three dimensions, and they can have types like points, lines, polygons. These types can be stored along with a spatial index which can significantly reduce search time for these geometries. GiST (Generalized Search Tree)\footnote{\url{https://en.wikipedia.org/wiki/GiST}} is commonly used in PostgreSQL/PostGIS to take advantage of various tree-based search algorithms that are developed to retrieve spatial features quickly.
+PostGIS \citep{PostGIS2001} is an open-source extension for the PostgreSQL \acrshort{acr:dbms}. The PostGIS extension adds support for storing, indexing, and querying geospatial data. Data can be stored in both two and three dimensions, and they can have types like points, lines, polygons. Geospatial types can be stored along with a spatial index which can significantly reduce search time for their geometries. GiST (Generalized Search Tree)\footnote{\url{https://en.wikipedia.org/wiki/GiST}} is commonly used in PostgreSQL/PostGIS to take advantage of various tree-based search algorithms that are developed to retrieve spatial features quickly.
 
-PostGIS also comes with a plethora of spatial database functions that to analyse and process geospatial data. These are prefixed with \texttt{ST\_}, and some examples are \texttt{ST\_DWITHIN}, \texttt{ST\_BUFFER}, and \texttt{ST\_TRANSFORM}. \autoref{code:postgis-example} displays a typical query for retrieving building outlines within a bounding box specified in WGS 84 latitudes and longitudes.
+PostGIS also comes with a plethora of spatial database functions that are used to analyse and process geospatial data. These function's names are prefixed with \texttt{ST\_} (short for \enquote{spatio-temporal}), and some examples are \texttt{ST\_DWITHIN}, \texttt{ST\_BUFFER}, and \texttt{ST\_TRANSFORM}. \autoref{code:postgis-example} shows a typical query for retrieving building outlines within a bounding box.
 
 \begin{lstlisting}[
     language=SQL,
@@ -422,7 +414,7 @@ WHERE type = 'house'
 \subsection[OGC API Features]{\acrshort{acr:ogc} \acrshort{acr:api} Features}
 \label{subsec:ogc-api-features}
 
-\acrshort{acr:ogc} \acrshort{acr:api} Features is an \acrshort{acr:api} specification that defines modular \acrshort{acr:api} building blocks for interacting with features, real-world objects \citep{opengeospatialconsortiumOGCAPIFeatures2022}. These building blocks include blocks for creating, modifying, and querying features on the Web. A typical implementation of \acrshort{acr:ogc} \acrshort{acr:api} Features implements these building blocks for \acrshort{acr:html}, GeoJSON, and \acrshort{acr:gml}. These are called \textit{requirement classes}, though none of them are strictly required. The \acrshort{acr:html} requirement class gives the user of the \acrshort{acr:api} a visualization of the features, whereas the GeoJSON and \acrshort{acr:gml} requirements classes are typically meant for use in other applications.
+\acrshort{acr:ogc} \acrshort{acr:api} Features is an \acrshort{acr:api} specification that defines modular \acrshort{acr:api} building blocks for interacting with features, which are real-world objects \citep{opengeospatialconsortiumOGCAPIFeatures2022}. This includes blocks for creating, modifying, and querying features on the Web. A typical implementation of \acrshort{acr:ogc} \acrshort{acr:api} Features implements these building blocks for \acrshort{acr:html}, GeoJSON, and \acrshort{acr:gml}. These are called \textit{requirement classes}, though none of them are strictly required. The \acrshort{acr:html} requirement class gives the user of the \acrshort{acr:api} a visualization of the features, whereas the GeoJSON and \acrshort{acr:gml} requirements classes are typically meant for use in other applications.
 
 \begin{figure}[h]
     \centering
@@ -431,7 +423,7 @@ WHERE type = 'house'
     \label{fig:oaf-collections-items-features}
 \end{figure}
 
-The development of the Features standard is divided into several parts that are meant to build on top of one another. Here are the four parts that are listed on \acrshort{acr:ogc}'s site about the standard \footnote{\url{https://ogcapi.ogc.org/features/}}:
+The development of the Features standard is divided into several parts that are meant to build on top of one another. Here are the five parts that are listed on \acrshort{acr:ogc}'s websites:\footnote{\url{https://ogcapi.ogc.org/features/}}
 
 \begin{itemize}
     \item Features - Part 1: Core\footnote{\url{https://docs.opengeospatial.org/is/17-069r4/17-069r4.html}}
@@ -441,7 +433,7 @@ The development of the Features standard is divided into several parts that are 
     \item Features - Part 5: Schemas\footnote{\url{https://docs.ogc.org/DRAFTS/23-058r1.html}}
 \end{itemize}
 
-Part 1 specifies core capabilities that are described in the first paragraph of this section, while parts 2-4 spcify additional capabilities. Part 2 allows retrieval of features in \glspl{acr:crs} different to the default WGS 84 reference system. Part 3 enables filtering of features using \gls{acr:cql}. \gls{acr:cql} is a language similar to \acrshort{acr:sql}. This allows for filtering of collections, so that users of the \acrshort{acr:api} can retrieve only a subset of a given collection. Below are two examples of \gls{acr:cql} queries:
+Part 1 specifies core capabilities that are described in the first paragraph of this section, while parts 2-4 spcify additional capabilities. Part 2 allows for retrieval of features in \glspl{acr:crs} different to the default WGS 84 reference system. Part 3 enables filtering of features using \gls{acr:cql}. \gls{acr:cql} is a language similar to \acrshort{acr:sql}. This allows for filtering of collections, so that users of the \acrshort{acr:api} can retrieve subsets of a given collection. Below are two examples of \gls{acr:cql} queries:
 
 \begin{lstlisting}[
     language=SQL,
@@ -455,18 +447,12 @@ county in ('Akershus', 'Buskerud', 'Ostfold')
 DWITHIN(the\_geom, Point(63.4265, 10.3960), 1, kilometers)
 \end{lstlisting}
 
-Part 4 defines how an \acrshort{acr:api} following the specification handle addition,  replacement, modification, and/or removal for a collection. Part 5 describes how features can be described by a logical schema and how these are published. Furthermore, several proposed extensions, such as the Search extension which could allow for multi-collection queries, or the Geometry Simplification extension which proposes the use of simplification algorithms for retrieving simplified versions of a collection, have been created.\footnote{\url{https://github.com/opengeospatial/ogcapi-features/tree/master/proposals}}
+Part 4 defines how an \acrshort{acr:api} that implements the specification should handle addition, replacement, modification, and removal of a collection's features. Part 5 describes how features can be described by a logical schema and how these schemas are published. In addition to parts 1 through 5, several other \textit{proposed} extensions have emerged, such as the \textit{Search} extension, which would allow for multi-collection queries, or the \textit{Geometry Simplification} extension which proposes the use of simplification algorithms for retrieving simplified versions of a collection.\footnote{\url{https://github.com/opengeospatial/ogcapi-features/tree/master/proposals}}
 
 
 \subsection[SpatioTemporal Asset Catalogs]{\acrlong{acr:stac}}
 \label{subsec:stac}
 
-The \gls{acr:stac} specification\footnote{\url{https://stacspec.org/en}} is closely related to \acrshort{acr:ogc} \acrshort{acr:api} Features, and as \citeauthor{holmesSpatioTemporalAssetCatalogs2021a} --- former board member  of \acrlong{acr:ogc} --- stated in a blog post that \enquote{\acrshort{acr:stac} \acrshort{acr:api} implements and extends the \acrshort{acr:ogc} \acrshort{acr:api} — Features standard, and our shared goal is for \acrshort{acr:stac} \acrshort{acr:api} to become a full \acrshort{acr:ogc} standard} \citep{holmesSpatioTemporalAssetCatalogs2021a}. The main difference to the \acrshort{acr:ogc} \acrshort{acr:api} Features specification is its requirement that all items/features should have a temporal component, thus making it \textit{spatiotemporal}. The vision for the \acrshort{acr:stac} specification is to minimize the need for developing new code with the release of each new dataset or \acrshort{acr:api}, by using a standard that does not change.
-
-
-
-
-
-
+The \gls{acr:stac} specification\footnote{\url{https://stacspec.org/en}} is closely related to \acrshort{acr:ogc} \acrshort{acr:api} Features, and Chris Holmes, former board member of \acrlong{acr:ogc}, stated in a blog post that \enquote{\acrshort{acr:stac} \acrshort{acr:api} implements and extends the \acrshort{acr:ogc} \acrshort{acr:api} — Features standard, and our shared goal is for \acrshort{acr:stac} \acrshort{acr:api} to become a full \acrshort{acr:ogc} standard} \citep{holmesSpatioTemporalAssetCatalogs2021a}. The main difference between \acrshort{acr:ogc} \acrshort{acr:api} Features and \acrshort{acr:stac} is the latter's requirement that all items/features should have a temporal component, thus making it \textit{spatio-temporal}. 
 
 \glsresetall

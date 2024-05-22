@@ -14,7 +14,7 @@ If you use direct quotes, unless the quote itself is very significant, you are c
 Such direct quotes also break the flow of the language (yours to someone else's).
 \end{comment}
 
-The introductory chapter will explain the motivation behind the thesis, as well as its goals and the research questions it will attempt to answer. \Autosectionref{sec:intro-contributions} will list the main contributions of the thesis, and \autoref{sec:thesis-structure} will give a high-level overview over the thesis.
+The introductory chapter will explain the motivation behind the thesis, its goals, and the research questions it will attempt to answer. \Autosectionref{sec:intro-contributions} will list the main contributions of the thesis, and \autoref{sec:thesis-structure} will give a high-level overview over the thesis.
 
 \section{Background and Motivation}
 \label{sec:background-and-motivation}
@@ -37,9 +37,9 @@ that we wish to draw your attention to. The italics themselves are not an indica
 
 \end{comment}
 
-The release of OpenAI's ChatGPT in November, 2022 \citep{openaiIntroducingChatGPT2022} generated a hype within the general population and chat-based systems are flourishing. ChatGPT --- or rather the underlying \acrshort{acr:gpt}-3 and \acrshort{acr:gpt}-4 models --- is an example of how modern \glspl{acr:llm} can provide a natural language interface between human and machine. Furthermore, significant advancements have been made within code generation, which essentially allows the \gls{acr:llm} to execute computational tasks that can be defined within a snippet of code. Paired with the \gls{acr:llm}'s ability to often correctly interpret the user's intent regardless of the preciseness of their problem formulation, even individuals with no prior programming experience can carry out computational tasks that require the execution of code.
+The release of OpenAI's ChatGPT in November, 2022 \citep{openaiIntroducingChatGPT2022} generated a hype within the general population and chat-based systems are now flourishing. Furthermore, significant advancements have been made within code generation, which makes \acrshortpl{acr:llm} useful even for technical tasks, enabling individuals with little to no prior programming experience to carry out computational tasks that require the code execution.
 
-\acrshort{acr:gis} analysis has traditionally been reserved for \acrshort{acr:gis} \textit{experts}. \acrshort{acr:gis} professional are commonly required to know their way around one or more \acrlongpl{acr:gis}, in addition to being proficient in programming languages suitable to data science task, such as Python or R. Extensive domain knowledge is often also necessary when tackling \acrshort{acr:gis} tasks, like knowing which data to use for a particular tasks and where to get them. All of these points --- and more --- are barriers to entry for people that wish to make use of powerful \acrshort{acr:gis} tools for their particular purposes, but lack the technical know-how required to use them correctly. This challenge serves as the overall motivation behind this master's thesis, which will mitigate these issues by utilizing the vast background knowledge and code generation abilities of modern \glspl{acr:llm}.
+\gls{acr:gis} analysis has traditionally been reserved for \acrshort{acr:gis} \textit{experts}. Furthermore, \acrshort{acr:gis} professional are commonly required to know their way around one or more \glspl{acr:gis}, and to be proficient in programming languages suitable to data science task, such as Python or R. Extensive domain knowledge is often also necessary when tackling \acrshort{acr:gis} tasks, like knowing which data to use for a particular tasks and where to find them. All of these points, and more, are barriers to entry for people that wish to make use of powerful \acrshort{acr:gis} tools for their particular purposes, but lack the technical know-how required to use them correctly. This challenge serves as the overall motivation behind this master's thesis, which will mitigate these issues by utilizing the vast background knowledge and code generation abilities of modern \glspl{acr:llm}.
 
 \section{Goals and Research Questions}
 \label{sec:goals-and-research-questions}
@@ -86,18 +86,19 @@ Of course the Specialisation Project can also introduce novel work, but there is
 since the core of the project really is to figure out what is ``old'' before you can introduce something which is new.
 \end{comment}
 
-Deriving from the motivation described in the section above, the overarching goal of this master's thesis becomes to investigate the possibilities of utilizing \glspl{acr:llm} to have a natural language interface with a system that is capable of solving \acrshort{acr:gis}-related tasks. The hypothesis is that modern \glspl{acr:llm} are embedded with an understanding of common \acrshort{acr:gis} workflows, and that their code generation abilities are of such a level that they can accomplish tasks in an autonomous manner.
+Deriving from the motivation described in the section above, the overarching goal of this master's thesis is to investigate the possibilities of utilizing \glspl{acr:llm} to create a natural language interface with a system that is capable of solving \acrshort{acr:gis}-related tasks. The thesis' hypothesis is that modern \glspl{acr:llm} are embedded with an understanding of common \acrshort{acr:gis} workflows, and that their code generation abilities are now of such a level that they can solve a variety of such tasks.
 
-Based on this overarching goal, three research questions have been constructed and are listed below:
+Based on the overarching goal, three research questions have been constructed and are listed below:
 
 \begin{enumerate}
     \item Can an \gls{acr:llm}-based system perform common \acrshort{acr:gis} tasks? \label{rq:gis-question-answering}
-    \item What are core challenges when developing larger systems that rely on \acrlongpl{acr:llm} to control its logic flow? \label{rq:development-challenges}
+    \item What are core challenges in developing \acrshort{acr:llm}-based \acrshortpl{acr:gis}? \label{rq:development-challenges}
     \item Can an autonomous \acrshort{acr:llm}-based \acrshort{acr:gis} agent replace \acrshort{acr:gis} professionals? \label{rq:replaing-gis-professionals}
 \end{enumerate}
 
 \section{Research Method}
 \label{sec:researchMethod}
+\todo{Is this section necessary?}
 
 \begin{comment}
 What methodology will you apply to address the goals: theoretic/analytic, model/abstraction or design/experiment?
@@ -105,8 +106,7 @@ This section will describe the research methodology applied and the reason for t
 You should return to the actual choices made in the work and the alternatives in the Discussion chapter.
 \end{comment}
 
-Prior to this master's thesis, a specialization project on the same topic was conducted. The specialization project --- as detailed in \citep{holmLLMsDeathGIS2023} --- was of a theoretical character predominantly served as a literature study leading up to the master's thesis. The research questions listed in the above section, however, call for a different and more practical approach. Therefore, this master's thesis will revolve around a \enquote{proof of concept} and evaluating the usefulness of the system, as well as lessons learned from the development process.
-
+Prior to this master's thesis, a specialization project on the same topic was conducted. The specialization project\todo{Should I mention the specialization project at all} --- as detailed in \citep{holmLLMsDeathGIS2023} --- was of a theoretical character predominantly served as a literature study leading up to the master's thesis. The research questions listed in the above section, however, call for a different and more practical approach. Therefore, this master's thesis will revolve around the development of a \enquote{proof of concept}. The usefulnesss of the \enquote{proof of concept} will be evaluated through a series of tests.
 
 
 \section{Contributions}
@@ -138,9 +138,9 @@ in the Results chapter.
 Below is a brief description of the contributions of this master's thesis:
 
 \begin{enumerate}
-    \item A chat-based \acrshort{acr:gis} named \textit{GeoGPT} --- powered by \acrshortpl{acr:llm} --- that can solve common geospatial tasks.
-    \item Experimental results and examples that shows how GeoGPT can solve a range of common \acrshort{acr:gis} tasks when provided only with a natural language prompt from the user.
-    \item Experimental results that highlight the importance of the accuracy of the initial prompt from the user, indicating that \acrshort{acr:gis} experience will not become redundant in the foreseeable future.
+    \item A chat-based \acrshort{acr:gis} named \textit{GeoGPT}, powered by \acrshortpl{acr:llm}, that can solve tasks commonly solved using \acrshort{acr:gis} software.
+    \item A new benchmark that will give insigth into the ability of a system like GeoGPT to solve common \acrshort{acr:gis} tasks when provided only with a natural language problem formulation.
+    \item Experimental results that highlight the importance of the initial problem formulation from the user, suggesting that \acrshort{acr:gis} experience will not become redundant in the foreseeable future.
 \end{enumerate}
 
 \section{Thesis Structure}
@@ -157,16 +157,16 @@ You want to say more than what is explicit in the chapter name, if possible, but
 \end{itemize}
 \end{comment}
 
-The following bullet point list will provide an overview of the thesis structure:
+Below is an outline of the thesis' structure:
 
 \begin{itemize}
-    \item \Autochapterref{cha:background-theory} introduces the theory and tools necessary for the reader in order to understand the rest of the work.
-    \item \Autochapterref{cha:related_work} gives insight into the work that has been done in regard to autonomous systems powered by \acrshortpl{acr:llm}, in particular those within the field of geomatics.
-    \item \Autochapterref{cha:data} presents the data provided for GeoGPT in the experiments.
-    \item \Autochapterref{cha:architecture} will go into detail on the architecture of GeoGPT, providing both a high-level overview and details on important parts of the system.
-    \item \Autochapterref{cha:experiments} is divided into one section describing how the experiments were conducted and a second section presenting and evaluating the results from the experiments.
+    \item \Autochapterref{cha:background-theory} introduces the theory and tools necessary for the reader to be familiar with in order to understand the rest of the work.
+    \item \Autochapterref{cha:related_work} gives insight into the work that has been done in regard to autonomous, \acrshort{acr:llm}-based systems, in particular those within the field of geomatics.
+          % \item \Autochapterref{cha:data} presents the data provided for GeoGPT in the experiments.
+    \item \Autochapterref{cha:architecture} will lay out the GeoGPT's architecture, providing both a high-level overview and details on important parts of the system.
+    \item \Autochapterref{cha:experiments} presents the experimental setup, the datasets utilized, and the results and evaluations obtained from these experiments.
     \item \Autochapterref{cha:discussion} will elaborate upon points of discussion that arise from the experimental results.
-    \item \Autochapterref{cha:conclusion} will conclude this master's thesis, describing the main contributions of the work and suggesting areas of improvement suitable for future research.
+    \item \Autochapterref{cha:conclusion} will conclude the master's thesis, reiterting the main contributions of the work and suggesting areas of improvement that are suitable for future research.
 \end{itemize}
 
 

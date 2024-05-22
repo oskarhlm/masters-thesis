@@ -9,15 +9,15 @@
 \@writefile{toc}{\contentsline {section}{\numberline {2.1}Large Language Models}{4}{section.2.1}\protected@file@percent }
 \newlabel{sec:llms}{{2.1}{4}{Large Language Models}{section.2.1}{}}
 \newlabel{sec:llms@cref}{{[section][1][2]2.1}{[1][4][]4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.1}Core Concepts}{5}{subsection.2.1.1}\protected@file@percent }
-\newlabel{subsec:core-concepts}{{2.1.1}{5}{Core Concepts}{subsection.2.1.1}{}}
-\newlabel{subsec:core-concepts@cref}{{[subsection][1][2,1]2.1.1}{[1][4][]5}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Tokenization example for a sentence\relax }}{5}{figure.caption.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.1}Tokens and the Context Window}{4}{subsection.2.1.1}\protected@file@percent }
+\newlabel{subsec:core-concepts}{{2.1.1}{4}{Tokens and the Context Window}{subsection.2.1.1}{}}
+\newlabel{subsec:core-concepts@cref}{{[subsection][1][2,1]2.1.1}{[1][4][]4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Tokenization example for an English sentence\relax }}{5}{figure.caption.12}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:tokenization-example-sentence}{{2.1}{5}{Tokenization example for a sentence\relax }{figure.caption.10}{}}
+\newlabel{fig:tokenization-example-sentence}{{2.1}{5}{Tokenization example for an English sentence\relax }{figure.caption.12}{}}
 \newlabel{fig:tokenization-example-sentence@cref}{{[figure][1][2]2.1}{[1][5][]5}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Tokenization of \enquote {revolution} with different suffixes\relax }}{5}{figure.caption.11}\protected@file@percent }
-\newlabel{fig:tokenization-revolution}{{2.2}{5}{Tokenization of \enquote {revolution} with different suffixes\relax }{figure.caption.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Tokenization of the word \enquote {revolution} with different suffixes\relax }}{5}{figure.caption.13}\protected@file@percent }
+\newlabel{fig:tokenization-revolution}{{2.2}{5}{Tokenization of the word \enquote {revolution} with different suffixes\relax }{figure.caption.13}{}}
 \newlabel{fig:tokenization-revolution@cref}{{[figure][2][2]2.2}{[1][5][]5}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1.2}Attention and the Transformer Architecture}{5}{subsection.2.1.2}\protected@file@percent }
 \newlabel{subsec:attention-and-the-transformer-architecture}{{2.1.2}{5}{Attention and the Transformer Architecture}{subsection.2.1.2}{}}
@@ -27,24 +27,27 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1.3}State-of-the-Art Decoder-Only Models}{6}{subsection.2.1.3}\protected@file@percent }
 \newlabel{subsec:sota-decoder-only-llms}{{2.1.3}{6}{State-of-the-Art Decoder-Only Models}{subsection.2.1.3}{}}
 \newlabel{subsec:sota-decoder-only-llms@cref}{{[subsection][3][2,1]2.1.3}{[1][6][]6}}
-\@writefile{toc}{\contentsline {subsubsection}{\nonumberline The GPT Family}{7}{subsubsection*.13}\protected@file@percent }
-\newlabel{subusubsec:gpt}{{2.1.3}{7}{The GPT Family}{subsubsection*.13}{}}
-\newlabel{subusubsec:gpt@cref}{{[subsection][3][2,1]2.1.3}{[1][6][]7}}
-\@writefile{toc}{\contentsline {subsubsection}{\nonumberline The Gemini Family}{7}{subsubsection*.15}\protected@file@percent }
-\newlabel{subsubsec:gemini}{{2.1.3}{7}{The Gemini Family}{subsubsection*.15}{}}
-\newlabel{subsubsec:gemini@cref}{{[subsection][3][2,1]2.1.3}{[1][7][]7}}
-\@writefile{toc}{\contentsline {subsubsection}{\nonumberline The Claude Family}{8}{subsubsection*.17}\protected@file@percent }
-\newlabel{subsubsec:claude}{{2.1.3}{8}{The Claude Family}{subsubsection*.17}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\nonumberline The GPT Family}{6}{subsubsection*.15}\protected@file@percent }
+\newlabel{subusubsec:gpt}{{2.1.3}{6}{The GPT Family}{subsubsection*.15}{}}
+\newlabel{subusubsec:gpt@cref}{{[subsection][3][2,1]2.1.3}{[1][6][]6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces How multiple choice tasks are inlined to work with fine-tuning of \acrshort {acr:gpt} models \citep [4]{radfordImprovingLanguageUnderstanding2018}\relax }}{7}{figure.caption.16}\protected@file@percent }
+\newlabel{fig:multiple-choice}{{2.3}{7}{How multiple choice tasks are inlined to work with fine-tuning of \acrshort {acr:gpt} models \citep [4]{radfordImprovingLanguageUnderstanding2018}\relax }{figure.caption.16}{}}
+\newlabel{fig:multiple-choice@cref}{{[figure][3][2]2.3}{[1][7][]7}}
+\@writefile{toc}{\contentsline {subsubsection}{\nonumberline The Gemini Family}{8}{subsubsection*.18}\protected@file@percent }
+\newlabel{subsubsec:gemini}{{2.1.3}{8}{The Gemini Family}{subsubsection*.18}{}}
+\newlabel{subsubsec:gemini@cref}{{[subsection][3][2,1]2.1.3}{[1][8][]8}}
+\@writefile{toc}{\contentsline {subsubsection}{\nonumberline The Claude Family}{8}{subsubsection*.20}\protected@file@percent }
+\newlabel{subsubsec:claude}{{2.1.3}{8}{The Claude Family}{subsubsection*.20}{}}
 \newlabel{subsubsec:claude@cref}{{[subsection][3][2,1]2.1.3}{[1][8][]8}}
-\@writefile{toc}{\contentsline {subsubsection}{\nonumberline Open-Source Alternatives}{8}{subsubsection*.19}\protected@file@percent }
-\newlabel{subsubsec:open-source-llms}{{2.1.3}{8}{Open-Source Alternatives}{subsubsection*.19}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\nonumberline Open-Source Alternatives}{8}{subsubsection*.22}\protected@file@percent }
+\newlabel{subsubsec:open-source-llms}{{2.1.3}{8}{Open-Source Alternatives}{subsubsection*.22}{}}
 \newlabel{subsubsec:open-source-llms@cref}{{[subsection][3][2,1]2.1.3}{[1][8][]8}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1.4}Prompt Engineering}{9}{subsection.2.1.4}\protected@file@percent }
 \newlabel{subsec:prompt-engineering}{{2.1.4}{9}{Prompt Engineering}{subsection.2.1.4}{}}
 \newlabel{subsec:prompt-engineering@cref}{{[subsection][4][2,1]2.1.4}{[1][9][]9}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1.5}Function Calling LLMs}{10}{subsection.2.1.5}\protected@file@percent }
 \newlabel{subsec:function-calling}{{2.1.5}{10}{Function Calling LLMs}{subsection.2.1.5}{}}
-\newlabel{subsec:function-calling@cref}{{[subsection][5][2,1]2.1.5}{[1][9][]10}}
+\newlabel{subsec:function-calling@cref}{{[subsection][5][2,1]2.1.5}{[1][10][]10}}
 \newlabel{code:tool-definition-example}{{2.1}{10}{Example of a tool definition}{lstlisting.2.1}{}}
 \newlabel{code:tool-definition-example@cref}{{[listing][1][2]2.1}{[1][10][]10}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {2.1}Example of a tool definition}{10}{lstlisting.2.1}\protected@file@percent }
@@ -57,15 +60,15 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}PostGIS}{12}{subsection.2.3.1}\protected@file@percent }
 \newlabel{subsec:postgis}{{2.3.1}{12}{PostGIS}{subsection.2.3.1}{}}
 \newlabel{subsec:postgis@cref}{{[subsection][1][2,3]2.3.1}{[1][12][]12}}
-\newlabel{code:postgis-example}{{2.2}{12}{PostGIS example code for retrieving building outlines within a specified bounding box}{lstlisting.2.2}{}}
-\newlabel{code:postgis-example@cref}{{[listing][2][2]2.2}{[1][12][]12}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {2.2}PostGIS example code for retrieving building outlines within a specified bounding box}{12}{lstlisting.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}OGC API Features}{12}{subsection.2.3.2}\protected@file@percent }
-\newlabel{subsec:ogc-api-features}{{2.3.2}{12}{OGC API Features}{subsection.2.3.2}{}}
-\newlabel{subsec:ogc-api-features@cref}{{[subsection][2][2,3]2.3.2}{[1][12][]12}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces Collections, items, and features in \acrshort {acr:ogc} \acrshort {acr:api} Features specification. Retrieved from \url  {https://features.developer.ogc.org/} on April 29, 2024.\relax }}{13}{figure.caption.20}\protected@file@percent }
-\newlabel{fig:oaf-collections-items-features}{{2.3}{13}{Collections, items, and features in \acrshort {acr:ogc} \acrshort {acr:api} Features specification. Retrieved from \url {https://features.developer.ogc.org/} on April 29, 2024.\relax }{figure.caption.20}{}}
-\newlabel{fig:oaf-collections-items-features@cref}{{[figure][3][2]2.3}{[1][13][]13}}
+\newlabel{code:postgis-example}{{2.2}{13}{PostGIS example code for retrieving building outlines within a specified bounding box}{lstlisting.2.2}{}}
+\newlabel{code:postgis-example@cref}{{[listing][2][2]2.2}{[1][12][]13}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2.2}PostGIS example code for retrieving building outlines within a specified bounding box}{13}{lstlisting.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}OGC API Features}{13}{subsection.2.3.2}\protected@file@percent }
+\newlabel{subsec:ogc-api-features}{{2.3.2}{13}{OGC API Features}{subsection.2.3.2}{}}
+\newlabel{subsec:ogc-api-features@cref}{{[subsection][2][2,3]2.3.2}{[1][13][]13}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.4}{\ignorespaces Collections, items, and features in \acrshort {acr:ogc} \acrshort {acr:api} Features specification. Retrieved from \url  {https://features.developer.ogc.org/} on April 29, 2024.\relax }}{13}{figure.caption.23}\protected@file@percent }
+\newlabel{fig:oaf-collections-items-features}{{2.4}{13}{Collections, items, and features in \acrshort {acr:ogc} \acrshort {acr:api} Features specification. Retrieved from \url {https://features.developer.ogc.org/} on April 29, 2024.\relax }{figure.caption.23}{}}
+\newlabel{fig:oaf-collections-items-features@cref}{{[figure][4][2]2.4}{[1][13][]13}}
 \newlabel{cql-examples}{{2.3}{14}{\acrshort {acr:cql} examples}{lstlisting.2.3}{}}
 \newlabel{cql-examples@cref}{{[listing][3][2]2.3}{[1][14][]14}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {2.3}\acrshort {acr:cql} examples}{14}{lstlisting.2.3}\protected@file@percent }
@@ -79,7 +82,7 @@
 \setcounter{enumii}{0}
 \setcounter{enumiii}{0}
 \setcounter{enumiv}{0}
-\setcounter{footnote}{11}
+\setcounter{footnote}{13}
 \setcounter{mpfootnote}{0}
 \setcounter{part}{0}
 \setcounter{chapter}{2}
@@ -88,7 +91,7 @@
 \setcounter{subsubsection}{0}
 \setcounter{paragraph}{0}
 \setcounter{subparagraph}{0}
-\setcounter{figure}{3}
+\setcounter{figure}{4}
 \setcounter{table}{0}
 \setcounter{parentequation}{0}
 \setcounter{tcbbreakpart}{0}
@@ -110,9 +113,9 @@
 \setcounter{AM@survey}{0}
 \setcounter{lstnumber}{6}
 \setcounter{Item}{9}
-\setcounter{Hfootnote}{11}
+\setcounter{Hfootnote}{13}
 \setcounter{bookmark@seq@number}{0}
-\setcounter{@todonotes@numberoftodonotes}{0}
+\setcounter{@todonotes@numberoftodonotes}{2}
 \setcounter{tabx@nest}{0}
 \setcounter{listtotal}{0}
 \setcounter{listcount}{0}
@@ -122,7 +125,7 @@
 \setcounter{citetotal}{0}
 \setcounter{multicitecount}{0}
 \setcounter{multicitetotal}{0}
-\setcounter{instcount}{40}
+\setcounter{instcount}{44}
 \setcounter{maxnames}{2}
 \setcounter{minnames}{1}
 \setcounter{maxitems}{999}
@@ -146,7 +149,7 @@
 \setcounter{parenlevel}{0}
 \setcounter{blx@maxsection}{0}
 \setcounter{blx@maxsegment@0}{0}
-\setcounter{blx@sectionciteorder@0}{39}
+\setcounter{blx@sectionciteorder@0}{43}
 \setcounter{mincomprange}{10}
 \setcounter{maxcomprange}{100000}
 \setcounter{mincompwidth}{1}

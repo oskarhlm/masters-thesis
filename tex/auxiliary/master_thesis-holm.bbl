@@ -86,118 +86,88 @@
       \verb https://www-cdn.anthropic.com/de8ba9b01c9ab7cbabf5c33b80b7bbc618857627/Model_Card_Claude_3.pdf
       \endverb
     \endentry
-    \entry{austinProgramSynthesisLarge2021}{misc}{}
-      \name{author}{11}{}{%
-        {{un=0,uniquepart=base,hash=9b0426325e91e9da0e91dbf27a7379f6}{%
-           family={Austin},
-           familyi={A\bibinitperiod},
-           given={Jacob},
+    \entry{christianoDeepReinforcementLearning2023}{misc}{}
+      \name{author}{6}{}{%
+        {{un=0,uniquepart=base,hash=cffdbdf7d0beb981d8bb8ea28506a4b2}{%
+           family={Christiano},
+           familyi={C\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=cc754f0620be1073909db48780f1da4d}{%
+           family={Leike},
+           familyi={L\bibinitperiod},
+           given={Jan},
            giveni={J\bibinitperiod},
            givenun=0}}%
-        {{un=0,uniquepart=base,hash=a04932af4057bbbbad95d73521f2d22b}{%
-           family={Odena},
-           familyi={O\bibinitperiod},
-           given={Augustus},
-           giveni={A\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=49d657a6cda3ddc6f434500001ea6d42}{%
-           family={Nye},
-           familyi={N\bibinitperiod},
-           given={Maxwell},
-           giveni={M\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=3fd5b56bfa48546f2caae7b4aa56a29f}{%
-           family={Bosma},
+        {{un=0,uniquepart=base,hash=7c16e8d36475e58d4f2d161e6ecb7704}{%
+           family={Brown},
            familyi={B\bibinitperiod},
-           given={Maarten},
-           giveni={M\bibinitperiod},
+           given={Tom\bibnamedelima B.},
+           giveni={T\bibinitperiod\bibinitdelim B\bibinitperiod},
            givenun=0}}%
-        {{un=0,uniquepart=base,hash=88b44aba31eead485bb3a63154798388}{%
-           family={Michalewski},
+        {{un=0,uniquepart=base,hash=b4c2193fe0b4d57d99cb41783e0518eb}{%
+           family={Martic},
            familyi={M\bibinitperiod},
-           given={Henryk},
-           giveni={H\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=7369065ea0b748a65621d6b6197996ac}{%
-           family={Dohan},
-           familyi={D\bibinitperiod},
-           given={David},
-           giveni={D\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=d398b87d586d7e622ad7d56fa3422012}{%
-           family={Jiang},
-           familyi={J\bibinitperiod},
-           given={Ellen},
-           giveni={E\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=0e749d32457b8d376e8afca27707fc7a}{%
-           family={Cai},
-           familyi={C\bibinitperiod},
-           given={Carrie},
-           giveni={C\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=c7db3b79609dfb1a47686403cc89d16c}{%
-           family={Terry},
-           familyi={T\bibinitperiod},
-           given={Michael},
+           given={Miljan},
            giveni={M\bibinitperiod},
            givenun=0}}%
-        {{un=0,uniquepart=base,hash=841a83a4bb5e622d6e1bde4818879016}{%
-           family={Le},
+        {{un=0,uniquepart=base,hash=afdf5ed50a24cdca0f42433e4f4848d5}{%
+           family={Legg},
            familyi={L\bibinitperiod},
-           given={Quoc},
-           giveni={Q\bibinitperiod},
+           given={Shane},
+           giveni={S\bibinitperiod},
            givenun=0}}%
-        {{un=0,uniquepart=base,hash=fd59f6a0549332a54ac82d8840ea6ff1}{%
-           family={Sutton},
-           familyi={S\bibinitperiod},
-           given={Charles},
-           giveni={C\bibinitperiod},
+        {{un=0,uniquepart=base,hash=1e6adbf36ab730cd5fdadb838b4d2667}{%
+           family={Amodei},
+           familyi={A\bibinitperiod},
+           given={Dario},
+           giveni={D\bibinitperiod},
            givenun=0}}%
       }
       \list{publisher}{1}{%
         {arXiv}%
       }
-      \strng{namehash}{dff77349ec9691661e8152730c5183c2}
-      \strng{fullhash}{0f9097a38fa6aa501774915d381fafe9}
-      \strng{bibnamehash}{0f9097a38fa6aa501774915d381fafe9}
-      \strng{authorbibnamehash}{0f9097a38fa6aa501774915d381fafe9}
-      \strng{authornamehash}{dff77349ec9691661e8152730c5183c2}
-      \strng{authorfullhash}{0f9097a38fa6aa501774915d381fafe9}
-      \field{sortinit}{A}
-      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \strng{namehash}{09f67e9a54af43357542fea0bb6bff70}
+      \strng{fullhash}{e8b66e95c83bb3811d32af91f3685bbd}
+      \strng{bibnamehash}{e8b66e95c83bb3811d32af91f3685bbd}
+      \strng{authorbibnamehash}{e8b66e95c83bb3811d32af91f3685bbd}
+      \strng{authornamehash}{09f67e9a54af43357542fea0bb6bff70}
+      \strng{authorfullhash}{e8b66e95c83bb3811d32af91f3685bbd}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
       \field{extradatescope}{labelyear}
       \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{This paper explores the limits of the current generation of large language models for program synthesis in general purpose programming languages. We evaluate a collection of such models (with between 244M and 137B parameters) on two new benchmarks, MBPP and MathQA-Python, in both the few-shot and fine-tuning regimes. Our benchmarks are designed to measure the ability of these models to synthesize short Python programs from natural language descriptions. The Mostly Basic Programming Problems (MBPP) dataset contains 974 programming tasks, designed to be solvable by entry-level programmers. The MathQA-Python dataset, a Python version of the MathQA benchmark, contains 23914 problems that evaluate the ability of the models to synthesize code from more complex text. On both datasets, we find that synthesis performance scales log-linearly with model size. Our largest models, even without finetuning on a code dataset, can synthesize solutions to 59.6 percent of the problems from MBPP using few-shot learning with a well-designed prompt. Fine-tuning on a held-out portion of the dataset improves performance by about 10 percentage points across most model sizes. On the MathQA-Python dataset, the largest fine-tuned model achieves 83.8 percent accuracy. Going further, we study the model's ability to engage in dialog about code, incorporating human feedback to improve its solutions. We find that natural language feedback from a human halves the error rate compared to the model's initial prediction. Additionally, we conduct an error analysis to shed light on where these models fall short and what types of programs are most difficult to generate. Finally, we explore the semantic grounding of these models by fine-tuning them to predict the results of program execution. We find that even our best models are generally unable to predict the output of a program given a specific input.}
-      \field{eprintclass}{cs}
+      \field{abstract}{For sophisticated reinforcement learning (RL) systems to interact usefully with real-world environments, we need to communicate complex goals to these systems. In this work, we explore goals defined in terms of (non-expert) human preferences between pairs of trajectory segments. We show that this approach can effectively solve complex RL tasks without access to the reward function, including Atari games and simulated robot locomotion, while providing feedback on less than one percent of our agent's interactions with the environment. This reduces the cost of human oversight far enough that it can be practically applied to state-of-the-art RL systems. To demonstrate the flexibility of our approach, we show that we can successfully train complex novel behaviors with about an hour of human time. These behaviors and environments are considerably more complex than any that have been previously learned from human feedback.}
+      \field{eprintclass}{cs, stat}
       \field{eprinttype}{arxiv}
-      \field{month}{8}
-      \field{number}{arXiv:2108.07732}
-      \field{title}{Program {{Synthesis}} with {{Large Language Models}}}
-      \field{urlday}{10}
+      \field{month}{2}
+      \field{number}{arXiv:1706.03741}
+      \field{title}{Deep Reinforcement Learning from Human Preferences}
+      \field{urlday}{21}
       \field{urlmonth}{5}
       \field{urlyear}{2024}
-      \field{year}{2021}
+      \field{year}{2023}
       \field{urldateera}{ce}
       \verb{doi}
-      \verb 10.48550/arXiv.2108.07732
+      \verb 10.48550/arXiv.1706.03741
       \endverb
       \verb{eprint}
-      \verb 2108.07732
+      \verb 1706.03741
       \endverb
       \verb{file}
-      \verb C\:\\Users\\oskar\\Zotero\\storage\\2ZB85ZJB\\Austin et al. - 2021 - Program Synthesis with Large Language Models.pdf;C\:\\Users\\oskar\\Zotero\\storage\\8LQLYM8D\\2108.html
+      \verb C\:\\Users\\oskar\\Zotero\\storage\\WVKXUY66\\Christiano et al. - 2023 - Deep reinforcement learning from human preferences.pdf;C\:\\Users\\oskar\\Zotero\\storage\\47BW93MG\\1706.html
       \endverb
       \verb{urlraw}
-      \verb http://arxiv.org/abs/2108.07732
+      \verb http://arxiv.org/abs/1706.03741
       \endverb
       \verb{url}
-      \verb http://arxiv.org/abs/2108.07732
+      \verb http://arxiv.org/abs/1706.03741
       \endverb
-      \keyw{Computer Science - Machine Learning,Computer Science - Programming Languages}
+      \keyw{Computer Science - Artificial Intelligence,Computer Science - Human-Computer Interaction,Computer Science - Machine Learning,Statistics - Machine Learning}
     \endentry
     \entry{crunchydataCrunchyDataPg_featureserv2024}{misc}{}
       \name{author}{1}{}{%
@@ -14264,6 +14234,44 @@
       \verb C:\Users\oskar\Zotero\storage\2N5LZDKP\Mooney et al. - 2023 - Towards Understanding the Geospatial Skills of Cha.pdf
       \endverb
     \endentry
+    \entry{mouraJoaomdmouraCrewAI2024}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=5004f8cc6f25c2c76c5ffb780a0ea896}{%
+           family={Moura},
+           familyi={M\bibinitperiod},
+           given={João},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{5004f8cc6f25c2c76c5ffb780a0ea896}
+      \strng{fullhash}{5004f8cc6f25c2c76c5ffb780a0ea896}
+      \strng{bibnamehash}{5004f8cc6f25c2c76c5ffb780a0ea896}
+      \strng{authorbibnamehash}{5004f8cc6f25c2c76c5ffb780a0ea896}
+      \strng{authornamehash}{5004f8cc6f25c2c76c5ffb780a0ea896}
+      \strng{authorfullhash}{5004f8cc6f25c2c76c5ffb780a0ea896}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CrewAI empowers agents to work together seamlessly, tackling complex tasks.}
+      \field{month}{5}
+      \field{title}{Joaomdmoura/{{crewAI}}}
+      \field{urlday}{21}
+      \field{urlmonth}{5}
+      \field{urlyear}{2024}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/joaomdmoura/crewAI
+      \endverb
+      \verb{url}
+      \verb https://github.com/joaomdmoura/crewAI
+      \endverb
+      \keyw{agents,ai,ai-agents,llms}
+    \endentry
     \entry{opengeospatialconsortiumOGCAPIFeatures2022}{misc}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=0d6591561c9a387f01e4b0d59426abc6}{%
@@ -14519,7 +14527,7 @@
       \verb C:\Users\oskar\Zotero\storage\9FMV32GE\Radford et al. - Improving Language Understanding by Generative Pre.pdf
       \endverb
     \endentry
-    \entry{radfordLanguageModelsAre}{article}{}
+    \entry{radfordLanguageModelsAre2019}{article}{}
       \name{author}{6}{}{%
         {{un=0,uniquepart=base,hash=a812c46caad94fc8701be37871f303ba}{%
            family={Radford},
@@ -14567,13 +14575,16 @@
       \field{extraname}{2}
       \field{sortinit}{R}
       \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
-      \field{labeldatesource}{nodate}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Natural language processing tasks, such as question answering, machine translation, reading comprehension, and summarization, are typically approached with supervised learning on taskspecific datasets. We demonstrate that language models begin to learn these tasks without any explicit supervision when trained on a new dataset of millions of webpages called WebText. When conditioned on a document plus questions, the answers generated by the language model reach 55 F1 on the CoQA dataset - matching or exceeding the performance of 3 out of 4 baseline systems without using the 127,000+ training examples. The capacity of the language model is essential to the success of zero-shot task transfer and increasing it improves performance in a log-linear fashion across tasks. Our largest model, GPT-2, is a 1.5B parameter Transformer that achieves state of the art results on 7 out of 8 tested language modeling datasets in a zero-shot setting but still underfits WebText. Samples from the model reflect these improvements and contain coherent paragraphs of text. These findings suggest a promising path towards building language processing systems which learn to perform tasks from their naturally occurring demonstrations.}
       \field{langid}{english}
+      \field{month}{2}
       \field{title}{Language {{Models}} Are {{Unsupervised Multitask Learners}}}
+      \field{year}{2019}
       \verb{file}
       \verb C:\Users\oskar\Zotero\storage\SSHHKRBM\Radford et al. - Language Models are Unsupervised Multitask Learner.pdf
       \endverb
@@ -14736,6 +14747,83 @@
       \verb{url}
       \verb https://redis.io/
       \endverb
+    \endentry
+    \entry{schulmanProximalPolicyOptimization2017}{misc}{}
+      \name{author}{5}{}{%
+        {{un=0,uniquepart=base,hash=3e09bd2a25d237ebdaed560a07c0451e}{%
+           family={Schulman},
+           familyi={S\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=674ede0b9cd02a2bf5fc662972efb9f0}{%
+           family={Wolski},
+           familyi={W\bibinitperiod},
+           given={Filip},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4164e43d8cf919f5e3f8d80f5ea23f36}{%
+           family={Dhariwal},
+           familyi={D\bibinitperiod},
+           given={Prafulla},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a812c46caad94fc8701be37871f303ba}{%
+           family={Radford},
+           familyi={R\bibinitperiod},
+           given={Alec},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=be38507da6ab98e7ac01ac2c6b7e13eb}{%
+           family={Klimov},
+           familyi={K\bibinitperiod},
+           given={Oleg},
+           giveni={O\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{8d6613ae59595910252a86a61babf6c8}
+      \strng{fullhash}{a6c6ed5a5aeb74e536f16291276ae392}
+      \strng{bibnamehash}{a6c6ed5a5aeb74e536f16291276ae392}
+      \strng{authorbibnamehash}{a6c6ed5a5aeb74e536f16291276ae392}
+      \strng{authornamehash}{8d6613ae59595910252a86a61babf6c8}
+      \strng{authorfullhash}{a6c6ed5a5aeb74e536f16291276ae392}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We propose a new family of policy gradient methods for reinforcement learning, which alternate between sampling data through interaction with the environment, and optimizing a "surrogate" objective function using stochastic gradient ascent. Whereas standard policy gradient methods perform one gradient update per data sample, we propose a novel objective function that enables multiple epochs of minibatch updates. The new methods, which we call proximal policy optimization (PPO), have some of the benefits of trust region policy optimization (TRPO), but they are much simpler to implement, more general, and have better sample complexity (empirically). Our experiments test PPO on a collection of benchmark tasks, including simulated robotic locomotion and Atari game playing, and we show that PPO outperforms other online policy gradient methods, and overall strikes a favorable balance between sample complexity, simplicity, and wall-time.}
+      \field{eprintclass}{cs}
+      \field{eprinttype}{arxiv}
+      \field{month}{8}
+      \field{number}{arXiv:1707.06347}
+      \field{title}{Proximal {{Policy Optimization Algorithms}}}
+      \field{urlday}{21}
+      \field{urlmonth}{5}
+      \field{urlyear}{2024}
+      \field{year}{2017}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.1707.06347
+      \endverb
+      \verb{eprint}
+      \verb 1707.06347
+      \endverb
+      \verb{file}
+      \verb C\:\\Users\\oskar\\Zotero\\storage\\BV6LXCPX\\Schulman et al. - 2017 - Proximal Policy Optimization Algorithms.pdf;C\:\\Users\\oskar\\Zotero\\storage\\CRQ5ZKGQ\\1707.html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1707.06347
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1707.06347
+      \endverb
+      \keyw{Computer Science - Machine Learning}
     \endentry
     \entry{shinnReflexionLanguageAgents2023}{misc}{}
       \name{author}{6}{}{%
@@ -15203,7 +15291,139 @@
       \endverb
       \keyw{Computer Science - Artificial Intelligence,Computer Science - Software Engineering}
     \endentry
-    \entry{yanfanjiaBerkeleyFunctionCalling}{misc}{}
+    \entry{wuAutoGenEnablingNextGen2023a}{misc}{}
+      \name{author}{14}{}{%
+        {{un=0,uniquepart=base,hash=6154e8b767a07e53ba059e3ac7df5d83}{%
+           family={Wu},
+           familyi={W\bibinitperiod},
+           given={Qingyun},
+           giveni={Q\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6751ff8ce679fd345d66a156462f1915}{%
+           family={Bansal},
+           familyi={B\bibinitperiod},
+           given={Gagan},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=212f2ffa62575655103450499c26678d}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Jieyu},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b8a163828804bc78bf30d6151252ce5f}{%
+           family={Wu},
+           familyi={W\bibinitperiod},
+           given={Yiran},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4c57851806a4078dfd1b4e8d429b9a9f}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Beibin},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ff3f3d040319c6441a541a662718d7d5}{%
+           family={Zhu},
+           familyi={Z\bibinitperiod},
+           given={Erkang},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=357b0b769575e7caa1fa1e98ea04a1fe}{%
+           family={Jiang},
+           familyi={J\bibinitperiod},
+           given={Li},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7cf81b111784e6b097bc8fc66643e33c}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Xiaoyun},
+           giveni={X\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d95bd570217b62424a544dcb057c3ede}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Shaokun},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a30bd94c8f427bff99361e9d32e2e0f0}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Jiale},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f71a09c5b133ccb5e81c650d94b1b882}{%
+           family={Awadallah},
+           familyi={A\bibinitperiod},
+           given={Ahmed\bibnamedelima Hassan},
+           giveni={A\bibinitperiod\bibinitdelim H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=49ccf4fc1a94855e04184746e8caed94}{%
+           family={White},
+           familyi={W\bibinitperiod},
+           given={Ryen\bibnamedelima W.},
+           giveni={R\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=aa76ebd83aa8c795c67769c23f359cdb}{%
+           family={Burger},
+           familyi={B\bibinitperiod},
+           given={Doug},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=71fb46abf1babb7fa14488bb4e0c23ba}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Chi},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{14eae4f2249e69b15441e755c93a566f}
+      \strng{fullhash}{9ebc0e9828b38a56c0dd45b499921f72}
+      \strng{bibnamehash}{9ebc0e9828b38a56c0dd45b499921f72}
+      \strng{authorbibnamehash}{9ebc0e9828b38a56c0dd45b499921f72}
+      \strng{authornamehash}{14eae4f2249e69b15441e755c93a566f}
+      \strng{authorfullhash}{9ebc0e9828b38a56c0dd45b499921f72}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{AutoGen is an open-source framework that allows developers to build LLM applications via multiple agents that can converse with each other to accomplish tasks. AutoGen agents are customizable, conversable, and can operate in various modes that employ combinations of LLMs, human inputs, and tools. Using AutoGen, developers can also flexibly define agent interaction behaviors. Both natural language and computer code can be used to program flexible conversation patterns for different applications. AutoGen serves as a generic infrastructure to build diverse applications of various complexities and LLM capacities. Empirical studies demonstrate the effectiveness of the framework in many example applications, with domains ranging from mathematics, coding, question answering, operations research, online decision-making, entertainment, etc.}
+      \field{eprintclass}{cs}
+      \field{eprinttype}{arxiv}
+      \field{month}{10}
+      \field{number}{arXiv:2308.08155}
+      \field{shorttitle}{{{AutoGen}}}
+      \field{title}{{{AutoGen}}: {{Enabling Next-Gen LLM Applications}} via {{Multi-Agent Conversation}}}
+      \field{urlday}{21}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{year}{2023}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2308.08155
+      \endverb
+      \verb{eprint}
+      \verb 2308.08155
+      \endverb
+      \verb{file}
+      \verb C\:\\Users\\oskar\\Zotero\\storage\\IDKBMDML\\Wu et al. - 2023 - AutoGen Enabling Next-Gen LLM Applications via Mu.pdf;C\:\\Users\\oskar\\Zotero\\storage\\K6DAI6WM\\2308.html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2308.08155
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2308.08155
+      \endverb
+      \keyw{Computer Science - Artificial Intelligence,Computer Science - Computation and Language}
+    \endentry
+    \entry{yanfanjiaBerkeleyFunctionCalling2024}{misc}{}
       \name{author}{7}{}{%
         {{un=0,uniquepart=base,hash=c77eebdb12417301e62b8c08fdcde6ca}{%
            family={{Yan, Fanjia}},
@@ -15235,14 +15455,17 @@
       \strng{authorfullhash}{d1fc4cb7ae1a2e9649932ded9d041594}
       \field{sortinit}{Y}
       \field{sortinithash}{fd67ad5a9ef0f7456bdd9aab10fe1495}
-      \field{labeldatesource}{nodate}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{month}{4}
       \field{title}{Berkeley {{Function Calling Leaderboard}}}
       \field{urlday}{9}
       \field{urlmonth}{5}
       \field{urlyear}{2024}
+      \field{year}{2024}
       \field{urldateera}{ce}
       \verb{file}
       \verb C:\Users\oskar\Zotero\storage\8NBAJEGS\8_berkeley_function_calling_leaderboard.html

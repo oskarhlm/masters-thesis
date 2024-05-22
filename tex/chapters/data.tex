@@ -1,6 +1,7 @@
 \chapter{Datasets}
 % OR: \chapter{Data}
 \label{cha:data}
+\todo{Move to Experiments?}
 
 \begin{comment}
 You will (probably) need to describe and discuss the dataset(s) that you use in your work.
@@ -45,7 +46,7 @@ as described by \citet{Isaksen;Gamback:20}.
 \textit{Morbi viverra ante et tortor faucibus finibus nec sit amet sem. In ultrices, augue sed vestibulum congue, tortor turpis sodales odio, at interdum leo justo non massa. Nunc aliquet, nisl non vestibulum rhoncus, libero tortor laoreet nibh, vel ultricies nunc erat nec nisl. Praesent sed lorem arcu. Sed ultricies, tellus at euismod posuere, felis nibh cursus justo, vitae placerat nisl lorem ut est. Suspendisse sollicitudin sagittis nibh, ac interdum erat hendrerit id. Fusce est mi, semper eget mauris sed, posuere ultrices orci. Aenean nec est eu augue blandit maximus. Morbi ut nisl at metus condimentum tincidunt nec consectetur nibh. Phasellus eleifend dapibus elit ut cursus. Donec lacinia turpis a justo dignissim, sit amet venenatis libero pellentesque. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.}
 \end{comment}
 
-With the interest of investigating the ability of a \gls{acr:llm}-based system to perform geospatial analysis, relevant datasets should be accessible to said system. \Autosectionref{sec:data-sources} provides a description of the datasets used in the experiments. Furthermore, it was decided to explore different access channels to this data. \Autosectionref{sec:data-access} elaborates on this.
+\Autosectionref{sec:data-sources} provides a description of the datasets used in the experiments. Furthermore, it was decided to explore different ways for GeoGPT to discover this data. \Autosectionref{sec:data-access} elaborates on this.
 
 \section{Data Sources}
 \label{sec:data-sources}
@@ -83,7 +84,7 @@ A total of eight datasets were used in the experiments. All datasets were downlo
 
 \end{comment}
 
-A total of eighteen datasets were used in the experiments. The data was downloaded from Geofabrik's website\footnote{\url{https://download.geofabrik.de/europe/norway.html}}. Geofabrik --- German for \enquote{geo factory} --- is a company that \enquote{extract, select, and process free geodata}. They have gathered data from OpenStreetMap and published them as a collection of shapefiles, dividing them into categories such as \enquote{places of worship}, \enquote{points of interest}, and \enquote{traffic}. Data can be downloaded for different regions of the world, and for experiments conducted in this thesis, data for Norway was used. \autoref{tbl:datasets} in \autoref{app:datasets} lists all datasets used, along with a short description of their contents. Common for all datasets are their \emph{fclass} attribute, which is short for \emph{feature class}. Some datasets have additional attributes, such as the \emph{maxspeed} attribute in the road data and the \emph{type} attribute in the building data. \autoref{fig:datasets-trondheim} shows a plot containing four selected datasets, constrained to a bounding box of Trondheim. The plot was created by GeoGPT.
+A total of eighteen datasets were used in the experiments, all downloaded from Geofabrik's website.\footnote{\url{https://download.geofabrik.de/europe/norway.html}} Geofabrik, which is German for \enquote{geo factory}, is a company that \enquote{extract, select, and process free geodata}. They have gathered data from OpenStreetMap and published them as a collection of shapefiles, dividing them into categories such as \enquote{places of worship}, \enquote{points of interest}, and \enquote{traffic}. Data can be downloaded for different regions of the world, and for experiments conducted in this thesis, data for Norway was used. \autoref{tbl:datasets} in \autoref{app:datasets} lists all datasets, along with short descriptions of their contents. Common for all datasets are their \emph{fclass} attribute, which is short for \emph{feature class}. Some datasets have additional attributes, such as the \emph{maxspeed} attribute in the road data and the \emph{type} attribute in the building data. \autoref{fig:datasets-trondheim} shows a plot containing four selected datasets, constrained to a bounding box of Trondheim. This plot was created by GeoGPT.
 
 \begin{figure}
     \centering
@@ -95,12 +96,14 @@ A total of eighteen datasets were used in the experiments. The data was download
 \section{Data Access}
 \label{sec:data-access}
 
-While leading \glspl{acr:llm} are trained on increasingly large corpora, they are still only as familiar with a topic as the extent to which the training data exposes it to said topic. For instance, many \glspl{acr:llm} are trained specifically to generate Python code, and are therefore fed with a vast number of Python code examples during training in the hopes of improving its performance on benchmarks like the \gls{acr:mbpp} benchmark \citep{austinProgramSynthesisLarge2021}. As it is unlikely that the training data is evenly distributed among many different topics, it is useful to get familiarized with a model's capabilities in the areas of interest for a particular use case. In the case of an \acrshort{acr:llm}-powered \acrshort{acr:gis} agent that should be capable of performing geospatial analyses, it is useful to know what data formats such an agent is most comfortable to understand and work with. The upcoming experiments therefore seek to benchmark model performance on three different data access methods.
+% For instance, many \glspl{acr:llm} are trained specifically to generate Python code, and are therefore fed with a vast number of Python code examples during training in the hopes of improving its performance on benchmarks like the \gls{acr:mbpp} benchmark \citep{austinProgramSynthesisLarge2021}. 
 
-The first method of presentation is to have the files from \autoref{sec:data-sources} remain untouched. The files are stored locally on the computer on which the experiments are conducted and GeoGPT, which runs on the same computer, is able to interact with the data through the code that it generates. These files are stored on a location unknown to GeoGPT but are made available through a working directory --- which location \textit{is} known to GeoGPT --- through symbolic links to the unknown location of the actual files. \autoref{code:python-munkegata-bbox} in the \autoref{cha:experiments} shows how GeoGPT is able to use Python code it has generated to load road data, perform intersection with a bounding box, and writing the result to a new file in the working directory.
+In order to investigate how an \acrshort{acr:llm}-based \acrshort{acr:gis} agent most comfortably accesses geospatial data, a decision was made to include three different methods for data access in the experiments.
+
+The first method for data access is to have the files described in \autoref{sec:data-sources} remain untouched. The files would be stored locally on the computer on which the experiments are conducted, and GeoGPT, which runs on the same computer, would be able to interact with the data through the code it generates. These files are made available in a working directory assigned to GeoGPT.
 
 The second method used is to load the data into a spatial \acrshort{acr:sql} database and provide the model with database schemas that can be used to generate queries. The datasets were uploaded to a Dockerized PostGIS database using QGIS's DB Manager plugin.
 
-The third method for data access is to use the \acrshort{acr:ogc} \acrshort{acr:api} Features standard. In essense, this methods serves the data stored in the PostGIS database as a web server that allows consumers of the \acrshort{acr:api} to download the data over \acrshort{acr:http} as GeoJSON.
+The third method for data access is to use the \acrshort{acr:ogc} \acrshort{acr:api} Features standard. This method exposes the data stored in the PostGIS database through a web \acrshort{acr:api} that allows consumers of the \acrshort{acr:api} to download the data over \acrshort{acr:http} as GeoJSON.
 
 \glsresetall
