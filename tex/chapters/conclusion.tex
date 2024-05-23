@@ -1,10 +1,10 @@
-\chapter{Conclusion and Future Work}
+\chapter{Conclusion}
 \label{cha:conclusion}
 
-\Autosectionref{sec:contributions} will summarize the contributions of this thesis and the significance of these, and discuss the contributions in terms of the goals and research questions formulated in the \nameref{cha:introduction}. \Autosectionref{sec:future-work} will highlight potential areas for future work that were not investigated in this thesis but are considered crucial for optimizing the performance of \acrshort{acr:llm}-based \acrshort{acr:gis} agents.
+% \Autosectionref{sec:contributions} will summarize the contributions of this thesis and the significance of these, and discuss the contributions in terms of the goals and research questions formulated in the \nameref{cha:introduction}. \Autosectionref{sec:future-work} will highlight potential areas for future work that were not investigated in this thesis but are considered crucial for optimizing the performance of \acrshort{acr:llm}-based \acrshort{acr:gis} agents.
 
-\section{Contributions}
-\label{sec:contributions}
+% \section{Contributions}
+% \label{sec:contributions}
 
 \begin{comment}
 What are the main contributions made to the field?
@@ -18,44 +18,12 @@ The section ``Contributions'' in Chapter~\ref{cha:introduction} differs from thi
 However, basically the same items should appear in both sections.
 \end{comment}
 
-This thesis has shown the viability of using modern \gls{acr:llm} technology to create autonomous agents for the purpose of \acrshort{acr:gis} analysis. GeoGPT --- the proposed solution --- shows through a new benchmark containing question and answer pairs for common \acrshort{acr:gis} tasks, that it is able to utilize the logical reasoning and code generation abilities of modern \glspl{acr:llm} like \acrshort{acr:gpt}-4 to solve a wide range of such tasks. The user interacts with GeoGPT through a webpage that consists of a chat interface resembling that of OpenAI's ChatGPT, and a web map where results from analyses can be displayed. The user interacts \textit{only} with the input field of the chat interface. This was set as restriction during the development of GeoGPT to see how autonomous of a system is possible to make with modern \acrshort{acr:llm} technologies.
+This thesis has shown the viability of using \gls{acr:llm} technology to create autonomous agents aimed at \acrshort{acr:gis} analysis. GeoGPT, the proposed solution, shows through a new benchmark containing question and answer pairs for common \acrshort{acr:gis} tasks, that it is able to utilize the logical reasoning and code generation abilities of modern \glspl{acr:llm} like \acrshort{acr:gpt}-4 to solve a wide range of such tasks. The user interacts with GeoGPT through a webpage that consists of a chat interface resembling that of OpenAI's ChatGPT, and a web map where results from analyses can be displayed. The user can type geospatial questions into the chat interface, that GeoGPT will attempt answer to through text and/or by adding geometries to the map.
 
-GeoGPT relies heavily on \textit{function calling}, a way of providing function/tool definitions to an \acrshort{acr:llm} so that it essentially can \textit{invoke} these tools --- which runs some arbitrary code created by the developer --- by generating a \acrshort{acr:json} object containing the function name and suitable parameters that will be passed to this function.
+GeoGPT relies heavily on \textit{function calling}, a way of giving function/tool definitions to an \acrshort{acr:llm}, enabling it to essentially \textit{invoke} these tools through specifying the name of the tool and suitable parameters that will be passed to it. The tools run code created by the developer.
 
-Featuring three different agent types, GeoGPT shows that it can manipulate geospatial data that are discovered in different ways. One agent accesses data through a PostgreSQL + PostGIS database, another through an \acrshort{acr:ogc} \acrshort{acr:api} Features endpoint that lives on top said database, and the final one by having access to shapefiles in its local environment that corresponds to what is available in the database/\acrshort{acr:api} endpoint. All agents have access to the exact same data. The agents have different sets of tools that allow them to work with the data through their assigned access channel. The \acrshort{acr:sql} agent has (amongst other tools) a function/tool that takes a string of \acrshort{acr:sql} code that will be run against the database, which enables it to perform geospatial analyses. The \acrshort{acr:ogc} \acrshort{acr:api} Features agent and the agent with access to shapefiles have access to a similar tool that allows them to run Python code. In addition, the former has access to functions/tools work against the \acrshort{acr:ogc} \acrshort{acr:api} Features endpoint.
+Featuring three different agent types, GeoGPT shows that it can manipulate geospatial data that are discovered in different ways. One agent accesses data directly from a PostGIS database, another agent through an \acrshort{acr:ogc} \acrshort{acr:api} Features endpoint that lives on top of this PostGIS database, and the final agent by having access to shapefiles in its local environment. All agents have access to the exact same data. The agents have different sets of tools that allow them to work with their data. The \acrshort{acr:sql} agent has (amongst other) a tool that takes a string of \acrshort{acr:sql} code that will be run against the database, enabling it to perform geospatial analyses. The \acrshort{acr:ogc} \acrshort{acr:api} Features agent and the agent with access to shapefiles have access to a similar tool that allows them to run Python code. In addition to this, the former has access to functions/tools work against the \acrshort{acr:ogc} \acrshort{acr:api} Features endpoint.
 
-Two sets of experiments were conducted: one to compare the three agent types to see which access channel is most suitable for an \acrshort{acr:llm}-based \acrshort{acr:gis} agent like GeoGPT, and another to evaluate the importance of the initial message/prompt from the user. Results from the former show that the \acrshort{acr:sql} agent is more likely to produce a desired response compared to the other two agents, with a success rate of 69.4\%, compared to 38.9\% for the other two agents.
+Two sets of experiments were conducted. The first compares the three agent types to see which is best at solving common \acrshort{acr:gis}-related tasks. Restuls from this experiment show that the \acrshort{acr:sql} agent is more likely to produce a desired response compared to the other two agents, with a success rate of 69.4\%, compared to 38.9\% for the other two agents.
 
-The second set of experiments sought to compare the outcomes of the same \acrshort{acr:gis} question when using two different user queries: one simple query, resembling a user with little \acrshort{acr:gis} experience, and another more accurate and detailed query, resembling a user with extensive \acrshort{acr:gis} experience. The results from the experiment show that providing GeoGPT with a better (more accurate and detailed) initial query greatly increases the ability of the system to produce a successful outcome, suggesting that a user's \acrshort{acr:gis} experience is still very valuable, even as we face a reality where highly sophisticated \glspl{acr:llm} can be used to automate away numerous technical tasks.
-
-\section{Future Work}
-\label{sec:future-work}
-
-\begin{comment}
-Consider where you would like to extend or improve this work, or how somebody else could continue it.
-These extensions might either be continuing the ongoing direction or taking a side direction that became obvious during the work.
-Further, possible solutions to limitations in the work conducted, highlighted in Section~\ref{sec:discussion} may be presented.
-
-Note that in the Specialisation Project Report, the Future Work section will be a key part of your plan for the novel work to be carried out in the next semester,
-while in the Master's Thesis, the Future Work section rather will point to issues that others might be interested in addressing.
-This can include options and alternatives that you did not try out yourself, or potential improvements and extensions to your experiments or system.
-\end{comment}
-
-Subsections \ref{subsec:no-clear-answer} through \ref{subsec:automated-data-access} will present challenges that are reserved for future research.
-
-\subsection{Ability to Answer Questions with no Clear Answer}
-\label{subsec:no-clear-answer}
-
-The experiments conducted for GeoGPT in this thesis focused on the technical \acrshort{acr:gis} ablities of the system. The questions that were asked have corresponding \textit{correct} answers. Something that was not tested is GeoGPT's ability to answer questions of subjective character, questions that have no \textit{one} correct answer. For instance: what would happen if we asked GeoGPT to find a suitable route from A to B that is as \textit{safe} as possible? How would it interpret such a request? Would it only take into account the speed limit and road type? Would it be able to assess socio-economic aspects between different areas, avoiding \enquote{bad neighbourhoods} at nighttime? Would it be able to incorporate weather forecasts into the analysis? Future research should find methods of measuring the ability of \acrshort{acr:llm}-based \acrshort{acr:gis} agents to provide suitable answers to such questions.
-
-\subsection{Comparing Different Models}
-\label{subsec:comparing-different-models}
-
-GeoGPT is based around \acrshort{acr:gpt}-4 but, as \autoref{subsec:sota-decoder-only-llms} showed, there are numerous competitors. Future research should look into the possibilities of swapping out \acrshort{acr:gpt}-4 with other models, first and foremost those with good function calling abilities, as this is absolutely necessary in order for GeoGPT to work as intended. A benchmark comparing results for different models would a natural way of building upon the results of this thesis.
-
-Future research should especially look into the viability of using open-source models. In a report interviewing 500 companies on their \acrshort{acr:llm} adoption, 46 percent stated their preference on open-source models going into 2024 \citep{wangsarah16ChangesWay2024}. \textit{Control} and \textit{customizability} were turns out to be the two most important factors into enterprise's open-source appeal, allowing for increased control over proprietary data and ability to effectively fine-tune models, respectively.
-
-\subsection{Automated Data Access}
-\label{subsec:automated-data-access}
-
-The experiments in \autoref{cha:experiments} were based upon a pre-existing collection of geospatial datasets that were made available to GeoGPT through different channels (see \autoref{sec:data-access}). A fully autonomous \acrshort{acr:gis} agent should, however, be able to search the web for suitable datasets, based on the user's query. In a Norwegian context, one could imagine asking for a noise analysis for a particular building. The agent should then be able to search a website like Geonorge for datasets related to noise (firing ranges, roads, etc.), downloading these, and then performing analysis. Simple experiments were conducted towards Geonorge in this thesis to see if this was possible. Though occasionally able to download the correct datasets, the method used gave quite inconsistent results.  This was largely due to the way Geonorge's \acrshort{acr:api} is set up, and a transition to something like \acrshort{acr:ogc} \acrshort{acr:api} Features type \acrshortpl{acr:api} would significantly simplify implementation. Furthermore, methods like semantic search based upon the documentations of datasets should be explored in future research.
+The second set of experiments sought to compare the outcomes of the same \acrshort{acr:gis} question when formulated two in different ways: one simple problem formulation, resembling a user with little \acrshort{acr:gis} experience, and another more accurate and detailed formulation, resembling a user with great \acrshort{acr:gis} experience. The results from the experiment show that providing GeoGPT with a better (more accurate and detailed) initial problem greatly increases the likelyhood of the system to produce a successful outcome, suggesting that a user's \acrshort{acr:gis} experience is still very valuable, even as we face a reality where highly sophisticated \glspl{acr:llm} can be used to automate away numerous technical tasks.
