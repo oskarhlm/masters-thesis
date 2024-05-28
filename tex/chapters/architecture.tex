@@ -1,4 +1,4 @@
-\chapter{Architecture}
+\chapter{GeoGPT}
 % OR: \chapter{Model}
 \label{cha:architecture}
 
@@ -34,16 +34,18 @@ Those choices should then also be discussed and elaborated on in the Discussion 
 \end{figure}
 \end{comment}
 
-The \nameref{cha:architecture} chapter will give a detailed description of the inner workings of GeoGPT, the thesis' proposed solution to an \acrshort{acr:llm}-based \acrshort{acr:gis}. GeoGPT is a webpage that features a chat interface and a web map, where users can ask questions and receive answers as text and/or map geometries. \Autosectionref{sec:high-level-application-architecture} will present a high-level overview of the different modules that make up GeoGPT, and the way that they interact with each other. \Autosectionref{sec:agent-architecture} will delve into the architecture of the generic tool agent that is implemented using LangChain and LangGraph (see \autoref{sec:langchain} for detailed information), as well as the \textit{three} different agent types that are implemented using this generic agent.
+The \nameref{cha:architecture} chapter will give a detailed description of the inner workings of GeoGPT, the thesis' proposed solution to an \acrshort{acr:llm}-based \acrshort{acr:gis}. GeoGPT is a webpage that features a chat interface and a web map, where users can ask questions and receive answers as text and/or map geometries. GeoGPT features \textit{three} different agent types: an \textit{\acrshort{acr:ogc} \acrshort{acr:api} Features} agent, a \textit{Python} agent, and an \acrshort{acr:sql} agent. Their differences will be made apparent in this chapter.
+
+\Autosectionref{sec:high-level-application-architecture} will present a high-level overview of GeoGPT's architecture. GeoGPT employs a client-server architecture, and is supported by auxiliary services such as databases and \acrshort{acr:api} endpoints. The client is a chat-based web \acrshort{acr:gis}, and the server, which hosts the different agents, is responsible for streaming responses to the client in the form of chat messages and GeoJSON objects that can be added to the map on the client. \Autosectionref{sec:agent-architecture} will delve into the architecture of the generic tool agent that is implemented using LangChain and LangGraph (see \autoref{sec:langchain} for detailed information), which is implemented by each of the three above-mentioned GeoGPT agents.
 
 \section{High-Level Application Architecture}
 \label{sec:high-level-application-architecture}
 
-A microservice architecture was adopted to simplify development and separate concerns among the system's different functionalities. The services are deployed as Docker Containers, and are orchestrated using Docker Compose. \autoref{fig:architecture-overview} shows how the application is divided into five distinct services, and shows the general direction of information flow between these. \autoref{fig:sequence-diagram} goes into greater detail, showing how the different services interact with each other when the user first loads GeoGPT and enters a question into its chat interface.
+The two main parts of GeoGPT is its web client and its server, the latter of which is written in Python. They are highlighted in green and blue in \autoref{fig:architecture-overview}, respectively, and is where all of GeoGPT's source code is located. The server is supported by auxiliary services that are not directly consider parts of GeoGPT, but that are essential to making it work. This includes data sources, such as the \textit{\acrshort{acr:osm} Shapefile} service, \textit{PostGIS}, and \textit{\acrshort{acr:ogc} \acrshort{acr:api} Features} services, all of which are deployed as Docker Containers; the Redis database, which is responsible for storing conversations between the user and GeoGPT; and OpenAI's proprietary inference \acrshort{acr:api}, which is hosts \acrshort{acr:llm} models that GeoGPT uses for text generation. Sections \ref{subsec:langchain-server-architecture} through \ref{subsec:web-ui} will go into further details on the parts that compose GeoGPT. The sequence diagram in \autoref{fig:sequence-diagram} shows how the different GeoGPT's different parts interact with each other when the user first loads GeoGPT and enters a question into its chat interface.
 
-\begin{figure}[h]
+\begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{microservices.png}
+    \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{architecture_overview.png}}
     \caption{Architecture overview}
     \label{fig:architecture-overview}
 \end{figure}
@@ -57,8 +59,9 @@ A microservice architecture was adopted to simplify development and separate con
 
 
 \subsection{LangChain Server}\label{subsec:langchain-server}
+\label{subsec:langchain-server-architecture}
 
-The \textit{LangChain Server} service is the heart of the application, and is where the \gls{acr:llm}-related logic is situated. It is responsible for taking requests from the \textit{Web \acrshort{acr:ui}} and returning suitable responses in what becomes a client-server architecture between the two services. \autoref{tbl:server-endpoints} shows the endpoints exposed by the server and how they can be used by a client.
+The \textit{LangChain Server} service is the heart of the GeoGPT, and is where the \gls{acr:llm}-related logic is situated. It is responsible for taking user-written messages passed from the web client to the server's \texttt{/streaming-chat} GET endpoint, and returning suitable responses as a stream consisting of tokens and tool messages (tools are discussed in detail in \autoref{subsec:tools}). \autoref{tbl:server-endpoints} shows a complete list of the endpoints exposed by the server and how they can be used by a client.
 
 \begin{table}[H]
     \centering
@@ -73,22 +76,39 @@ The \textit{LangChain Server} service is the heart of the application, and is wh
         /streaming-chat   & GET             & Endpoint for chatting the \acrshort{acr:llm}. Takes a \texttt{message} as a query parameter and returns an event stream, allowing for token streaming from server to client. \\
         /update-map-state & POST            & Send the state of the client map to the server. Keeps the server updated on what layers are present in the map, their color, etc.                                            \\
         /geojson          & GET             & Takes a \texttt{geojson\_path} as a query parameter. Allows the client to retrieve a given GeoJSON file that is stored in the working directory on the server.               \\
-        % /history          & GET             & Used to retrieve the chat history of the current session.                                                                                                                    \\
         /upload           & POST            & Allows the client to upload one or more files to the working directory on the server.                                                                                        \\
         \bottomrule
     \end{tabular}
 \end{table}
 
+The LangChain server features GeoGPT's three different agent types. These are listed below:
 
-\subsection{Redis for Conversations}
+\begin{itemize}
+    \item \textbf{\acrshort{acr:ogc} \acrshort{acr:api} Features Agent} -- Utilizes an \acrshort{acr:ogc} \acrshort{acr:api} Features endpoint.
+    \item \textbf{Python Agent} -- Accesses and manipulates shapefiles using Python code.
+    \item \textbf{SQL Agent} -- Interacts with data stored in an \acrshort{acr:sql} database.
+\end{itemize}
+
+The agents are responsible for taking messages from the users, and utilizing the \textit{tools} available to them to find answers to the geospatial questions from the user. Tools are Python functions that the user has access to through \textit{function calling}, which was described in \autoref{subsec:function-calling}. The tools available to each of the agents are presented in \autoref{subsec:tools}.
+
+The agents use OpenAI's inference \acrshort{acr:api} to generate text and function calls. Prompt engineering techniques are used within the agents to produce prompts that can be used as input to the \acrshortpl{acr:llm} that are hosted on the inference \acrshort{acr:api}. These techniques are described in further detail in \autoref{subsec:prompt-engineering}.
+
+The agents have access to a working directory where they can store files on-disk. The agents can access the files in the working directory through some of the tools that are presented in \autoref{subsec:tools}, one of which allows the agent to send GeoJSON files stored in the working directory to the map on the web client. The working directory is reset to its default state each time the web client is reloaded.
+
+
+\subsection{Redis for Conversation Storage}
+\label{subsec:redis-architecture}
 
 Redis \citep{sanfilippoRedisRealtimeData2009} is a fast in-memory database that is often applied as a caching database that sits on top of some persistent database. It can also be used for vector-based storage, or as a simple NoSQL database. The latter option is the way it is used in GeoGPT's architecture, and its sole purpose is to store conversations between GeoGPT and its users. Whenever a user starts a conversation with GeoGPT, a session object is stored in the Redis database, as can be seen in \autoref{fig:sequence-diagram}. This object holds an array that represents the conversation. This array is written to every time the human, or GeoGPT, produces a message.
 
 Storing messages, either in memory as a simple array or in a database like Redis, is crucial to enable multi-message conversations. In order for an \gls{acr:llm} to act as a conversational agent, a chat history needs to be included in the prompt. In the case of GeoGPT, the entire chat history is included. This has the advantage of providing the \gls{acr:llm} with the complete context of the chat history, but the disadvantage of potentially bloating the context window. Therefore, as the chat becomes longer each new token will be both more expensive and take longer to get generated. A long chat history could also make the resulting prompt exceed the token limit of the \gls{acr:llm}. These issues were not considered much for this project and are left for future work.
 
-\subsection[PostGIS and OGC API Features]{PostGIS \acrshort{acr:ogc} \acrshort{acr:api} Features}
+\subsection[Shapefiles, PostGIS, and OGC API Features]{Shapefiles, PostGIS, and \acrshort{acr:ogc} \acrshort{acr:api} Features}
+\label{subsec:postgis-and-oaf-architecture}
 
-A PostgreSQL database with the PostGIS extension, containing the datasets in \autoref{app:datasets}, was deployed using Docker. On top of this database is an \acrshort{acr:ogc} \acrshort{acr:api} Features web server. It is realized through the \texttt{pramsey/pg\_featureserv} Docker image\footnote{\url{https://hub.docker.com/r/pramsey/pg_featureserv}} \citep{crunchydataCrunchyDataPg_featureserv2024}, which is simply passed a connection string to the PostGIS database one wishes to expose on as an \acrshort{acr:ogc} \acrshort{acr:api} Features server. Any tables in that database which have a geometry column and a specified \gls{acr:crs} will be exposed on the server. \textit{pg\_featuresserv} includes functionality like bounding box filtering, result limiting, and \acrshort{acr:cql} filtering. These are added as query parameters in the URL used to fetch a collection's items, for instance:
+Shapefiles to be used in the experiment (see \autoref{sec:datasets}) were downloaded to a directory on the machine from which GeoGPT is launched. These are the geospatial data that GeoGPT's will have at their disposal when the user asks a \acrshort{acr:gis}-related question. These files are also \enquote{copied} to the working directory of GeoGPT's Python directory using symbolic links.\footnote{\url{https://en.wikipedia.org/wiki/Symbolic_link}} This way, the Python agent can access the files in the \enquote{arbitrary} directory where the \textit{actual} file is stored, but using the equivalent file in the working directory which \textit{points} to the real file. This makes the startup of GeoGPT much faster, since it does not copy the actual contents of the files.
+
+A PostgreSQL database with the PostGIS extension was deployed using Docker, and populated with the shapefiles desribed above. On top of this database is an \acrshort{acr:ogc} \acrshort{acr:api} Features web server. It is deployed using the \texttt{pramsey/pg\_featureserv} Docker image \citep{crunchydataCrunchyDataPg_featureserv2024}, which is requires a connection string to the PostGIS database that is to be exposed as an \acrshort{acr:ogc} \acrshort{acr:api} Features server. Any table in the database which has a geometry column and a specified \gls{acr:crs}, will be exposed on the server. \textit{pg\_featuresserv} includes functionality like bounding box filtering, result limiting, and \acrshort{acr:cql} filtering. These are added as query parameters in the URL used to fetch a collection's items, for instance:
 
 $$
     \texttt{.../collections/\{collection\_id\}/items.json?limit=1000\&filter=name IS NOT NULL}
@@ -108,9 +128,10 @@ within(geom, POINT(0 0))
 ST_Within("geom",'SRID=4326;POINT(0 0)'::geometry)
 \end{lstlisting}
 
-\subsection[Web UI]{Web \acrshort{acr:ui}}
+The shapefiles, PostGIS database, and \acrshort{acr:ogc} \acrshort{acr:api} Features endpoints all contain the same data. The rationale behind this becomes apparent in the \nameref{cha:experiments} chapter under \autoref{sec:experimental-setup}.
 
-The user interface is made using SolidJS, a JavaScript framework for creating websites. The user interface is intentionally quite minimal, aiming to simplify the way we do \acrshort{acr:gis} analysis.
+\subsection[Web UI]{Web \acrshort{acr:ui}}
+\label{subsec:web-ui}
 
 \begin{figure}[h]
     \centering
@@ -119,39 +140,31 @@ The user interface is made using SolidJS, a JavaScript framework for creating we
     \label{fig:web-ui}
 \end{figure}
 
-The chat interface was designed to imitate the interface of OpenAI's ChatGPT. Tokens and tool messages are streamed from the LangChain server, which helps the user follow GeoGPT's thought process as it is solving a problem. The generated text is streamed to the client token by token, and is in Markdown format. A library called \textit{showdown}\footnote{\url{https://github.com/showdownjs/showdown}} is used to convert Markdown into \acrshort{acr:html}, ensuring that tables, code blocks, lists, and other elements are properly rendered. Left of the input field on the bottom of the chat is a file upload button. Files that are uploaded here will be added to the working directory on the LangChain server.
+GeoGPT's user interface is made using SolidJS, a JavaScript framework for creating websites. As \autoref{fig:web-ui} shows, it consists of a chat interface, a web map, and an agent selector located above the chat interface. The chat interface was designed to imitate the interface of OpenAI's ChatGPT. Here, the user can ask geospatially related questions for GeoGPT to answer. Tokens and tool messages are streamed from the LangChain server and added to the chat like the \autoref{fig:web-ui} shows, which helps the user follow GeoGPT's thought process as it is solving a problem. The generated text is streamed in the Markdown format.\footnote{\url{https://en.wikipedia.org/wiki/Markdown}} A library called \textit{showdown}\footnote{\url{https://github.com/showdownjs/showdown}} is used to convert Markdown into \acrshort{acr:html}, ensuring that tables, code blocks, lists, and other elements are properly rendered. Left of the input field on the bottom of the chat is a file upload button. Files that are uploaded here will be added to the working directory on the LangChain server, as \autoref{fig:architecture-overview} shows.
 
-The map is created using MapLibre,\footnote{\url{https://github.com/maplibre/maplibre-gl-js}} an open-source fork of Mapbox. A base map from \gls{acr:osm} is used, fetched through a mapping platform called MapTiler.\footnote{\url{https://www.maptiler.com/}} GeoJSON files that are fetched from the server will be added to the map automatically with a random color. On the top-right of the map is an overlay listing all layers that are currently present in the map. Using the arrow keys on this list will change the z-index in the map of the selected layer.
+The map is created using MapLibre,\footnote{\url{https://github.com/maplibre/maplibre-gl-js}} an open-source fork of Mapbox. A base map from \gls{acr:osm} is used, fetched through a mapping platform called MapTiler.\footnote{\url{https://www.maptiler.com/}} GeoJSON files that are fetched from the server will be added to the map automatically with a random colour. On the top-right of the map is an overlay listing all layers that are currently present in the map. Using the arrow keys on this list will change the z-index in the map of the selected layer.
 
 
 \section{Agent Architecture}
 \label{sec:agent-architecture}
 
-Three different agent were implemented for GeoGPT. These are listed below:
-
-\begin{itemize}
-    \item \textbf{\acrshort{acr:ogc} \acrshort{acr:api} Features Agent} -- Utilizes \acrshort{acr:ogc} \acrshort{acr:api} Features to interact with geographic data through standardized web interfaces.
-    \item \textbf{Python Agent} -- Accesses and manipulates shapefiles using Python code, enabling detailed geographic data processing.
-    \item \textbf{SQL Agent} -- Interacts with data stored in an \acrshort{acr:sql} database, allowing for complex queries and data management within GeoGPT.
-\end{itemize}
-
-Common to these agents is their agentic architecture, which is described in \autoref{subsec:lg-agent-implementation}. They differ, however, through their assigned \textit{tools}, which are described in \autoref{subsec:tools}. Other slight differences are seen in the way that they are prompted. The prompting strategy used for GeoGPT will be discussed in \autoref{subsec:prompt-templating}.
+Common to GeoGPT's agents is their agentic architecture, which is described in \autoref{subsec:lg-agent-implementation}. They differ, however, through their assigned \textit{tools}, which are described in \autoref{subsec:tools}. Other slight differences are seen in the way that they are prompted. The prompting strategy used for GeoGPT will be discussed in \autoref{subsec:prompt-engineering-architecture}.
 
 \subsection{LangGraph Agent Implementation}
 \label{subsec:lg-agent-implementation}
 
-The agentic behaviour of GeoGPT is implemented using LangGraph, which was described in detail in \autoref{sec:langchain}. \autoref{fig:tool-agent-graph} illustrates the flow between the various nodes that make up the agent. A state dictionary is passed between and updated by these nodes. Included in this state is the chat history, the path to GeoGPT's working directory, a list of the current files in this directory, as well as less important state. The implementation is based upon a prebuilt implementation from LangGraph.\footnote{\url{https://github.com/langchain-ai/langgraph/blob/main/langgraph/prebuilt/chat_agent_executor.py}}
+The agentic behaviour of GeoGPT is implemented using LangGraph, which was described in detail in \autoref{sec:langchain}. \autoref{fig:tool-agent-graph} illustrates the flow between the various nodes that make up the agent, and also shows the prompt engineering approach used in GeoGPT, which will be discussed in detail in \autoref{subsec:prompt-engineering-architecture}. A state dictionary is passed between the nodes, and is updated at each of these. Included in this state is a list of \texttt{Message} objects (the chat history), the path to GeoGPT's working directory, a list of the current files in this directory, as well as other less important state. The implementation is based upon a prebuilt \texttt{chat\_agent\_executor} implementation from LangGraph.\footnote{\url{https://github.com/langchain-ai/langgraph/blob/main/langgraph/prebuilt/chat_agent_executor.py}}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.6\textwidth]{agent_graph.png}
-    \caption{Generic tool agent graph}
+    \makebox[\textwidth][c]{\includegraphics[width=1.0\textwidth]{agent_graph_and_prompt_engineering.png}}
+    \caption{Generic tool agent graph and prompt engineering structure. Purple nodes and edges are what makes up the \textit{LangGraph} graph, while teal-coloured parts are related to prompt engineering.}
     \label{fig:tool-agent-graph}
 \end{figure}
 
-The \texttt{\_\_start\_\_} node serves as the entry point of the agent. At this point, only one message is present in the state, namely the initial message from the user. The \texttt{\_\_start\_\_} node points to the \texttt{agent} node, where a a prompt is constructed and passed to the \acrshort{acr:llama}, so that a response to the user can be generated. This response could contain a textual response, and/or instructions to execute some tool. For this reason, the current state containing both the user message and the \acrshort{acr:ai} message, is sent to the conditional node called \texttt{agent\_should\_continue}. This node simply checks if the last \acrshort{acr:ai} includes the \enquote{tool\_calls} keyword argument. If this is the case then some tool should be executed, and we should \enquote{continue}.
+The \texttt{\_\_start\_\_} node serves as the entry point of the agent. At this point, only one message is present in the state, namely the initial message from the user. The \texttt{\_\_start\_\_} node points to the \enquote{Prompt Engineering} section of the graph, where a prompt is constructed and passed on to the \texttt{agent} node. In the \texttt{agent} node, the prompt is passed to an \acrshort{acr:llm}, so that a response to the user can be generated. This response could contain text and/or instructions to invoke some tool. Therefore, the current state, containing both the user message and the \acrshort{acr:ai} message, is sent to the conditional node called \texttt{agent\_should\_continue}. This node simply checks if the last \texttt{\acrshort{acr:ai} Message} includes the \enquote{tool\_calls} keyword argument. If this is the case, then some tool should be invoked, and we should proceed to the \texttt{action} node.
 
-In the \texttt{action} node, the values attached to the \enquote{tool\_calls} keyword argument, which are \acrshort{acr:llm}-generated, are used to invoke predefined tools. The \acrshort{acr:llm} specifies tool \textit{names}, as well as tool \textit{parameters} that will be passed to the predefined tool (see \autoref{subsec:function-calling} for more details on how \textit{function/tool calling} works). These tools are then executed, possibly having side effects on the server, and the return values from the tools are appended as messages to the chat history. \autoref{fig:chat-trace-example} illustrates this behaviour. This way, the agent can inspect the outcome of these tool invocations, and be notified if there are any errors occur in the tools due to the parameters it passed. Through the cyclic behaviour of the agent graph the agent can repeatedly call tools to try and answer the request from the user. When the agent finds no reason to call any more tools, \texttt{agent\_should\_continue} will return \texttt{False} so that the termination node, \texttt{\_\_end\_\_} is reached.
+In the \texttt{action} node, the values attached to the \enquote{tool\_calls} keyword argument, which are \acrshort{acr:llm}-generated, are used to invoke predefined tools. The \acrshort{acr:llm} specifies tool \textit{names} and suitable tool \textit{parameters} that will be passed to the predefined tool (see \autoref{subsec:function-calling} for more details on how \textit{function/tool calling} works). These tools are then executed, possibly having side effects on the server, and the return values from the tools are appended as tool messages to the chat history, as \autoref{fig:tool-agent-graph} shows. \autoref{fig:chat-trace-example} illustrates this behaviour, which also includes some mid-conversation system messages to give the agent updates about the system's state (further discussed in \autoref{subsec:prompt-engineering-architecture}). We can now loop back to the \texttt{Prompt Engineering} and \texttt{agent} nodes, so that the agent can react to the results from the tool invocation. This cyclic behaviour allows the agent to repeatedly call tools to try and answer the request from the user. When the agent finds no reason to call any more tools, \texttt{agent\_should\_continue} will return \texttt{False} so that the termination node, \texttt{\_\_end\_\_} is reached.
 
 \begin{figure}
     \centering
@@ -222,14 +235,21 @@ Common for the \acrshort{acr:ogc} \acrshort{acr:api} Features agent and the Pyth
 The \acrshort{acr:sql} agent has tools very similar to the \acrshort{acr:ogc} \acrshort{acr:api} Features agent. It has a direct connected to the same database that the \acrshort{acr:ogc} \acrshort{acr:api} Features endpoint is served on top of. \textbf{\texttt{sql\_db\_list\_tables}} is a tool that will list all database tables along with their description. \textbf{\texttt{sql\_db\_schema}} takes a list of table names and returns information about attributes, prevalence of different values in high-cardinality columns, and other details about these tables, much like \texttt{get\_collections\_info}. \textbf{\texttt{sql\_db\_query}} accepts arbitrary \acrshort{acr:sql} code that will be executed against the database. The tool will make sure that query results that has a geospatial component will be stored as GeoJSON in GeoGPT's working directory, so that it can add the geometries to the map on the client.
 
 
-\subsection{Prompt Templating}
-\label{subsec:prompt-templating}
+\subsection{Prompt Engineering}
+\label{subsec:prompt-engineering-architecture}
 
-Prompt templating is a way of producing prompts with a predefined structure for use with \acrshort{acr:llm}. \autoref{fig:chat-template} shows the prompt passed to GeoGPT's \acrshort{acr:sql} agent when the user asks which county is the largest by size.
+Prompt templating is a way of producing prompts with a predefined structure for use with \acrshort{acr:llm}. \autoref{fig:chat-template} shows the prompt passed to GeoGPT's \acrshort{acr:sql} agent when the user asks which county is the largest by size. The overall template consists of a collection of tools, a system message, and a chat history, as \autoref{fig:tool-agent-graph} shows. It is constructed before every invocation of the \textit{agent} node, where it is passed to an \acrshort{acr:llm} so that it can generate an answer. \acrshortpl{acr:llm} have no inherent memory, so in order to have a chat conversation, the entire chat history needs to be passed with the prompt.\footnote{Several strategies have been developed by researchers to avoid having to pass the entire chat history to the \acrshort{acr:llm} each time, as this eventually will bloat the context window which could make generation slower and worse in quality. Strategies include picking only the $n$ last messages in the chat history, passing a summary of the chat instead of entire messages, or utilizing knowledge graphs.}
 
-The overall template consists of a collection of tools, a system message, and a chat history. This entire template is passed to an \acrshort{acr:llm}, each time the \textit{agent} node from \autoref{fig:tool-agent-graph} is invoced. \acrshortpl{acr:llm} have no inherent memory, so in order to have a chat conversation, the entire chat history needs to be passed with the prompt.\footnote{Several strategies have been developed by researchers to avoid having to pass the entire chat history to the \acrshort{acr:llm} each time, as this eventually will bloat the context window which could make generation slower and worse in quality. Strategies include picking only the $n$ last messages in the chat history, passing a summary of the chat instead of entire messages, or utilizing knowledge graphs.}
+\autoref{fig:tool-agent-graph} shows that there are four elements to the main system message:
 
-The first half of the system message in \autoref{fig:chat-template} is intended to give the \acrshort{acr:llm} contextual awareness and hints on how it should work towards solving tasks. We start by telling \acrshort{acr:llm} that it's a \enquote{helpful \acrshort{acr:gis} agent/consultant that has access to an \acrshort{acr:sql} database containing \acrlong{acr:osm} data}. This is a common way of giving \acrshortpl{acr:llm} a persona, and results in responses like the one in \autoref{fig:effect-of-system-message}. Continuing, we give it some information on how to string tool calls together to solve tasks. We tell it to first list available tables, then look up schemas of relevant tables, and then, using the information gathered, to construct an \acrshort{acr:sql} query to answer the user's request. We also remind it that it needs to add the result of the analyses to the map, using the \texttt{add\_geojson\_to\_map} tool.
+\begin{enumerate}
+    \item Agent-specific instructions
+    \item A path to the working directory
+    \item A list of the current files in the working directory
+    \item A checklist that the \acrshort{acr:llm} should use when generating code
+\end{enumerate}
+
+The agent-specific instructions includes information intended to give the \acrshort{acr:llm} contextual awareness and hints on how it should work towards solving tasks. We start by telling \acrshort{acr:llm} that it's a \enquote{helpful \acrshort{acr:gis} agent/consultant that has access to an \acrshort{acr:sql} database containing \acrlong{acr:osm} data}. This is a common way of giving \acrshortpl{acr:llm} a persona, and results in responses like the one in \autoref{fig:effect-of-system-message}. Continuing, we give it some information on how to string tool calls together to solve tasks. We tell it to first list available tables, then look up schemas of relevant tables, and then, using the information gathered, to construct an \acrshort{acr:sql} query to answer the user's request. We also remind it that it needs to add the result of the analyses to the map, using the \texttt{add\_geojson\_to\_map} tool.
 
 \begin{figure}[H]
     \centering
@@ -245,11 +265,11 @@ The first half of the system message in \autoref{fig:chat-template} is intended 
     \label{fig:chat-template}
 \end{figure}
 
-The next part of the system message concerns the GeoGPT's working directory. Having a working directory is important to control which files the agent has available, and also to make sure it doesn't save files to the folder on the LangChain server where GeoGPT's source code is located, as this would bloat the actual source code. In the first part of the system message, we tell the \acrshort{acr:llm} where the working directory is located. This is especially important for the \acrshort{acr:ogc} \acrshort{acr:api} Features agent and the Python agent, as they need to manually read and write to the correct path using the Python code they generate. Continuing, we list the files that currently reside in the working directory. In the prompt in \autoref{fig:chat-template}, there \enquote{are currently no files written to the working directory}, but if there were they would be listed in a bullet point list.
+The next two parts of the system message concern GeoGPT's working directory. Having a working directory is important to control which files the agent has available, and also to make sure it doesn't save files to the folder on the LangChain server where GeoGPT's source code is located, as this would bloat the actual source code. First, we tell the \acrshort{acr:llm} where the working directory is located. This is especially important for the \acrshort{acr:ogc} \acrshort{acr:api} Features agent and the Python agent, as they need to manually read and write to the correct path using the Python code they generate. Second, we list the files that currently reside in the working directory. In the prompt in \autoref{fig:chat-template}, there \enquote{are currently no files written to the working directory}, but if there were any, they would be listed in a bullet point list in place of this message.
 
-The final part of the system message is a checklist to inform the \acrshort{acr:llm} about common pitfalls it could run into when generating \acrshort{acr:sql} code. A similar checklist for Python is provided for the other two agents, with reminders about using metric \acrshortpl{acr:crs} when doing area calculations, etc.
+The final part of the system message is a checklist to inform the \acrshort{acr:llm} about common pitfalls it could run into when generating code. The checklist in \autoref{fig:chat-template} is tailored for GeoGPT's \acrshort{acr:sql} agent. A similar checklist for Python is provided for the other two agents, with reminders about using metric \acrshortpl{acr:crs} when doing area calculations, etc.
 
-Normally, prompts for \acrshort{acr:llm} contain only a single system message. GeoGPT, however, features a --- to the author's knowledge --- novel usage of system messages. As can be seen in \autoref{fig:chat-trace-example}, system messages are appended mid-conversation, providing updates about state changes in the system. The first system message is added because a new file has been added to the working directory, as a result of invoking the \texttt{sql\_db\_query} tool. The system message helps GeoGPT stay up-to-date on what files it has available, and in \autoref{fig:chat-trace-example}, it uses this information immediately to add the only file available to the map using \texttt{add\_geojson\_to\_map}. Another system message is eventually added to tell the GeoGPT that client map has been modified. The message helps ensure GeoGPT that the invocation of \texttt{add\_geojson\_to\_map} was successful. If it wasn't, the system message would inform it about this.
+Normally, prompts for \acrshort{acr:llm} contain only a single system message. GeoGPT, however, features a --- to the author's knowledge --- novel usage of system messages. As can be seen in \autoref{fig:chat-trace-example}, system messages are appended mid-conversation, providing updates about state changes in the system. As \autoref{fig:tool-agent-graph} shows, these are generated in the \texttt{action} node. The first system message is added because a new file has been added to the working directory, as a result of invoking the \texttt{sql\_db\_query} tool. The system message helps GeoGPT stay up-to-date on what files it has available, and in \autoref{fig:chat-trace-example}, it uses this information immediately to add the only file available to the map using \texttt{add\_geojson\_to\_map}. Another system message is eventually added to tell the GeoGPT that client map has been modified. The message helps ensure GeoGPT that the invocation of \texttt{add\_geojson\_to\_map} was successful. If it wasn't, the system message would inform it about this.
 
 \glsresetall
 

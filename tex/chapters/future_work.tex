@@ -11,21 +11,21 @@ while in the Master's Thesis, the Future Work section rather will point to issue
 This can include options and alternatives that you did not try out yourself, or potential improvements and extensions to your experiments or system.
 \end{comment}
 
-Sections \ref{sec:no-clear-answer} through \ref{sec:automated-data-access} of this chapter will present challenges that are reserved for future research.
+The \nameref{cha:future-work} chapter will present challenges that are reserved for future research. \Autosectionref{sec:no-clear-answer} addresses limitations with the experiments conducted in this thesis, and emphasizes the need for experiments that investigate the ability of a system like GeoGPT to answer questions where there is no concrete answers, and where ethical considerations and assumptions must be made. \Autosectionref{sec:comparing-different-models} highlight the need for testing different models for the purpose of creating an \acrshort{acr:llm}-based \acrshort{acr:gis}. \Autosectionref{sec:automated-data-discovery} discusses the issue with data discovery. Currently, to use GeoGPT, the user has to provide it with data through, for instance, a geospatial database, but not all users will have the technical know-how required to set up such a database themselves.
 
-\subsection{Ability to Answer Questions with no Clear Answer}
+\section{Ability to Answer Questions with no Clear Answer}
 \label{sec:no-clear-answer}
 
 The experiments conducted in this thesis focused on the technical \acrshort{acr:gis} abilities of the system, and the questions that were asked have corresponding \textit{correct} answers. Something that was not tested is GeoGPT's ability to answer questions of subjective character, questions that have no \textit{one} correct answer. For instance: what would happen if we asked GeoGPT to find a suitable route from A to B that is as \textit{safe} as possible? How would it interpret such a request? Would it only take into account the speed limit and road type? Would it be able to assess socio-economic aspects between different areas, avoiding \enquote{bad neighbourhoods} at nighttime? Would it decide to incorporate weather forecasts into the analysis? Future research should find methods of measuring the ability of \acrshort{acr:llm}-based \acrshort{acr:gis} agents to provide suitable, and safe, answers to such questions.
 
-\subsection{Comparing Different Models}
+\section{Comparing Different Models}
 \label{sec:comparing-different-models}
 
 GeoGPT is based around \acrshort{acr:gpt}-4 but, as \autoref{subsec:sota-decoder-only-llms} showed, there are numerous competitors. Future research should look into the possibilities of swapping out \acrshort{acr:gpt}-4 with other models, first and foremost those with good function calling abilities, as this is absolutely necessary in order for GeoGPT to work as intended. A benchmark comparing results for different models would be a natural way of building upon the results of this thesis.
 
 Future research should especially look into the viability of using open-source models. In a report interviewing 500 companies on their \acrshort{acr:llm} adoption, 46 percent stated their preference for open-source models going into 2024 \citep{wangsarah16ChangesWay2024}. \textit{Control} and \textit{customizability} turns out to be the two most important factors into enterprise's open-source appeal, allowing for increased control over proprietary data and ability to effectively fine-tune models, respectively.
 
-\subsection{Automated Data Access}
-\label{sec:automated-data-access}
+\section{Automated Data Discovery}
+\label{sec:automated-data-discovery}
 
-The experiments in this thesis were based upon a pre-existing collection of geospatial datasets that were made available to GeoGPT through different channels. A fully autonomous \acrshort{acr:gis} agent should, however, be able to search the web for suitable datasets, based on the user's query. In a Norwegian context, one could imagine asking for a noise analysis for a particular location. The agent should then be able to search a website like Geonorge for datasets related to noise (firing ranges, roads, etc.), downloading these, and then performing analysis. Initial experiments were conducted towards Geonorge in this thesis to see if this was possible, but results were inconsistent.
+The experiments in this thesis were based upon a pre-existing collection of geospatial datasets that were made available to GeoGPT through different channels. GeoGPT is currently reliant on having the user provide data either as a geospatial database, through an \acrshort{acr:ogc} \acrshort{acr:api} Features endpoint, or as a collection of geospatial files that can be manipulated through Python code.  A fully autonomous \acrshort{acr:gis} agent should, however, be able to search the web for suitable datasets, based on the user's query. In a Norwegian context, one could imagine asking for a noise analysis for a particular location. The agent should then be able to search a website like Geonorge for datasets related to noise (firing ranges, roads, etc.), downloading these, and then performing analysis. Initial experiments were conducted towards Geonorge in this thesis to see if this was possible, but results were inconsistent.

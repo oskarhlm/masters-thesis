@@ -14,7 +14,7 @@ If you use direct quotes, unless the quote itself is very significant, you are c
 Such direct quotes also break the flow of the language (yours to someone else's).
 \end{comment}
 
-The introductory chapter will explain the motivation behind the thesis, its goals, and the research questions it will attempt to answer. \Autosectionref{sec:intro-contributions} will list the main contributions of the thesis, and \autoref{sec:thesis-structure} will give a high-level overview over the thesis.
+The introductory chapter open with explaining the motivation behind the thesis, its goals, and the research questions it will attempt to answer in sections \autoref{sec:background-and-motivation} through \autoref{sec:goals-and-research-questions}. Following this, \autoref{sec:research-method} will explain the research method of this master's thesis, which is to be considered as a technical thesis. \Autosectionref{sec:intro-contributions} will list the main contributions of the thesis, before \autoref{sec:thesis-structure} gives the reader a high-level overview of the thesis to conclude the \nameref{cha:introduction} chapter.
 
 \section{Background and Motivation}
 \label{sec:background-and-motivation}
@@ -97,8 +97,7 @@ Based on the overarching goal, three research questions have been constructed an
 \end{enumerate}
 
 \section{Research Method}
-\label{sec:researchMethod}
-\todo{Is this section necessary?}
+\label{sec:research-method}
 
 \begin{comment}
 What methodology will you apply to address the goals: theoretic/analytic, model/abstraction or design/experiment?
@@ -106,7 +105,7 @@ This section will describe the research methodology applied and the reason for t
 You should return to the actual choices made in the work and the alternatives in the Discussion chapter.
 \end{comment}
 
-Prior to this master's thesis, a specialization project on the same topic was conducted. The specialization project\todo{Should I mention the specialization project at all} --- as detailed in \citep{holmLLMsDeathGIS2023} --- was of a theoretical character predominantly served as a literature study leading up to the master's thesis. The research questions listed in the above section, however, call for a different and more practical approach. Therefore, this master's thesis will revolve around the development of a \enquote{proof of concept}. The usefulnesss of the \enquote{proof of concept} will be evaluated through a series of tests.
+This master's thesis will be of a technical character, and will revolve around the development of a \enquote{proof of concept}. The usefulness of the \enquote{proof of concept} will be evaluated through a series of tests, that will help answer the research questions listed in the previous section. This report will emphasize the contributions that the \enquote{proof of concept} and the experiments bring, seeing as these occupied a significant majority of the time allocated to the master's thesis.
 
 
 \section{Contributions}
@@ -140,7 +139,8 @@ Below is a brief description of the contributions of this master's thesis:
 \begin{enumerate}
     \item A chat-based \acrshort{acr:gis} named \textit{GeoGPT}, powered by \acrshortpl{acr:llm}, that can solve tasks commonly solved using \acrshort{acr:gis} software.
     \item A new benchmark that will give insigth into the ability of a system like GeoGPT to solve common \acrshort{acr:gis} tasks when provided only with a natural language problem formulation.
-    \item Experimental results that highlight the importance of the initial problem formulation from the user, suggesting that \acrshort{acr:gis} experience will not become redundant in the foreseeable future.
+    \item An investigation into the open question on the extent to which GeoGPT can replace \acrshort{acr:gis} professionals.
+          % \item Experimental results that highlight the importance of the initial problem formulation from the user, suggesting that \acrshort{acr:gis} experience will not become redundant in the foreseeable future.
 \end{enumerate}
 
 \section{Thesis Structure}
@@ -160,9 +160,9 @@ You want to say more than what is explicit in the chapter name, if possible, but
 Below is an outline of the thesis' structure:
 
 \begin{itemize}
-    \item \Autochapterref{cha:background-theory} introduces the theory and tools necessary for the reader to be familiar with in order to understand the rest of the work.
-    \item \Autochapterref{cha:related_work} gives insight into the work that has been done in regard to autonomous, \acrshort{acr:llm}-based systems, in particular those within the field of geomatics.
-    \item \Autochapterref{cha:data} presents the data provided for GeoGPT in the experiments.
+    \item \Autochapterref{cha:background-theory} introduces the theory and tools necessary for the reader to be familiar with in order to understand the rest of the work. It also gives insight into the work that has been done in regard to autonomous, \acrshort{acr:llm}-based systems, in particular those within the field of geomatics.
+          % \item \Autochapterref{cha:related_work} gives insight into the work that has been done in regard to autonomous, \acrshort{acr:llm}-based systems, in particular those within the field of geomatics.
+          % \item \Autochapterref{cha:data} presents the data provided for GeoGPT in the experiments.
     \item \Autochapterref{cha:architecture} will lay out the GeoGPT's architecture, providing both a high-level overview and details on important parts of the system.
     \item \Autochapterref{cha:experiments} presents the experimental setup, the datasets utilized, and the results and evaluations obtained from these experiments.
     \item \Autochapterref{cha:discussion} will elaborate upon points of discussion that arise from the experimental results.
