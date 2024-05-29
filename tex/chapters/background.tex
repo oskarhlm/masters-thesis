@@ -197,11 +197,11 @@ As can be seen in the example, elements in a table can sometimes benefit from be
 \end{comment}
 
 \begin{itshape}
-    NB! Parts of the \nameref{cha:background-theory} chapter is reused material from the specialization project \citep{holmLLMsDeathGIS2023} that preceded this master's thesis. Below are the sections in question and the extent to which, and how, the materials are reused:
+    NB! Parts of the \nameref{cha:background-theory} chapter is reused material from the specialization project \citep{holmLLMsDeathGIS2023} that preceded this master's thesis. Below are the sections in question:
 
     \begin{itemize}
         \item \Autosubsectionref{subsec:attention-and-the-transformer-architecture}: Reused, with minor adjustments.
-        \item \Autosubsectionref{subsec:sota-decoder-only-llms}: \acrshort{acr:gpt} part reused without modifications.
+        \item \Autosubsectionref{subsec:sota-decoder-only-llms}: \acrshort{acr:gpt} part with minor adjustments.
         \item \Autosubsectionref{subsec:llm-gis}: Reused, with minor adjustments.
     \end{itemize}
 \end{itshape}
@@ -232,7 +232,7 @@ While humans understand sentences as sequences of words, \acrshortpl{acr:llm} pe
 \begin{figure}[htp]
     \centering
     \includegraphics[width=0.25\textwidth]{revolution_tokens.png}
-    \caption{Tokenization of the word \enquote{revolution} with different suffixes}
+    \caption{Tokenization of the word \enquote{revolution}, with different suffixes}
     \label{fig:tokenization-revolution}
 \end{figure}
 
@@ -277,7 +277,7 @@ Training consists of two stages: unsupervised pre-training and supervised fine-t
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{multiple-choice.png}
-    \caption{How multiple choice tasks are inlined to work with fine-tuning of \acrshort{acr:gpt} models \citep[4]{radfordImprovingLanguageUnderstanding2018}}
+    \caption[Inlining of a multiple choice task for GPT fine-tuning]{A subsection of a figure illustrating the pre-training process for \acrshort{acr:gpt} models, showing how multiple choice tasks need to be \textit{inlined} to work with fine-tuning of \acrshort{acr:gpt} models, which are trained on ordered sequences \citep[4]{radfordImprovingLanguageUnderstanding2018}}.
     \label{fig:multiple-choice}
 \end{figure}
 
@@ -333,11 +333,11 @@ Patterns that turned out useful to GeoGPT --- the main contribution of this thes
 \subsection[Function Calling LLMs]{Function Calling \acrshortpl{acr:llm}}
 \label{subsec:function-calling}
 
-\textit{Function calling} --- also known as \textit{tool calling} --- was first introduced by OpenAI in April 2023 \citep{eletiFunctionCallingOther2023}. Function calling allows developers to provide function definitions to an \gls{acr:llm} and have the \gls{acr:llm} output a \acrshort{acr:json} object containing the name of one or more of the functions provided, as well as suitable parameters to these functions. \autoref{code:tool-definition-example} shows a description of a function that performs a mathematical division. Function calling \acrshortpl{acr:llm} are able to detect when a certain function should be called based on the name, description, and input parameters specified in such \acrshort{acr:json} objects. Function calling makes it possible to give an \gls{acr:llm} \textit{hooks} into the real world, and provides a more reliable way for developers to integrate \glspl{acr:llm} into applications.
+\textit{Function calling} --- also known as \textit{tool calling} --- was first introduced by OpenAI in April 2023 \citep{eletiFunctionCallingOther2023}. Function calling allows developers to provide function definitions to an \gls{acr:llm} and have the \gls{acr:llm} output a \acrshort{acr:json} object containing the name of one or more of the functions provided, as well as suitable parameters to these functions. \autoref{code:tool-definition-example} shows a description of a function that performs a mathematical division. It is specified by its name, description, and its two parameters: the dividend and the divisor, both of which are required. Function calling \acrshortpl{acr:llm} are able to detect when a certain function should be called based on the name, description, and input parameters specified in such \acrshort{acr:json} objects. Function calling makes it possible to give an \gls{acr:llm} \textit{hooks} into the real world, and provides a more reliable way for developers to integrate \glspl{acr:llm} into applications.
 
 \begin{lstlisting}[
     language=json,
-    caption=Example of a tool definition,
+    caption={[Example of a function definition for a tool that performs divison]Example of a function definition for a tool that performs divison. It is specified by its name, description, and its two parameters: the dividend and the divisor, both of which are required.},
     label=code:tool-definition-example
 ]
 {
@@ -403,7 +403,7 @@ PostGIS also comes with a plethora of spatial database functions that are used t
 
 \begin{lstlisting}[
     language=SQL,
-    caption=PostGIS example code for retrieving building outlines within a specified bounding box,
+    caption={[PostGIS example code]PostGIS example code for retrieving outlines for buildings of type 'house' within a bounding box specified by coordinates in the WGS 84 map projection},
     label=code:postgis-example
 ]
 SELECT * 
@@ -420,7 +420,7 @@ WHERE type = 'house'
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{ogc_api_features.png}
-    \caption{Collections, items, and features in \acrshort{acr:ogc} \acrshort{acr:api} Features specification. Retrieved from \url{https://features.developer.ogc.org/} on April 29, 2024.}
+    \caption[An illustration of the structure of a typical OGC API Features server]{An illustration of the structure of a typical \acrshort{acr:ogc} \acrshort{acr:api} Features server. The server would have a number of collections, which in turn have a number of items/features with a geographical component. The consumer of the \acrshort{acr:api} can request a collection of features (items), or individual features. The figure was retrieved from \url{https://features.developer.ogc.org/} on April 29, 2024.}
     \label{fig:oaf-collections-items-features}
 \end{figure}
 
@@ -438,7 +438,7 @@ Part 1 specifies core capabilities that are described in the first paragraph of 
 
 \begin{lstlisting}[
     language=SQL,
-    caption=\acrshort{acr:cql} examples,
+    caption={[CQL filter examples]Examples of two simple \acrshort{acr:cql} filters: Example 1 filters in all features whose \texttt{county} attribute is one of 'Akershus', 'Buskerud', 'Ostfold'; Example 2 checks whether a feature's geometry is within 1 kilometer of the point specified by the latitude and longitude 63.4265, 10.3960.},
     label=cql-examples
 ]
 \\ Example 1

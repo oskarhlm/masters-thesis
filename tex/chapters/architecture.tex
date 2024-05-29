@@ -46,14 +46,14 @@ The two main parts of GeoGPT is its web client and its server, the latter of whi
 \begin{figure}
     \centering
     \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{architecture_overview.png}}
-    \caption{Architecture overview}
+    \caption[Architecture overview for GeoGPT]{Architecture overview highlighting the client-server architecture of GeoGPT, but also showing the major components that make up the Web UI (in green) and the LangChain Server (in blue). Auxiliary services like databases and external \acrshortpl{acr:api} are shows in white.}
     \label{fig:architecture-overview}
 \end{figure}
 
 \begin{figure}
     % \centering
     \makebox[\textwidth][c]{\includegraphics[width=1.2\textwidth]{Sequence diagram.png}}
-    \caption{Sequence diagram showing the information flow as the user loads and sends a message to GeoGPT}
+    \caption[Sequence diagram for GeoGPT]{Sequence diagram showing the information flow as the user loads and sends a message to GeoGPT. The \texttt{POST /session} event only happens on the initial page load, and not all events are required to occur every time the users enters a message into GeoGPT's chat interface.}
     \label{fig:sequence-diagram}
 \end{figure}
 
@@ -65,7 +65,7 @@ The \textit{LangChain Server} service is the heart of the GeoGPT, and is where t
 
 \begin{table}[H]
     \centering
-    \caption{Summary of Server Endpoints}
+    \caption[API endpoints exposed by GeoGPT's LangChain server]{Summary of the endpoints exposed by the LangChain server}
     \label{tbl:server-endpoints}
     \begin{tabular}{p{0.22\textwidth}p{0.1\textwidth}p{0.55\textwidth}}
         \toprule
@@ -110,16 +110,16 @@ Shapefiles to be used in the experiment (see \autoref{sec:datasets}) were downlo
 
 A PostgreSQL database with the PostGIS extension was deployed using Docker, and populated with the shapefiles desribed above. On top of this database is an \acrshort{acr:ogc} \acrshort{acr:api} Features web server. It is deployed using the \texttt{pramsey/pg\_featureserv} Docker image \citep{crunchydataCrunchyDataPg_featureserv2024}, which is requires a connection string to the PostGIS database that is to be exposed as an \acrshort{acr:ogc} \acrshort{acr:api} Features server. Any table in the database which has a geometry column and a specified \gls{acr:crs}, will be exposed on the server. \textit{pg\_featuresserv} includes functionality like bounding box filtering, result limiting, and \acrshort{acr:cql} filtering. These are added as query parameters in the URL used to fetch a collection's items, for instance:
 
-$$
+\begin{quote}
     \texttt{.../collections/\{collection\_id\}/items.json?limit=1000\&filter=name IS NOT NULL}
-$$
+\end{quote}
 
 In the internals of \textit{pg\_featuresserv}, this URL will be converted to an \acrshort{acr:sql} query that will be run against the database. Results of the query will be returned as GeoJSON. \autoref{code:cql-to-sql} shows an example of how \acrshort{acr:cql} code is converted into \acrshort{acr:sql} code:
 
 \begin{lstlisting}[
     language=SQL,
     label=code:cql-to-sql,
-    caption=Conversion from \acrshort{acr:cql} to \acrshort{acr:sql}
+    caption={[CQL to SQL conversion example]Example of how a \acrshort{acr:cql} filter checking if a point at coordinates (0, 0) resides within a feature's geometry, is converted by \textit{pg\_featuresserv} to the corresponding \acrshort{acr:sql} code} 
 ]
 \\ CQL code passed through the `filter` query parameter
 within(geom, POINT(0 0))
@@ -136,7 +136,7 @@ The shapefiles, PostGIS database, and \acrshort{acr:ogc} \acrshort{acr:api} Feat
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{web_ui_overview_2.png}
-    \caption{Web \acrshort{acr:ui}}
+    \caption[GeoGPT's web UI]{GeoGPT's web \acrshort{acr:ui}, which features a chat interface and a web map that displays results from analyses. In this example, the user has asked GeoGPT to add water and building geometries for Trondheim to the map. This was successful, as layers named \texttt{trondheim\_water} and \texttt{trondheim\_buildings} were added by GeoGPT, after a series of tool calls.}
     \label{fig:web-ui}
 \end{figure}
 
@@ -158,7 +158,7 @@ The agentic behaviour of GeoGPT is implemented using LangGraph, which was descri
 \begin{figure}
     \centering
     \makebox[\textwidth][c]{\includegraphics[width=1.0\textwidth]{agent_graph_and_prompt_engineering.png}}
-    \caption{Generic tool agent graph and prompt engineering structure. Purple nodes and edges are what makes up the \textit{LangGraph} graph, while teal-coloured parts are related to prompt engineering.}
+    \caption[Generic tool agent graph with prompt engineering approach]{Generic tool agent graph with prompt engineering approach. Purple nodes and edges are what makes up the \textit{LangGraph} graph, while teal-coloured parts are related to prompt engineering.}
     \label{fig:tool-agent-graph}
 \end{figure}
 
@@ -168,8 +168,8 @@ In the \texttt{action} node, the values attached to the \enquote{tool\_calls} ke
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\textwidth]{query_to_client_map_chat.png}
-    \caption{Example of a chat history}
+    \includegraphics[width=0.8\textwidth]{query_to_client_map_chat.png}
+    \caption[Example of a chat history]{Example of a mid-conversation chat history. GeoGPT elects to invoke the \texttt{sql\_db\_tool} to get a polygon for Nordland county, before adding it to the map. Tool- and system messages help ensure GeoGPT that the actions it takes are successful.}
     \label{fig:chat-trace-example}
 \end{figure}
 
@@ -179,7 +179,7 @@ In the \texttt{action} node, the values attached to the \enquote{tool\_calls} ke
 
 \begin{table}[h]
     \centering
-    \caption{Overview of the agent types and their tools}
+    \caption{Overview of GeoGPT's agent types and their tools}
     \label{tbl:agent-tool-overview}
     \begin{tabularx}{0.7\textwidth}{XX}
         \toprule
@@ -207,7 +207,7 @@ In the \texttt{action} node, the values attached to the \enquote{tool\_calls} ke
 The \acrshort{acr:ogc} \acrshort{acr:api} Features agent has access to a total of five tools. \textbf{\texttt{list\_collections}}, which takes no parameters, sends a \texttt{GET} request to the \texttt{/collections} endpoint and uses the response to construct a list of the available collections. This tool gives the agent an overview of what kinds of data are available. Using the response from \texttt{list\_collections} the agent can now invoke the \textbf{\texttt{get\_collections\_info}}. This tool takes a list of collection names and returns relevant information for each of these collections. This includes the \acrshort{acr:json} response from the \enquote{landing page} of the collection, which includes details such as the collection description, spatial extent, and available attributes. Furthermore, a list of common values for certain high-cardinality attributes is included in the tool's response, as exemplified in \autoref{code:attribute-prevalences}. The percentages are obtained by querying a large number of features from \texttt{/collections/\{collection\_id\}} and calculating the prevalences between them.
 
 \begin{lstlisting}[
-    caption=Prevalences of common values for the \textit{fclass} attribute in the \textit{osm\_natural\_points} collection,
+    caption={Prevalences of common values for the \textit{fclass} property of the \textit{osm\_natural\_points} collection},
     label=code:attribute-prevalences
 ]
 Property: fclass
@@ -223,7 +223,7 @@ Property: fclass
 The \textbf{\texttt{query\_collection}} tool is used to retrieve features from a collection. It takes a collection name, a \acrshort{acr:cql} filter, a bounding box, and a layer name. Based on these parameters, an URL like this is constructed:
 
 \begin{quote}
-    https://localhost:9001/collections/\{collection\_id\}/items.json?limit=10000\&filter=\{cql\_filter\}\&\{bbox\}
+    \texttt{https://localhost:9001/collections/\{collection\_id\}/items.json?limit=10000\&filter=\{cql\_filter\}\&\{bbox\}}
 \end{quote}
 
 The features retrieved from this query is saved in the working directory on the LangChain server as \enquote{\{layer\_name\}.geojson}. The message returned from the tool reads something like this: \enquote{Query returned 5627 features.} If the GeoJSON itself was returned as a tool message, this would quickly bloat the context window of the \acrshort{acr:llm}, and therefore it is avoided.
@@ -254,14 +254,14 @@ The agent-specific instructions includes information intended to give the \acrsh
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{hi_there.png}
-    \caption{Conversation showcasing the effect of giving an \acrshort{acr:llm} a persona through the system message}
+    \caption[LLM persona example]{Conversation showcasing the effect of giving an \acrshort{acr:llm} a persona through the system message}
     \label{fig:effect-of-system-message}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.9\textwidth]{template.png}
-    \caption{Chat template}
+    \caption[Initial prompt to GeoGPT as the user asks a question]{Initial prompt to GeoGPT as the user asks a question. The prompt includes function/tool definitions, the main system message, and the chat history (which currently only includes the initial message from the user)}
     \label{fig:chat-template}
 \end{figure}
 

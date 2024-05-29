@@ -5,3 +5,4 @@
 {"rule":"POSSESSIVE_APOSTROPHE","sentence":"^\\QBeing able to construct such acr:cql queries would offload this work to the Features server\\E$"}
 {"rule":"LARGE_NUMBER_OF","sentence":"^\\QThis is achieved by querying a large number of features from /collections/collection_id and calculating the prevalences between them.\\E$"}
 {"rule":"EN_A_VS_AN","sentence":"^\\QBased on the parameters an URL\\E$"}
+{"rule":"MD_BASEFORM","sentence":"^\\QUsing these encoded outcomes, standard deviations will calculated for each triplet of identical test samples (samples where the question and the agent type remained the same), which serve as a suitable measure for assessing repeatability.\\E$"}
