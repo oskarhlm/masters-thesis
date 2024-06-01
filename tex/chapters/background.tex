@@ -1,4 +1,4 @@
-\chapter{Background Knowledge and Related Work}
+\chapter{Background Theory and Related Work}
 %OR: \chapter{Tools and Methods}
 \label{cha:background-theory}
 
@@ -217,7 +217,7 @@ As can be seen in the example, elements in a table can sometimes benefit from be
 This section will lay the theoretical groundwork required to gain an overview of the inner workings of \glspl{acr:llm}. \glspl{acr:llm} are a type of neural networks that excel at language processing. They can be developed for different \gls{acr:nlp} tasks, such a text classification, masked language modelling, and text generation. While they all have their use cases, only text generation will be relevant for this thesis. Generative \glspl{acr:llm} are designed to generate some output sequence based upon some input sequence, and are the types of models behind technologies like OpenAI's \textit{ChatGPT} \citep{openaiIntroducingChatGPT2022}. This input sequence is also known as the \enquote{context window}, and all sequences are made up from \enquote{tokens}, as \autoref{subsec:core-concepts} will explain.
 
 
-\subsection{Tokens and the Context Window}
+\subsection{Tokens and Context Window}
 \label{subsec:core-concepts}
 
 While humans understand sentences as sequences of words, \acrshortpl{acr:llm} perceive them as sequences of \textbf{tokens}. An \acrshort{acr:llm} possesses a fixed set of unique tokens in its vocabulary, from which it constructs words and sentences. Tokens can be entire words, short character sequences, or single characters. \autoref{fig:tokenization-example-sentence} illustrates how the OpenAI's \acrshort{acr:gpt}-3.5 and \acrshort{acr:gpt}-4 models \textit{tokenize} an English sentence. Notice how some words are deconstructed into more than one token. For example, the word \enquote{revolutionizing} is split into its root, \enquote{revolution}, and its suffix, \enquote{izing}. \autoref{fig:tokenization-revolution} shows how this process applies to other suffixes as well. This way, the model only has to learn the meaning of \enquote{revolution}, and can append different suffixes to modify its function within a sentence, as opposed to learning an entirely new token for each version of the word.
@@ -225,7 +225,7 @@ While humans understand sentences as sequences of words, \acrshortpl{acr:llm} pe
 \begin{figure}[htp]
     \centering
     \includegraphics[width=\textwidth]{tokens_illustration.png}
-    \caption{Tokenization example for an English sentence}
+    \caption{Tokenization of an English sentence using the \acrshort{acr:gpt}-3.5 Turbo and \acrshort{acr:gpt}-4 tokenizer}
     \label{fig:tokenization-example-sentence}
 \end{figure}
 
@@ -262,7 +262,7 @@ Attention blocks can be found in three places in the Transformer architecture \c
 The Transformer represented a breakthrough in the field of \gls{acr:nlp}, and is the fundamental building block of most modern \glspl{acr:llm}.
 
 
-\subsection[State-of-the-Art Decoder-Only Models]{State-of-the-Art Decoder-Only \acrlongpl{acr:llm}}
+\subsection[State-of-the-Art Decoder-Only LLMs]{State-of-the-Art Decoder-Only \acrlongpl{acr:llm}}
 \label{subsec:sota-decoder-only-llms}
 
 While the work of \citeauthor{vaswaniAttentionAllYou2017} is still considered perhaps the greatest breakthrough in \gls{acr:nlp}, most moderns \acrshort{acr:llm} do not apply this exact encoder-decoder architecture. The evolution following the Transformer has favoured generative decoder-only models, focusing entirely on the generative component of the Transformer. The goal is to create models that can produce coherent and context-aware text.
@@ -397,7 +397,7 @@ This section will discuss the geospatial technologies that were used or consider
 \subsection{PostGIS}
 \label{subsec:postgis}
 
-PostGIS \citep{PostGIS2001} is an open-source extension for the PostgreSQL \acrshort{acr:dbms}. The PostGIS extension adds support for storing, indexing, and querying geospatial data. Data can be stored in both two and three dimensions, and they can have types like points, lines, polygons. Geospatial types can be stored along with a spatial index which can significantly reduce search time for their geometries. GiST (Generalized Search Tree)\footnote{\url{https://en.wikipedia.org/wiki/GiST}} is commonly used in PostgreSQL/PostGIS to take advantage of various tree-based search algorithms that are developed to retrieve spatial features quickly.
+PostGIS \citep{PostGIS2001} is an open-source extension for the PostgreSQL database. The PostGIS extension adds support for storing, indexing, and querying geospatial data. Data can be stored in both two and three dimensions, and they can have types like points, lines, polygons. Geospatial types can be stored along with a spatial index which can significantly reduce search time for their geometries. GiST (Generalized Search Tree)\footnote{\url{https://en.wikipedia.org/wiki/GiST}} is commonly used in PostgreSQL/PostGIS to take advantage of various tree-based search algorithms that are developed to retrieve spatial features quickly.
 
 PostGIS also comes with a plethora of spatial database functions that are used to analyse and process geospatial data. These function's names are prefixed with \texttt{ST\_} (short for \enquote{spatio-temporal}), and some examples are \texttt{ST\_DWITHIN}, \texttt{ST\_BUFFER}, and \texttt{ST\_TRANSFORM}. \autoref{code:postgis-example} shows a typical query for retrieving building outlines within a bounding box.
 
@@ -420,7 +420,7 @@ WHERE type = 'house'
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{ogc_api_features.png}
-    \caption[An illustration of the structure of a typical OGC API Features server]{An illustration of the structure of a typical \acrshort{acr:ogc} \acrshort{acr:api} Features server. The server would have a number of collections, which in turn have a number of items/features with a geographical component. The consumer of the \acrshort{acr:api} can request a collection of features (items), or individual features. The figure was retrieved from \url{https://features.developer.ogc.org/} on April 29, 2024.}
+    \caption[An illustration of the general structure of a typical OGC API Features server]{An illustration of the general structure of a typical \acrshort{acr:ogc} \acrshort{acr:api} Features server. The server would have a number of collections, which in turn have a number of items/features with a geographical component. The consumer of the \acrshort{acr:api} can request a collection of features (items), or individual features. The figure was retrieved from \url{https://features.developer.ogc.org/} on April 29, 2024.}
     \label{fig:oaf-collections-items-features}
 \end{figure}
 

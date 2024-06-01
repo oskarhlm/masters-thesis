@@ -21,7 +21,7 @@ This will thus be the actual instantiation for each experiment of the general ar
 
 This section will explain the concept and setup of the two experiments mentioned in the introduction of this chapter. \Autosectionref{subsec:benchmarking-setup} will describe the setup for the \acrshort{acr:gis} benchmarking experiments, while \autoref{subsec:prompt-quality-test-setup} will explain the setup for the prompt quality experiment. Results for the two experiments are presented in \autoref{tbl:test-results-quantitative} and \autoref{tbl:test-results-prompt-levels}, respectively. \Autosubsectionref{subsec:hardware-and-model-version} describes the hardware on which the experiments were executed, and the specific \acrshortpl{acr:llm} that were used.
 
-\subsection[GIS Benchmark]{\acrshort{acr:gis} Benchmark}
+\subsection[GIS Benchmark Experiment]{\acrshort{acr:gis} Benchmark Experiment}
 \label{subsec:benchmarking-setup}
 
 % In order to investigate how an \acrshort{acr:llm}-based \acrshort{acr:gis} agent most comfortably accesses geospatial data, a decision was made to include three different methods for data access in the experiments. The first method for data access is to have the files described in \autoref{sec:datasets} remain untouched. The files would be stored locally on the computer on which the experiments are conducted, and GeoGPT, which runs on the same computer, would be able to interact with the data through the code it generates. These files are made available in GeoGPT's working directory. The second method used is to load the data into a spatial \acrshort{acr:sql} database and provide the model with database schemas that can be used to generate queries. The datasets were uploaded to a Dockerized PostGIS database using QGIS's DB Manager plugin. The third method for data access is to use the \acrshort{acr:ogc} \acrshort{acr:api} Features standard. This method exposes the data stored in the PostGIS database through a web \acrshort{acr:api} that allows consumers of the \acrshort{acr:api} to download the data over \acrshort{acr:http} as GeoJSON.
@@ -68,7 +68,7 @@ Another aspect that the \acrshort{acr:gis} benchmarking experiment will try to e
 
 \begin{table}[htbp]
     \centering
-    \caption[Encodings for test outcomes]{Encodings for test outcomes. A higher value is synonymous with a better outcome.}
+    \caption[Ordinal encodings for test outcomes]{Ordinal encodings for test outcomes. A higher value is synonymous with a better outcome.}
     \label{tbl:outcome-encoding}
     \begin{tabularx}{0.5\textwidth}{XX}
         \toprule
@@ -89,7 +89,7 @@ A second set of experiments are constructed to evaluate the importance of the in
 
 For these experiments, the three hardest questions from the \acrshort{acr:gis} benchmarking experiment were picked. Then, for each of these three questions, a \textit{novice}-level and an \textit{expert}-level prompt was constructed. The novice-level prompt is as simple as possible, while the expert-level prompt is more elaborate and written as a step-by-step recipe for solving the problem.
 
-\subsection{Hardware and Model Version}
+\subsection[Hardware and LLM Version]{Hardware and \acrshort{acr:llm} Version}
 \label{subsec:hardware-and-model-version}
 
 All experiments were conducted on a Lenovo ThinkPad E490, which has an Intel{\textregistered} Core\texttrademark{} i7-8565U CPU @ 1.80GHz processor, 15.8 GB usable \acrshort{acr:ram}, and 256 GB \acrshort{acr:ssd} storage. Everything but the \acrshort{acr:llm} inference was executed locally. Text generation was done using OpenAI's Inference \acrshort{acr:api}.
@@ -129,7 +129,7 @@ Point out specifics here but save the overall/general discussion to the Discussi
 \Autosubsectionref{subsec:quantitative-results} and \autoref{subsec:prompt-quality-test-results} will present the outcome of the experiments presented in \autoref{subsec:benchmarking-setup} and \autoref{subsec:prompt-quality-test-setup}, respectively. Graphs created for this chapter are created using Matplotlib,\footnote{\url{https://matplotlib.org/}} a Python library suitable for creating visualizations like bar charts, box plots, etc.
 
 
-\subsection[GIS Benchmark --- Results]{\acrshort{acr:gis} Benchmark --- Results}
+\subsection[GIS Benchmark Experiment --- Results]{\acrshort{acr:gis} Benchmark --- Results}
 \label{subsec:quantitative-results}
 
 \subsubsection{Outcome Evaluation}
@@ -145,12 +145,12 @@ Point out specifics here but save the overall/general discussion to the Discussi
 
 \subsubsection{Cost and Duration}
 
-\autoref{fig:duration-box-plot} displays a box plot with a logarithmic y-axis showing task durations across the different agent types. Here we can see that the \acrshort{acr:sql} agent spends the least amount of time per task. The \acrshort{acr:ogc} \acrshort{acr:api} Features agent has a slightly higher median and a few time-consuming outliers. The Python agent is the odd one out with a median of $\sim 82$ seconds, a $Q3 \sim 293$ seconds, and a $Q4 \sim 984$ seconds. The large gap to the other two agents it largely due to the Python agent's tendency to load large datasets into memory. For instance, when attempting the task of calculating the difference between the polygon outlining Oslo and water polygons, the Python agent used nearly 40 minutes on the entire task. $94\%$ of the time was spent executing the code presented in \autoref{code:python-oslo-water-diff}. The main reason for the long execution time is line 8, where the whole \texttt{osm\_landuse\_polygons.shp} dataset is loaded into memory. This dataset has a size of $\sim 1.4 \text{GB}$, and loading such amounts of data in this way is very time-consuming. The Python agent was the only agent with such issues because the \acrshort{acr:ogc} \acrshort{acr:api} Features agent is limited to 10,000 features per dataset, and the \acrshort{acr:sql} agent does not load the data into memory like the other agents do.
+\autoref{fig:duration-box-plot} displays a box plot with a logarithmic y-axis showing task durations between the different agent types. Here we can see that the \acrshort{acr:sql} agent spends the least amount of time per task. The \acrshort{acr:ogc} \acrshort{acr:api} Features agent has a slightly higher median and a few time-consuming outliers. The Python agent is the odd one out with a median of $\sim 82$ seconds, a $Q3 \sim 293$ seconds, and a $Q4 \sim 984$ seconds. The large gap to the other two agents it largely due to the Python agent's tendency to load large datasets into memory. For instance, when attempting the task of calculating the difference between the polygon outlining Oslo and water polygons, the Python agent used nearly 40 minutes on the entire task. $94\%$ of the time was spent executing the code presented in \autoref{code:python-oslo-water-diff}. The main reason for the long execution time is line 8, where the whole \texttt{osm\_landuse\_polygons.shp} dataset is loaded into memory. This dataset has a size of $\sim 1.4 \text{GB}$, and loading such amounts of data in this way is very time-consuming. The Python agent was the only agent with such issues because the \acrshort{acr:ogc} \acrshort{acr:api} Features agent is limited to 10,000 features per dataset, and the \acrshort{acr:sql} agent does not load the data into memory like the other agents do.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.6\textwidth]{duration_box_plot.png}
-    \caption[Box plots comparing the time taken to generate answers across GeoGPT's agent types]{Box plots comparing the time taken to generate answers across GeoGPT's agent types. Again, the \acrshort{acr:sql} agent performs best, while the Python agent is the odd one out with very slow times compared to the two others.}
+    \caption[Box plots comparing the time taken to generate answers between GeoGPT's agent types]{Box plots comparing the time taken to generate answers between GeoGPT's agent types. Again, the \acrshort{acr:sql} agent performs best, while the Python agent is the odd one out with very slow times compared to the two others.}
     \label{fig:duration-box-plot}
 \end{figure}
 
@@ -158,7 +158,7 @@ Point out specifics here but save the overall/general discussion to the Discussi
 
 \begin{lstlisting}[
     language=Python,
-    caption={[GeoGPT-generated Python code aimed at computing the difference between the Oslo outline and residental features within it]GeoGPT-generated Python code aimed at computing the difference between the Oslo outline and residental features within it. The execution time of this code block was $\sim 40$ seconds, mostly due to lines 8-9.},
+    caption={[GeoGPT-generated Python code aimed at computing the difference between the outline of Oslo and residental features within it]GeoGPT-generated Python code aimed at computing the difference between the outline of Oslo, the Norwegian capital, and residental features within it. The execution time of this code block was $\sim 40$ seconds, mostly due to lines 8-9.},
     label=code:python-oslo-water-diff,
     float
 ]
@@ -205,11 +205,11 @@ Point out specifics here but save the overall/general discussion to the Discussi
         \caption{Average token usage per agent type}
         \label{fig:tokens-box-plot}
     \end{subfigure}
-    \caption[Cost and token usage across GeoGPT's different agent types]{Cost and token usage across GeoGPT's different agent types. These plots will be highly correlated, but will differ somewhat because of the ratio between input and output tokens.}
+    \caption[Cost and token usage between GeoGPT's different agent types]{Cost and token usage between GeoGPT's different agent types. These plots will be highly correlated, but will differ somewhat because of the ratio between input and output tokens.}
     \label{fig:cost-and-tokens}
 \end{figure}
 
-An observation that can be made from \autoref{fig:correlation-matrices} is that the correlation between duration and token usage is inconsistent across the agent types. The \acrshort{acr:ogc} \acrshort{acr:api} Features agent and \acrshort{acr:sql} agent have strong correlation between these metrics, but the Python agent has next to none. This supports the observation that, for the Python agent, code execution time, particularly the time spent on expensive imports, is likely the main contributor towards the total run time.
+An observation that can be made from \autoref{fig:correlation-matrices} is that the correlation between duration and token usage is inconsistent between the agent types. The \acrshort{acr:ogc} \acrshort{acr:api} Features agent and \acrshort{acr:sql} agent have strong correlation between these metrics, but the Python agent has next to none. This supports the observation that, for the Python agent, code execution time, particularly the time spent on expensive imports, is likely the main contributor towards the total run time.
 
 Another observation that can be made from the \autoref{fig:correlation-matrices} is the slight negative correlation between the encoded outcome and each of the following variables: token usage, duration, and total cost. This suggests that a task that takes longer to complete is likely to be more expensive in terms of token usage, and more likely to produce an undesirable outcome. Possible reasons as to why this is the case will be explored in \autoref{subsec:dead-ends} the \nameref{cha:discussion}.
 
@@ -248,7 +248,7 @@ Another observation that can be made from the \autoref{fig:correlation-matrices}
 
 \begin{table}[htbp]
     \centering
-    \caption[Standard deviation of encoded outcomes for GeoGPT's agent types]{Standard deviation of encoded outcomes for GeoGPT's agent types. These numbers are obtained by using the encoded values for outcomes (see \autoref{tbl:outcome-encoding}) for identical test runs in the \acrshort{acr:gis} benchmarking experiment.}
+    \caption[Standard deviations of encoded outcomes for GeoGPT's agent types]{Standard deviations of encoded outcomes for GeoGPT's agent types. These numbers are obtained by using the encoded values for outcomes (see \autoref{tbl:outcome-encoding}) for identical test runs in the \acrshort{acr:gis} benchmarking experiment.}
     \label{tbl:stddev-by-agent-type}
     \begin{tabularx}{0.7\textwidth}{XX}
         \toprule
@@ -279,7 +279,7 @@ Another observation that can be made from the \autoref{fig:correlation-matrices}
 
 \begin{lstlisting}[
     language=sql,
-    caption={GeoGPT-generated SQL code generated to retrieve the counties that the Glomma river runs through. The \texttt{ST\_Intersects} function from PostGIS was used to find the intersection with the river data and the county polygons, and the names and geometries of the counties was included in the result.},
+    caption={[GeoGPT-generated SQL code generated to retrieve the counties that the Glomma river runs through]GeoGPT-generated \acrshort{acr:sql} code generated to retrieve the counties that the Glomma river runs through. The \texttt{ST\_Intersects} function from PostGIS was used to find the intersection with the river data and the county polygons, and the names and geometries of the counties was included in the result.},
     label=code:glomma-counties-sql,
 ]
 WITH river AS (
@@ -314,7 +314,7 @@ WHERE ST_Intersects(river.geom, places.geom);
 
 \begin{lstlisting}[
     language=python,
-    caption={[GeoGPT-generated Python code to exclude roads named Munkegata \textit{outside} of Trondheim]Python code to exclude roads named Munkegata \textit{outside} of Trondheim. The bounding box, which is generated from background knowledge, covers a suitable area in the center of Trondheim, where Munkegata is located. This step is important, as a road named \enquote{Munkegata} can also be found in Oslo.},
+    caption={[GeoGPT-generated Python code to exclude roads named Munkegata which are \textit{outside} of Trondheim]Python code to exclude roads named Munkegata which are \textit{outside} of Trondheim. The bounding box, which is generated from background knowledge, covers a suitable area in the center of Trondheim, where Munkegata is located. This step is important, as a road named \enquote{Munkegata} can also be found in Oslo.},
     label=code:python-munkegata-bbox,
 ]
 import geopandas as gpd
@@ -423,7 +423,7 @@ Eventually, GeoGPT downloads a bunch of features from the \texttt{osm\_transport
 
 \begin{lstlisting}[
     language=json,
-    caption={[Tool invocation of \texttt{query\_collection} with no results]Tool invocation of \texttt{query\_collection} with no results. This is because there are no features named \enquote{Oslo Airport} in the \texttt{public.osm\_transport\_points} collection. The \acrshort{acr:json} contains the parameters sent to the tool, and the text after the \enquote{-->} is the string returned from the tool.},
+    caption={[Tool invocation of the \texttt{query\_collection} tool, with no results]Tool invocation of the \texttt{query\_collection} tool with no results. This is because there are no features named \enquote{Oslo Airport} in the \texttt{public.osm\_transport\_points} collection. The \acrshort{acr:json} contains the parameters sent to the tool, and the text after the \enquote{-->} is the string returned from the tool.},
     label=code:query-collection-airports-no-results,
     float, floatplacement=H
 ]
@@ -465,7 +465,7 @@ oslo_coords, bergen_coords
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{levels_outcome_distribution_bar_chart.png}
-    \caption[Outcome distribution for different levels of GIS experience]{Outcome distribution for different levels of GIS experience. Using novice-level prompting, GeoGPT failed to complete the tasks consistently, but using the more elaborate expert-level prompt, GeoGPT performed much better.}
+    \caption[Outcome distribution for different levels of prompt quality]{Outcome distribution for different levels of prompt quality. Using novice-level prompting, GeoGPT failed to complete the tasks consistently, but using the more elaborate expert-level prompt, GeoGPT performed much better.}
     \label{fig:outcome-distribution-experience-levels}
 \end{figure}
 
