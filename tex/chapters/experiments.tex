@@ -335,6 +335,8 @@ munkegata.to_file(munkegata_path, driver='GeoJSON')
 print(munkegata_path)
 \end{lstlisting}
 
+\FloatBarrier
+
 \begin{lstlisting}[
     language=python,
     caption={[GeoGPT-generated Python code to calculate the number of trees along Munkegata in Trondheim]Python code to calculate the number of trees along Munkegata in Trondheim. The datasets were converted to a metric \acrshort{acr:crs} (WGS 84 / UTM zone 33N), before a buffer around the road data from \autoref{code:python-munkegata-bbox} was created and used to find the intersection with the tree data. 51 trees were found, but ideally $\sim 100$ should be returned.},
@@ -372,19 +374,12 @@ print(tree_count)
 \end{lstlisting}
 
 \FloatBarrier
+\newpage
+
 \subsubsection{Unsuccessful Responses}
 \label{subsubsec:unsuccessful-responses}
 
-This section will higlight some limitation in the current version of GeoGPT. \autoref{fig:python-high-speed-roads-unsuccessful} illustrates an issue sometimes encountered with GeoGPT, which will be a central topic in the \nameref{cha:discussion}. Here, the Python agent has failed to recognize that the road datasets it has available is in fact for the whole of Norway, not just Oslo, the country's capital. As \autoref{code:python-high-speed-unsuccessful} shows, the agent performs the correct analysis based on the assumptions it has already made, but the answer is far from what the user enquired.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{oslo_roads_maxspeed_hte_70_kmh_python.png}
-    \caption[Unsuccessful attempt by GeoGPT's Python agent to retrieve high-speed roads in Oslo]{Unsuccessful attempt by GeoGPT's Python agent to retrieve high-speed roads in Oslo. The figure shows roads throughout \textit{the whole of} Norway with speed limits of 70 km/h or higher, but it should only have shown those in Oslo, the Norwegian capital.}
-    \label{fig:python-high-speed-roads-unsuccessful}
-\end{figure}
-
-\FloatBarrier
+This section will highlight some limitation in the current version of GeoGPT. \autoref{fig:python-high-speed-roads-unsuccessful} illustrates an issue sometimes encountered with GeoGPT, which will be a central topic in the \nameref{cha:discussion}. Here, the Python agent has failed to recognize that the road datasets it has available is in fact for the whole of Norway, not just Oslo, the country's capital. As \autoref{code:python-high-speed-unsuccessful} shows, the agent performs the correct analysis based on the assumptions it has already made, but the answer is far from what the user enquired.
 
 \begin{lstlisting}[
     language=python,
@@ -410,6 +405,16 @@ print(output_geojson_path)
 
 \FloatBarrier
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{oslo_roads_maxspeed_hte_70_kmh_python.png}
+    \caption[Unsuccessful attempt by GeoGPT's Python agent to retrieve high-speed roads in Oslo]{Unsuccessful attempt by GeoGPT's Python agent to retrieve high-speed roads in Oslo. The figure shows roads throughout \textit{the whole of} Norway with speed limits of 70 km/h or higher, but it should only have shown those in Oslo, the Norwegian capital.}
+    \label{fig:python-high-speed-roads-unsuccessful}
+\end{figure}
+
+
+\FloatBarrier
+
 \autoref{fig:oaf-geodesic-unsuccessful} shows an unsuccessful attempt from GeoGPT's \acrshort{acr:ogc} \acrshort{acr:api} Features agent to create a geodesic line between Oslo Airport Gardermoen and Bergen Airport Flesland. \autoref{code:query-collection-airports-no-results} shows GeoGPT's attempt to download a point feature with the name of \enquote{Oslo Airport}. It turns out that no such point feature exists, and only a polygonal feature in another dataset is available for the airport. The same is the case for Bergen Airport. GeoGPT made many attmpts at fetching point data for the airports, but of course none of them  returned any results.
 
 Eventually, GeoGPT downloads a set of features from the \texttt{osm\_transport\_points} collection twice, naming them \enquote{oslo\_airport.geojson} and \enquote{bergen\_airport.geojson}. It then produces the code shown in \autoref{code:python-airports-desperate}, where it selects the first point feature in each collection and assumes that their coordinates correspond to Oslo and Bergen. These two features actually correspond to are Rakkestad Airport and a bus stop on a road along Ofotfjorden in Nordland. In addition to this mistake, subsequent attempts at creating a geodesic line between the locations were unsuccessful.
@@ -421,7 +426,7 @@ Eventually, GeoGPT downloads a set of features from the \texttt{osm\_transport\_
     \label{fig:oaf-geodesic-unsuccessful}
 \end{figure}
 
-\FloatBarrier
+% \FloatBarrier
 
 \begin{lstlisting}[
     language=json,
@@ -458,6 +463,10 @@ oslo_coords, bergen_coords
 
 # --> ((11.3469259, 59.397229), (16.919517, 68.3459))
 \end{lstlisting}
+
+% \FloatBarrier
+
+\newpage
 
 \subsection{Prompt Quality Experiment --- Results}
 \label{subsec:prompt-quality-test-results}

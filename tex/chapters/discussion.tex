@@ -234,11 +234,11 @@ An attempt was made to create a multi-agent version of GeoGPT that employs three
 
 % Inspired by Microsoft's \textit{AutoGen} framework\footnote{\url{https://microsoft.github.io/autogen/}} --- which provides a high-level abstraction for developing multi-agent conversations --- and MetaGPT (further discussed in \autoref{subsec:agent-patterns}).
 
+Initial tests on a multi-agent version of the \acrshort{acr:ogc} \acrshort{acr:api} Features agent were conducted, but the implementation turned out to both increase the latency of the system and be a source of confusion for the \acrshort{acr:llm}. It is possible, however, that such an architecture could be useful as the number of tools available to the agent grows --- seeing as a large number of functions could probably start confusing the \acrshort{acr:llm} --- but for the current version of GeoGPT, the multi-agent pattern seemed to only get in the way.
+
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{agent_supervisor.png}
     \caption[Architecture a for multi-agent implementation for GeoGPT's OGC API Features agent]{Illustration of a multi-agent implementation for GeoGPT's \acrshort{acr:ogc} \acrshort{acr:api} Features agent, where an agent supervisor takes in a user message and gets to select which sub-agent is to solve the next sub-task}
     \label{fig:agent-supervisor}
 \end{figure}
-
-Initial tests on a multi-agent version of the \acrshort{acr:ogc} \acrshort{acr:api} Features agent were conducted, but the implementation turned out to both increase the latency of the system and be a source of confusion for the \acrshort{acr:llm}. It is possible, however, that such an architecture could be useful as the number of tools available to the agent grows --- seeing as a large number of functions could probably start confusing the \acrshort{acr:llm} --- but for the current version of GeoGPT, the multi-agent pattern seemed to only get in the way.

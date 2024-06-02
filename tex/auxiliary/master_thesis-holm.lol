@@ -11,11 +11,11 @@
 \contentsline {lstlisting}{\numberline {4.2}GeoGPT-generated SQL code to retrieve the counties that the Glomma river runs through}{49}{lstlisting.4.2}%
 \contentsline {lstlisting}{\numberline {4.3}GeoGPT-generated Python code to retrieve the Munkegata road in Trondheim}{51}{lstlisting.4.3}%
 \contentsline {lstlisting}{\numberline {4.4}GeoGPT-generated Python code to calculate the number of trees along Munkegata in Trondheim}{51}{lstlisting.4.4}%
-\contentsline {lstlisting}{\numberline {4.5}GeoGPT-generated Python code that saves high-speed roads with a misleading filename}{54}{lstlisting.4.5}%
+\contentsline {lstlisting}{\numberline {4.5}GeoGPT-generated Python code that saves high-speed roads with a misleading filename}{53}{lstlisting.4.5}%
 \contentsline {lstlisting}{\numberline {4.6}Invocation of the \texttt {query\_collection} tool that returned no features}{57}{lstlisting.4.6}%
-\contentsline {lstlisting}{\numberline {4.7}Unsuccessful attempt at retrieving point data for Gardermoen and Flesland}{58}{lstlisting.4.7}%
+\contentsline {lstlisting}{\numberline {4.7}Unsuccessful attempt at retrieving point data for Gardermoen and Flesland}{57}{lstlisting.4.7}%
 \addvspace {10\p@ }
-\contentsline {lstlisting}{\numberline {5.1}Multi-collection \acrshort {acr:cql} query using the \textit {Search} extension proposed for the \acrshort {acr:ogc} \acrshort {acr:api} Features specification}{65}{lstlisting.5.1}%
+\contentsline {lstlisting}{\numberline {5.1}Multi-collection \acrshort {acr:cql} query using the \textit {Search} extension proposed for the \acrshort {acr:ogc} \acrshort {acr:api} Features specification}{63}{lstlisting.5.1}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
