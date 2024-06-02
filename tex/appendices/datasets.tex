@@ -1,47 +1,41 @@
 \begin{longtable}{p{3cm}p{2cm}p{5.7cm}p{2.5cm}}
-    \caption{Datasets used in the experiments}                                                                                                                                                                                                     \\
-    \label{tbl:datasets}                                                                                                                                                                                                                           \\
+    \caption{Datasets used in the experiments} \\
+    \label{tbl:datasets} \\
     \toprule
-    \textbf{Dataset}   & \textbf{Type} & \textbf{Description}                                                                                                                                                                & \textbf{\#Features} \\
+    \textbf{Dataset}   & \textbf{Type} & \textbf{Description} & \textbf{\#Features} \\
     \midrule
     \endfirsthead
 
-    \multicolumn{4}{c}%
-    {{\bfseries Table \thetable\ continued from previous page}}                                                                                                                                                                                    \\
+    \multicolumn{4}{c}{{\bfseries Table \thetable\ continued from previous page}} \\
     \toprule
-    \textbf{Dataset}   & \textbf{Type} & \textbf{Description}                                                                                                                                                                & \textbf{\#Features} \\
+    \textbf{Dataset}   & \textbf{Type} & \textbf{Description} & \textbf{\#Features} \\
     \midrule
     \endhead
 
     \midrule
-    \multicolumn{4}{r}{Continued on next page}                                                                                                                                                                                                     \\
+    \multicolumn{4}{r}{Continued on next page} \\
     \midrule
     \endfoot
 
     \bottomrule
     \endlastfoot
 
-    Buildings          & Polygon       & Contains building outlines. Its \emph{type} attribute can have values like \emph{house}, \emph{university}, and \emph{restaurant}.                                                  & 4,147,645           \\
-    Land Use           & Polygon       & Represents areas designated to different purposes and activities. Its \emph{fclass} attribute can have values like \emph{forest}, \emph{farmland}, and \emph{residential}.          & 541,452             \\
-    Natural            & Point         & Contains outlines of various objects found in nature. Its \emph{fclass} attribute can have values like \emph{beach}, \emph{glacier}, and \emph{cave\_entrance}.                     & 119,725             \\
-    Natural            & Polygon       & Similar to the point data equivalent.                                                                                                                                               & 6,665               \\
-    Places of Worship  & Point         & Common values for \emph{fclass} attribute: \emph{christian}, \emph{buddhist}, and \emph{muslim}.                                                                                    & 311                 \\
-    Places of Worship  & Polygon       & Similar to the point data equivalent.                                                                                                                                               & 2,520               \\
-    Places             & Point         & Common values for \emph{fclass} attribute: \emph{farm}, \emph{village}, and \emph{island}. Repeated entries trimmed for brevity.                                                    & 178,997             \\
-    Places             & Polygon       & Similar to the point data equivalent.                                                                                                                                               & 5,689               \\
-    Points of Interest & Point         & Common values for \emph{fclass} attribute: \emph{tourist\_info}, \emph{bench}, and \emph{kindergarten}.                                                                             & 117,677             \\
-    Points of Interest & Polygon       & Similar to the point data equivalent.                                                                                                                                               & 45,825              \\
-    Railways           & Lines         & Common values for \emph{fclass} attribute: \emph{rail}, \emph{subway}, and \emph{tram}. Also has True/False attributes saying if a given line segment is a bridge or a tunnel.      & 14,008              \\
-    Roads              & Lines         & Common values for \emph{fclass} attribute: \emph{rail}, \emph{subway}, and \emph{tram}. Has additional attributes \emph{oneway}, \emph{maxspeed}, \emph{bridge}, and \emph{tunnel}. & 1,741,929           \\
-    Traffic            & Point         & Common values for \emph{fclass} attribute: \emph{crossing}, \emph{street\_lamp}, and \emph{parking}.                                                                                & 98,860              \\
-    Traffic            & Polygon       & Common values for \emph{fclass} attribute: \emph{parking}, \emph{pier}, and \emph{dam}.                                                                                             & 45,623              \\
-    Transport          & Point         & Common values for \emph{fclass} attribute: \emph{bus\_stop}, \emph{ferry\_terminal}, and \emph{railway\_station}.                                                                   & 91,627              \\
-    Transport          & Polygon       & Similar to the point data equivalent.                                                                                                                                               & 935                 \\
-    Water              & Polygon       & Common values for \emph{fclass} attribute: \emph{water}, \emph{wetland}, and \emph{river\_bank}.                                                                                    & 1,861,199           \\
-    Waterways          & Lines         & Common values for \emph{fclass} attribute: \emph{stream}, \emph{river}, and \emph{canal}.                                                                                           & 833,253             \\
+    Buildings          & Polygon       & Contains building outlines. Its \emph{type} attribute can have values like \emph{house}, \emph{university}, and \emph{restaurant}. & 4,147,645 \\
+    Land Use           & Polygon       & Represents areas designated to different purposes and activities. Its \emph{fclass} attribute can have values like \enquote{forest}, \enquote{farmland}, and \enquote{residential}. & 541,452 \\
+    Natural            & Point         & Contains outlines of various objects found in nature. Its \emph{fclass} attribute can have values like \enquote{beach}, \enquote{glacier}, and \enquote{cave\_entrance}. & 119,725 \\
+    Natural            & Polygon       & Similar to the point data equivalent. & 6,665 \\
+    Places of Worship  & Point         & Common values for \emph{fclass} attribute: \enquote{christian}, \enquote{buddhist}, and \enquote{muslim}. & 311 \\
+    Places of Worship  & Polygon       & Similar to the point data equivalent. & 2,520 \\
+    Places             & Point         & Common values for \emph{fclass} attribute: \enquote{farm}, \enquote{village}, and \enquote{island}. Repeated entries trimmed for brevity. & 178,997 \\
+    Places             & Polygon       & Similar to the point data equivalent. & 5,689 \\
+    Points of Interest & Point         & Common values for \emph{fclass} attribute: \enquote{tourist\_info}, \enquote{bench}, and \enquote{kindergarten}. & 117,677 \\
+    Points of Interest & Polygon       & Similar to the point data equivalent. & 45,825 \\
+    Railways           & Lines         & Common values for \emph{fclass} attribute: \enquote{rail}, \enquote{subway}, and \enquote{tram}. Also has True/False attributes \emph{bridge} and \emph{tunnel}. & 14,008 \\
+    Roads              & Lines         & Common values for \emph{fclass} attribute: \enquote{rail}, \enquote{subway}, and \enquote{tram}. Has additional attributes \emph{oneway}, \emph{maxspeed}, \emph{bridge}, and \emph{tunnel}. & 1,741,929 \\
+    Traffic            & Point         & Common values for \emph{fclass} attribute: \enquote{crossing}, \enquote{street\_lamp}, and \enquote{parking}. & 98,860 \\
+    Traffic            & Polygon       & Common values for \emph{fclass} attribute: \enquote{parking}, \enquote{pier}, and \enquote{dam}. & 45,623 \\
+    Transport          & Point         & Common values for \emph{fclass} attribute: \enquote{bus\_stop}, \enquote{ferry\_terminal}, and \enquote{railway\_station}. & 91,627 \\
+    Transport          & Polygon       & Similar to the point data equivalent. & 935 \\
+    Water              & Polygon       & Common values for \emph{fclass} attribute: \enquote{water}, \enquote{wetland}, and \enquote{river\_bank}. & 1,861,199 \\
+    Waterways          & Lines         & Common values for \emph{fclass} attribute: \enquote{stream}, \enquote{river}, and \enquote{canal}. & 833,253 \\
 \end{longtable}
-
-
-\begin{comment}
-
-\end{comment}
