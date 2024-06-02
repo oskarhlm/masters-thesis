@@ -281,7 +281,7 @@ Training consists of two stages: unsupervised pre-training and supervised fine-t
     \label{fig:multiple-choice}
 \end{figure}
 
-OpenAI's \acrshort{acr:api} currently features three flagship models, which are all proprietary: the \acrshort{acr:gpt}-3.5 Turbo model, which is fast and inexpensive; the \acrshort{acr:gpt}-4 Turbo model, which as of \today~is described by OpenAI as their \enquote{previous high-intelligence model}; and lastly, \acrshort{acr:gpt}-4o, their \enquote{fastest and most affordable flagship model}.\footnote{\url{https://openai.com/api/}} The \acrshort{acr:gpt}-4o has unique multi-modal abilities and can reason across audio, vision, and text in real time, according to OpenAI.\footnote{\url{https://openai.com/index/hello-gpt-4o/}}
+OpenAI's \acrshort{acr:api} currently features three flagship models, which are all proprietary: the \acrshort{acr:gpt}-3.5 Turbo model, which is fast and inexpensive; the \acrshort{acr:gpt}-4 Turbo model, which as of \today~is described by OpenAI as their \enquote{previous high-intelligence model}; and lastly, \acrshort{acr:gpt}-4o, their \enquote{fastest and most affordable flagship model}.\footnote{\url{https://openai.com/api/} (last visited on 2nd June 2024)} The \acrshort{acr:gpt}-4o has unique multi-modal abilities and can reason across audio, vision, and text in real time, according to OpenAI.\footnote{\url{https://openai.com/index/hello-gpt-4o/} (last visited on 2nd June 2024)}
 
 \subsubsection{The Gemini Family}
 \label{subsubsec:gemini}
@@ -308,7 +308,7 @@ Along with their Gemini models, Google released a family of open-source models c
 \subsection{Prompt Engineering}
 \label{subsec:prompt-engineering}
 
-Prompt engineering refers to the process of constructing a query that will be used as input to an \acrshort{acr:llm}. In a chat-based context like that of ChatGPT, the prompt generally consists of a series of messages. These messages can hold one of three different roles,\footnote{\url{https://platform.openai.com/docs/guides/text-generation/chat-completions-api}} each listed below:
+Prompt engineering refers to the process of constructing a query that will be used as input to an \acrshort{acr:llm}. In a chat-based context like that of ChatGPT, the prompt generally consists of a series of messages. These messages can hold one of three different roles,\footnote{\url{https://platform.openai.com/docs/guides/text-generation/chat-completions-api} (last visited on 2nd June 2024)} each listed below:
 
 \begin{itemize}
     \item \textbf{System}: Generally used to set the behaviour of the \acrshort{acr:llm} assistant, giving the assistant a specific personality or information on how to answer the user.
@@ -371,7 +371,7 @@ $$
 
 Such a function could take some Python code as a string parameter and return the standard output that results from executing that code. This is the principle behind what was previously known as ChatGPT's \enquote{Code Interpreter} mode, where ChatGPT serves as a code executing agent that can generate, execute, and self-correct its own code. Similar functions could be constructed for \acrshort{acr:sql}, making it possible for \glspl{acr:llm} to work against relational databases. Furthermore, as \cite{eletiFunctionCallingOther2023} describes, function calling can also be used to extract structured data from text.
 
-An initiative amongst researchers at Berkeley \citep{yanfanjiaBerkeleyFunctionCalling2024} lead to the creation of a benchmark that aims to evaluate the \acrshort{acr:llm}'s ability to call functions and tools. The benchmark, named \gls{acr:bfcl}, includes four different test scenarios: \textit{single function}, where the \acrshort{acr:llm} is provided with a single function definition; \textit{multiple function}, where 2 to 4 functions are passed and the model must select the appropriate function; \textit{parallel function}, where the model needs to determine how many functions should be called; and \textit{parallel multiple function}, a combination of parallel function and multiple function. Some models support different levels of function calling natively, while others have to be carefully prompted to help accommodate function calling abilities. As of \today, a prompted version of \acrshort{acr:gpt}-4-0125-Preview tops the leaderboard.\footnote{\url{https://gorilla.cs.berkeley.edu/leaderboard.html}}
+An initiative amongst researchers at Berkeley \citep{yanfanjiaBerkeleyFunctionCalling2024} lead to the creation of a benchmark that aims to evaluate the \acrshort{acr:llm}'s ability to call functions and tools. The benchmark, named \gls{acr:bfcl}, includes four different test scenarios: \textit{single function}, where the \acrshort{acr:llm} is provided with a single function definition; \textit{multiple function}, where 2 to 4 functions are passed and the model must select the appropriate function; \textit{parallel function}, where the model needs to determine how many functions should be called; and \textit{parallel multiple function}, a combination of parallel function and multiple function. Some models support different levels of function calling natively, while others have to be carefully prompted to help accommodate function calling abilities. As of \today, a prompted version of \acrshort{acr:gpt}-4-0125-Preview tops the leaderboard.\footnote{\url{https://gorilla.cs.berkeley.edu/leaderboard.html} (last visited on \today)}
 
 \section{LangChain}
 \label{sec:langchain}
@@ -397,7 +397,7 @@ This section will discuss the geospatial technologies that were used or consider
 \subsection{PostGIS}
 \label{subsec:postgis}
 
-\textit{PostGIS} \citep{PostGIS2001} is an open-source extension for the PostgreSQL database that adds support for storing, indexing, and querying geospatial data. Data can be stored in both two and three dimensions, and they can take the form of points, lines, polygons, and more. Geospatial types can be stored along with a spatial index, which can significantly reduce search time for their geometries. GiST (Generalized Search Tree)\footnote{\url{https://en.wikipedia.org/wiki/GiST}} is commonly used in PostGIS to take advantage of various tree-based search algorithms that are developed to retrieve spatial features quickly.
+\textit{PostGIS} \citep{PostGIS2001} is an open-source extension for the PostgreSQL database that adds support for storing, indexing, and querying geospatial data. Data can be stored in both two and three dimensions, and they can take the form of points, lines, polygons, and more. Geospatial types can be stored along with a spatial index, which can significantly reduce search time for their geometries. GiST (Generalized Search Tree)\footnote{\url{https://en.wikipedia.org/wiki/GiST} (last visited on 2nd June 2024)} is commonly used in PostGIS to take advantage of various tree-based search algorithms that are developed to retrieve spatial features quickly.
 
 PostGIS also comes with a plethora of spatial database functions that are used to analyse and process geospatial data. These function's names are prefixed with \texttt{ST\_} (short for \enquote{spatio-temporal}), with examples including \texttt{ST\_DWITHIN}, \texttt{ST\_BUFFER}, and \texttt{ST\_TRANSFORM}. \autoref{code:postgis-example} shows a typical PostGIS query for retrieving building outlines within a bounding box.
 
@@ -420,18 +420,18 @@ WHERE type = 'house'
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{ogc_api_features.png}
-    \caption[An illustration of the general structure of a typical OGC API Features server]{An illustration of the general structure of a typical \acrshort{acr:ogc} \acrshort{acr:api} Features server. The server would have a number of collections, which in turn have a number of items/features with a geographical component. The consumer of the \acrshort{acr:api} can request a collection of items, or individual features. The figure was retrieved from \url{https://features.developer.ogc.org/} on April 29, 2024.}
-    \label{fig:oaf-collections-items-features}
+    \caption[An illustration of the general structure of a typical OGC API Features server]{An illustration of the general structure of a typical \acrshort{acr:ogc} \acrshort{acr:api} Features server. The server would have a number of collections, which in turn have a number of items/features with a geographical component. The consumer of the \acrshort{acr:api} can request a collection of items, or individual features. The figure was retrieved from \url{https://features.developer.ogc.org/} on 29th April 2024.}
+    \label{fig:oaf-collections-items-features} (last visited on )
 \end{figure}
 
-The development of the \acrshort{acr:ogc} \acrshort{acr:api} Features specification is divided into several parts that are meant to build on each other. Here are the five parts that are listed on \acrshort{acr:ogc}'s websites:\footnote{\url{https://ogcapi.ogc.org/features/}}
+The development of the \acrshort{acr:ogc} \acrshort{acr:api} Features specification is divided into several parts that are meant to build on each other. Here are the five parts that are listed on \acrshort{acr:ogc}'s websites:\footnote{\url{https://ogcapi.ogc.org/features/} (last visited on 2nd June 2024)}
 
 \begin{itemize}
-    \item Features - Part 1: Core\footnote{\url{https://docs.opengeospatial.org/is/17-069r4/17-069r4.html}}
-    \item Features - Part 2: Coordinate Reference Systems by Reference \footnote{\url{https://docs.ogc.org/is/18-058r1/18-058r1.html}}
-    \item Features - Part 3: Filtering\footnote{\url{https://docs.ogc.org/DRAFTS/19-079r1.html}}
-    \item Features - Part 4: Create, Replace, Update and Delete\footnote{\url{https://docs.ogc.org/DRAFTS/20-002.html}}
-    \item Features - Part 5: Schemas\footnote{\url{https://docs.ogc.org/DRAFTS/23-058r1.html}}
+    \item Features - Part 1: Core\footnote{\url{https://docs.opengeospatial.org/is/17-069r4/17-069r4.html} (last visited on 2nd June 2024)}
+    \item Features - Part 2: Coordinate Reference Systems by Reference \footnote{\url{https://docs.ogc.org/is/18-058r1/18-058r1.html} (last visited on 2nd June 2024)}
+    \item Features - Part 3: Filtering\footnote{\url{https://docs.ogc.org/DRAFTS/19-079r1.html} (last visited on 2nd June 2024)}
+    \item Features - Part 4: Create, Replace, Update and Delete\footnote{\url{https://docs.ogc.org/DRAFTS/20-002.html} (last visited on 2nd June 2024)}
+    \item Features - Part 5: Schemas\footnote{\url{https://docs.ogc.org/DRAFTS/23-058r1.html} (last visited on 2nd June 2024)}
 \end{itemize}
 
 Part 1 specifies the core capabilities which were mentioned described in the first paragraph of this section, while parts 2-4 specify additional capabilities. Part 2 allows for retrieval of features in \glspl{acr:crs} different to the default WGS 84 reference system. Part 3 enables filtering of features using \gls{acr:cql}, which is a language similar to \acrshort{acr:sql}. This allows for filtering of collections, so that consumers of the \acrshort{acr:api} can retrieve subsets of a given collection. \autoref{code:cql-examples} shows two examples of \gls{acr:cql} queries:
@@ -448,7 +448,7 @@ county in ('Akershus', 'Buskerud', 'Ostfold')
 DWITHIN(the\_geom, Point(63.4265, 10.3960), 1, kilometers)
 \end{lstlisting}
 
-Part 4 defines how an \acrshort{acr:ogc} \acrshort{acr:api} Features server should handle addition, replacement, modification, and removal of features. Part 5 explains how features can be defined by a logical schema and how these schemas are published. In addition to parts 1 through 5, several other \textit{proposed} extensions have emerged, such as the \textit{Search} extension, which would allow for multi-collection queries, or the \textit{Geometry Simplification} extension which proposes the use of simplification algorithms for retrieving simplified versions of a collection.\footnote{\url{https://github.com/opengeospatial/ogcapi-features/tree/master/proposals}}
+Part 4 defines how an \acrshort{acr:ogc} \acrshort{acr:api} Features server should handle addition, replacement, modification, and removal of features. Part 5 explains how features can be defined by a logical schema and how these schemas are published. In addition to parts 1 through 5, several other \textit{proposed} extensions have emerged, such as the \textit{Search} extension, which would allow for multi-collection queries, or the \textit{Geometry Simplification} extension which proposes the use of simplification algorithms for retrieving simplified versions of a collection.\footnote{\url{https://github.com/opengeospatial/ogcapi-features/tree/master/proposals} (last visited on 2nd June 2024)}
 
 
 % \subsection[SpatioTemporal Asset Catalogs]{\acrlong{acr:stac}}
