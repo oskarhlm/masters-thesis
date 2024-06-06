@@ -1,3 +1,22 @@
+@misc{aliTokenizerChoiceLLM2024,
+  title = {Tokenizer {{Choice For LLM Training}}: {{Negligible}} or {{Crucial}}?},
+  shorttitle = {Tokenizer {{Choice For LLM Training}}},
+  author = {Ali, Mehdi and Fromm, Michael and Thellmann, Klaudia and Rutmann, Richard and L{\"u}bbering, Max and Leveling, Johannes and Klug, Katrin and Ebert, Jan and Doll, Niclas and Buschhoff, Jasper Schulze and Jain, Charvi and Weber, Alexander Arno and Jurkschat, Lena and Abdelwahab, Hammam and John, Chelsea and Suarez, Pedro Ortiz and Ostendorff, Malte and Weinbach, Samuel and Sifa, Rafet and Kesselheim, Stefan and {Flores-Herr}, Nicolas},
+  year = {2024},
+  month = mar,
+  number = {arXiv:2310.08754},
+  eprint = {2310.08754},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2310.08754},
+  url = {http://arxiv.org/abs/2310.08754},
+  urldate = {2024-06-06},
+  abstract = {The recent success of Large Language Models (LLMs) has been predominantly driven by curating the training dataset composition, scaling of model architectures and dataset sizes and advancements in pretraining objectives, leaving tokenizer influence as a blind spot. Shedding light on this underexplored area, we conduct a comprehensive study on the influence of tokenizer choice on LLM downstream performance by training 24 mono- and multilingual LLMs at a 2.6B parameter scale, ablating different tokenizer algorithms and parameterizations. Our studies highlight that the tokenizer choice can significantly impact the model's downstream performance and training costs. In particular, we find that the common tokenizer evaluation metrics fertility and parity are not always predictive of model downstream performance, rendering these metrics a questionable proxy for the model's downstream performance. Furthermore, we show that multilingual tokenizers trained on the five most frequent European languages require vocabulary size increases of factor three in comparison to English. While English-centric tokenizers have been applied to the training of multi-lingual LLMs in the past, we find that this approach results in a severe downstream performance degradation and additional training costs of up to 68\%, due to an inefficient tokenization vocabulary.},
+  archiveprefix = {arxiv},
+  keywords = {Computer Science - Machine Learning},
+  file = {C\:\\Users\\oskar\\Zotero\\storage\\2D8ZRPP5\\Ali et al. - 2024 - Tokenizer Choice For LLM Training Negligible or C.pdf;C\:\\Users\\oskar\\Zotero\\storage\\PM5MB434\\2310.html}
+}
+
 @techreport{anthropicClaudeModelFamily2024,
   title = {The {{Claude}} 3 {{Model Family}}: {{Opus}}, {{Sonnet}}, {{Haiku}}},
   author = {{Anthropic}},
@@ -61,6 +80,21 @@
   archiveprefix = {arxiv},
   keywords = {Computer Science - Computation and Language,Computer Science - Machine Learning,Computer Science - Neural and Evolutionary Computing,Statistics - Machine Learning},
   file = {C\:\\Users\\oskar\\Zotero\\storage\\DLCZU3RT\\Bahdanau et al. - 2016 - Neural Machine Translation by Jointly Learning to .pdf;C\:\\Users\\oskar\\Zotero\\storage\\H729V98D\\1409.html}
+}
+
+@inproceedings{bridleProbabilisticInterpretationFeedforward1990,
+  title = {Probabilistic {{Interpretation}} of {{Feedforward Classification Network Outputs}}, with {{Relationships}} to {{Statistical Pattern Recognition}}},
+  booktitle = {Neurocomputing},
+  author = {Bridle, John S.},
+  editor = {Souli{\'e}, Fran{\c c}oise Fogelman and H{\'e}rault, Jeanny},
+  year = {1990},
+  pages = {227--236},
+  publisher = {Springer},
+  address = {Berlin, Heidelberg},
+  doi = {10.1007/978-3-642-76153-9_28},
+  abstract = {We are concerned with feed-forward non-linear networks (multi-layer perceptrons, or MLPs) with multiple outputs. We wish to treat the outputs of the network as probabilities of alternatives (e.g. pattern classes), conditioned on the inputs. We look for appropriate output non-linearities and for appropriate criteria for adaptation of the parameters of the network (e.g. weights). We explain two modifications: probability scoring, which is an alternative to squared error minimisation, and a normalised exponential (softmax) multi-input generalisation of the logistic non-linearity. The two modifications together result in quite simple arithmetic, and hardware implementation is not difficult either. The use of radial units (squared distance instead of dot product) immediately before the softmax output stage produces a network which computes posterior distributions over class labels based on an assumption of Gaussian within-class distributions. However the training, which uses cross-class information, can result in better performance at class discrimination than the usual within-class training method, unless the within-class distribution assumptions are actually correct.},
+  isbn = {978-3-642-76153-9},
+  langid = {english}
 }
 
 @misc{chanChatEvalBetterLLMbased2023,
@@ -548,6 +582,7 @@
   author = {Radford, Alec and Narasimhan, Karthik and Salimans, Tim and Sutskever, Ilya},
   year = {2018},
   month = jun,
+  url = {https://www.mikecaptain.com/resources/pdf/GPT-1.pdf},
   abstract = {Natural language understanding comprises a wide range of diverse tasks such as textual entailment, question answering, semantic similarity assessment, and document classification. Although large unlabeled text corpora are abundant, labeled data for learning these specific tasks is scarce, making it challenging for discriminatively trained models to perform adequately. We demonstrate that large gains on these tasks can be realized by generative pre-training of a language model on a diverse corpus of unlabeled text, followed by discriminative fine-tuning on each specific task. In contrast to previous approaches, we make use of task-aware input transformations during fine-tuning to achieve effective transfer while requiring minimal changes to the model architecture. We demonstrate the effectiveness of our approach on a wide range of benchmarks for natural language understanding. Our general task-agnostic model outperforms discriminatively trained models that use architectures specifically crafted for each task, significantly improving upon the state of the art in 9 out of the 12 tasks studied. For instance, we achieve absolute improvements of 8.9\% on commonsense reasoning (Stories Cloze Test), 5.7\% on question answering (RACE), and 1.5\% on textual entailment (MultiNLI).},
   langid = {english},
   file = {C:\Users\oskar\Zotero\storage\9FMV32GE\Radford et al. - Improving Language Understanding by Generative Pre.pdf}
@@ -558,6 +593,7 @@
   author = {Radford, Alec and Wu, Jeffrey and Child, Rewon and Luan, David and Amodei, Dario and Sutskever, Ilya},
   year = {2019},
   month = feb,
+  url = {https://dcmpx.remotevs.com/net/cloudfront/d4mucfpksywv/SL/better-language-models/language_models_are_unsupervised_multitask_learners.pdf},
   abstract = {Natural language processing tasks, such as question answering, machine translation, reading comprehension, and summarization, are typically approached with supervised learning on taskspecific datasets. We demonstrate that language models begin to learn these tasks without any explicit supervision when trained on a new dataset of millions of webpages called WebText. When conditioned on a document plus questions, the answers generated by the language model reach 55 F1 on the CoQA dataset - matching or exceeding the performance of 3 out of 4 baseline systems without using the 127,000+ training examples. The capacity of the language model is essential to the success of zero-shot task transfer and increasing it improves performance in a log-linear fashion across tasks. Our largest model, GPT-2, is a 1.5B parameter Transformer that achieves state of the art results on 7 out of 8 tested language modeling datasets in a zero-shot setting but still underfits WebText. Samples from the model reflect these improvements and contain coherent paragraphs of text. These findings suggest a promising path towards building language processing systems which learn to perform tasks from their naturally occurring demonstrations.},
   langid = {english},
   file = {C:\Users\oskar\Zotero\storage\SSHHKRBM\Radford et al. - Language Models are Unsupervised Multitask Learner.pdf}
@@ -740,6 +776,7 @@
   author = {Wei, Jason and Wang, Xuezhi and Schuurmans, Dale and Bosma, Maarten and Ichter, Brian and Xia, Fei and Chi, Ed H and Le, Quoc V and Zhou, Denny},
   year = {2023},
   month = may,
+  url = {https://proceedings.neurips.cc/paper_files/paper/2022/file/9d5609613524ecf4f15af0f7b31abca4-Paper-Conference.pdf},
   abstract = {We explore how generating a chain of thought---a series of intermediate reasoning steps---significantly improves the ability of large language models to perform complex reasoning. In particular, we show how such reasoning abilities emerge naturally in sufficiently large language models via a simple method called chain-ofthought prompting, where a few chain of thought demonstrations are provided as exemplars in prompting. Experiments on three large language models show that chain-of-thought prompting improves performance on a range of arithmetic, commonsense, and symbolic reasoning tasks. The empirical gains can be striking. For instance, prompting a PaLM 540B with just eight chain-of-thought exemplars achieves state-of-the-art accuracy on the GSM8K benchmark of math word problems, surpassing even finetuned GPT-3 with a verifier.},
   langid = {english},
   file = {C:\Users\oskar\Zotero\storage\Z9CY4U8V\Wei et al. - Chain-of-Thought Prompting Elicits Reasoning in La.pdf}

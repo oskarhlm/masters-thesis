@@ -1,3 +1,28 @@
 {
-    "layers": []
+    "layers": [
+        {
+            "id": "county_polygons",
+            "type": "fill",
+            "source": "county_polygons",
+            "paint": {
+                "fill-color": "#4965e7"
+            }
+        },
+        {
+            "id": "inaccurate_county_polygons",
+            "type": "fill",
+            "source": "inaccurate_county_polygons",
+            "paint": {
+                "fill-color": "#8bfea5"
+            }
+        },
+        {
+            "id": "inaccurate_metric_county_polygons",
+            "type": "fill",
+            "source": "inaccurate_metric_county_polygons",
+            "paint": {
+                "fill-color": "#fb0e41"
+            }
+        }
+    ]
 }

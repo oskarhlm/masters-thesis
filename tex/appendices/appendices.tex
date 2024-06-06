@@ -1,67 +1,89 @@
-\begin{appendix}
-    \chapter*{Appendices}
-    \label{cha:appendices}
-    \addcontentsline{toc}{chapter}{Appendices}
+\appendix
 
-    % \includeappendixpdfwithtitle{Task Description from Norkart}{appendices/project_description.pdf}{app:task-description}
+\chapter{Experimental Attachments}
+\label{app:experiments}
 
-    % \chapter{Datasets}
-    % \label{app:datasets}
-    % \input{appendices/datasets.tex}
+\section[GIS Benchmark Experiment --- Questions and Test Results]{\acrshort{acr:gis} Benchmark Experiment --- Questions and Test Results}
+\label{appsec:questions-and-answer}
+
+\input{generated/questions.tex}
+\newpage
+\input{generated/quantatitive_tests.tex}
+
+\newpage
+
+\section{Prompt Quality Experiment --- Questions and Test Results}
+\input{generated/prompt_levels_questions.tex}
+\newpage
+\input{generated/prompt_levels_tests.tex}
 
 
-    \chapter{Experiments}
-    \label{app:experiments}
+\chapter{LangSmith}
+\label{app:langsmith}
 
-    \section[GIS Benchmark Experiment]{\acrshort{acr:gis} Benchmark Experiment}
-    \label{appsec:questions-and-answer}
+LangSmith\footnote{\url{https://www.langchain.com/langsmith}} is a DevOps platform made as a part of the LangChain ecosystem. It allows the developer of \acrshort{acr:llm}-based applications to test, deploy, and monitor applications. LangSmith was used during both the development and testing of GeoGPT. \autoref{fig:langsmith-main} shows the main page for a LangSmith project, in this case the project which is hooked up to GeoGPT. This page gives a list of all of GeoGPT's runs, and metrics like latency, token usage, and total cost in dollars, for each run. This is where the metrics recorded in the experiments (see \autoref{tbl:test-results-quantitative}) were obtained.
 
-    \input{generated/questions.tex}
-    \newpage
-    \input{generated/quantatitive_tests.tex}
+\autoref{fig:langsmith-trace} shows the trace of a given run of GeoGPT. In the sidebar to the left, is a complete list of all the LangChain runnables that were invoked during the run. On its right, is an overview of the inputs and outputs of the runnable that is currently selected. This page is very useful for debugging purposes.
 
-    \newpage
+\begin{sidewaysfigure}
+    \centering
+    \includegraphics[width=\textwidth]{langsmith_main.png}
+    \caption[Main page for a LangSmith project]{Main page for a LangSmith project, in this case the \enquote{geogpt} project}
+    \label{fig:langsmith-main}
+\end{sidewaysfigure}
 
-    \section{Prompt Quality Experiment}
-    \input{generated/prompt_levels_questions.tex}
-    \newpage
-    \input{generated/prompt_levels_tests.tex}
-
-    \chapter{LangSmith}
-    \label{app:langsmith}
-
-    LangSmith\footnote{\url{https://www.langchain.com/langsmith}} is a DevOps platform made as a part of the LangChain ecosystem. It allows the developer of \acrshort{acr:llm}-based applications to test, deploy, and monitor applications. LangSmith was used during both the development and testing of GeoGPT. \autoref{fig:langsmith-main} shows the main page for a LangSmith project, in this case the project which is hooked up to GeoGPT. This page gives a list of all of GeoGPT's runs, and metrics like latency, token usage, and total cost in dollars, for each run. This is where the metrics recorded in the experiments (see \autoref{tbl:test-results-quantitative}) were obtained.
-
-    \autoref{fig:langsmith-trace} shows the trace of a given run of GeoGPT. In the sidebar to the left, is a complete list of all the LangChain runnables that were invoked during the run. On its right, is an overview of the inputs and outputs of the runnable that is currently selected. This page is very useful for debugging purposes.
-
-    % \begin{figure}
-    %     \centering
-    %     \includegraphics[width=\textwidth]{langsmith_main.png}
-    %     \caption{Main page for a LangSmith project, in this case the \enquote{geogpt} project}
-    %     \label{fig:langsmith-main}
-    % \end{figure}
-
-    % \begin{figure}
-    %     \centering
-    %     \includegraphics[width=\textwidth]{langsmith_trace.png}
-    %     \caption{Trace for a given run of GeoGPT}
-    %     \label{fig:langsmith-trace}
-    % \end{figure}
-
-    \begin{sidewaysfigure}
-        \centering
-        \includegraphics[width=\textwidth]{langsmith_main.png}
-        \caption{Main page for a LangSmith project, in this case the \enquote{geogpt} project}
-        \label{fig:langsmith-main}
-    \end{sidewaysfigure}
-
-    \begin{sidewaysfigure}
-        \centering
-        \includegraphics[width=\textwidth]{langsmith_trace.png}
-        \caption{Trace for a given run of GeoGPT}
-        \label{fig:langsmith-trace}
-    \end{sidewaysfigure}
+\begin{sidewaysfigure}
+    \centering
+    \includegraphics[width=\textwidth]{langsmith_trace.png}
+    \caption{LangSmith trace for a GeoGPT run}
+    \label{fig:langsmith-trace}
+\end{sidewaysfigure}
 
 
 
-\end{appendix}
+
+% \begin{appendix}
+
+%     \chapter*{Appendices}
+%     \label{cha:appendices}
+%     \addcontentsline{toc}{chapter}{Appendices}
+
+%     \chapter{Experiments}
+%     \label{app:experiments}
+
+%     \section[GIS Benchmark Experiment]{\acrshort{acr:gis} Benchmark Experiment}
+%     \label{appsec:questions-and-answer}
+
+%     \input{generated/questions.tex}
+%     \newpage
+%     \input{generated/quantatitive_tests.tex}
+
+%     \newpage
+
+%     \section{Prompt Quality Experiment}
+%     \input{generated/prompt_levels_questions.tex}
+%     \newpage
+%     \input{generated/prompt_levels_tests.tex}
+
+%     \chapter{LangSmith}
+%     \label{app:langsmith}
+
+%     LangSmith\footnote{\url{https://www.langchain.com/langsmith}} is a DevOps platform made as a part of the LangChain ecosystem. It allows the developer of \acrshort{acr:llm}-based applications to test, deploy, and monitor applications. LangSmith was used during both the development and testing of GeoGPT. \autoref{fig:langsmith-main} shows the main page for a LangSmith project, in this case the project which is hooked up to GeoGPT. This page gives a list of all of GeoGPT's runs, and metrics like latency, token usage, and total cost in dollars, for each run. This is where the metrics recorded in the experiments (see \autoref{tbl:test-results-quantitative}) were obtained.
+
+%     \autoref{fig:langsmith-trace} shows the trace of a given run of GeoGPT. In the sidebar to the left, is a complete list of all the LangChain runnables that were invoked during the run. On its right, is an overview of the inputs and outputs of the runnable that is currently selected. This page is very useful for debugging purposes.
+
+%     \begin{sidewaysfigure}
+%         \centering
+%         \includegraphics[width=\textwidth]{langsmith_main.png}
+%         \caption{Main page for a LangSmith project, in this case the \enquote{geogpt} project}
+%         \label{fig:langsmith-main}
+%     \end{sidewaysfigure}
+
+%     \begin{sidewaysfigure}
+%         \centering
+%         \includegraphics[width=\textwidth]{langsmith_trace.png}
+%         \caption{Trace for a given run of GeoGPT}
+%         \label{fig:langsmith-trace}
+%     \end{sidewaysfigure}
+
+% \end{appendix}

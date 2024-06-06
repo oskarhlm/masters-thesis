@@ -19,6 +19,180 @@
 
 \refsection{0}
   \datalist[entry]{apa/global//global/global}
+    \entry{aliTokenizerChoiceLLM2024}{misc}{}
+      \name{author}{21}{}{%
+        {{un=0,uniquepart=base,hash=9ae68d2491ec65a53aed1adcd3b4b69c}{%
+           family={Ali},
+           familyi={A\bibinitperiod},
+           given={Mehdi},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5a5c8a297188906d314f32a4e0021506}{%
+           family={Fromm},
+           familyi={F\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=cfd31fbf333f43c70950d4baf4765ae5}{%
+           family={Thellmann},
+           familyi={T\bibinitperiod},
+           given={Klaudia},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6ec5945f85edd8a08ad3d6f6c257fa48}{%
+           family={Rutmann},
+           familyi={R\bibinitperiod},
+           given={Richard},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=137c886db0d9aebf96111c799af3c228}{%
+           family={Lübbering},
+           familyi={L\bibinitperiod},
+           given={Max},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=36fe472403c2b1554fc22a44c6601132}{%
+           family={Leveling},
+           familyi={L\bibinitperiod},
+           given={Johannes},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7d699c1df0372b9ecc0dd2e08cf0ff01}{%
+           family={Klug},
+           familyi={K\bibinitperiod},
+           given={Katrin},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=bebf895a60c4de35fbb74d0a98eb6cac}{%
+           family={Ebert},
+           familyi={E\bibinitperiod},
+           given={Jan},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=26fd08d746e65037db0dd56809fc5fac}{%
+           family={Doll},
+           familyi={D\bibinitperiod},
+           given={Niclas},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=509c3701b4567fdf63f6c8dc0cef42ce}{%
+           family={Buschhoff},
+           familyi={B\bibinitperiod},
+           given={Jasper\bibnamedelima Schulze},
+           giveni={J\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a527a9322caf22c7d79ca828eb647d36}{%
+           family={Jain},
+           familyi={J\bibinitperiod},
+           given={Charvi},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a22014e63337a05ad386a488dd235e20}{%
+           family={Weber},
+           familyi={W\bibinitperiod},
+           given={Alexander\bibnamedelima Arno},
+           giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4629fb09dac0da31d307d2a63f5a6d80}{%
+           family={Jurkschat},
+           familyi={J\bibinitperiod},
+           given={Lena},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=45716a9a6dc76c01156ac591c54b09af}{%
+           family={Abdelwahab},
+           familyi={A\bibinitperiod},
+           given={Hammam},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=91af4c27d8994e12288d61d265eb18db}{%
+           family={John},
+           familyi={J\bibinitperiod},
+           given={Chelsea},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=42d2953c1228211cc17fb8fc0db1c37c}{%
+           family={Suarez},
+           familyi={S\bibinitperiod},
+           given={Pedro\bibnamedelima Ortiz},
+           giveni={P\bibinitperiod\bibinitdelim O\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a345dacf976a37577ba2e6e955cc5305}{%
+           family={Ostendorff},
+           familyi={O\bibinitperiod},
+           given={Malte},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4c91f333bd4dc7e61827b8370e3916d4}{%
+           family={Weinbach},
+           familyi={W\bibinitperiod},
+           given={Samuel},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=63b7412f5a4ed5097d846705eb11b5b9}{%
+           family={Sifa},
+           familyi={S\bibinitperiod},
+           given={Rafet},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7de7c2d883942726ac373cb66151d6d6}{%
+           family={Kesselheim},
+           familyi={K\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b5a142a872e46dc4215d9b25ab7566bc}{%
+           family={{Flores-Herr}},
+           familyi={F\bibinitperiod},
+           given={Nicolas},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{0dbacb04ef297b263f6af3da61978d1f}
+      \strng{fullhash}{6c8e7f79ceb6eb9cad0c2b5c7e35770f}
+      \strng{bibnamehash}{6c8e7f79ceb6eb9cad0c2b5c7e35770f}
+      \strng{authorbibnamehash}{6c8e7f79ceb6eb9cad0c2b5c7e35770f}
+      \strng{authornamehash}{0dbacb04ef297b263f6af3da61978d1f}
+      \strng{authorfullhash}{6c8e7f79ceb6eb9cad0c2b5c7e35770f}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{The recent success of Large Language Models (LLMs) has been predominantly driven by curating the training dataset composition, scaling of model architectures and dataset sizes and advancements in pretraining objectives, leaving tokenizer influence as a blind spot. Shedding light on this underexplored area, we conduct a comprehensive study on the influence of tokenizer choice on LLM downstream performance by training 24 mono- and multilingual LLMs at a 2.6B parameter scale, ablating different tokenizer algorithms and parameterizations. Our studies highlight that the tokenizer choice can significantly impact the model's downstream performance and training costs. In particular, we find that the common tokenizer evaluation metrics fertility and parity are not always predictive of model downstream performance, rendering these metrics a questionable proxy for the model's downstream performance. Furthermore, we show that multilingual tokenizers trained on the five most frequent European languages require vocabulary size increases of factor three in comparison to English. While English-centric tokenizers have been applied to the training of multi-lingual LLMs in the past, we find that this approach results in a severe downstream performance degradation and additional training costs of up to 68\%, due to an inefficient tokenization vocabulary.}
+      \field{eprintclass}{cs}
+      \field{eprinttype}{arxiv}
+      \field{month}{3}
+      \field{number}{arXiv:2310.08754}
+      \field{shorttitle}{Tokenizer {{Choice For LLM Training}}}
+      \field{title}{Tokenizer {{Choice For LLM Training}}: {{Negligible}} or {{Crucial}}?}
+      \field{urlday}{6}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2310.08754
+      \endverb
+      \verb{eprint}
+      \verb 2310.08754
+      \endverb
+      \verb{file}
+      \verb C\:\\Users\\oskar\\Zotero\\storage\\2D8ZRPP5\\Ali et al. - 2024 - Tokenizer Choice For LLM Training Negligible or C.pdf;C\:\\Users\\oskar\\Zotero\\storage\\PM5MB434\\2310.html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2310.08754
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2310.08754
+      \endverb
+      \keyw{Computer Science - Machine Learning}
+    \endentry
     \entry{anthropicModelCardEvaluations2023}{misc}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=f431db65cea024a5f19eab835afefee2}{%
@@ -12629,8 +12803,8 @@
       }
       \strng{namehash}{473fcf62a6f098eaca2b658bbcc095aa}
       \strng{fullhash}{c97be1b501fef7ff9f820fbc0979ade9}
-      \strng{bibnamehash}{9b9fb005d180b49c3647246015e03d94}
-      \strng{authorbibnamehash}{9b9fb005d180b49c3647246015e03d94}
+      \strng{bibnamehash}{c97be1b501fef7ff9f820fbc0979ade9}
+      \strng{authorbibnamehash}{c97be1b501fef7ff9f820fbc0979ade9}
       \strng{authornamehash}{473fcf62a6f098eaca2b658bbcc095aa}
       \strng{authorfullhash}{c97be1b501fef7ff9f820fbc0979ade9}
       \field{extraname}{2}
@@ -13324,8 +13498,8 @@
       }
       \strng{namehash}{4e671547a13554fd96313835d3961bf4}
       \strng{fullhash}{7b8afd369dde34da2d582a70963eecd9}
-      \strng{bibnamehash}{8c918cf1e1b12da012d1cddca4a2571c}
-      \strng{authorbibnamehash}{8c918cf1e1b12da012d1cddca4a2571c}
+      \strng{bibnamehash}{7b8afd369dde34da2d582a70963eecd9}
+      \strng{authorbibnamehash}{7b8afd369dde34da2d582a70963eecd9}
       \strng{authornamehash}{4e671547a13554fd96313835d3961bf4}
       \strng{authorfullhash}{7b8afd369dde34da2d582a70963eecd9}
       \field{sortinit}{G}
@@ -13865,8 +14039,8 @@
       }
       \strng{namehash}{066da2bf78c9b2e3d4c5f5a2cc6c4bff}
       \strng{fullhash}{6e0a4355624809e7ae2935879f753fe6}
-      \strng{bibnamehash}{efe0c67157540c39718309b453e75e73}
-      \strng{authorbibnamehash}{efe0c67157540c39718309b453e75e73}
+      \strng{bibnamehash}{6e0a4355624809e7ae2935879f753fe6}
+      \strng{authorbibnamehash}{6e0a4355624809e7ae2935879f753fe6}
       \strng{authornamehash}{066da2bf78c9b2e3d4c5f5a2cc6c4bff}
       \strng{authorfullhash}{6e0a4355624809e7ae2935879f753fe6}
       \field{extraname}{2}
@@ -14484,6 +14658,12 @@
       \verb{file}
       \verb C:\Users\oskar\Zotero\storage\9FMV32GE\Radford et al. - Improving Language Understanding by Generative Pre.pdf
       \endverb
+      \verb{urlraw}
+      \verb https://www.mikecaptain.com/resources/pdf/GPT-1.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.mikecaptain.com/resources/pdf/GPT-1.pdf
+      \endverb
     \endentry
     \entry{radfordLanguageModelsAre2019}{article}{}
       \name{author}{6}{}{%
@@ -14546,46 +14726,12 @@
       \verb{file}
       \verb C:\Users\oskar\Zotero\storage\SSHHKRBM\Radford et al. - Language Models are Unsupervised Multitask Learner.pdf
       \endverb
-    \endentry
-    \entry{richardAutoGPTHeartOpensource2023}{misc}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=2a32215fed0bf14e97fe8b3a8fd29a13}{%
-           family={Richard},
-           familyi={R\bibinitperiod},
-           given={Toran\bibnamedelima Bruce},
-           giveni={T\bibinitperiod\bibinitdelim B\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{2a32215fed0bf14e97fe8b3a8fd29a13}
-      \strng{fullhash}{2a32215fed0bf14e97fe8b3a8fd29a13}
-      \strng{bibnamehash}{2a32215fed0bf14e97fe8b3a8fd29a13}
-      \strng{authorbibnamehash}{2a32215fed0bf14e97fe8b3a8fd29a13}
-      \strng{authornamehash}{2a32215fed0bf14e97fe8b3a8fd29a13}
-      \strng{authorfullhash}{2a32215fed0bf14e97fe8b3a8fd29a13}
-      \field{sortinit}{R}
-      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{shorttitle}
-      \field{abstract}{An experimental open-source attempt to make GPT-4 fully autonomous.}
-      \field{howpublished}{AutoGPT}
-      \field{month}{10}
-      \field{shorttitle}{{{AutoGPT}}}
-      \field{title}{{{AutoGPT}}: The Heart of the Open-Source Agent Ecosystem}
-      \field{urlday}{5}
-      \field{urlmonth}{10}
-      \field{urlyear}{2023}
-      \field{year}{2023}
-      \field{urldateera}{ce}
       \verb{urlraw}
-      \verb https://github.com/Significant-Gravitas/AutoGPT
+      \verb https://dcmpx.remotevs.com/net/cloudfront/d4mucfpksywv/SL/better-language-models/language_models_are_unsupervised_multitask_learners.pdf
       \endverb
       \verb{url}
-      \verb https://github.com/Significant-Gravitas/AutoGPT
+      \verb https://dcmpx.remotevs.com/net/cloudfront/d4mucfpksywv/SL/better-language-models/language_models_are_unsupervised_multitask_learners.pdf
       \endverb
-      \keyw{ai,artificial-intelligence,autonomous-agents,gpt-4,openai,python}
     \endentry
     \entry{robertsGPT4GEOHowLanguage2023}{misc}{}
       \name{author}{5}{}{%
@@ -15148,6 +15294,12 @@
       \field{year}{2023}
       \verb{file}
       \verb C:\Users\oskar\Zotero\storage\Z9CY4U8V\Wei et al. - Chain-of-Thought Prompting Elicits Reasoning in La.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://proceedings.neurips.cc/paper_files/paper/2022/file/9d5609613524ecf4f15af0f7b31abca4-Paper-Conference.pdf
+      \endverb
+      \verb{url}
+      \verb https://proceedings.neurips.cc/paper_files/paper/2022/file/9d5609613524ecf4f15af0f7b31abca4-Paper-Conference.pdf
       \endverb
     \endentry
     \entry{whitePromptPatternCatalog2023a}{misc}{}
