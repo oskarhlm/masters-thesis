@@ -7,3 +7,4 @@
 {"rule":"EN_A_VS_AN","sentence":"^\\QBased on the parameters an URL\\E$"}
 {"rule":"MD_BASEFORM","sentence":"^\\QUsing these encoded outcomes, standard deviations will calculated for each triplet of identical test samples (samples where the question and the agent type remained the same), which serve as a suitable measure for assessing repeatability.\\E$"}
 {"rule":"MORFOLOGIK_RULE_EN_GB","sentence":"^\\QThe authors found that acr:gpt-4 is skillful at solving a variety of application-centric tasks, almost having the ability to see, despite being a language model and therefore only able to interface with the world through sequenced, textual input.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_GB","sentence":"^\\QA new acr:gis benchmark that will help give insigth into the ability of a system like GeoGPT to solve common acr:gis tasks when provided only with a natural language problem formulation.\\E$"}

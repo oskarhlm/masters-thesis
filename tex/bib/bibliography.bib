@@ -116,6 +116,24 @@
   file = {C\:\\Users\\oskar\\Zotero\\storage\\X7UJH4ZY\\Chan et al. - 2023 - ChatEval Towards Better LLM-based Evaluators thro.pdf;C\:\\Users\\oskar\\Zotero\\storage\\6I5RF2TI\\2308.html}
 }
 
+@misc{chenEvaluatingLargeLanguage2021,
+  title = {Evaluating {{Large Language Models Trained}} on {{Code}}},
+  author = {Chen, Mark and Tworek, Jerry and Jun, Heewoo and Yuan, Qiming and Pinto, Henrique Ponde de Oliveira and Kaplan, Jared and Edwards, Harri and Burda, Yuri and Joseph, Nicholas and Brockman, Greg and Ray, Alex and Puri, Raul and Krueger, Gretchen and Petrov, Michael and Khlaaf, Heidy and Sastry, Girish and Mishkin, Pamela and Chan, Brooke and Gray, Scott and Ryder, Nick and Pavlov, Mikhail and Power, Alethea and Kaiser, Lukasz and Bavarian, Mohammad and Winter, Clemens and Tillet, Philippe and Such, Felipe Petroski and Cummings, Dave and Plappert, Matthias and Chantzis, Fotios and Barnes, Elizabeth and {Herbert-Voss}, Ariel and Guss, William Hebgen and Nichol, Alex and Paino, Alex and Tezak, Nikolas and Tang, Jie and Babuschkin, Igor and Balaji, Suchir and Jain, Shantanu and Saunders, William and Hesse, Christopher and Carr, Andrew N. and Leike, Jan and Achiam, Josh and Misra, Vedant and Morikawa, Evan and Radford, Alec and Knight, Matthew and Brundage, Miles and Murati, Mira and Mayer, Katie and Welinder, Peter and McGrew, Bob and Amodei, Dario and McCandlish, Sam and Sutskever, Ilya and Zaremba, Wojciech},
+  year = {2021},
+  month = jul,
+  number = {arXiv:2107.03374},
+  eprint = {2107.03374},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2107.03374},
+  url = {http://arxiv.org/abs/2107.03374},
+  urldate = {2023-10-30},
+  abstract = {We introduce Codex, a GPT language model fine-tuned on publicly available code from GitHub, and study its Python code-writing capabilities. A distinct production version of Codex powers GitHub Copilot. On HumanEval, a new evaluation set we release to measure functional correctness for synthesizing programs from docstrings, our model solves 28.8\% of the problems, while GPT-3 solves 0\% and GPT-J solves 11.4\%. Furthermore, we find that repeated sampling from the model is a surprisingly effective strategy for producing working solutions to difficult prompts. Using this method, we solve 70.2\% of our problems with 100 samples per problem. Careful investigation of our model reveals its limitations, including difficulty with docstrings describing long chains of operations and with binding operations to variables. Finally, we discuss the potential broader impacts of deploying powerful code generation technologies, covering safety, security, and economics.},
+  archiveprefix = {arxiv},
+  keywords = {Computer Science - Machine Learning},
+  file = {C\:\\Users\\oskar\\Zotero\\storage\\JGC3GF77\\Chen et al. - 2021 - Evaluating Large Language Models Trained on Code.pdf;C\:\\Users\\oskar\\Zotero\\storage\\LRYWFJMQ\\2107.html}
+}
+
 @misc{christianoDeepReinforcementLearning2023,
   title = {Deep Reinforcement Learning from Human Preferences},
   author = {Christiano, Paul and Leike, Jan and Brown, Tom B. and Martic, Miljan and Legg, Shane and Amodei, Dario},
@@ -132,6 +150,25 @@
   archiveprefix = {arxiv},
   keywords = {Computer Science - Artificial Intelligence,Computer Science - Human-Computer Interaction,Computer Science - Machine Learning,Statistics - Machine Learning},
   file = {C\:\\Users\\oskar\\Zotero\\storage\\WVKXUY66\\Christiano et al. - 2023 - Deep reinforcement learning from human preferences.pdf;C\:\\Users\\oskar\\Zotero\\storage\\47BW93MG\\1706.html}
+}
+
+@misc{cobbeTrainingVerifiersSolve2021,
+  title = {Training {{Verifiers}} to {{Solve Math Word Problems}}},
+  author = {Cobbe, Karl and Kosaraju, Vineet and Bavarian, Mohammad and Chen, Mark and Jun, Heewoo and Kaiser, Lukasz and Plappert, Matthias and Tworek, Jerry and Hilton, Jacob and Nakano, Reiichiro and Hesse, Christopher and Schulman, John},
+  year = {2021},
+  month = nov,
+  number = {arXiv:2110.14168},
+  eprint = {2110.14168},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2110.14168},
+  url = {http://arxiv.org/abs/2110.14168},
+  urldate = {2024-06-09},
+  abstract = {State-of-the-art language models can match human performance on many tasks, but they still struggle to robustly perform multi-step mathematical reasoning. To diagnose the failures of current models and support research, we introduce GSM8K, a dataset of 8.5K high quality linguistically diverse grade school math word problems. We find that even the largest transformer models fail to achieve high test performance, despite the conceptual simplicity of this problem distribution. To increase performance, we propose training verifiers to judge the correctness of model completions. At test time, we generate many candidate solutions and select the one ranked highest by the verifier. We demonstrate that verification significantly improves performance on GSM8K, and we provide strong empirical evidence that verification scales more effectively with increased data than a finetuning baseline.},
+  archiveprefix = {arxiv},
+  langid = {english},
+  keywords = {Computer Science - Computation and Language,Computer Science - Machine Learning},
+  file = {C:\Users\oskar\Zotero\storage\A57TXUTL\Cobbe et al. - 2021 - Training Verifiers to Solve Math Word Problems.pdf}
 }
 
 @misc{crunchydataCrunchyDataPg_featureserv2024,
@@ -307,6 +344,7 @@
   eprint = {2310.06825},
   primaryclass = {cs},
   publisher = {arXiv},
+  doi = {10.48550/arXiv.2310.06825},
   url = {http://arxiv.org/abs/2310.06825},
   urldate = {2024-05-03},
   abstract = {We introduce Mistral 7B v0.1, a 7-billion-parameter language model engineered for superior performance and efficiency. Mistral 7B outperforms Llama 2 13B across all evaluated benchmarks, and Llama 1 34B in reasoning, mathematics, and code generation. Our model leverages grouped-query attention (GQA) for faster inference, coupled with sliding window attention (SWA) to effectively handle sequences of arbitrary length with a reduced inference cost. We also provide a model fine-tuned to follow instructions, Mistral 7B -- Instruct, that surpasses the Llama 2 13B -- Chat model both on human and automated benchmarks. Our models are released under the Apache 2.0 license.},
@@ -325,6 +363,7 @@
   eprint = {2401.04088},
   primaryclass = {cs},
   publisher = {arXiv},
+  doi = {10.48550/arXiv.2401.04088},
   url = {http://arxiv.org/abs/2401.04088},
   urldate = {2024-05-03},
   abstract = {We introduce Mixtral 8x7B, a Sparse Mixture of Experts (SMoE) language model. Mixtral has the same architecture as Mistral 7B, with the difference that each layer is composed of 8 feedforward blocks (i.e. experts). For every token, at each layer, a router network selects two experts to process the current state and combine their outputs. Even though each token only sees two experts, the selected experts can be different at each timestep. As a result, each token has access to 47B parameters, but only uses 13B active parameters during inference. Mixtral was trained with a context size of 32k tokens and it outperforms or matches Llama 2 70B and GPT-3.5 across all evaluated benchmarks. In particular, Mixtral vastly outperforms Llama 2 70B on mathematics, code generation, and multilingual benchmarks. We also provide a model finetuned to follow instructions, Mixtral 8x7B -- Instruct, that surpasses GPT-3.5 Turbo, Claude-2.1, Gemini Pro, and Llama 2 70B -- chat model on human benchmarks. Both the base and instruct models are released under the Apache 2.0 license.},
@@ -543,6 +582,7 @@
   eprint = {2310.01427},
   primaryclass = {cs},
   publisher = {arXiv},
+  doi = {10.48550/arXiv.2310.01427},
   url = {http://arxiv.org/abs/2310.01427},
   urldate = {2024-05-14},
   abstract = {Current language models often fail to incorporate long contexts efficiently during generation. We show that a major contributor to this issue are attention priors that are likely learned during pretraining: relevant information located earlier in context is attended to less on average. Yet even when models fail to use the information from a relevant document in their response, they still pay preferential attention to that document compared to an irrelevant document at the same position. We leverage this fact to introduce ``attention sorting'': perform one step of decoding, sort documents by the attention they receive (highest attention going last), repeat the process, generate the answer with the newly sorted context. We find that attention sorting improves performance of long context models. Our findings highlight some challenges in using off-the-shelf language models for retrieval augmented generation.},
@@ -718,6 +758,7 @@
   eprint = {2303.11366},
   primaryclass = {cs},
   publisher = {arXiv},
+  doi = {10.48550/arXiv.2303.11366},
   url = {http://arxiv.org/abs/2303.11366},
   urldate = {2024-05-13},
   abstract = {Large language models (LLMs) have been increasingly used to interact with external environments (e.g., games, compilers, APIs) as goal-driven agents. However, it remains challenging for these language agents to quickly and efficiently learn from trial-and-error as traditional reinforcement learning methods require extensive training samples and expensive model fine-tuning. We propose Reflexion, a novel framework to reinforce language agents not by updating weights, but instead through linguistic feedback. Concretely, Reflexion agents verbally reflect on task feedback signals, then maintain their own reflective text in an episodic memory buffer to induce better decision-making in subsequent trials. Reflexion is flexible enough to incorporate various types (scalar values or free-form language) and sources (external or internally simulated) of feedback signals, and obtains significant improvements over a baseline agent across diverse tasks (sequential decision-making, coding, language reasoning). For example, Reflexion achieves a 91\% pass@1 accuracy on the HumanEval coding benchmark, surpassing the previous state-of-the-art GPT-4 that achieves 80\%. We also conduct ablation and analysis studies using different feedback signals, feedback incorporation methods, and agent types, and provide insights into how they affect performance. We release all code, demos, and datasets at https://github.com/noahshinn024/reflexion.},
@@ -750,7 +791,7 @@
   author = {Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N. and Kaiser, Lukasz and Polosukhin, Illia},
   year = {2017},
   month = jun,
-  journal = {arXiv.org},
+  doi = {10.48550/arXiv.1706.03762},
   url = {https://arxiv.org/abs/1706.03762v7},
   urldate = {2023-10-10},
   abstract = {The dominant sequence transduction models are based on complex recurrent or convolutional neural networks in an encoder-decoder configuration. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train. Our model achieves 28.4 BLEU on the WMT 2014 English-to-German translation task, improving over the existing best results, including ensembles by over 2 BLEU. On the WMT 2014 English-to-French translation task, our model establishes a new single-model state-of-the-art BLEU score of 41.8 after training for 3.5 days on eight GPUs, a small fraction of the training costs of the best models from the literature. We show that the Transformer generalizes well to other tasks by applying it successfully to English constituency parsing both with large and limited training data.},
@@ -782,7 +823,7 @@
   file = {C:\Users\oskar\Zotero\storage\Z9CY4U8V\Wei et al. - Chain-of-Thought Prompting Elicits Reasoning in La.pdf}
 }
 
-@misc{whitePromptPatternCatalog2023a,
+@misc{whitePromptPatternCatalog2023,
   title = {A {{Prompt Pattern Catalog}} to {{Enhance Prompt Engineering}} with {{ChatGPT}}},
   author = {White, Jules and Fu, Quchen and Hays, Sam and Sandborn, Michael and Olea, Carlos and Gilbert, Henry and Elnashar, Ashraf and {Spencer-Smith}, Jesse and Schmidt, Douglas C.},
   year = {2023},
@@ -791,13 +832,13 @@
   eprint = {2302.11382},
   primaryclass = {cs},
   publisher = {arXiv},
+  doi = {10.48550/arXiv.2302.11382},
   url = {http://arxiv.org/abs/2302.11382},
-  urldate = {2024-05-06},
-  abstract = {Prompt engineering is an increasingly important skill set needed to converse effectively with large language models (LLMs), such as ChatGPT. Prompts are instructions given to an LLM to enforce rules, automate processes, and ensure specific qualities (and quantities) of generated output. Prompts are also a form of programming that can customize the outputs and interactions with an LLM.},
+  urldate = {2023-10-06},
+  abstract = {Prompt engineering is an increasingly important skill set needed to converse effectively with large language models (LLMs), such as ChatGPT. Prompts are instructions given to an LLM to enforce rules, automate processes, and ensure specific qualities (and quantities) of generated output. Prompts are also a form of programming that can customize the outputs and interactions with an LLM. This paper describes a catalog of prompt engineering techniques presented in pattern form that have been applied to solve common problems when conversing with LLMs. Prompt patterns are a knowledge transfer method analogous to software patterns since they provide reusable solutions to common problems faced in a particular context, i.e., output generation and interaction when working with LLMs. This paper provides the following contributions to research on prompt engineering that apply LLMs to automate software development tasks. First, it provides a framework for documenting patterns for structuring prompts to solve a range of problems so that they can be adapted to different domains. Second, it presents a catalog of patterns that have been applied successfully to improve the outputs of LLM conversations. Third, it explains how prompts can be built from multiple patterns and illustrates prompt patterns that benefit from combination with other prompt patterns.},
   archiveprefix = {arxiv},
-  langid = {english},
   keywords = {Computer Science - Artificial Intelligence,Computer Science - Software Engineering},
-  file = {C:\Users\oskar\Zotero\storage\7LSBQZH8\White et al. - 2023 - A Prompt Pattern Catalog to Enhance Prompt Enginee.pdf}
+  file = {C\:\\Users\\oskar\\Zotero\\storage\\M7SC9URA\\White et al. - 2023 - A Prompt Pattern Catalog to Enhance Prompt Enginee.pdf;C\:\\Users\\oskar\\Zotero\\storage\\JHQNKRW4\\2302.html}
 }
 
 @misc{wuAutoGenEnablingNextGen2023a,
@@ -857,6 +898,25 @@
   langid = {english},
   keywords = {Computer Science - Artificial Intelligence,Computer Science - Computation and Language,Computer Science - Machine Learning},
   file = {C:\Users\oskar\Zotero\storage\UA9K5CFX\2210.pdf}
+}
+
+@misc{zellersHellaSwagCanMachine2019,
+  title = {{{HellaSwag}}: {{Can}} a {{Machine Really Finish Your Sentence}}?},
+  shorttitle = {{{HellaSwag}}},
+  author = {Zellers, Rowan and Holtzman, Ari and Bisk, Yonatan and Farhadi, Ali and Choi, Yejin},
+  year = {2019},
+  month = may,
+  number = {arXiv:1905.07830},
+  eprint = {1905.07830},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.1905.07830},
+  url = {http://arxiv.org/abs/1905.07830},
+  urldate = {2023-12-09},
+  abstract = {Recent work by Zellers et al. (2018) introduced a new task of commonsense natural language inference: given an event description such as "A woman sits at a piano," a machine must select the most likely followup: "She sets her fingers on the keys." With the introduction of BERT, near human-level performance was reached. Does this mean that machines can perform human level commonsense inference? In this paper, we show that commonsense inference still proves difficult for even state-of-the-art models, by presenting HellaSwag, a new challenge dataset. Though its questions are trivial for humans ({$>$}95\% accuracy), state-of-the-art models struggle ({$<$}48\%). We achieve this via Adversarial Filtering (AF), a data collection paradigm wherein a series of discriminators iteratively select an adversarial set of machine-generated wrong answers. AF proves to be surprisingly robust. The key insight is to scale up the length and complexity of the dataset examples towards a critical 'Goldilocks' zone wherein generated text is ridiculous to humans, yet often misclassified by state-of-the-art models. Our construction of HellaSwag, and its resulting difficulty, sheds light on the inner workings of deep pretrained models. More broadly, it suggests a new path forward for NLP research, in which benchmarks co-evolve with the evolving state-of-the-art in an adversarial way, so as to present ever-harder challenges.},
+  archiveprefix = {arxiv},
+  keywords = {Computer Science - Computation and Language},
+  file = {C\:\\Users\\oskar\\Zotero\\storage\\UPR2CQAR\\Zellers et al. - 2019 - HellaSwag Can a Machine Really Finish Your Senten.pdf;C\:\\Users\\oskar\\Zotero\\storage\\P3CK28LB\\1905.html}
 }
 
 @misc{zhangGeoGPTUnderstandingProcessing2023,

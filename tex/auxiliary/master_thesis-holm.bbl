@@ -260,6 +260,215 @@
       \verb https://www-cdn.anthropic.com/de8ba9b01c9ab7cbabf5c33b80b7bbc618857627/Model_Card_Claude_3.pdf
       \endverb
     \endentry
+    \entry{austinProgramSynthesisLarge2021}{misc}{}
+      \name{author}{11}{}{%
+        {{un=0,uniquepart=base,hash=9b0426325e91e9da0e91dbf27a7379f6}{%
+           family={Austin},
+           familyi={A\bibinitperiod},
+           given={Jacob},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a04932af4057bbbbad95d73521f2d22b}{%
+           family={Odena},
+           familyi={O\bibinitperiod},
+           given={Augustus},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=49d657a6cda3ddc6f434500001ea6d42}{%
+           family={Nye},
+           familyi={N\bibinitperiod},
+           given={Maxwell},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3fd5b56bfa48546f2caae7b4aa56a29f}{%
+           family={Bosma},
+           familyi={B\bibinitperiod},
+           given={Maarten},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=88b44aba31eead485bb3a63154798388}{%
+           family={Michalewski},
+           familyi={M\bibinitperiod},
+           given={Henryk},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7369065ea0b748a65621d6b6197996ac}{%
+           family={Dohan},
+           familyi={D\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d398b87d586d7e622ad7d56fa3422012}{%
+           family={Jiang},
+           familyi={J\bibinitperiod},
+           given={Ellen},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=0e749d32457b8d376e8afca27707fc7a}{%
+           family={Cai},
+           familyi={C\bibinitperiod},
+           given={Carrie},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c7db3b79609dfb1a47686403cc89d16c}{%
+           family={Terry},
+           familyi={T\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=841a83a4bb5e622d6e1bde4818879016}{%
+           family={Le},
+           familyi={L\bibinitperiod},
+           given={Quoc},
+           giveni={Q\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fd59f6a0549332a54ac82d8840ea6ff1}{%
+           family={Sutton},
+           familyi={S\bibinitperiod},
+           given={Charles},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{dff77349ec9691661e8152730c5183c2}
+      \strng{fullhash}{0f9097a38fa6aa501774915d381fafe9}
+      \strng{bibnamehash}{0f9097a38fa6aa501774915d381fafe9}
+      \strng{authorbibnamehash}{0f9097a38fa6aa501774915d381fafe9}
+      \strng{authornamehash}{dff77349ec9691661e8152730c5183c2}
+      \strng{authorfullhash}{0f9097a38fa6aa501774915d381fafe9}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This paper explores the limits of the current generation of large language models for program synthesis in general purpose programming languages. We evaluate a collection of such models (with between 244M and 137B parameters) on two new benchmarks, MBPP and MathQA-Python, in both the few-shot and fine-tuning regimes. Our benchmarks are designed to measure the ability of these models to synthesize short Python programs from natural language descriptions. The Mostly Basic Programming Problems (MBPP) dataset contains 974 programming tasks, designed to be solvable by entry-level programmers. The MathQA-Python dataset, a Python version of the MathQA benchmark, contains 23914 problems that evaluate the ability of the models to synthesize code from more complex text. On both datasets, we find that synthesis performance scales log-linearly with model size. Our largest models, even without finetuning on a code dataset, can synthesize solutions to 59.6 percent of the problems from MBPP using few-shot learning with a well-designed prompt. Fine-tuning on a held-out portion of the dataset improves performance by about 10 percentage points across most model sizes. On the MathQA-Python dataset, the largest fine-tuned model achieves 83.8 percent accuracy. Going further, we study the model's ability to engage in dialog about code, incorporating human feedback to improve its solutions. We find that natural language feedback from a human halves the error rate compared to the model's initial prediction. Additionally, we conduct an error analysis to shed light on where these models fall short and what types of programs are most difficult to generate. Finally, we explore the semantic grounding of these models by fine-tuning them to predict the results of program execution. We find that even our best models are generally unable to predict the output of a program given a specific input.}
+      \field{eprintclass}{cs}
+      \field{eprinttype}{arxiv}
+      \field{month}{8}
+      \field{number}{arXiv:2108.07732}
+      \field{title}{Program {{Synthesis}} with {{Large Language Models}}}
+      \field{urlday}{10}
+      \field{urlmonth}{5}
+      \field{urlyear}{2024}
+      \field{year}{2021}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2108.07732
+      \endverb
+      \verb{eprint}
+      \verb 2108.07732
+      \endverb
+      \verb{file}
+      \verb C\:\\Users\\oskar\\Zotero\\storage\\2ZB85ZJB\\Austin et al. - 2021 - Program Synthesis with Large Language Models.pdf;C\:\\Users\\oskar\\Zotero\\storage\\8LQLYM8D\\2108.html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2108.07732
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2108.07732
+      \endverb
+      \keyw{Computer Science - Machine Learning,Computer Science - Programming Languages}
+    \endentry
+    \entry{chanChatEvalBetterLLMbased2023}{misc}{}
+      \name{author}{8}{}{%
+        {{un=0,uniquepart=base,hash=a0f39b2951634fccb3a50aeccc75b84a}{%
+           family={Chan},
+           familyi={C\bibinitperiod},
+           given={Chi-Min},
+           giveni={C\bibinithyphendelim M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=08ae73e4abb8e38f29487feaf0db461b}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Weize},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=bf0e1efe42ae2b6b280150333d71e036}{%
+           family={Su},
+           familyi={S\bibinitperiod},
+           given={Yusheng},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1c361621fa311f7f1e35a21c3838470e}{%
+           family={Yu},
+           familyi={Y\bibinitperiod},
+           given={Jianxuan},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b2f4780d822eede3a8777edea32194b3}{%
+           family={Xue},
+           familyi={X\bibinitperiod},
+           given={Wei},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=452a67ad1218340845acd7e598d57f19}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Shanghang},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f0ae8cd7eb0b07fe71e1654376c0fc0e}{%
+           family={Fu},
+           familyi={F\bibinitperiod},
+           given={Jie},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5b9a54b9d83697231299711961622ab8}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Zhiyuan},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{c4ea2440a37fb487d95b9ea1d38343ff}
+      \strng{fullhash}{a7aad13b9501752e82805f47a8e6cb48}
+      \strng{bibnamehash}{a7aad13b9501752e82805f47a8e6cb48}
+      \strng{authorbibnamehash}{a7aad13b9501752e82805f47a8e6cb48}
+      \strng{authornamehash}{c4ea2440a37fb487d95b9ea1d38343ff}
+      \strng{authorfullhash}{a7aad13b9501752e82805f47a8e6cb48}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Text evaluation has historically posed significant challenges, often demanding substantial labor and time cost. With the emergence of large language models (LLMs), researchers have explored LLMs' potential as alternatives for human evaluation. While these single-agent-based approaches show promise, experimental results suggest that further advancements are needed to bridge the gap between their current effectiveness and human-level evaluation quality. Recognizing that best practices of human evaluation processes often involve multiple human annotators collaborating in the evaluation, we resort to a multi-agent debate framework, moving beyond single-agent prompting strategies. The multi-agent-based approach enables a group of LLMs to synergize with an array of intelligent counterparts, harnessing their distinct capabilities and expertise to enhance efficiency and effectiveness in handling intricate tasks. In this paper, we construct a multi-agent referee team called ChatEval to autonomously discuss and evaluate the quality of generated responses from different models on open-ended questions and traditional natural language generation (NLG) tasks. Our analysis shows that ChatEval transcends mere textual scoring, offering a human-mimicking evaluation process for reliable assessments. Our code is available at https://github.com/chanchimin/ChatEval.}
+      \field{eprintclass}{cs}
+      \field{eprinttype}{arxiv}
+      \field{month}{8}
+      \field{number}{arXiv:2308.07201}
+      \field{shorttitle}{{{ChatEval}}}
+      \field{title}{{{ChatEval}}: {{Towards Better LLM-based Evaluators}} through {{Multi-Agent Debate}}}
+      \field{urlday}{21}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{year}{2023}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2308.07201
+      \endverb
+      \verb{eprint}
+      \verb 2308.07201
+      \endverb
+      \verb{file}
+      \verb C\:\\Users\\oskar\\Zotero\\storage\\X7UJH4ZY\\Chan et al. - 2023 - ChatEval Towards Better LLM-based Evaluators thro.pdf;C\:\\Users\\oskar\\Zotero\\storage\\6I5RF2TI\\2308.html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2308.07201
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2308.07201
+      \endverb
+      \keyw{Computer Science - Computation and Language}
+    \endentry
     \entry{christianoDeepReinforcementLearning2023}{misc}{}
       \name{author}{6}{}{%
         {{un=0,uniquepart=base,hash=cffdbdf7d0beb981d8bb8ea28506a4b2}{%
@@ -342,6 +551,126 @@
       \verb http://arxiv.org/abs/1706.03741
       \endverb
       \keyw{Computer Science - Artificial Intelligence,Computer Science - Human-Computer Interaction,Computer Science - Machine Learning,Statistics - Machine Learning}
+    \endentry
+    \entry{cobbeTrainingVerifiersSolve2021}{misc}{}
+      \name{author}{12}{}{%
+        {{un=0,uniquepart=base,hash=c9355eeb51a7665fc3d58f45e210fbf6}{%
+           family={Cobbe},
+           familyi={C\bibinitperiod},
+           given={Karl},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=da0f106450b289c3010ca569b3de9949}{%
+           family={Kosaraju},
+           familyi={K\bibinitperiod},
+           given={Vineet},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=69471b8ab1a1d92877d0dfe5f57411e3}{%
+           family={Bavarian},
+           familyi={B\bibinitperiod},
+           given={Mohammad},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fb15a691583ec94aafe0be6e7da4878f}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Mark},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3dd736ee38ff1cbcc6f0d05487b9950b}{%
+           family={Jun},
+           familyi={J\bibinitperiod},
+           given={Heewoo},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f2bc899b1160163417da7bf510f15d33}{%
+           family={Kaiser},
+           familyi={K\bibinitperiod},
+           given={Lukasz},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=599240d5bfe42aeb65a0c26dae77cd31}{%
+           family={Plappert},
+           familyi={P\bibinitperiod},
+           given={Matthias},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=98cbd7022a1c31a6293aa1c8b62bdebf}{%
+           family={Tworek},
+           familyi={T\bibinitperiod},
+           given={Jerry},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9e4edc142b0564cbbb1cf93a401e4434}{%
+           family={Hilton},
+           familyi={H\bibinitperiod},
+           given={Jacob},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=13b885c1233d3f59261e0e53ec1aece0}{%
+           family={Nakano},
+           familyi={N\bibinitperiod},
+           given={Reiichiro},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=68a04c5006dbbf98f7719709540c6b56}{%
+           family={Hesse},
+           familyi={H\bibinitperiod},
+           given={Christopher},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3e09bd2a25d237ebdaed560a07c0451e}{%
+           family={Schulman},
+           familyi={S\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{45858a0ae98644e6c6bc549ac1a2cfa3}
+      \strng{fullhash}{2b1c5987decdf5a17625aab169f4133e}
+      \strng{bibnamehash}{2b1c5987decdf5a17625aab169f4133e}
+      \strng{authorbibnamehash}{2b1c5987decdf5a17625aab169f4133e}
+      \strng{authornamehash}{45858a0ae98644e6c6bc549ac1a2cfa3}
+      \strng{authorfullhash}{2b1c5987decdf5a17625aab169f4133e}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{State-of-the-art language models can match human performance on many tasks, but they still struggle to robustly perform multi-step mathematical reasoning. To diagnose the failures of current models and support research, we introduce GSM8K, a dataset of 8.5K high quality linguistically diverse grade school math word problems. We find that even the largest transformer models fail to achieve high test performance, despite the conceptual simplicity of this problem distribution. To increase performance, we propose training verifiers to judge the correctness of model completions. At test time, we generate many candidate solutions and select the one ranked highest by the verifier. We demonstrate that verification significantly improves performance on GSM8K, and we provide strong empirical evidence that verification scales more effectively with increased data than a finetuning baseline.}
+      \field{eprintclass}{cs}
+      \field{eprinttype}{arxiv}
+      \field{langid}{english}
+      \field{month}{11}
+      \field{number}{arXiv:2110.14168}
+      \field{title}{Training {{Verifiers}} to {{Solve Math Word Problems}}}
+      \field{urlday}{9}
+      \field{urlmonth}{6}
+      \field{urlyear}{2024}
+      \field{year}{2021}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2110.14168
+      \endverb
+      \verb{eprint}
+      \verb 2110.14168
+      \endverb
+      \verb{file}
+      \verb C:\Users\oskar\Zotero\storage\A57TXUTL\Cobbe et al. - 2021 - Training Verifiers to Solve Math Word Problems.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2110.14168
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2110.14168
+      \endverb
+      \keyw{Computer Science - Computation and Language,Computer Science - Machine Learning}
     \endentry
     \entry{crunchydataCrunchyDataPg_featureserv2024}{misc}{}
       \name{author}{1}{}{%
@@ -13859,6 +14188,9 @@
       \field{urlyear}{2024}
       \field{year}{2023}
       \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2310.06825
+      \endverb
       \verb{eprint}
       \verb 2310.06825
       \endverb
@@ -14063,6 +14395,9 @@
       \field{urlyear}{2024}
       \field{year}{2024}
       \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2401.04088
+      \endverb
       \verb{eprint}
       \verb 2401.04088
       \endverb
@@ -14521,6 +14856,9 @@
       \field{urlyear}{2024}
       \field{year}{2023}
       \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2310.01427
+      \endverb
       \verb{eprint}
       \verb 2310.01427
       \endverb
@@ -14997,6 +15335,9 @@
       \field{urlyear}{2024}
       \field{year}{2023}
       \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2303.11366
+      \endverb
       \verb{eprint}
       \verb 2303.11366
       \endverb
@@ -15156,7 +15497,6 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{The dominant sequence transduction models are based on complex recurrent or convolutional neural networks in an encoder-decoder configuration. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train. Our model achieves 28.4 BLEU on the WMT 2014 English-to-German translation task, improving over the existing best results, including ensembles by over 2 BLEU. On the WMT 2014 English-to-French translation task, our model establishes a new single-model state-of-the-art BLEU score of 41.8 after training for 3.5 days on eight GPUs, a small fraction of the training costs of the best models from the literature. We show that the Transformer generalizes well to other tasks by applying it successfully to English constituency parsing both with large and limited training data.}
-      \field{journaltitle}{arXiv.org}
       \field{langid}{english}
       \field{month}{6}
       \field{title}{Attention {{Is All You Need}}}
@@ -15165,6 +15505,9 @@
       \field{urlyear}{2023}
       \field{year}{2017}
       \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.1706.03762
+      \endverb
       \verb{file}
       \verb C:\Users\oskar\Zotero\storage\KG8K58TW\Vaswani et al. - 2017 - Attention Is All You Need.pdf
       \endverb
@@ -15302,7 +15645,7 @@
       \verb https://proceedings.neurips.cc/paper_files/paper/2022/file/9d5609613524ecf4f15af0f7b31abca4-Paper-Conference.pdf
       \endverb
     \endentry
-    \entry{whitePromptPatternCatalog2023a}{misc}{}
+    \entry{whitePromptPatternCatalog2023}{misc}{}
       \name{author}{9}{}{%
         {{un=0,uniquepart=base,hash=d224ecfefc70293d1b9b28a1915cf6f2}{%
            family={White},
@@ -15375,23 +15718,25 @@
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{Prompt engineering is an increasingly important skill set needed to converse effectively with large language models (LLMs), such as ChatGPT. Prompts are instructions given to an LLM to enforce rules, automate processes, and ensure specific qualities (and quantities) of generated output. Prompts are also a form of programming that can customize the outputs and interactions with an LLM.}
+      \field{abstract}{Prompt engineering is an increasingly important skill set needed to converse effectively with large language models (LLMs), such as ChatGPT. Prompts are instructions given to an LLM to enforce rules, automate processes, and ensure specific qualities (and quantities) of generated output. Prompts are also a form of programming that can customize the outputs and interactions with an LLM. This paper describes a catalog of prompt engineering techniques presented in pattern form that have been applied to solve common problems when conversing with LLMs. Prompt patterns are a knowledge transfer method analogous to software patterns since they provide reusable solutions to common problems faced in a particular context, i.e., output generation and interaction when working with LLMs. This paper provides the following contributions to research on prompt engineering that apply LLMs to automate software development tasks. First, it provides a framework for documenting patterns for structuring prompts to solve a range of problems so that they can be adapted to different domains. Second, it presents a catalog of patterns that have been applied successfully to improve the outputs of LLM conversations. Third, it explains how prompts can be built from multiple patterns and illustrates prompt patterns that benefit from combination with other prompt patterns.}
       \field{eprintclass}{cs}
       \field{eprinttype}{arxiv}
-      \field{langid}{english}
       \field{month}{2}
       \field{number}{arXiv:2302.11382}
       \field{title}{A {{Prompt Pattern Catalog}} to {{Enhance Prompt Engineering}} with {{ChatGPT}}}
       \field{urlday}{6}
-      \field{urlmonth}{5}
-      \field{urlyear}{2024}
+      \field{urlmonth}{10}
+      \field{urlyear}{2023}
       \field{year}{2023}
       \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2302.11382
+      \endverb
       \verb{eprint}
       \verb 2302.11382
       \endverb
       \verb{file}
-      \verb C:\Users\oskar\Zotero\storage\7LSBQZH8\White et al. - 2023 - A Prompt Pattern Catalog to Enhance Prompt Enginee.pdf
+      \verb C\:\\Users\\oskar\\Zotero\\storage\\M7SC9URA\\White et al. - 2023 - A Prompt Pattern Catalog to Enhance Prompt Enginee.pdf;C\:\\Users\\oskar\\Zotero\\storage\\JHQNKRW4\\2302.html
       \endverb
       \verb{urlraw}
       \verb http://arxiv.org/abs/2302.11382
@@ -15586,6 +15931,84 @@
       \verb{url}
       \verb https://gorilla.cs.berkeley.edu/blogs/8_berkeley_function_calling_leaderboard.html#metrics
       \endverb
+    \endentry
+    \entry{zellersHellaSwagCanMachine2019}{misc}{}
+      \name{author}{5}{}{%
+        {{un=0,uniquepart=base,hash=560f431bda2e90c8056046656d2b7f8b}{%
+           family={Zellers},
+           familyi={Z\bibinitperiod},
+           given={Rowan},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c32ace2a5a2590ef3542c3713e05925d}{%
+           family={Holtzman},
+           familyi={H\bibinitperiod},
+           given={Ari},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4cc4ca13eda1b8380f1589532b8e33ae}{%
+           family={Bisk},
+           familyi={B\bibinitperiod},
+           given={Yonatan},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=396c6ddedb6f986906fc3e4994d19974}{%
+           family={Farhadi},
+           familyi={F\bibinitperiod},
+           given={Ali},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=64d48b2f4b0370b6692c87cfc65f19b9}{%
+           family={Choi},
+           familyi={C\bibinitperiod},
+           given={Yejin},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{a0039a739658bc14f2025d49d2e80750}
+      \strng{fullhash}{f6687d08ef441f6ce2eb6407dc46b06e}
+      \strng{bibnamehash}{f6687d08ef441f6ce2eb6407dc46b06e}
+      \strng{authorbibnamehash}{f6687d08ef441f6ce2eb6407dc46b06e}
+      \strng{authornamehash}{a0039a739658bc14f2025d49d2e80750}
+      \strng{authorfullhash}{f6687d08ef441f6ce2eb6407dc46b06e}
+      \field{sortinit}{Z}
+      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Recent work by Zellers et al. (2018) introduced a new task of commonsense natural language inference: given an event description such as "A woman sits at a piano," a machine must select the most likely followup: "She sets her fingers on the keys." With the introduction of BERT, near human-level performance was reached. Does this mean that machines can perform human level commonsense inference? In this paper, we show that commonsense inference still proves difficult for even state-of-the-art models, by presenting HellaSwag, a new challenge dataset. Though its questions are trivial for humans ({$>$}95\% accuracy), state-of-the-art models struggle ({$<$}48\%). We achieve this via Adversarial Filtering (AF), a data collection paradigm wherein a series of discriminators iteratively select an adversarial set of machine-generated wrong answers. AF proves to be surprisingly robust. The key insight is to scale up the length and complexity of the dataset examples towards a critical 'Goldilocks' zone wherein generated text is ridiculous to humans, yet often misclassified by state-of-the-art models. Our construction of HellaSwag, and its resulting difficulty, sheds light on the inner workings of deep pretrained models. More broadly, it suggests a new path forward for NLP research, in which benchmarks co-evolve with the evolving state-of-the-art in an adversarial way, so as to present ever-harder challenges.}
+      \field{eprintclass}{cs}
+      \field{eprinttype}{arxiv}
+      \field{month}{5}
+      \field{number}{arXiv:1905.07830}
+      \field{shorttitle}{{{HellaSwag}}}
+      \field{title}{{{HellaSwag}}: {{Can}} a {{Machine Really Finish Your Sentence}}?}
+      \field{urlday}{9}
+      \field{urlmonth}{12}
+      \field{urlyear}{2023}
+      \field{year}{2019}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.1905.07830
+      \endverb
+      \verb{eprint}
+      \verb 1905.07830
+      \endverb
+      \verb{file}
+      \verb C\:\\Users\\oskar\\Zotero\\storage\\UPR2CQAR\\Zellers et al. - 2019 - HellaSwag Can a Machine Really Finish Your Senten.pdf;C\:\\Users\\oskar\\Zotero\\storage\\P3CK28LB\\1905.html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1905.07830
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1905.07830
+      \endverb
+      \keyw{Computer Science - Computation and Language}
     \endentry
     \entry{zhangGeoGPTUnderstandingProcessing2023}{misc}{}
       \name{author}{5}{}{%
