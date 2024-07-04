@@ -19,7 +19,7 @@ This will thus be the actual instantiation for each experiment of the general ar
 
 % The experiments conducted using the above-mentioned \acrshort{acr:gis} benchmark are divided into two approaches. The first approach, presented in \autoref{subsec:benchmarking-setup}, is intended to evaluate GeoGPT's ability to solve a variety of geospatial tasks. The second approach, presented in \autoref{subsec:prompt-quality-test-setup}, aims to uncover the importance of the quality of the initial user prompt. \Autosubsectionref{subsec:hardware-and-model-version} describes the hardware on which the experiments were executed, and the specific \acrshortpl{acr:llm} that were used.
 
-This section will explain the concept and setup of the two experiments mentioned in the paragraph above. \Autosectionref{subsec:benchmarking-setup} will describe the setup for the \acrshort{acr:gis} benchmark experiments, while \autoref{subsec:prompt-quality-test-setup} will explain the setup for the prompt quality experiment. \Autosubsectionref{subsec:hardware-and-model-version} describes the hardware on which the experiments were conducted, and the specific \acrshortpl{acr:llm} that were used. Finally, \autoref{sec:datasets} will present the 18 datasets used provided to GeoGPT in the experiments.
+This section will explain the concept and setup of the two experiments mentioned in the paragraph above. \Autosectionref{subsec:benchmarking-setup} will describe the setup for the \acrshort{acr:gis} benchmark experiments, while \autoref{subsec:prompt-quality-test-setup} will explain the setup for the prompt quality experiment. \Autosubsectionref{subsec:hardware-and-model-version} describes the hardware on which the experiments were conducted, and the specific \acrshortpl{acr:llm} that were used. Finally, \autoref{sec:datasets} will present the 18 datasets provided to GeoGPT in the experiments.
 
 \subsection[GIS Benchmark Experiment]{\acrshort{acr:gis} Benchmark Experiment}
 \label{subsec:benchmarking-setup}
@@ -185,6 +185,8 @@ Subsections \ref{subsec:quantitative-results} and \ref{subsec:prompt-quality-tes
     
     # Output the path to the saved file
     print(output_path)    
+
+    # -> /tmp/tmpsutdy6it/oslo_outline_no_residential.geojson
 \end{lstlisting}
 
 \FloatBarrier
@@ -274,7 +276,7 @@ Another observation that can be made from \autoref{fig:correlation-matrices} is 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{glomma_counties_sql_22.png}
-    \caption[Successful response from GeoGPT's SQL agent when asked how many counties the Glomma river runs through]{Successful response from GeoGPT's \acrshort{acr:sql} agent when asked how many counties the Glomma river runs through. Using the tools available to it, GeoGPT's \acrshort{acr:sql} agent was able to to find that the river Glomma runs through the following counties: Akershus, Innlandet, Østfold, and Trøndelag. A follow-up message was added to make GeoGPT add the river geometries to the map, to do a visual for verification of its results.}
+    \caption[Successful response from GeoGPT's SQL agent when asked how many counties the Glomma river runs through]{Successful response from GeoGPT's \acrshort{acr:sql} agent when asked how many counties the Glomma river runs through. Using the tools available to it, GeoGPT's \acrshort{acr:sql} agent was able to find that the river Glomma runs through the following counties: Akershus, Innlandet, Østfold, and Trøndelag. A follow-up message was added to make GeoGPT add the river geometries to the map, to do a visual for verification of its results.}
     \label{fig:glomma-counties-sql-successful}
 \end{figure}
 

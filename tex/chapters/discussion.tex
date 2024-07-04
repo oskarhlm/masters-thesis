@@ -142,7 +142,7 @@ On the other hand, the results from the repeatability study of the \acrshort{acr
     \enquote{The largest county by size is \textbf{Finnmark}, with an area of approximately \textbf{646,150 square kilometers}.}
 \end{quote}
 
-The correct answer to the question, based on the data available to GeoGPT, is \enquote{Nordland}, which area is calculated to about 80,5 thousand square kilometres. To the inexperienced user, it is difficult to know whether this answer can be trusted. An experienced \acrshort{acr:gis} user could, however, inspect the code produced by GeoGPT to see if it makes sense. A \acrshort{acr:gis} expert should also be able to recognize that 646,150 square kilometres is far greater than the actual size of Finnmark, and reason that the cause is probably the use of the wrong map projection, one that gets distorted at higher latitudes.
+The correct answer to the question, based on the data available to GeoGPT, is \enquote{Nordland}, which area is calculated to about 80.5 thousand square kilometres. To the inexperienced user, it is difficult to know whether this answer can be trusted. An experienced \acrshort{acr:gis} user could, however, be able to inspect the code produced by GeoGPT to see if it makes sense. A \acrshort{acr:gis} expert should also be able to recognize that 646,150 square kilometres is far greater than the actual size of Finnmark, and reason that the cause is probably the use of the wrong map projection, one that gets distorted at higher latitudes.
 
 \cite[1-2]{linGeneratingConfidenceUncertainty2023} write that the issue with uncertainty in \acrshortpl{acr:llm} is a challenge that \enquote{has attracted limited attention until recently}, highlighting the \enquote{forbiddingly high} dimensionality of the output space as one of the key hindrances to a reliable way of measuring confidence. Therefore, until there is a reliable way of measuring the uncertainty of an \acrshort{acr:llm}'s response, this will remain a limitation of \textit{all} \acrshort{acr:llm}-based systems.
 
@@ -234,7 +234,7 @@ An attempt was made to create a multi-agent version of GeoGPT that employs three
 
 % Inspired by Microsoft's \textit{AutoGen} framework\footnote{\url{https://microsoft.github.io/autogen/}} --- which provides a high-level abstraction for developing multi-agent conversations --- and MetaGPT (further discussed in \autoref{subsec:agent-patterns}).
 
-Initial tests on a multi-agent implementation of the \acrshort{acr:ogc} \acrshort{acr:api} Features agent were conducted, but the implementation turned out to both increase the latency of the system and be a source of confusion to the \acrshort{acr:llm}. It is possible, however, that such an architecture could be useful as the number of tools grows, seeing as a large number of functions could probably start confusing the \acrshort{acr:llm}. However, for the current version of GeoGPT, the multi-agent pattern seemed to only get in the way.
+Initial tests on a multi-agent implementation of the \acrshort{acr:ogc} \acrshort{acr:api} Features agent were conducted, but the implementation turned out to both increase the latency of the system and be a source of confusion to the \acrshort{acr:llm}. It is possible, however, that such an architecture could be useful as the number of tools grows, seeing as a large number of tools could probably start confusing the \acrshort{acr:llm}. However, for the current version of GeoGPT, the multi-agent pattern seemed to only get in the way.
 
 \begin{figure}
     \centering

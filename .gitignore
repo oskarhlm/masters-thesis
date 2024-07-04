@@ -7,3 +7,4 @@ data/
 __pycache__/
 src/misc/backend/open-gis-interpreter/
 *.pptx
+*.zip
